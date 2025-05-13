@@ -8,7 +8,7 @@ function Navigation() {
         <li>
           <Link
             href="/about"
-            className="text-orange-950 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
           >
             Chi siamo
           </Link>
@@ -16,7 +16,7 @@ function Navigation() {
         <li>
           <Link
             href="/products"
-            className="text-orange-950 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
           >
             Prodotti
           </Link>
@@ -24,7 +24,7 @@ function Navigation() {
         <li>
           <Link
             href="/recipes"
-            className="text-orange-950 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
           >
             Ricette
           </Link>
@@ -32,19 +32,19 @@ function Navigation() {
         <li>
           <Link
             href="/create"
-            className="text-orange-950 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
           >
             creIAmo
           </Link>
         </li>
         <li>
           <Link href="/cart">
-            <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"></ShoppingCartIcon>
+            <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"></ShoppingCartIcon>
           </Link>
         </li>
         <li>
           <Link href="/account">
-            <UserIcon className="size-6 text-orange-950 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300"></UserIcon>
+            <UserIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"></UserIcon>
           </Link>
         </li>
       </ul>
