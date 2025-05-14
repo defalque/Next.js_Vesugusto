@@ -1,14 +1,19 @@
 import Link from "next/link";
-import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { SignOut } from "./SignOut";
+import { auth } from "@/auth";
+import UserPic from "./UserPic";
 
-function Navigation() {
+async function Navigation() {
+  const session = await auth();
+
   return (
     <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
         <li>
           <Link
             href="/about"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300 active:text-orange-700"
           >
             Chi siamo
           </Link>
@@ -16,7 +21,7 @@ function Navigation() {
         <li>
           <Link
             href="/products"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"
           >
             Prodotti
           </Link>
@@ -24,7 +29,7 @@ function Navigation() {
         <li>
           <Link
             href="/recipes"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"
           >
             Ricette
           </Link>
@@ -32,21 +37,28 @@ function Navigation() {
         <li>
           <Link
             href="/create"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"
           >
             creIAmo
           </Link>
         </li>
-        <li>
-          <Link href="/cart">
-            <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"></ShoppingCartIcon>
-          </Link>
-        </li>
+        {session?.user ? (
+          <li>
+            <Link href="/cart">
+              <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"></ShoppingCartIcon>
+            </Link>
+          </li>
+        ) : null}
         <li>
           <Link href="/account">
-            <UserIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-50 dark:hover:text-orange-300"></UserIcon>
+            <UserPic></UserPic>
           </Link>
         </li>
+        {session?.user ? (
+          <li>
+            <SignOut></SignOut>
+          </li>
+        ) : null}
       </ul>
     </nav>
   );

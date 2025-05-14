@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "creIAmo",
+};
+
 export default function Page() {
   return (
     <div>

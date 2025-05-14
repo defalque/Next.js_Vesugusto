@@ -21,7 +21,7 @@ function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${outfit.className} antialiased bg-amber-50 text-orange-950 min-h-screen flex flex-col dark:bg-black dark:text-orange-400`}
+        className={`${outfit.className} antialiased bg-amber-50 text-orange-950 min-h-screen flex flex-col dark:bg-orange-950 dark:text-orange-100`}
       >
         <DarkModeProvider>
           <Header></Header>
