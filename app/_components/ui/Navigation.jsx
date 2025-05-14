@@ -13,7 +13,7 @@ async function Navigation() {
         <li>
           <Link
             href="/about"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300 active:text-orange-700"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
           >
             Chi siamo
           </Link>
@@ -21,7 +21,7 @@ async function Navigation() {
         <li>
           <Link
             href="/products"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
           >
             Prodotti
           </Link>
@@ -29,7 +29,7 @@ async function Navigation() {
         <li>
           <Link
             href="/recipes"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
           >
             Ricette
           </Link>
@@ -37,7 +37,7 @@ async function Navigation() {
         <li>
           <Link
             href="/create"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"
+            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
           >
             creIAmo
           </Link>
@@ -45,7 +45,7 @@ async function Navigation() {
         {session?.user ? (
           <li>
             <Link href="/cart">
-              <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"></ShoppingCartIcon>
+              <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"></ShoppingCartIcon>
             </Link>
           </li>
         ) : null}

@@ -17,7 +17,7 @@ async function UserPic() {
           height={32}
         />
       ) : (
-        <UserIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"></UserIcon>
+        <UserIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"></UserIcon>
       )}
     </>
   );

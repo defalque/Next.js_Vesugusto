@@ -11,7 +11,7 @@ export function SignOut() {
       className="flex items-center"
     >
       <button type="submit" className="cursor-pointer">
-        <ArrowRightEndOnRectangleIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-300"></ArrowRightEndOnRectangleIcon>
+        <ArrowRightEndOnRectangleIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"></ArrowRightEndOnRectangleIcon>
       </button>
     </form>
   );
