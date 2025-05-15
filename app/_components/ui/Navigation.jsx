@@ -9,11 +9,11 @@ async function Navigation() {
 
   return (
     <nav className="z-10 text-xl">
-      <ul className="flex gap-16 items-center">
+      <ul className="flex gap-13 items-center">
         <li>
           <Link
             href="/about"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
+            className="text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"
           >
             Chi siamo
           </Link>
@@ -21,7 +21,7 @@ async function Navigation() {
         <li>
           <Link
             href="/products"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
+            className="text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"
           >
             Prodotti
           </Link>
@@ -29,7 +29,7 @@ async function Navigation() {
         <li>
           <Link
             href="/recipes"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
+            className="text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"
           >
             Ricette
           </Link>
@@ -37,7 +37,7 @@ async function Navigation() {
         <li>
           <Link
             href="/create"
-            className="text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"
+            className="text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"
           >
             creIAmo
           </Link>
@@ -45,7 +45,7 @@ async function Navigation() {
         {session?.user ? (
           <li>
             <Link href="/cart">
-              <ShoppingCartIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"></ShoppingCartIcon>
+              <ShoppingCartIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"></ShoppingCartIcon>
             </Link>
           </li>
         ) : null}

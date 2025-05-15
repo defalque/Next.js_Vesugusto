@@ -6,7 +6,7 @@ export default function SignIn() {
       <form action={githubSignInAction}>
         <button
           type="submit"
-          className="flex items-center gap-3 bg-orange-950 text-orange-50 hover:bg-orange-700 dark:hover:bg-gray-300 dark:text-orange-950 dark:bg-orange-50 px-3 py-3 cursor-pointer transition-colors rounded"
+          className="flex items-center gap-3 bg-primary-950 text-primary-100 hover:bg-primary-dark-200 dark:text-primary-dark-900 dark:bg-primary-100 px-3 py-3 cursor-pointer transition-colors rounded shadow-md shadow-primary-200 dark:shadow-primary-dark-800 dark:hover:bg-primary-200"
         >
           <img
             src="https://authjs.dev/img/providers/github.svg"
@@ -22,7 +22,7 @@ export default function SignIn() {
       <form action={googleSignInAction}>
         <button
           type="submit"
-          className="flex items-center gap-3 bg-orange-950 text-orange-50 hover:bg-orange-700 dark:hover:bg-gray-300 dark:text-orange-950 dark:bg-orange-50 px-3 py-3 cursor-pointer transition-colors rounded"
+          className="flex items-center gap-3 bg-primary-950 text-primary-100 hover:bg-primary-dark-200 dark:text-primary-dark-900 dark:bg-primary-100 px-3 py-3 cursor-pointer transition-colors rounded shadow-md shadow-primary-200 dark:shadow-primary-dark-800 dark:hover:bg-primary-200"
         >
           <img
             src="https://authjs.dev/img/providers/google.svg"

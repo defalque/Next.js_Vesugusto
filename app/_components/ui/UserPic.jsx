@@ -10,14 +10,14 @@ async function UserPic() {
       {session?.user?.image ? (
         <Image
           src={session.user.image}
-          className="h-8 rounded-full"
+          className="h-8 rounded-full hover:brightness-95"
           alt={session.user.name}
           referrerPolicy="no-referrer"
           width={32}
           height={32}
         />
       ) : (
-        <UserIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"></UserIcon>
+        <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"></UserIcon>
       )}
     </>
   );

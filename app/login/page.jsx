@@ -1,6 +1,4 @@
-import Image from "next/image";
 import SignIn from "../_components/ui/SignIn";
-import background from "@/public/login.jpg";
 import Link from "next/link";
 
 export const metadata = {
@@ -14,13 +12,13 @@ export default function Page() {
 
       <SignIn></SignIn>
 
-      <p className="text-sm max-w-3xl">
+      <p className="text-[0.7rem] max-w-3xl">
         Cliccando su continua, accetti i nostri{" "}
-        <Link href="#" className="text-orange-800 dark:text-orange-200">
+        <Link href="#" className="text-primary-dark-300 dark:text-primary-400">
           Termini di Servizio
         </Link>{" "}
         e l'
-        <Link href="#" className="text-orange-800 dark:text-orange-200">
+        <Link href="#" className="text-primary-dark-300 dark:text-primary-400">
           Informativa sulla privacy
         </Link>
         .

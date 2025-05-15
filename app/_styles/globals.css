@@ -1,3 +1,86 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-midnight: #170d03;
+  --color-midnight-100: #2e1907;
+  --color-midnight-900: #fdf2e9;
+
+  --color-primary-50: #ffffff;
+  --color-primary-100: #ffeeee;
+  --color-primary-200: #fedcdc;
+  --color-primary-300: #fecbcb;
+  --color-primary-400: #fdbaba;
+  --color-primary-500: #fda9a9;
+  --color-primary-600: #fc9797;
+  --color-primary-700: #fc8686;
+  --color-primary-800: #fb7575;
+  --color-primary-900: #fb6363;
+  --color-primary-950: #fa5252;
+
+  --color-primary-dark-100: #e14a4a;
+  --color-primary-dark-200: #c84242;
+  --color-primary-dark-300: #af3939;
+  --color-primary-dark-400: #963131;
+  --color-primary-dark-500: #7d2929;
+  --color-primary-dark-600: #642121;
+  --color-primary-dark-700: #4b1919;
+  --color-primary-dark-800: #321010;
+  --color-primary-dark-900: #190808;
+  --color-primary-dark-950: #000000;
+
+  --color-dark-400: #121212;
+  --color-dark-300: #1e1e1e;
+  --color-dark-200: #2c2c2c;
+  --color-dark-100: #333333;
+}
+
+@layer components {
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid var(--color-primary-100);
+    border-right-color: var(--color-primary-950);
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary-100);
+    border-right-color: transparent;
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
+
+input:-webkit-autofill {
+  border-radius: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--color-primary-50) !important;
+  box-shadow: 0 4px 6px -1px var(--color-primary-200),
+    inset 0 2px 4px 0 var(--color-primary-200) !important;
+  color: var(--color-primary-dark-900) !important;
+  -webkit-text-fill-color: var(--color-primary-dark-900) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.dark input:-webkit-autofill {
+  border-radius: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--color-dark-100) !important;
+  box-shadow: none !important;
+  /* color: var(--color-primary-100) !important; */
+  /* -webkit-text-fill-color: var(--color-primary-100) !important; */
+  transition: background-color 5000s ease-in-out 0s;
+}

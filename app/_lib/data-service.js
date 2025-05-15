@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { supabase } from "./supabase";
 
 export async function createUserAndCart(newUser) {

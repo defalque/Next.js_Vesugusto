@@ -13,9 +13,9 @@ function DarkModeToggle() {
       className="cursor-pointer"
     >
       {isDarkMode ? (
-        <SunIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-800 dark:hover:text-orange-200 transition-colors"></SunIcon>
+        <SunIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"></SunIcon>
       ) : (
-        <MoonIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-800 dark:hover:text-orange-200 transition-colors"></MoonIcon>
+        <MoonIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"></MoonIcon>
       )}
     </button>
   );
