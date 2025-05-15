@@ -31,6 +31,8 @@ export async function updateUserProfile(formData) {
   const cap = formData.get("cap");
   const phoneNumber = formData.get("phoneNumber");
 
+  //valida campi
+
   console.log(via, numeroCivico, comune, cap, phoneNumber);
 
   const regex = /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/;
