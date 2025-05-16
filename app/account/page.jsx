@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import UpdateProfileForm from "../_components/ui/UpdateProfileForm";
+import UpdateProfileFormV2 from "../_components/ui/UpdateProfileFormV2";
 import { getUser } from "../_lib/data-service";
 import { Suspense } from "react";
 import Spinner from "../_components/ui/Spinner";
@@ -27,7 +28,8 @@ export default async function Page() {
       </p>
 
       <Suspense fallback={<Spinner></Spinner>}>
-        <UpdateProfileForm user={user}></UpdateProfileForm>
+        {/* <UpdateProfileForm user={user}></UpdateProfileForm> */}
+        <UpdateProfileFormV2 user={user}></UpdateProfileFormV2>
       </Suspense>
     </div>
   );

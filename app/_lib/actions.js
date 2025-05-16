@@ -62,4 +62,6 @@ export async function updateUserProfile(formData) {
   if (error) throw new Error("User could not be updated");
 
   revalidatePath("/account");
+
+  return true;
 }
