@@ -68,3 +68,29 @@ export async function getProduct(id) {
 
   return data;
 }
+
+export async function getAllProductTypes() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("type", { distinct: true })
+    .neq("type", null);
+
+  if (error) {
+    console.error(error);
+  }
+
+  return data;
+}
+
+export async function getAllProductFlavors() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("taste", { distinct: true })
+    .neq("type", null);
+
+  if (error) {
+    console.error(error);
+  }
+
+  return data;
+}

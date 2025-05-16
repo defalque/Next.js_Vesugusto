@@ -31,13 +31,14 @@ function SideNavigation() {
 
   return (
     <nav className="border-r border-orange-50 shadow-sm dark:border-midnight dark:shadow-2xl">
-      <ul className="flex flex-col gap-3 text-lg px-3 py-2 mt-5">
+      <ul className="flex flex-col gap-2 text-lg px-3 py-2 mt-5">
+        {/* <li className="text-primary-950 text-sm px-3 font-semibold">Account</li> */}
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`rounded-xl py-1 px-3 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-dark-200 transition-colors flex items-center gap-4 font-semibold ${
+              className={`rounded-xl py-0.5 px-2 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 font-semibold ${
                 pathname === link.href
-                  ? "bg-primary-950 text-primary-100 dark:bg-primary-dark-200"
+                  ? "bg-primary-950 text-primary-100 dark:bg-primary-800 dark:text-primary-50"
                   : ""
               }`}
               href={link.href}

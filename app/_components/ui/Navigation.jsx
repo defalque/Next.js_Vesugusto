@@ -1,11 +1,15 @@
+// "use client";
+
 import Link from "next/link";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { SignOut } from "./SignOut";
 import { auth } from "@/auth";
 import UserPic from "./UserPic";
+// import { usePathname } from "next/navigation";
 
 async function Navigation() {
   const session = await auth();
+  // const pathname = usePathname();
 
   return (
     <nav className="z-10 text-xl">
@@ -13,6 +17,9 @@ async function Navigation() {
         <li>
           <Link
             href="/about"
+            // className={`text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300 py-5 ${
+            //   pathname === "/about" ? "border-b-2 border-b-primary-950" : ""
+            // }`}
             className="text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"
           >
             Chi siamo
@@ -21,6 +28,9 @@ async function Navigation() {
         <li>
           <Link
             href="/products"
+            // className={`text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300 py-5 ${
+            //   pathname === "/products" ? "border-b-2 border-b-primary-950" : ""
+            // }`}
             className="text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300"
           >
             Prodotti
