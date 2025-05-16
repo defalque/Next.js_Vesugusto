@@ -1,17 +1,15 @@
-import { signOut } from "@/auth.js";
+import { signOutAction } from "@/app/_lib/actions";
 import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/solid";
 
 export function SignOut() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut({ redirectTo: "/" });
-      }}
-      className="flex items-center"
-    >
-      <button type="submit" className="cursor-pointer">
-        <ArrowRightEndOnRectangleIcon className="size-6 text-orange-950 dark:text-orange-100 hover:text-orange-700 dark:hover:text-orange-200"></ArrowRightEndOnRectangleIcon>
+    <form action={signOutAction}>
+      <button
+        type="submit"
+        className="rounded-xl py-0.5 px-2 cursor-pointer w-full flex items-center gap-4 font-semibold hover:bg-primary-950 hover:text-primary-100"
+      >
+        <ArrowRightEndOnRectangleIcon className="h-5 w-5"></ArrowRightEndOnRectangleIcon>
+        <span>Esci</span>
       </button>
     </form>
   );

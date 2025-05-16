@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SignOut } from "./SignOut";
 
 const navLinks = [
   {
@@ -31,7 +32,7 @@ function SideNavigation() {
 
   return (
     <nav className="border-r border-orange-50 shadow-sm dark:border-midnight dark:shadow-2xl">
-      <ul className="flex flex-col gap-2 text-lg px-3 py-2 mt-5">
+      <ul className="flex flex-col gap-2 text-lg px-3 py-7.5 h-full">
         {/* <li className="text-primary-950 text-sm px-3 font-semibold">Account</li> */}
         {navLinks.map((link) => (
           <li key={link.name}>
@@ -48,6 +49,10 @@ function SideNavigation() {
             </Link>
           </li>
         ))}
+
+        <li className="py-0.5 px-2 mt-auto mb-8">
+          <SignOut />
+        </li>
       </ul>
     </nav>
   );
