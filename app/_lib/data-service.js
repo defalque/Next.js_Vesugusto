@@ -43,7 +43,7 @@ export async function getUser(email) {
   return data;
 }
 
-export async function getProducts() {
+export async function getAllProducts() {
   const { data, error } = await supabase.from("products").select("*");
 
   if (error) {
@@ -70,10 +70,9 @@ export async function getProduct(id) {
 }
 
 export async function getAllProductTypes() {
-  const { data, error } = await supabase
-    .from("products")
-    .select("type", { distinct: true })
-    .neq("type", null);
+  let { data, error } = await supabase
+    .from("unique_product_types")
+    .select("type");
 
   if (error) {
     console.error(error);

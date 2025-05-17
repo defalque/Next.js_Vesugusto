@@ -1,11 +1,16 @@
-import ProductsSideNavigation from "../_components/ui/ProductsSideNavigation";
-import { getAllProductFlavors, getAllProductTypes } from "../_lib/data-service";
+import ProductsHandler from "../_components/ui/ProductsHandler";
+import {
+  getAllProductFlavors,
+  getAllProducts,
+  getAllProductTypes,
+} from "../_lib/data-service";
 
 export const metadata = {
   title: "Prodotti",
 };
 
 export default async function Page({ searchParams }) {
+  const products = await getAllProducts();
   const types = await getAllProductTypes();
   const flavors = await getAllProductFlavors();
 
@@ -13,12 +18,10 @@ export default async function Page({ searchParams }) {
   const filter = params?.capacity ?? "all";
 
   return (
-    <div className="grid grid-cols-[12rem_1fr] h-full">
-      <ProductsSideNavigation
-        types={types}
-        flavors={flavors}
-      ></ProductsSideNavigation>
-      <p className="text-orange-950 dark:text-orange-100">Prodotti</p>
-    </div>
+    <ProductsHandler
+      products={products}
+      types={types}
+      flavors={flavors}
+    ></ProductsHandler>
   );
 }

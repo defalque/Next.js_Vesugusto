@@ -10,6 +10,9 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      new URL(
+        "https://mldueodzggqqwjvkyalt.supabase.co/storage/v1/object/public/product-images/**"
+      ),
     ],
   },
 };
