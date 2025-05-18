@@ -5,12 +5,13 @@ import { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useHideFilters } from "../contexts/HideFiltersProvider";
 
-function ProductsSideNavigation({ types, flavors }) {
+function ProductsSideNavigation({ types }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [category, setCategory] = useState(false);
-  const { isHidden, setIsHidden } = useHideFilters();
+  const [price, setPrice] = useState(false);
+  const { isHidden } = useHideFilters();
 
   const activeFilter = searchParams.get("type") ?? "all";
 
@@ -21,16 +22,16 @@ function ProductsSideNavigation({ types, flavors }) {
       }`}
     >
       <div className="flex flex-col px-3 py-2 mt-5 text-md sticky font-normal top-5 w-full">
-        <span className="uppercase text-[0.7rem] px-3 text-primary-600 font-bold mb-3">
+        <span className="uppercase text-[0.7rem] px-3 text-primary-300 font-bold mb-3">
           Filtra per
         </span>
 
-        <div className="mb-2">
+        <div className=" border-b border-t py-3 border-b-primary-200 border-t-primary-200 ml-3">
           <div
             className="flex items-center cursor-pointer mb-1"
             onClick={() => setCategory(!category)}
           >
-            <span className="px-3">Categoria</span>
+            <span>Categoria</span>
             {category ? (
               <ChevronDownIcon className="ml-auto size-4.5"></ChevronDownIcon>
             ) : (
@@ -40,10 +41,10 @@ function ProductsSideNavigation({ types, flavors }) {
           {category
             ? types.map((type) => (
                 <span
-                  className={`w-max mt-0.5 rounded-xl py-0.5 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
+                  className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
                     activeFilter === type.type
                       ? "bg-primary-950 text-primary-100"
-                      : "text-primary-dark-900"
+                      : "text-zinc-600"
                   }`}
                   key={type.type}
                   onClick={() => {
@@ -54,13 +55,8 @@ function ProductsSideNavigation({ types, flavors }) {
                     // });
                     const params = new URLSearchParams(window.location.search);
 
-                    // Se il valore corrente di `type` è uguale, lo rimuoviamo (toggle off)
-                    if (params.get("type") === type.type) {
-                      params.delete("type");
-                    } else {
-                      // Altrimenti lo impostiamo (toggle on)
-                      params.set("type", type.type);
-                    }
+                    if (params.get("type") === type.type) params.delete("type");
+                    else params.set("type", type.type);
 
                     const queryString = params.toString();
                     router.replace(
@@ -75,6 +71,36 @@ function ProductsSideNavigation({ types, flavors }) {
                 </span>
               ))
             : null}
+        </div>
+
+        <div className="mb-2 border-b py-3 border-b-primary-200 border-t-primary-200 ml-3">
+          <div
+            className="flex items-center cursor-pointer mb-1"
+            onClick={() => setPrice(!price)}
+          >
+            <span>Prezzo</span>
+            {price ? (
+              <ChevronDownIcon className="ml-auto size-4.5"></ChevronDownIcon>
+            ) : (
+              <ChevronRightIcon className="ml-auto size-4.5"></ChevronRightIcon>
+            )}
+          </div>
+          {price && (
+            <div>
+              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+                Fino a 10&euro;
+              </span>
+              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+                Da 10&euro; a 20&euro;
+              </span>
+              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+                Da 20&euro; a 30&euro;
+              </span>
+              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+                Da 30&euro; a 50&euro;
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,27 +1,24 @@
+import { Suspense } from "react";
 import ProductsHandler from "../_components/ui/ProductsHandler";
-import {
-  getAllProductFlavors,
-  getAllProducts,
-  getAllProductTypes,
-} from "../_lib/data-service";
+import { getAllProductFlavors, getAllProductTypes } from "../_lib/data-service";
+import ProductsListWrapper from "../_components/ui/ProductListWrapper";
+import Spinner from "../_components/ui/Spinner";
 
 export const metadata = {
   title: "Prodotti",
 };
 
 export default async function Page({ searchParams }) {
-  const products = await getAllProducts();
   const types = await getAllProductTypes();
-  const flavors = await getAllProductFlavors();
 
   const params = await searchParams;
-  const filter = params?.capacity ?? "all";
+  const filter = params?.type ?? "all";
 
   return (
-    <ProductsHandler
-      products={products}
-      types={types}
-      flavors={flavors}
-    ></ProductsHandler>
+    <ProductsHandler types={types}>
+      <Suspense fallback={<Spinner></Spinner>} key={filter}>
+        <ProductsListWrapper filter={filter} />
+      </Suspense>
+    </ProductsHandler>
   );
 }

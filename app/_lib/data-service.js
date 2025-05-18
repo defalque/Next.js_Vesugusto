@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import { supabase } from "./supabase";
 
 export async function createUserAndCart(newUser) {
@@ -43,13 +42,35 @@ export async function getUser(email) {
   return data;
 }
 
-export async function getAllProducts() {
-  const { data, error } = await supabase.from("products").select("*");
+export async function getProducts(filter) {
+  let query = supabase.from("products").select("*");
 
-  if (error) {
-    console.error(error);
-    throw new Error("Products could not be loaded");
+  if (filter !== "all") {
+    query = query.eq("type", filter);
   }
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return data;
+}
+
+export async function getAllProducts(page, limit, filter) {
+  const from = page * limit;
+  const to = from + limit - 1;
+
+  let query = supabase
+    .from("products")
+    .select("*")
+    .range(from, to)
+    .order("id", { ascending: true });
+
+  if (filter !== "all") {
+    query = query.eq("type", filter);
+  }
+
+  const { data, error } = await query;
+  if (error) throw error;
 
   return data;
 }
