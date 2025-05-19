@@ -1,28 +1,19 @@
-import {
-  getProducts,
-  getProductsCount,
-  getProductsWithoutFilter,
-  getProductsWithPagination,
-} from "@/app/_lib/data-service";
+import { getProductsWithPagination } from "@/app/_lib/data-service";
 import ProductsList from "./ProductsList";
-import ProductsListV2 from "./ProductsListV2";
+import { LIMIT } from "@/app/_lib/constants";
+import PageRedirectHandler from "./PageRedirectHandler";
 
-const LIMIT = 3;
+export default async function ProductsListWrapper({ filters, totalProducts }) {
+  const products = await getProductsWithPagination(LIMIT, filters);
 
-export default async function ProductsListWrapper({ filter, filters, page }) {
-  // const products = await getProductsWithoutFilter();
-  const productCount = await getProductsCount(filters);
-  const products = await getProductsWithPagination(page, LIMIT, filters);
+  const totalPages = Math.ceil(totalProducts / LIMIT);
+
   return (
-    <ProductsList
-      products={products}
-      count={productCount.length}
-      filter={filter}
-      filters={filters}
-      page={page}
-    />
+    <>
+      <PageRedirectHandler filters={filters} totalPages={totalPages} />
+      <ProductsList products={products} totalProducts={totalProducts} />
+    </>
   );
-  // return <ProductsListV2 filter={filter} />;
 }
 
 // import { getAllProducts, getProducts } from "@/app/_lib/data-service";

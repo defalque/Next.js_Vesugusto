@@ -42,22 +42,11 @@ export async function getUser(email) {
   return data;
 }
 
-export async function getProductsWithoutFilter() {
-  const { data, error } = await supabase.from("products").select("*");
+export async function getProductsWithPagination(limit, filters) {
+  const from = filters.page * limit;
+  const to = from + limit - 1;
 
-  if (error) {
-    console.error(error);
-    throw new Error("Product could not be loaded");
-  }
-
-  return data;
-}
-export async function getProductsWithPagination(page, limit, filters) {
-  console.log(filters);
-  console.log(page);
-  const to = page * limit - 1;
-
-  let query = supabase.from("products").select("*").range(0, to);
+  let query = supabase.from("products").select("*").range(from, to);
 
   if (filters.type !== "all") {
     query = query.eq("type", filters.type);
@@ -74,7 +63,64 @@ export async function getProductsWithPagination(page, limit, filters) {
   const { data, error } = await query;
   if (error) throw error;
 
-  console.log(data);
+  return data;
+}
+
+export async function getProductsCount(filters) {
+  let query = supabase.from("products").select("*");
+
+  if (filters.type !== "all") {
+    query = query.eq("type", filters.type);
+  }
+
+  if (filters.price === "10") query = query.lte("regularPrice", 10);
+  if (filters.price === "10-20")
+    query = query.gt("regularPrice", 10).lte("regularPrice", 20);
+  if (filters.price === "20-30")
+    query = query.gt("regularPrice", 20).lte("regularPrice", 30);
+  if (filters.price === "30-50")
+    query = query.gt("regularPrice", 30).lte("regularPrice", 50);
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return data;
+}
+
+export async function getProduct(id) {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Product could not be loaded");
+  }
+
+  return data;
+}
+
+export async function getAllProductTypes() {
+  let { data, error } = await supabase
+    .from("unique_product_types")
+    .select("type");
+
+  if (error) {
+    console.error(error);
+  }
+
+  return data;
+}
+
+export async function getProductsWithoutFilter() {
+  const { data, error } = await supabase.from("products").select("*");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Product could not be loaded");
+  }
 
   return data;
 }
@@ -108,66 +154,6 @@ export async function getAllProducts(page, limit, filter) {
 
   const { data, error } = await query;
   if (error) throw error;
-
-  return data;
-}
-
-export async function getProductsCount(filters) {
-  let query = supabase.from("products").select("*");
-
-  if (filters.type !== "all") {
-    query = query.eq("type", filters.type);
-  }
-
-  if (filters.price === "10") query = query.lte("regularPrice", 10);
-  if (filters.price === "10-20")
-    query = query.gt("regularPrice", 10).lte("regularPrice", 20);
-  if (filters.price === "20-30")
-    query = query.gt("regularPrice", 20).lte("regularPrice", 30);
-  if (filters.price === "30-50")
-    query = query.gt("regularPrice", 30).lte("regularPrice", 50);
-
-  const { data, error } = await query;
-  if (error) throw error;
-
-  return data;
-}
-export async function getProduct(id) {
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    console.error(error);
-    throw new Error("Product could not be loaded");
-  }
-
-  return data;
-}
-
-export async function getAllProductTypes() {
-  let { data, error } = await supabase
-    .from("unique_product_types")
-    .select("type");
-
-  if (error) {
-    console.error(error);
-  }
-
-  return data;
-}
-
-export async function getAllProductFlavors() {
-  const { data, error } = await supabase
-    .from("products")
-    .select("taste", { distinct: true })
-    .neq("type", null);
-
-  if (error) {
-    console.error(error);
-  }
 
   return data;
 }

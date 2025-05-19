@@ -27,7 +27,7 @@ function RootLayout({ children }) {
           <Header></Header>
           <div className="flex-1 grid">
             <main className="mx-auto w-full">{children}</main>
-            <DemoTag></DemoTag>
+            {/* <DemoTag></DemoTag> */}
           </div>
           <footer></footer>
         </DarkModeProvider>

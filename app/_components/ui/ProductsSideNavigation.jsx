@@ -16,6 +16,19 @@ function ProductsSideNavigation({ types }) {
   const activeFilter = searchParams.get("type") ?? "all";
   const activerPriceFilter = searchParams.get("price") ?? 0;
 
+  function handleFilterClick(filter, value) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", 0);
+
+    if (params.get(filter) === value) params.delete(filter);
+    else params.set(filter, value);
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  }
+
   return (
     <div
       className={`border-r border-orange-50 shadow-sm dark:border-midnight dark:shadow-2xl transition-all duration-300 ease-in-out ${
@@ -48,26 +61,7 @@ function ProductsSideNavigation({ types }) {
                       : "text-zinc-600"
                   }`}
                   key={type.type}
-                  onClick={() => {
-                    // const params = new URLSearchParams();
-                    // params.set("type", type.type);
-                    // router.replace(`${pathname}?${params.toString()}`, {
-                    //   scroll: false,
-                    // });
-                    const params = new URLSearchParams(window.location.search);
-                    params.set("page", 1);
-
-                    if (params.get("type") === type.type) params.delete("type");
-                    else params.set("type", type.type);
-
-                    const queryString = params.toString();
-                    router.replace(
-                      queryString ? `${pathname}?${queryString}` : pathname,
-                      {
-                        scroll: false,
-                      }
-                    );
-                  }}
+                  onClick={() => handleFilterClick("type", type.type)}
                 >
                   {type.type.charAt(0).toUpperCase() + type.type.slice(1)}
                 </span>
@@ -95,21 +89,7 @@ function ProductsSideNavigation({ types }) {
                     ? "bg-primary-950 text-primary-100"
                     : "text-zinc-600"
                 }`}
-                onClick={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("page", 1);
-
-                  if (params.get("price") === "10") params.delete("price");
-                  else params.set("price", "10");
-
-                  const queryString = params.toString();
-                  router.replace(
-                    queryString ? `${pathname}?${queryString}` : pathname,
-                    {
-                      scroll: false,
-                    }
-                  );
-                }}
+                onClick={() => handleFilterClick("price", "10")}
               >
                 Fino a 10&euro;
               </span>
@@ -119,21 +99,7 @@ function ProductsSideNavigation({ types }) {
                     ? "bg-primary-950 text-primary-100"
                     : "text-zinc-600"
                 }`}
-                onClick={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("page", 1);
-
-                  if (params.get("price") === "10-20") params.delete("price");
-                  else params.set("price", "10-20");
-
-                  const queryString = params.toString();
-                  router.replace(
-                    queryString ? `${pathname}?${queryString}` : pathname,
-                    {
-                      scroll: false,
-                    }
-                  );
-                }}
+                onClick={() => handleFilterClick("price", "10-20")}
               >
                 Da 10&euro; a 20&euro;
               </span>
@@ -143,21 +109,7 @@ function ProductsSideNavigation({ types }) {
                     ? "bg-primary-950 text-primary-100"
                     : "text-zinc-600"
                 }`}
-                onClick={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("page", 1);
-
-                  if (params.get("price") === "20-30") params.delete("price");
-                  else params.set("price", "20-30");
-
-                  const queryString = params.toString();
-                  router.replace(
-                    queryString ? `${pathname}?${queryString}` : pathname,
-                    {
-                      scroll: false,
-                    }
-                  );
-                }}
+                onClick={() => handleFilterClick("price", "20-30")}
               >
                 Da 20&euro; a 30&euro;
               </span>
@@ -167,21 +119,7 @@ function ProductsSideNavigation({ types }) {
                     ? "bg-primary-950 text-primary-100"
                     : "text-zinc-600"
                 }`}
-                onClick={() => {
-                  const params = new URLSearchParams(window.location.search);
-                  params.set("page", 1);
-
-                  if (params.get("price") === "30-50") params.delete("price");
-                  else params.set("price", "30-50");
-
-                  const queryString = params.toString();
-                  router.replace(
-                    queryString ? `${pathname}?${queryString}` : pathname,
-                    {
-                      scroll: false,
-                    }
-                  );
-                }}
+                onClick={() => handleFilterClick("price", "30-50")}
               >
                 Da 30&euro; a 50&euro;
               </span>
