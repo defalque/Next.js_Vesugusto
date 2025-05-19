@@ -14,6 +14,7 @@ function ProductsSideNavigation({ types }) {
   const { isHidden } = useHideFilters();
 
   const activeFilter = searchParams.get("type") ?? "all";
+  const activerPriceFilter = searchParams.get("price") ?? 0;
 
   return (
     <div
@@ -54,6 +55,7 @@ function ProductsSideNavigation({ types }) {
                     //   scroll: false,
                     // });
                     const params = new URLSearchParams(window.location.search);
+                    params.set("page", 1);
 
                     if (params.get("type") === type.type) params.delete("type");
                     else params.set("type", type.type);
@@ -87,16 +89,100 @@ function ProductsSideNavigation({ types }) {
           </div>
           {price && (
             <div>
-              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+              <span
+                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
+                  activerPriceFilter === "10"
+                    ? "bg-primary-950 text-primary-100"
+                    : "text-zinc-600"
+                }`}
+                onClick={() => {
+                  const params = new URLSearchParams(window.location.search);
+                  params.set("page", 1);
+
+                  if (params.get("price") === "10") params.delete("price");
+                  else params.set("price", "10");
+
+                  const queryString = params.toString();
+                  router.replace(
+                    queryString ? `${pathname}?${queryString}` : pathname,
+                    {
+                      scroll: false,
+                    }
+                  );
+                }}
+              >
                 Fino a 10&euro;
               </span>
-              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+              <span
+                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
+                  activerPriceFilter === "10-20"
+                    ? "bg-primary-950 text-primary-100"
+                    : "text-zinc-600"
+                }`}
+                onClick={() => {
+                  const params = new URLSearchParams(window.location.search);
+                  params.set("page", 1);
+
+                  if (params.get("price") === "10-20") params.delete("price");
+                  else params.set("price", "10-20");
+
+                  const queryString = params.toString();
+                  router.replace(
+                    queryString ? `${pathname}?${queryString}` : pathname,
+                    {
+                      scroll: false,
+                    }
+                  );
+                }}
+              >
                 Da 10&euro; a 20&euro;
               </span>
-              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+              <span
+                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
+                  activerPriceFilter === "20-30"
+                    ? "bg-primary-950 text-primary-100"
+                    : "text-zinc-600"
+                }`}
+                onClick={() => {
+                  const params = new URLSearchParams(window.location.search);
+                  params.set("page", 1);
+
+                  if (params.get("price") === "20-30") params.delete("price");
+                  else params.set("price", "20-30");
+
+                  const queryString = params.toString();
+                  router.replace(
+                    queryString ? `${pathname}?${queryString}` : pathname,
+                    {
+                      scroll: false,
+                    }
+                  );
+                }}
+              >
                 Da 20&euro; a 30&euro;
               </span>
-              <span className="w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer text-zinc-600">
+              <span
+                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
+                  activerPriceFilter === "30-50"
+                    ? "bg-primary-950 text-primary-100"
+                    : "text-zinc-600"
+                }`}
+                onClick={() => {
+                  const params = new URLSearchParams(window.location.search);
+                  params.set("page", 1);
+
+                  if (params.get("price") === "30-50") params.delete("price");
+                  else params.set("price", "30-50");
+
+                  const queryString = params.toString();
+                  router.replace(
+                    queryString ? `${pathname}?${queryString}` : pathname,
+                    {
+                      scroll: false,
+                    }
+                  );
+                }}
+              >
                 Da 30&euro; a 50&euro;
               </span>
             </div>
