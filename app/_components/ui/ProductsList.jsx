@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { HeartIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Pagination from "./Pagination";
+import Link from "next/link";
 
 function ProductsList({ products, totalProducts }) {
   return (
@@ -40,9 +41,12 @@ function ProductsList({ products, totalProducts }) {
               <span className="font-medium text-xl">
                 {product.regularPrice}&euro;
               </span>
-              <span className="text-sm text-primary-950 ml-auto hover:text-primary-800">
+              <Link
+                href={`/products/${product.id}`}
+                className="text-sm text-primary-950 ml-auto hover:text-primary-800"
+              >
                 Vai ai dettagli &rarr;
-              </span>
+              </Link>
             </div>
           </div>
         ))}

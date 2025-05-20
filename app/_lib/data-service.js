@@ -202,22 +202,13 @@ export async function getProducts(filter) {
   return data;
 }
 
-export async function getAllProducts(page, limit, filter) {
-  const from = page * limit;
-  const to = from + limit - 1;
+export async function getAllProducts() {
+  const { data, error } = await supabase.from("products").select("*");
 
-  let query = supabase
-    .from("products")
-    .select("*")
-    .range(from, to)
-    .order("id", { ascending: true });
-
-  if (filter !== "all") {
-    query = query.eq("type", filter);
+  if (error) {
+    console.error(error);
+    throw new Error("Products could not be loaded");
   }
-
-  const { data, error } = await query;
-  if (error) throw error;
 
   return data;
 }

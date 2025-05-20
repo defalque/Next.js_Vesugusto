@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { use, useState } from "react";
+import { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useHideFilters } from "../contexts/HideFiltersProvider";
 
@@ -33,20 +33,7 @@ function ProductsSideNavigation({ types }) {
       params.set(filter, updatedValues.join(","));
     }
 
-    params.set("page", 0); // Reset pagination
-
-    const queryString = params.toString();
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
-      scroll: false,
-    });
-  }
-
-  function handleFilterClick(filter, value) {
-    const params = new URLSearchParams(urlSearchParams.toString());
     params.set("page", 0);
-
-    if (params.get(filter) === value) params.delete(filter);
-    else params.set(filter, value);
 
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
@@ -81,8 +68,6 @@ function ProductsSideNavigation({ types }) {
               >
                 <input
                   type="checkbox"
-                  // checked={activeFilter === type.type}
-                  // onChange={() => handleFilterClick("type", type.type)}
                   checked={activeTypeFilters.includes(type.type)}
                   onChange={() => handleMultiFilterClick("type", type.type)}
                   className="mr-2"
@@ -120,8 +105,6 @@ function ProductsSideNavigation({ types }) {
                 >
                   <input
                     type="checkbox"
-                    // checked={activerPriceFilter === value}
-                    // onChange={() => handleFilterClick("price", value)}
                     checked={activePriceFilters.includes(value)}
                     onChange={() => handleMultiFilterClick("price", value)}
                     className="w-4 h-4 cursor-pointer"
