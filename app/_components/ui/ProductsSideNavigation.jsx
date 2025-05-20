@@ -1,23 +1,48 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useHideFilters } from "../contexts/HideFiltersProvider";
 
 function ProductsSideNavigation({ types }) {
-  const searchParams = useSearchParams();
+  const urlSearchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [category, setCategory] = useState(false);
   const [price, setPrice] = useState(false);
   const { isHidden } = useHideFilters();
 
-  const activeFilter = searchParams.get("type") ?? "all";
-  const activerPriceFilter = searchParams.get("price") ?? 0;
+  const activeTypeFilters = urlSearchParams.get("type")?.split(",") ?? [];
+  const activePriceFilters = urlSearchParams.get("price")?.split(",") ?? [];
+
+  function handleMultiFilterClick(filter, value) {
+    const params = new URLSearchParams(urlSearchParams.toString());
+    const currentValues = params.get(filter)?.split(",") ?? [];
+
+    let updatedValues;
+    if (currentValues.includes(value)) {
+      updatedValues = currentValues.filter((v) => v !== value);
+    } else {
+      updatedValues = [...currentValues, value];
+    }
+
+    if (updatedValues.length === 0) {
+      params.delete(filter);
+    } else {
+      params.set(filter, updatedValues.join(","));
+    }
+
+    params.set("page", 0); // Reset pagination
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  }
 
   function handleFilterClick(filter, value) {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(urlSearchParams.toString());
     params.set("page", 0);
 
     if (params.get(filter) === value) params.delete(filter);
@@ -30,19 +55,15 @@ function ProductsSideNavigation({ types }) {
   }
 
   return (
-    <div
-      className={`border-r border-orange-50 shadow-sm dark:border-midnight dark:shadow-2xl transition-all duration-300 ease-in-out ${
-        isHidden ? "hidden" : ""
-      }`}
-    >
+    <div className={`${isHidden ? "hidden" : ""}`}>
       <div className="flex flex-col px-3 py-2 mt-5 text-md sticky font-normal top-5 w-full">
-        <span className="uppercase text-[0.7rem] px-3 text-primary-300 font-bold mb-3">
+        <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-3">
           Filtra per
         </span>
 
-        <div className=" border-b border-t py-3 border-b-primary-200 border-t-primary-200 ml-3">
+        <div className=" border-b border-t py-3 border-b-zinc-300 border-t-zinc-300 ml-3">
           <div
-            className="flex items-center cursor-pointer mb-1"
+            className="flex items-center cursor-pointer mb-2"
             onClick={() => setCategory(!category)}
           >
             <span>Categoria</span>
@@ -52,26 +73,30 @@ function ProductsSideNavigation({ types }) {
               <ChevronRightIcon className="ml-auto size-4.5"></ChevronRightIcon>
             )}
           </div>
-          {category
-            ? types.map((type) => (
-                <span
-                  className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
-                    activeFilter === type.type
-                      ? "bg-primary-950 text-primary-100"
-                      : "text-zinc-600"
-                  }`}
-                  key={type.type}
-                  onClick={() => handleFilterClick("type", type.type)}
-                >
+          {category &&
+            types.map((type) => (
+              <label
+                className="flex items-center ml-1 cursor-pointer w-max"
+                key={type.type}
+              >
+                <input
+                  type="checkbox"
+                  // checked={activeFilter === type.type}
+                  // onChange={() => handleFilterClick("type", type.type)}
+                  checked={activeTypeFilters.includes(type.type)}
+                  onChange={() => handleMultiFilterClick("type", type.type)}
+                  className="mr-2"
+                />
+                <span className="text-primary-dark-900 font-light">
                   {type.type.charAt(0).toUpperCase() + type.type.slice(1)}
                 </span>
-              ))
-            : null}
+              </label>
+            ))}
         </div>
 
-        <div className="mb-2 border-b py-3 border-b-primary-200 border-t-primary-200 ml-3">
+        <div className="mb-2 border-b py-3 border-b-zinc-300 border-t-primary-200 ml-3">
           <div
-            className="flex items-center cursor-pointer mb-1"
+            className="flex items-center cursor-pointer mb-2"
             onClick={() => setPrice(!price)}
           >
             <span>Prezzo</span>
@@ -83,46 +108,29 @@ function ProductsSideNavigation({ types }) {
           </div>
           {price && (
             <div>
-              <span
-                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
-                  activerPriceFilter === "10"
-                    ? "bg-primary-950 text-primary-100"
-                    : "text-zinc-600"
-                }`}
-                onClick={() => handleFilterClick("price", "10")}
-              >
-                Fino a 10&euro;
-              </span>
-              <span
-                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
-                  activerPriceFilter === "10-20"
-                    ? "bg-primary-950 text-primary-100"
-                    : "text-zinc-600"
-                }`}
-                onClick={() => handleFilterClick("price", "10-20")}
-              >
-                Da 10&euro; a 20&euro;
-              </span>
-              <span
-                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
-                  activerPriceFilter === "20-30"
-                    ? "bg-primary-950 text-primary-100"
-                    : "text-zinc-600"
-                }`}
-                onClick={() => handleFilterClick("price", "20-30")}
-              >
-                Da 20&euro; a 30&euro;
-              </span>
-              <span
-                className={`w-max mt-1.5 rounded-xl py-0 px-2 ml-5 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 f cursor-pointer ${
-                  activerPriceFilter === "30-50"
-                    ? "bg-primary-950 text-primary-100"
-                    : "text-zinc-600"
-                }`}
-                onClick={() => handleFilterClick("price", "30-50")}
-              >
-                Da 30&euro; a 50&euro;
-              </span>
+              {[
+                { value: "10", label: "Fino a 10€" },
+                { value: "10-20", label: "Da 10€ a 20€" },
+                { value: "20-30", label: "Da 20€ a 30€" },
+                { value: "30-50", label: "Da 30€ a 50€" },
+              ].map(({ value, label }) => (
+                <label
+                  key={value}
+                  className="flex items-center gap-2 ml-1 mt-1.5 cursor-pointer w-max"
+                >
+                  <input
+                    type="checkbox"
+                    // checked={activerPriceFilter === value}
+                    // onChange={() => handleFilterClick("price", value)}
+                    checked={activePriceFilters.includes(value)}
+                    onChange={() => handleMultiFilterClick("price", value)}
+                    className="w-4 h-4 cursor-pointer"
+                  />
+                  <span className="text-primary-dark-900 font-light">
+                    {label}
+                  </span>
+                </label>
+              ))}
             </div>
           )}
         </div>

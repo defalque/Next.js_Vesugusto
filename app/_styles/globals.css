@@ -94,3 +94,39 @@ input:-webkit-autofill {
   /* -webkit-text-fill-color: var(--color-primary-100) !important; */
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Rimuove lo stile nativo della checkbox */
+input[type="checkbox"] {
+  -webkit-appearance: none; /* Safari/Chrome */
+  -moz-appearance: none; /* Firefox */
+  appearance: none;
+
+  width: 16px;
+  height: 16px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Stato checked */
+input[type="checkbox"]:checked {
+  background-color: var(--color-primary-950);
+  border-color: var(--color-primary-950);
+}
+
+/* Checkmark personalizzato usando ::after */
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 6px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

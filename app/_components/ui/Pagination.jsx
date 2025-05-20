@@ -6,12 +6,17 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import SpinnerMini from "./SpinnerMini";
 
-function Pagination({ products, totalProducts }) {
+export default function Pagination({ products, totalProducts }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [isLeftLoading, setIsLeftLoading] = useState(false);
   const [isRightLoading, setIsRightLoading] = useState(false);
+
+  const currentPage = !searchParams.get("page")
+    ? 0
+    : Number(searchParams.get("page"));
+  const pageCount = Math.ceil(totalProducts / LIMIT);
 
   useEffect(() => {
     if (isLeftLoading) setIsLeftLoading(false);
@@ -19,11 +24,13 @@ function Pagination({ products, totalProducts }) {
     if (isRightLoading) setIsRightLoading(false);
   }, [products]);
 
-  const currentPage = !searchParams.get("page")
-    ? 0
-    : Number(searchParams.get("page"));
-
-  const pageCount = Math.ceil(totalProducts / LIMIT);
+  useEffect(() => {
+    if (currentPage + 1 > pageCount && pageCount > 0) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", "0");
+      router.replace(`?${params.toString()}`);
+    }
+  }, [currentPage, pageCount, searchParams, router]);
 
   const handleNextClick = () => {
     setIsRightLoading(true);
@@ -50,56 +57,48 @@ function Pagination({ products, totalProducts }) {
     });
   };
 
-  console.log(currentPage);
   if (pageCount <= 1) return null;
 
   return (
     <>
       {products?.length > 0 && (
-        <div className="flex items-center px-5 py-3 mt-8 mb-4 border-y border-y-primary-300">
+        <div className="flex items-center px-5 py-3 mt-8 mb-4">
           <div className="text-primary-700 text-sm">
-            Hai visualizzato da <span>{currentPage * LIMIT + 1}</span> a
-            <span>
+            Hai visualizzato da{" "}
+            <span className="font-semibold">{currentPage * LIMIT + 1}</span> a
+            <span className="font-semibold">
               {" "}
               {currentPage === pageCount - 1
                 ? totalProducts
                 : (currentPage + 1) * LIMIT}
             </span>{" "}
-            di <span>{totalProducts}</span> prodotti
+            di <span className="font-semibold">{totalProducts}</span> prodotti.
           </div>
 
           <div className="ml-auto flex items-center gap-8">
-            <button
-              className={`px-4 py-2 text-white rounded-lg ${
-                currentPage === 0
-                  ? "bg-zinc-200 hover:bg-zinc-200 cursor-not-allowed hidden"
-                  : "bg-primary-500 hover:bg-primary-700 cursor-pointer"
-              }`}
-              onClick={handlePrevClick}
-              disabled={currentPage === 0}
+            <PaginationButton
+              currentPage={currentPage}
+              pageCount={0}
+              handleClick={handlePrevClick}
             >
               {isLeftLoading ? (
                 <SpinnerMini></SpinnerMini>
               ) : (
                 <ChevronLeftIcon className="size-6" />
               )}
-            </button>
+            </PaginationButton>
 
-            <button
-              className={`px-4 py-2 text-white rounded-lg ${
-                currentPage === pageCount - 1
-                  ? "bg-zinc-200 hover:bg-zinc-200 cursor-not-allowed hidden"
-                  : "bg-primary-500 hover:bg-primary-700 cursor-pointer"
-              }`}
-              onClick={handleNextClick}
-              disabled={currentPage === pageCount - 1}
+            <PaginationButton
+              currentPage={currentPage}
+              pageCount={pageCount - 1}
+              handleClick={handleNextClick}
             >
               {isRightLoading ? (
                 <SpinnerMini></SpinnerMini>
               ) : (
                 <ChevronRightIcon className="size-6" />
               )}
-            </button>
+            </PaginationButton>
           </div>
         </div>
       )}
@@ -107,4 +106,18 @@ function Pagination({ products, totalProducts }) {
   );
 }
 
-export default Pagination;
+function PaginationButton({ currentPage, pageCount, handleClick, children }) {
+  return (
+    <button
+      className={`px-4 py-2 text-white rounded-lg ${
+        currentPage === pageCount
+          ? "bg-zinc-200 hover:bg-zinc-200 cursor-not-allowed hidden"
+          : "bg-primary-950 hover:bg-primary-800 cursor-pointer"
+      }`}
+      onClick={handleClick}
+      disabled={currentPage === pageCount}
+    >
+      {children}
+    </button>
+  );
+}

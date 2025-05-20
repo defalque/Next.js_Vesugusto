@@ -1,4 +1,5 @@
 "use client";
+
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useHideFilters } from "../contexts/HideFiltersProvider";
 
@@ -6,7 +7,7 @@ function ProductsHeader({ totalProducts, children }) {
   const { isHidden, setIsHidden } = useHideFilters();
 
   return (
-    <div>
+    <div className="mt-1">
       {isHidden ? (
         <div className="flex items-center w-full justify-end mb-2 bg-primary-50 py-4 px-5 sticky top-0 z-100 ">
           {totalProducts > 0 ? (
@@ -28,7 +29,7 @@ function ProductsHeader({ totalProducts, children }) {
           </div>
         </div>
       ) : (
-        <div className="flex items-center w-full justify-end mb-2 bg-primary-50 py-4 px-5 sticky top-0 z-100 ">
+        <div className="flex items-center w-full justify-end mb-2 bg-primary-50 py-4 px-5 sticky top-0 z-100">
           {totalProducts > 0 ? (
             <span>
               {totalProducts === 1

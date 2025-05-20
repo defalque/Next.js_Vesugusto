@@ -1,19 +1,11 @@
-import { getProductsWithPagination } from "@/app/_lib/data-service";
+import { getFilteredProductsWithPagination } from "@/app/_lib/data-service";
 import ProductsList from "./ProductsList";
 import { LIMIT } from "@/app/_lib/constants";
-import PageRedirectHandler from "./PageRedirectHandler";
 
 export default async function ProductsListWrapper({ filters, totalProducts }) {
-  const products = await getProductsWithPagination(LIMIT, filters);
+  const products = await getFilteredProductsWithPagination(LIMIT, filters);
 
-  const totalPages = Math.ceil(totalProducts / LIMIT);
-
-  return (
-    <>
-      <PageRedirectHandler filters={filters} totalPages={totalPages} />
-      <ProductsList products={products} totalProducts={totalProducts} />
-    </>
-  );
+  return <ProductsList products={products} totalProducts={totalProducts} />;
 }
 
 // import { getAllProducts, getProducts } from "@/app/_lib/data-service";

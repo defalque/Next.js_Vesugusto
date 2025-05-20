@@ -1,4 +1,3 @@
-// app/_components/logic/PageRedirectHandler.jsx
 "use client";
 
 import { useEffect } from "react";

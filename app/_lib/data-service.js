@@ -66,6 +66,39 @@ export async function getProductsWithPagination(limit, filters) {
   return data;
 }
 
+export async function getFilteredProductsWithPagination(limit, filters) {
+  const from = filters.page * limit;
+  const to = from + limit - 1;
+
+  let query = supabase.from("products").select("*").range(from, to);
+
+  // Filtro per type (array)
+  if (filters.type.length > 0) {
+    query = query.in("type", filters.type);
+  }
+
+  // Filtro per price (array con più range)
+  if (filters.price.length > 0) {
+    const orClauses = filters.price.map((range) => {
+      if (range.includes("-")) {
+        const [min, max] = range.split("-").map(Number);
+        return `and(regularPrice.gte.${min},regularPrice.lte.${max})`;
+      } else {
+        const max = Number(range);
+        return `regularPrice.lte.${max}`;
+      }
+    });
+
+    const orFilter = orClauses.join(",");
+    query = query.or(orFilter);
+  }
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return data;
+}
+
 export async function getProductsCount(filters) {
   let query = supabase.from("products").select("*");
 
@@ -82,6 +115,37 @@ export async function getProductsCount(filters) {
     query = query.gt("regularPrice", 30).lte("regularPrice", 50);
 
   const { data, error } = await query;
+  if (error) throw error;
+
+  return data;
+}
+
+export async function getFilteredProductsCount(filters) {
+  let query = supabase.from("products").select("*");
+
+  // Filtro per tipo (multipli)
+  if (filters.type.length > 0) {
+    query = query.in("type", filters.type);
+  }
+
+  // Filtro per prezzo (multipli)
+  if (filters.price.length > 0) {
+    const orClauses = filters.price.map((range) => {
+      if (range.includes("-")) {
+        const [min, max] = range.split("-").map(Number);
+        return `and(regularPrice.gte.${min},regularPrice.lte.${max})`;
+      } else {
+        const max = Number(range);
+        return `regularPrice.lte.${max}`;
+      }
+    });
+
+    const orFilter = orClauses.join(",");
+    query = query.or(orFilter);
+  }
+
+  const { data, error } = await query;
+
   if (error) throw error;
 
   return data;
