@@ -3,9 +3,11 @@ import ProductsHandler from "../_components/ui/ProductsHandler";
 import {
   getAllProductTypes,
   getFilteredProductsCount,
+  getFilteredProductsWithPagination,
 } from "../_lib/data-service";
-import ProductsListWrapper from "../_components/ui/ProductListWrapper";
 import Spinner from "../_components/ui/Spinner";
+import ProductsList from "../_components/ui/ProductsList";
+import { LIMIT } from "../_lib/constants";
 
 export const metadata = {
   title: "Prodotti",
@@ -22,14 +24,12 @@ export default async function Page({ searchParams }) {
 
   const types = await getAllProductTypes();
   const productCount = await getFilteredProductsCount(filters);
+  const products = await getFilteredProductsWithPagination(LIMIT, filters);
 
   return (
     <ProductsHandler types={types} totalProducts={productCount.length}>
       <Suspense fallback={<Spinner></Spinner>} key={filtersKey}>
-        <ProductsListWrapper
-          filters={filters}
-          totalProducts={productCount.length}
-        />
+        <ProductsList products={products} totalProducts={productCount.length} />
       </Suspense>
     </ProductsHandler>
   );

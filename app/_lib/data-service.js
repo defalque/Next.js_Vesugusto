@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
 export async function createUserAndCart(newUser) {
@@ -46,7 +47,11 @@ export async function getProductsWithPagination(limit, filters) {
   const from = filters.page * limit;
   const to = from + limit - 1;
 
-  let query = supabase.from("products").select("*").range(from, to);
+  let query = supabase
+    .from("products")
+    .select("*")
+    .gt("quantity", 0)
+    .range(from, to);
 
   if (filters.type !== "all") {
     query = query.eq("type", filters.type);
@@ -70,7 +75,11 @@ export async function getFilteredProductsWithPagination(limit, filters) {
   const from = filters.page * limit;
   const to = from + limit - 1;
 
-  let query = supabase.from("products").select("*").range(from, to);
+  let query = supabase
+    .from("products")
+    .select("*")
+    .gt("quantity", 0)
+    .range(from, to);
 
   // Filtro per type (array)
   if (filters.type.length > 0) {
@@ -100,7 +109,7 @@ export async function getFilteredProductsWithPagination(limit, filters) {
 }
 
 export async function getProductsCount(filters) {
-  let query = supabase.from("products").select("*");
+  let query = supabase.from("products").select("*").gt("quantity", 0);
 
   if (filters.type !== "all") {
     query = query.eq("type", filters.type);
@@ -121,7 +130,7 @@ export async function getProductsCount(filters) {
 }
 
 export async function getFilteredProductsCount(filters) {
-  let query = supabase.from("products").select("*");
+  let query = supabase.from("products").select("*").gt("quantity", 0);
 
   // Filtro per tipo (multipli)
   if (filters.type.length > 0) {
@@ -151,6 +160,20 @@ export async function getFilteredProductsCount(filters) {
   return data;
 }
 
+export async function getNotFoundPageProducts() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("name, image")
+    .range(0, 5);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Product could not be loaded");
+  }
+
+  return data;
+}
+
 export async function getProduct(id) {
   const { data, error } = await supabase
     .from("products")
@@ -159,8 +182,8 @@ export async function getProduct(id) {
     .single();
 
   if (error) {
-    console.error(error);
-    throw new Error("Product could not be loaded");
+    // console.error(error);
+    notFound();
   }
 
   return data;

@@ -36,6 +36,20 @@
   --color-dark-100: #333333;
 }
 
+@theme {
+  --animate-fly-up: fly-up 1s ease-out;
+  @keyframes fly-up {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-80px) scale(1.4);
+    }
+  }
+}
+
 @layer components {
   .spinner {
     margin: 3.2rem auto 1.6rem;
