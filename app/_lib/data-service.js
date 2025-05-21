@@ -201,6 +201,42 @@ export async function getAllProductTypes() {
   return data;
 }
 
+export async function createFavoriteProduct(userId, productId) {
+  const { data, error } = await supabase
+    .from("favorites")
+    .insert([{ userId, productId }])
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Favorite product could not be created");
+  }
+
+  return data;
+}
+
+export async function getFavorites(userId) {
+  const { data: favoriteProducts, error: favoriteProductsError } =
+    await supabase.from("favorites").select("productId").eq("userId", userId);
+
+  if (favoriteProductsError) {
+    console.error(favoriteProductsError);
+  }
+
+  const productIds = favoriteProducts.map((item) => Number(item.productId));
+
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .in("id", productIds);
+
+  if (error) {
+    console.error(error);
+  }
+
+  return data;
+}
+
 export async function getProductsWithoutFilter() {
   const { data, error } = await supabase.from("products").select("*");
 

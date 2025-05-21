@@ -4,6 +4,7 @@ import { auth, signIn, signOut } from "@/auth";
 import comuni from "@/app/_lib/gi_comuni_cap.json";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
+import { createFavoriteProduct } from "./data-service";
 
 export async function googleSignInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -63,5 +64,36 @@ export async function updateUserProfile(formData) {
 
   revalidatePath("/account");
 
+  return true;
+}
+
+export async function addFavorite(userId, productId) {
+  const { data: existing, error: checkError } = await supabase
+    .from("favorites")
+    .select("*")
+    .eq("userId", userId)
+    .eq("productId", productId);
+
+  if (checkError) {
+    console.error("Errore durante il controllo:", checkError);
+    return false;
+  }
+
+  if (existing.length > 0) {
+    console.log("Già nei preferiti");
+    return false;
+  }
+
+  const { error: insertError } = await supabase
+    .from("favorites")
+    .insert([{ userId, productId }])
+    .select();
+
+  if (insertError) {
+    console.error("Errore durante l'inserimento:", insertError);
+    return false;
+  }
+
+  console.log("Preferito aggiunto con successo");
   return true;
 }

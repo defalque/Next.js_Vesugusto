@@ -24,7 +24,7 @@ export default async function Page({ params }) {
   const product = await getProduct(productID);
 
   return (
-    <div className="flex items-center justify-center w-full px-50 py-10">
+    <div className="flex items-center justify-center w-full px-40 py-10">
       <div className="grid gap-x-5 grid-cols-2">
         <ProductImage product={product}></ProductImage>
 
