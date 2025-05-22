@@ -22,6 +22,10 @@ export default function Pagination({ products, totalProducts }) {
     if (isLeftLoading) setIsLeftLoading(false);
 
     if (isRightLoading) setIsRightLoading(false);
+
+    if (isLeftLoading || isRightLoading) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, [products]);
 
   useEffect(() => {
@@ -109,7 +113,7 @@ export default function Pagination({ products, totalProducts }) {
 function PaginationButton({ currentPage, pageCount, handleClick, children }) {
   return (
     <button
-      className={`px-4 py-2 text-white rounded-lg ${
+      className={`px-4 py-2 text-white rounded-lg transition-colors duration-300 ${
         currentPage === pageCount
           ? "bg-zinc-200 hover:bg-zinc-200 cursor-not-allowed hidden"
           : "bg-primary-950 hover:bg-primary-800 cursor-pointer"

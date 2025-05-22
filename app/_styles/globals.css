@@ -50,6 +50,67 @@
   }
 }
 
+@theme {
+  --animate-scaleOut: scaleOut 500ms ease-in-out forwards;
+
+  @keyframes scaleOut {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    20% {
+      transform: scale(0.97);
+      opacity: 0.8;
+    }
+    40% {
+      transform: scale(0.95);
+      opacity: 0.6;
+    }
+    60% {
+      transform: scale(0.93);
+      opacity: 0.5;
+    }
+    80% {
+      transform: scale(0.91);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(0.89);
+      opacity: 0;
+    }
+  }
+}
+
+@theme {
+  --animate-scaleIn: scaleIn 300ms cubic-bezier(0.42, 0, 0.58, 1) forwards;
+  @keyframes scaleIn {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.55;
+    }
+    20% {
+      transform: scale(0.96);
+      opacity: 0.7;
+    }
+    40% {
+      transform: scale(0.97);
+      opacity: 0.8;
+    }
+    60% {
+      transform: scale(0.98);
+      opacity: 0.85;
+    }
+    80% {
+      transform: scale(0.99);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
 @layer components {
   .spinner {
     margin: 3.2rem auto 1.6rem;

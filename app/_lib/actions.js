@@ -4,7 +4,6 @@ import { auth, signIn, signOut } from "@/auth";
 import comuni from "@/app/_lib/gi_comuni_cap.json";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
-import { createFavoriteProduct } from "./data-service";
 
 export async function googleSignInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -76,7 +75,7 @@ export async function addFavorite(userId, productId) {
 
   if (checkError) {
     console.error("Errore durante il controllo:", checkError);
-    return false;
+    throw new Error("Errore durante il fetchin dei preferiti.");
   }
 
   if (existing.length > 0) {
@@ -94,6 +93,26 @@ export async function addFavorite(userId, productId) {
     return false;
   }
 
-  console.log("Preferito aggiunto con successo");
+  revalidatePath("/products");
+
   return true;
+}
+
+export async function deleteFavorite(userId, productId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { data, error } = await supabase
+    .from("favorites")
+    .delete()
+    .eq("userId", userId)
+    .eq("productId", productId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Favorite product could not be deleted");
+  }
+
+  revalidatePath("/account/favorites");
+  revalidatePath("/products");
 }

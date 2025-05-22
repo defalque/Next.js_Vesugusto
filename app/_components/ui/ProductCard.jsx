@@ -1,12 +1,16 @@
-import { favoritesAction } from "@/app/_lib/actions";
 import { auth } from "@/auth";
-import { HeartIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import ProductButtons from "./ProductButtons";
+import { getFavorites } from "@/app/_lib/data-service";
 
 async function ProductCard({ product }) {
   const session = await auth();
+  let isFavorite;
+  if (session?.user?.userId) {
+    const favorites = await getFavorites(session?.user?.userId);
+    isFavorite = favorites?.some((fav) => fav.id === product.id);
+  }
 
   return (
     <div key={product.id} className="flex flex-col">
@@ -34,6 +38,7 @@ async function ProductCard({ product }) {
       <ProductButtons
         product={product}
         userId={session?.user?.userId}
+        isFavorite={isFavorite || false}
       ></ProductButtons>
 
       <div className="flex items-center">

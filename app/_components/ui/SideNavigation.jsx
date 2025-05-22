@@ -37,7 +37,7 @@ function SideNavigation() {
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`rounded-xl py-0.5 px-2 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors flex items-center gap-4 font-semibold ${
+              className={`rounded-xl py-0.5 px-2 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors duration-100 flex items-center gap-4 font-semibold ${
                 pathname === link.href
                   ? "bg-primary-950 text-primary-100 dark:bg-primary-800 dark:text-primary-50"
                   : ""
@@ -50,7 +50,7 @@ function SideNavigation() {
           </li>
         ))}
 
-        <li className="py-0.5 px-2 mt-auto mb-8">
+        <li className="py-0.5 mt-auto mb-8">
           <SignOut />
         </li>
       </ul>

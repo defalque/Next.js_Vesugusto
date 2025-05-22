@@ -221,9 +221,10 @@ export async function getFavorites(userId) {
 
   if (favoriteProductsError) {
     console.error(favoriteProductsError);
+    throw new Error(favoriteProductsError);
   }
 
-  const productIds = favoriteProducts.map((item) => Number(item.productId));
+  const productIds = favoriteProducts?.map((item) => Number(item.productId));
 
   const { data, error } = await supabase
     .from("products")
