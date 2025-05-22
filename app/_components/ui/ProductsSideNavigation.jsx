@@ -43,8 +43,8 @@ function ProductsSideNavigation({ types }) {
 
   return (
     <div className={`${isHidden ? "hidden" : ""}`}>
-      <div className="flex flex-col px-3 py-2 mt-5 text-md sticky font-normal top-5 w-full">
-        <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-3">
+      <div className="flex flex-col px-3 py-2 mt-8.5 text-md sticky font-normal top-5 w-full">
+        <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-2.5">
           Filtra per
         </span>
 

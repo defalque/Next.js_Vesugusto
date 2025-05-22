@@ -66,7 +66,7 @@ export default function Pagination({ products, totalProducts }) {
   return (
     <>
       {products?.length > 0 && (
-        <div className="flex items-center px-5 py-3 mt-8 mb-4">
+        <div className="flex items-center px-8 py-3 mt-8 mb-4">
           <div className="text-primary-700 text-sm">
             Hai visualizzato da{" "}
             <span className="font-semibold">{currentPage * LIMIT + 1}</span> a

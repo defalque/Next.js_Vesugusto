@@ -51,7 +51,7 @@
 }
 
 @theme {
-  --animate-scaleOut: scaleOut 500ms ease-in-out forwards;
+  --animate-scaleOut: scaleOut 300ms ease-in-out forwards;
 
   @keyframes scaleOut {
     0% {

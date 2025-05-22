@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import { createUserAndCart, getUser } from "./app/_lib/data-service";
+import { createUserAndCart, getCart, getUser } from "./app/_lib/data-service";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
@@ -29,6 +29,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session }) {
       const user = await getUser(session.user.email);
       session.user.userId = user.id;
+      const cartId = await getCart(session.user.userId);
+      session.user.cartId = cartId.id;
       return session;
     },
   },

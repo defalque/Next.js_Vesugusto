@@ -1,7 +1,6 @@
 import ProductDetailsAccordion from "./ProductDetailsAccordion";
-import ProductQuantity from "./ProductQuantity";
-import HeartBurstButton from "./HeartBurstButton";
 import { auth } from "@/auth";
+import ProductButtons from "./ProductButtons";
 
 async function ProductDetails({ product }) {
   const session = await auth();
@@ -19,17 +18,11 @@ async function ProductDetails({ product }) {
 
       <p className="text-lg text-zinc-500 mb-4">{product.description}</p>
 
-      <ProductQuantity productQuantity={product.quantity}></ProductQuantity>
-
-      <div className="flex items-center gap-4 mb-8">
-        <button className="bg-primary-950 hover:bg-primary-800 text-primary-100 px-4 py-3 uppercase font-bold cursor-pointer rounded-sm transition-colors duration-300">
-          Aggiungi al carrello
-        </button>
-        <HeartBurstButton
-          userId={session?.user?.userId}
-          productId={product.id}
-        ></HeartBurstButton>
-      </div>
+      <ProductButtons
+        cartId={session?.user?.cartId}
+        userId={session?.user?.userId}
+        product={product}
+      ></ProductButtons>
 
       <div className="flex flex-col gap-0">
         <ProductDetailsAccordion

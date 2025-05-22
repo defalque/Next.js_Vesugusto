@@ -1,43 +1,98 @@
 "use client";
 
-import { addFavorite, deleteFavorite } from "@/app/_lib/actions";
-import { HeartIcon, PlusIcon } from "@heroicons/react/24/outline";
-import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import HeartBurstButton from "./HeartBurstButton";
+import toast from "react-hot-toast";
+import { addCartItem } from "@/app/_lib/actions";
 
-function ProductButtons({ product, userId, isFavorite }) {
-  const handleFavoriteClick = async () => {
+function ProductButtons({ cartId, userId, product }) {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleLessClick = () =>
+    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+
+  const handleMoreClick = () =>
+    setQuantity((prev) =>
+      prev === product.quantity ? product.quantity : prev + 1
+    );
+
+  const handleClick = async () => {
     if (userId) {
-      if (!isFavorite) await addFavorite(userId, product.id);
-      else await deleteFavorite(userId, product.id);
-    } else {
-      toast(
-        "Accedi o registrati per aggiungere questo prodotto tra i preferiti",
-        {
-          icon: "❤️",
-        }
-      );
-    }
+      const succes = await addCartItem(cartId, product.id, quantity);
+      if (succes) {
+        setQuantity(1);
+        toast.success("Prodotto aggiunto al carrello");
+      }
+    } else
+      toast("Accedi o registrati per aggiungere questo prodotto al carrello", {
+        icon: "🛒",
+      });
   };
 
   return (
-    <div className="flex items-center mb-1">
-      <h1 className="text-md text-zinc-500 font-normal">{product.name}</h1>
-      <PlusIcon className="ml-auto mr-2 size-5.5 cursor-pointer text-zinc-500 hover:text-primary-dark-950"></PlusIcon>
-      <button
-        onClick={handleFavoriteClick}
-        className="px-0.5 py-0.5 outline-primary-950"
-      >
-        <HeartIcon
-          className={`size-5.5 cursor-pointer hover:text-primary-dark-900 transition-colors ${
-            isFavorite
-              ? "fill-primary-dark-900 text-primary-dark-900"
-              : "text-zinc-500 hover:fill-primary-dark-900"
-          }`}
-        ></HeartIcon>
-      </button>
-      <Toaster toastOptions={{}}></Toaster>
+    <div>
+      {product.quantity > 0 && (
+        <div className="mb-7 flex flex-col gap-1.5">
+          <label htmlFor="quantity">Quantità</label>
+          <div className="w-max flex gap-0.5">
+            <QuantityButton
+              type="less"
+              quantity={quantity}
+              value={1}
+              onClick={handleLessClick}
+            >
+              &#45;
+            </QuantityButton>
+            <input
+              type="text"
+              className="py-1 text-lg w-12 text-center outline-primary-950"
+              value={quantity}
+              readOnly
+            />
+            <QuantityButton
+              type="more"
+              quantity={quantity}
+              value={product.quantity}
+              onClick={handleMoreClick}
+            >
+              &#43;
+            </QuantityButton>
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center gap-4 mb-8">
+        <button
+          className="bg-primary-950 hover:bg-primary-800 text-primary-100 px-4 py-3 uppercase font-bold cursor-pointer rounded-sm transition-colors duration-300 disabled:bg-primary-800 disabled:cursor-not-allowed"
+          onClick={handleClick}
+          disabled={product.quantity === 0}
+        >
+          {product.quantity === 0 ? "Fuori scorta" : "Aggiungi al carrello"}
+        </button>
+
+        <HeartBurstButton
+          userId={userId}
+          productId={product.id}
+        ></HeartBurstButton>
+      </div>
     </div>
   );
 }
 
 export default ProductButtons;
+
+function QuantityButton({ type, quantity, value, onClick, children }) {
+  return (
+    <button
+      className={`px-3 py-1 bg-primary-950 cursor-pointer ${
+        type === "less" && "rounded-tl-md rounded-bl-md"
+      } ${
+        type === "more" && "rounded-tr-md rounded-br-md"
+      } hover:bg-primary-800 text-primary-100 text-lg font-semibold transition-colors duration-300 disabled:bg-primary-700 disabled:cursor-not-allowed `}
+      onClick={onClick}
+      disabled={quantity === value}
+    >
+      {children}
+    </button>
+  );
+}

@@ -1,11 +1,12 @@
 import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
-import ProductButtons from "./ProductButtons";
+import ProductListButtons from "./ProductsListButtons";
 import { getFavorites } from "@/app/_lib/data-service";
 
 async function ProductCard({ product }) {
   const session = await auth();
+
   let isFavorite;
   if (session?.user?.userId) {
     const favorites = await getFavorites(session?.user?.userId);
@@ -35,11 +36,11 @@ async function ProductCard({ product }) {
         ) : null}
       </div>
 
-      <ProductButtons
+      <ProductListButtons
         product={product}
         userId={session?.user?.userId}
         isFavorite={isFavorite || false}
-      ></ProductButtons>
+      ></ProductListButtons>
 
       <div className="flex items-center">
         <span className="font-medium text-xl">

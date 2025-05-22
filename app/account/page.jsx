@@ -13,6 +13,7 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
   const user = await getUser(session?.user?.email);
+  console.log(session);
 
   return (
     <div>

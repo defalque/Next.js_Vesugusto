@@ -116,3 +116,85 @@ export async function deleteFavorite(userId, productId) {
   revalidatePath("/account/favorites");
   revalidatePath("/products");
 }
+
+export async function addCartItem(cartId, productId, quantity) {
+  const { data: availability, error: availabilityError } = await supabase
+    .from("products")
+    .select("quantity")
+    .eq("id", productId);
+
+  if (availabilityError) {
+    console.error(
+      "Errore durante il fetching della disponibilità del prodotto:",
+      availabilityError
+    );
+    throw new Error(
+      "Errore durante il fetching della disponibilità del prodotto."
+    );
+  }
+
+  if (availability.quantity === 0) throw new Error("Prodotto esaurito");
+
+  const { data: existing, error: checkError } = await supabase
+    .from("cart_items")
+    .select("*")
+    .eq("cartId", cartId)
+    .eq("productId", productId);
+
+  if (checkError) {
+    console.error("Errore durante il controllo:", checkError);
+    throw new Error("Errore durante il fetching del prodotto nel carrello.");
+  }
+
+  if (existing.length > 0) {
+    console.log("Già nei carrello");
+    const { error: incrementError } = await supabase.rpc("increment_quantity", {
+      p_cart_id: cartId, // il tuo userId (int)
+      p_product_id: productId, // il tuo productId (int)
+      p_amount: quantity, // quanto vuoi incrementare
+    });
+
+    if (incrementError) {
+      console.error("Errore RPC:", incrementError);
+      throw new Error("Errore durante l'incremento nel carrello.");
+    }
+
+    const { error: decrementError } = await supabase.rpc("decrement_quantity", {
+      p_product_id: productId,
+      p_amount: quantity,
+    });
+
+    if (decrementError) {
+      console.error("Errore RPC:", decrementError);
+      throw new Error("Errore durante il decremento nel prodotto.");
+    }
+
+    revalidatePath(`/products/${productId}`);
+
+    return true;
+  }
+
+  const { data, error: insertError } = await supabase
+    .from("cart_items")
+    .insert([{ cartId, productId, quantity }])
+    .select();
+
+  if (insertError) {
+    console.error("Errore durante l'inserimento nel carrello:", insertError);
+    throw new Error("Errore durante l'inserimento nel carrello.");
+  }
+
+  const { error } = await supabase.rpc("decrement_quantity", {
+    p_product_id: productId,
+    p_amount: quantity,
+  });
+
+  if (error) {
+    console.error("Errore RPC:", error);
+    throw new Error("Errore durante il decremento nel prodotto.");
+  }
+
+  revalidatePath(`/products/${productId}`);
+
+  return true;
+}

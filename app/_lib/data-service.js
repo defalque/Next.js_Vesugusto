@@ -43,6 +43,23 @@ export async function getUser(email) {
   return data;
 }
 
+export async function getCart(userId) {
+  let { data, error } = await supabase
+    .from("carts")
+    .select("id")
+    .eq("userId", userId)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error(
+      "Non è stato possibile recuperare l'id del carrello dell'utente"
+    );
+  }
+
+  return data;
+}
+
 export async function getProductsWithPagination(limit, filters) {
   const from = filters.page * limit;
   const to = from + limit - 1;
@@ -271,4 +288,58 @@ export async function getAllProducts() {
   }
 
   return data;
+}
+
+export async function getCartProducts(cartId) {
+  const { data: cartItems, error: cartError } = await supabase
+    .from("cart_items")
+    .select("productId, quantity")
+    .eq("cartId", cartId);
+
+  if (cartError) {
+    console.error(cartError);
+    throw new Error("Cart products could not be loaded");
+  }
+
+  if (!cartItems || cartItems.length === 0) {
+    return [];
+  }
+
+  const productIds = cartItems.map((item) => item.productId);
+
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select("*")
+    .in("id", productIds);
+
+  if (productsError) {
+    console.error(productsError);
+    throw new Error("Could not load products");
+  }
+
+  // Ora combiniamo i dati delle quantità dai cartItems con i dettagli dei prodotti
+  const cartProducts = cartItems.map((item) => {
+    // Troviamo il prodotto corrispondente al productId in cartItems
+    const product = products.find((p) => p.id === item.productId);
+
+    if (product) {
+      return {
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        regularPrice: product.regularPrice,
+        productQuantity: product.quantity,
+        cartQuantity: item.quantity,
+      };
+    } else {
+      // Se il prodotto non è trovato, ritorniamo un oggetto con dei valori di fallback
+      return {
+        name: "Prodotto non trovato",
+        price: 0,
+        quantity: item.quantity,
+      };
+    }
+  });
+
+  return cartProducts;
 }
