@@ -1,22 +1,19 @@
 "use client";
 
-import { deleteFavorite } from "@/app/_lib/actions";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useTransition } from "react";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 
 function TrashButton({ userId, productId, onDelete, startTransition }) {
-  function handleDelete(e) {
-    e.preventDefault();
-    e.stopPropagation();
+  function handleDelete() {
     startTransition(() => onDelete(userId, productId));
   }
 
   return (
     <button
-      className="absolute top-1.5 right-1.5 px-2 py-2 rounded-full bg-primary-50 hover:bg-gray-100 transition-colors duration-200 w-max cursor-pointer opacity-80 outline-primary-950"
+      className="px-2 py-2 rounded-full bg-zinc-200 hover:bg-gray-100 transition-colors duration-200 w-max cursor-pointer opacity-80 outline-primary-950"
       onClick={handleDelete}
     >
-      <TrashIcon className="size-6"></TrashIcon>
+      <XMarkIcon className="size-6"></XMarkIcon>
     </button>
   );
 }

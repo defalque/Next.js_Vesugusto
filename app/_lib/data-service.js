@@ -96,7 +96,8 @@ export async function getFilteredProductsWithPagination(limit, filters) {
     .from("products")
     .select("*")
     .gt("quantity", 0)
-    .range(from, to);
+    .range(from, to)
+    .order("created_at", { ascending: true });
 
   // Filtro per type (array)
   if (filters.type.length > 0) {

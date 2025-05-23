@@ -4,9 +4,20 @@ import { useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TrashButton from "@/app/_components/ui/TrashButton";
+import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 
-export default function FavoriteCard({ product, userId, onDelete }) {
+export default function FavoriteCard({
+  product,
+  userId,
+  cartId,
+  onDelete,
+  onAdd,
+}) {
   const [isPending, startTransition] = useTransition();
+
+  function handleAdd() {
+    startTransition(() => onAdd(cartId, userId, product.id));
+  }
 
   return (
     <div
@@ -15,7 +26,10 @@ export default function FavoriteCard({ product, userId, onDelete }) {
       }`}
     >
       <div className="flex flex-col gap-3">
-        <Link href={`/products/${product.id}`} className="mb-1">
+        <Link
+          href={`/products/${product.id}`}
+          className="pb-3 border-b border-zinc-200"
+        >
           <div className="flex flex-col gap-3">
             <div className="relative h-100 aspect-2/3 group">
               <Image
@@ -23,12 +37,6 @@ export default function FavoriteCard({ product, userId, onDelete }) {
                 fill
                 alt={product.name}
                 className="object-cover rounded-lg"
-              />
-              <TrashButton
-                userId={userId}
-                productId={product.id}
-                onDelete={onDelete}
-                startTransition={startTransition}
               />
             </div>
 
@@ -46,9 +54,20 @@ export default function FavoriteCard({ product, userId, onDelete }) {
           </div>
         </Link>
 
-        <button className="py-2 uppercase bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold cursor-pointer transition-colors duration-300">
-          Sposta nel carrello
-        </button>
+        <div className="flex items-center justify-center gap-5 border-b border-b-zinc-200 w-full pb-3">
+          <button
+            className="py-2 px-2 w-max rounded-full bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold cursor-pointer transition-colors duration-300 text-center"
+            onClick={handleAdd}
+          >
+            <ShoppingBagIcon className="size-6" />
+          </button>
+          <TrashButton
+            userId={userId}
+            productId={product.id}
+            onDelete={onDelete}
+            startTransition={startTransition}
+          />
+        </div>
       </div>
     </div>
   );

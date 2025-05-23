@@ -54,7 +54,7 @@ function ProductButtons({ cartId, userId, product }) {
             </QuantityButton>
             <input
               type="text"
-              className="py-1 text-lg w-12 text-center outline-primary-950"
+              className="h-8 text-md w-10 text-center outline-primary-950"
               value={quantity}
               readOnly
             />
@@ -93,11 +93,7 @@ export default ProductButtons;
 function QuantityButton({ type, quantity, value, onClick, children }) {
   return (
     <button
-      className={`px-3 py-1 bg-primary-950 cursor-pointer ${
-        type === "less" && "rounded-tl-md rounded-bl-md"
-      } ${
-        type === "more" && "rounded-tr-md rounded-br-md"
-      } hover:bg-primary-800 text-primary-100 text-lg font-semibold transition-colors duration-300 disabled:bg-primary-700 disabled:cursor-not-allowed `}
+      className={`px-3 py-1 bg-primary-950 cursor-pointer rounded-full hover:bg-primary-800 text-primary-100 text-md font-semibold transition-colors duration-300 disabled:bg-primary-700 disabled:cursor-not-allowed shadow-sm`}
       onClick={onClick}
       disabled={quantity === value}
     >

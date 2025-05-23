@@ -67,6 +67,9 @@ export async function updateUserProfile(formData) {
 }
 
 export async function addFavorite(userId, productId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
   const { data: existing, error: checkError } = await supabase
     .from("favorites")
     .select("*")
@@ -118,6 +121,9 @@ export async function deleteFavorite(userId, productId) {
 }
 
 export async function addCartItem(cartId, productId, quantity) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
   const { data: availability, error: availabilityError } = await supabase
     .from("products")
     .select("quantity")
@@ -283,6 +289,9 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
 }
 
 export async function deleteCartItem(cartId, productId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
   const { error } = await supabase.rpc(
     "delete_cart_item_and_increment_quantity",
     {
@@ -298,46 +307,4 @@ export async function deleteCartItem(cartId, productId) {
   revalidatePath(`/products/${productId}`);
 
   return true;
-
-  // const { data: cartItem, error: cartItemError } = await supabase
-  //   .from("cart_items")
-  //   .select("quantity")
-  //   .eq("cartId", cartId)
-  //   .eq("productId", productId)
-  //   .single();
-
-  // if (cartItemError) {
-  //   console.error(
-  //     "Errore durante il fetch della quantità nel carrello:",
-  //     cartItemError
-  //   );
-  //   throw new Error("Impossibile recuperare la quantità dal carrello.");
-  // }
-
-  // const cartQuantity = cartItem.quantity;
-  // const { error } = await supabase.rpc("increment_product_quantity", {
-  //   p_product_id: productId,
-  //   p_amount: cartQuantity,
-  // });
-
-  // if (error) {
-  //   console.error("Errore RPC:", error);
-  //   throw new Error("Errore durante l'incremento della quantità nel prodotto.");
-  // }
-
-  // const { error: deleteError } = await supabase
-  //   .from("cart_items")
-  //   .delete()
-  //   .eq("cartId", cartId)
-  //   .eq("productId", productId);
-
-  // if (deleteError) {
-  //   console.error(
-  //     "Errore durante la cancellazione del prodotto nel carrello:",
-  //     deleteError
-  //   );
-  //   throw new Error(
-  //     "Errore durante la cancellazione del prodotto nel carrello."
-  //   );
-  // }
 }

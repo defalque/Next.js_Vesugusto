@@ -2,15 +2,17 @@ import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import ProductListButtons from "./ProductsListButtons";
-import { getFavorites } from "@/app/_lib/data-service";
+import { getCartProducts, getFavorites } from "@/app/_lib/data-service";
 
 async function ProductCard({ product }) {
   const session = await auth();
 
-  let isFavorite;
+  let isFavorite, isCart;
   if (session?.user?.userId) {
     const favorites = await getFavorites(session?.user?.userId);
+    const cartProducts = await getCartProducts(session?.user?.cartId);
     isFavorite = favorites?.some((fav) => fav.id === product.id);
+    isCart = cartProducts?.some((prod) => prod.id === product.id);
   }
 
   return (
@@ -39,7 +41,9 @@ async function ProductCard({ product }) {
       <ProductListButtons
         product={product}
         userId={session?.user?.userId}
+        cartId={session?.user?.cartId}
         isFavorite={isFavorite || false}
+        isCart={isCart || false}
       ></ProductListButtons>
 
       <div className="flex items-center">

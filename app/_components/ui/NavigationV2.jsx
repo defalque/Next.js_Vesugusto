@@ -73,12 +73,12 @@ function Navigation({ session }) {
                 <ShoppingBagIcon
                   className={`size-8 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-zinc-500 ${
                     pathname === "/cart"
-                      ? "text-primary-950 dark:text-primary-800"
+                      ? "text-primary-900 dark:text-primary-800"
                       : "text-primary-dark-900"
                   }`}
                 />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-white bg-red-500 rounded-full">
+                  <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-white bg-primary-950 rounded-full">
                     {cartCount}
                   </span>
                 )}

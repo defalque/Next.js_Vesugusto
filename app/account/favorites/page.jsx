@@ -22,7 +22,11 @@ export default async function Page() {
           <p>Non hai nessun prodotto tra i preferiti.</p>
         </div>
       ) : (
-        <FavoritesList products={products} userId={session.user.userId} />
+        <FavoritesList
+          products={products}
+          userId={session.user.userId}
+          cartId={session.user.cartId}
+        />
       )}
     </div>
   );

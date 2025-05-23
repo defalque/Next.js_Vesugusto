@@ -56,7 +56,7 @@ function CartProductsList({
             ))}
           </div>
         ) : (
-          <div>
+          <div className="pt-8 border-t border-t-zinc-200">
             <p>Non hai nessun prodotto nel carrello.</p>
           </div>
         )}

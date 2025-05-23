@@ -2,9 +2,11 @@
 
 import { useOptimistic } from "react";
 import FavoriteCard from "./FavoriteCard";
-import { deleteFavorite } from "@/app/_lib/actions";
+import { addCartItem, deleteFavorite } from "@/app/_lib/actions";
+import { useCartCount } from "../contexts/CartCountContext";
 
-function FavoritesList({ products, userId }) {
+function FavoritesList({ products, userId, cartId }) {
+  const { setCartItems } = useCartCount();
   const [optimisticProducts, optimisticDelete] = useOptimistic(
     products,
     (curProducts, productId) => {
@@ -14,6 +16,21 @@ function FavoritesList({ products, userId }) {
 
   async function handleDelete(userId, productId) {
     optimisticDelete(productId);
+    await deleteFavorite(userId, productId);
+  }
+
+  async function handleAddToCart(cartId, userId, productId) {
+    optimisticDelete(productId);
+    const success = await addCartItem(cartId, productId, 1);
+    if (success) {
+      setCartItems((prevItems) => {
+        const existing = prevItems.find((item) => item.id === productId);
+        if (!existing) {
+          return [...prevItems, { id: productId }];
+        }
+        return prevItems;
+      });
+    }
     await deleteFavorite(userId, productId);
   }
 
@@ -32,7 +49,9 @@ function FavoritesList({ products, userId }) {
           key={product.id}
           product={product}
           userId={userId}
+          cartId={cartId}
           onDelete={handleDelete}
+          onAdd={handleAddToCart}
         />
       ))}
     </div>
