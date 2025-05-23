@@ -4,9 +4,7 @@ function Loading() {
   return (
     <div className="grid items-center justify-center">
       <Spinner></Spinner>
-      <p className="text-xl text-primary-200">
-        Caricamento informazioni profilo...
-      </p>
+      <p className="text-xl text-primary-200">Caricamento preferiti...</p>
     </div>
   );
 }

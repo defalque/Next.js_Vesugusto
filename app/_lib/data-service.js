@@ -293,8 +293,9 @@ export async function getAllProducts() {
 export async function getCartProducts(cartId) {
   const { data: cartItems, error: cartError } = await supabase
     .from("cart_items")
-    .select("productId, quantity")
-    .eq("cartId", cartId);
+    .select("created_at, productId, quantity")
+    .eq("cartId", cartId)
+    .order("created_at", { ascending: true });
 
   if (cartError) {
     console.error(cartError);
@@ -324,9 +325,11 @@ export async function getCartProducts(cartId) {
 
     if (product) {
       return {
+        created_at: item.created_at,
         id: product.id,
         name: product.name,
         image: product.image,
+        details: product.details,
         regularPrice: product.regularPrice,
         productQuantity: product.quantity,
         cartQuantity: item.quantity,
@@ -342,4 +345,18 @@ export async function getCartProducts(cartId) {
   });
 
   return cartProducts;
+}
+
+export async function getCartProductsCount(cartId) {
+  const { count, error } = await supabase
+    .from("cart_items")
+    .select("*", { count: "exact", head: true })
+    .eq("cartId", cartId);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Errore nel conteggio dei prodotti nel carrello");
+  }
+
+  return count;
 }

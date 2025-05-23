@@ -4,9 +4,11 @@ import { useState } from "react";
 import HeartBurstButton from "./HeartBurstButton";
 import toast from "react-hot-toast";
 import { addCartItem } from "@/app/_lib/actions";
+import { useCartCount } from "../contexts/CartCountContext";
 
 function ProductButtons({ cartId, userId, product }) {
   const [quantity, setQuantity] = useState(1);
+  const { setCartItems } = useCartCount();
 
   const handleLessClick = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
@@ -20,6 +22,13 @@ function ProductButtons({ cartId, userId, product }) {
     if (userId) {
       const succes = await addCartItem(cartId, product.id, quantity);
       if (succes) {
+        setCartItems((prevItems) => {
+          const existing = prevItems.find((item) => item.id === product.id);
+          if (!existing) {
+            return [...prevItems, { id: product.id }];
+          }
+          return prevItems;
+        });
         setQuantity(1);
         toast.success("Prodotto aggiunto al carrello");
       }

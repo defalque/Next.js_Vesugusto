@@ -198,3 +198,146 @@ export async function addCartItem(cartId, productId, quantity) {
 
   return true;
 }
+
+export async function updateCartItem(cartId, productId, newCartItemQuantity) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  if (
+    isNaN(Number(newCartItemQuantity)) ||
+    Number(newCartItemQuantity) < 1 ||
+    Number(newCartItemQuantity) > 10
+  ) {
+    console.error("Invalid newCartItemQuantity:", newCartItemQuantity);
+    throw new Error("Quantità non valida.");
+  }
+
+  const { data: cartItem, error: cartItemError } = await supabase
+    .from("cart_items")
+    .select("quantity")
+    .eq("cartId", cartId)
+    .eq("productId", productId)
+    .single();
+
+  if (cartItemError) {
+    console.error(
+      "Errore durante il fetching della quantità del prodotto nel carrello:",
+      checkError
+    );
+    throw new Error(
+      "Errore durante il fetching della quantità del prodotto nel carrello."
+    );
+  }
+
+  const { data: product, error: productError } = await supabase
+    .from("products")
+    .select("quantity")
+    .eq("id", productId)
+    .single();
+
+  if (productError) {
+    console.error(
+      "Errore durante il fetching della quantità del prodotto:",
+      productError
+    );
+    throw new Error("Errore durante il fetching della quantità del prodotto.");
+  }
+
+  if (newCartItemQuantity > product.quantity + cartItem.quantity) {
+    console.error("Scorte esaurite");
+    throw new Error("Scorte esaurite.");
+  }
+
+  const { error: updateError } = await supabase
+    .from("cart_items")
+    .update({ quantity: newCartItemQuantity })
+    .eq("cartId", cartId)
+    .eq("productId", productId)
+    .select();
+
+  if (updateError) {
+    console.error(
+      "Errore durante l'aggiornamento della quantità del prodotto nel carrello:",
+      updateError
+    );
+    throw new Error(
+      "Errore durante l'aggiornamento della quantità del prodotto nel carrello."
+    );
+  }
+
+  const delta = newCartItemQuantity - cartItem.quantity;
+  const { error } = await supabase.rpc("decrement_product_quantity", {
+    p_product_id: productId,
+    p_delta: delta,
+  });
+
+  if (error) {
+    console.error("Errore RPC:", error);
+    throw new Error(
+      "Errore durante il decremento della quantità nel prodotto."
+    );
+  }
+
+  revalidatePath("/cart");
+  revalidatePath(`/products/${productId}`);
+}
+
+export async function deleteCartItem(cartId, productId) {
+  const { error } = await supabase.rpc(
+    "delete_cart_item_and_increment_quantity",
+    {
+      p_cart_id: cartId,
+      p_product_id: productId,
+    }
+  );
+  if (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+
+  revalidatePath(`/products/${productId}`);
+
+  return true;
+
+  // const { data: cartItem, error: cartItemError } = await supabase
+  //   .from("cart_items")
+  //   .select("quantity")
+  //   .eq("cartId", cartId)
+  //   .eq("productId", productId)
+  //   .single();
+
+  // if (cartItemError) {
+  //   console.error(
+  //     "Errore durante il fetch della quantità nel carrello:",
+  //     cartItemError
+  //   );
+  //   throw new Error("Impossibile recuperare la quantità dal carrello.");
+  // }
+
+  // const cartQuantity = cartItem.quantity;
+  // const { error } = await supabase.rpc("increment_product_quantity", {
+  //   p_product_id: productId,
+  //   p_amount: cartQuantity,
+  // });
+
+  // if (error) {
+  //   console.error("Errore RPC:", error);
+  //   throw new Error("Errore durante l'incremento della quantità nel prodotto.");
+  // }
+
+  // const { error: deleteError } = await supabase
+  //   .from("cart_items")
+  //   .delete()
+  //   .eq("cartId", cartId)
+  //   .eq("productId", productId);
+
+  // if (deleteError) {
+  //   console.error(
+  //     "Errore durante la cancellazione del prodotto nel carrello:",
+  //     deleteError
+  //   );
+  //   throw new Error(
+  //     "Errore durante la cancellazione del prodotto nel carrello."
+  //   );
+  // }
+}

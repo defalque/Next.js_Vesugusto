@@ -5,7 +5,6 @@ import { createContext, useContext, useState } from "react";
 const HideFiltersContext = createContext();
 
 function HideFiltersProvider({ children }) {
-  // Impostiamo un valore di default (false), poi lo aggiorneremo con matchMedia nel client
   const [isHidden, setIsHidden] = useState(false);
 
   return (

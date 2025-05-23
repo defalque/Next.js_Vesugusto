@@ -1,9 +1,8 @@
+import { getCartProducts } from "@/app/_lib/data-service";
 import { auth } from "@/auth";
-import { getCartProducts } from "../_lib/data-service";
-import CartProductsList from "../_components/ui/CartProductsList";
 
 export const metadata = {
-  title: "Carrello",
+  title: "Checkout",
 };
 
 export default async function Page() {
@@ -18,14 +17,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-8 px-35 my-12">
-      <h1 className="text-5xl font-medium tracking-wide">Il mio carrello</h1>
-      <CartProductsList
-        products={products}
-        cartId={session.user.cartId}
-        totalPrice={totalPrice}
-        shippingCost={shippingCost}
-        total={total}
-      />
+      <h1 className="text-5xl font-medium tracking-wide">Checkout</h1>
     </div>
   );
 }

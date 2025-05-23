@@ -5,6 +5,7 @@ import NavigationV2 from "./NavigationV2";
 
 async function Header() {
   const session = await auth();
+
   return (
     <header className=" px-8 dark:py-0 border-b border-primary-100 dark:border-primary-dark-900 shadow-sm dark:shadow-2xl">
       <div className="flex justify-between items-center mx-auto">

@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCartIcon } from "@heroicons/react/24/solid";
+import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { useCartCount } from "../contexts/CartCountContext";
 
 function Navigation({ session }) {
   const pathname = usePathname();
+  const { cartCount } = useCartCount();
 
   return (
     <nav className="z-10 text-xl">
@@ -67,16 +69,24 @@ function Navigation({ session }) {
         {session?.user ? (
           <li>
             <Link href="/cart">
-              <ShoppingCartIcon
-                className={`size-6 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-zinc-500 ${
-                  pathname === "/cart"
-                    ? "text-primary-950 dark:text-primary-800"
-                    : "text-primary-dark-900"
-                }`}
-              ></ShoppingCartIcon>
+              <div className="relative">
+                <ShoppingBagIcon
+                  className={`size-8 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-zinc-500 ${
+                    pathname === "/cart"
+                      ? "text-primary-950 dark:text-primary-800"
+                      : "text-primary-dark-900"
+                  }`}
+                />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-5 h-5 text-xs font-semibold text-white bg-red-500 rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
             </Link>
           </li>
         ) : null}
+
         <li>
           <Link href="/account">
             {session?.user?.image ? (

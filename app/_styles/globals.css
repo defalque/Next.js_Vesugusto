@@ -82,6 +82,21 @@
 }
 
 @theme {
+  --animate-moveLeft: moveLeft 300ms ease-in-out forwards;
+
+  @keyframes moveLeft {
+    0% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-100%) scale(0.8); /* Sposta a sinistra e rimpicciolisce leggermente */
+      opacity: 0;
+    }
+  }
+}
+
+@theme {
   --animate-scaleIn: scaleIn 300ms cubic-bezier(0.42, 0, 0.58, 1) forwards;
   @keyframes scaleIn {
     0% {
