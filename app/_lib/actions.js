@@ -78,7 +78,7 @@ export async function addFavorite(userId, productId) {
 
   if (checkError) {
     console.error("Errore durante il controllo:", checkError);
-    throw new Error("Errore durante il fetchin dei preferiti.");
+    throw new Error("Errore durante il fetching dei preferiti.");
   }
 
   if (existing.length > 0) {
@@ -127,7 +127,8 @@ export async function addCartItem(cartId, productId, quantity) {
   const { data: availability, error: availabilityError } = await supabase
     .from("products")
     .select("quantity")
-    .eq("id", productId);
+    .eq("id", productId)
+    .single();
 
   if (availabilityError) {
     console.error(
@@ -139,65 +140,21 @@ export async function addCartItem(cartId, productId, quantity) {
     );
   }
 
-  if (availability.quantity === 0) throw new Error("Prodotto esaurito");
-
-  const { data: existing, error: checkError } = await supabase
-    .from("cart_items")
-    .select("*")
-    .eq("cartId", cartId)
-    .eq("productId", productId);
-
-  if (checkError) {
-    console.error("Errore durante il controllo:", checkError);
-    throw new Error("Errore durante il fetching del prodotto nel carrello.");
+  if (!availability || availability.quantity < quantity) {
+    throw new Error("Quantità richiesta non disponibile");
   }
 
-  if (existing.length > 0) {
-    console.log("Già nei carrello");
-    const { error: incrementError } = await supabase.rpc("increment_quantity", {
-      p_cart_id: cartId, // il tuo userId (int)
-      p_product_id: productId, // il tuo productId (int)
-      p_amount: quantity, // quanto vuoi incrementare
-    });
+  // ------------------------ ATOMICA ----------------------------------
 
-    if (incrementError) {
-      console.error("Errore RPC:", incrementError);
-      throw new Error("Errore durante l'incremento nel carrello.");
-    }
-
-    const { error: decrementError } = await supabase.rpc("decrement_quantity", {
-      p_product_id: productId,
-      p_amount: quantity,
-    });
-
-    if (decrementError) {
-      console.error("Errore RPC:", decrementError);
-      throw new Error("Errore durante il decremento nel prodotto.");
-    }
-
-    revalidatePath(`/products/${productId}`);
-
-    return true;
-  }
-
-  const { data, error: insertError } = await supabase
-    .from("cart_items")
-    .insert([{ cartId, productId, quantity }])
-    .select();
-
-  if (insertError) {
-    console.error("Errore durante l'inserimento nel carrello:", insertError);
-    throw new Error("Errore durante l'inserimento nel carrello.");
-  }
-
-  const { error } = await supabase.rpc("decrement_quantity", {
+  const { error } = await supabase.rpc("increment_cart_and_decrement_stock", {
+    p_cart_id: cartId,
     p_product_id: productId,
     p_amount: quantity,
   });
 
   if (error) {
     console.error("Errore RPC:", error);
-    throw new Error("Errore durante il decremento nel prodotto.");
+    throw new Error("Errore durante l'aggiunta del prodotto al carrello.");
   }
 
   revalidatePath(`/products/${productId}`);
@@ -254,34 +211,19 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
     throw new Error("Scorte esaurite.");
   }
 
-  const { error: updateError } = await supabase
-    .from("cart_items")
-    .update({ quantity: newCartItemQuantity })
-    .eq("cartId", cartId)
-    .eq("productId", productId)
-    .select();
-
-  if (updateError) {
-    console.error(
-      "Errore durante l'aggiornamento della quantità del prodotto nel carrello:",
-      updateError
-    );
-    throw new Error(
-      "Errore durante l'aggiornamento della quantità del prodotto nel carrello."
-    );
-  }
+  // ------------------------ ATOMICA ----------------------------------
 
   const delta = newCartItemQuantity - cartItem.quantity;
-  const { error } = await supabase.rpc("decrement_product_quantity", {
+  const { error } = await supabase.rpc("update_cart_and_decrement_stock", {
+    p_cart_id: cartId,
     p_product_id: productId,
+    p_new_quantity: newCartItemQuantity,
     p_delta: delta,
   });
 
   if (error) {
-    console.error("Errore RPC:", error);
-    throw new Error(
-      "Errore durante il decremento della quantità nel prodotto."
-    );
+    console.error("Errore transazionale:", error);
+    throw new Error("Errore durante l'aggiornamento atomico.");
   }
 
   revalidatePath("/cart");
@@ -291,6 +233,8 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
 export async function deleteCartItem(cartId, productId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
+
+  // ------------------------ ATOMICA ----------------------------------
 
   const { error } = await supabase.rpc(
     "delete_cart_item_and_increment_quantity",
