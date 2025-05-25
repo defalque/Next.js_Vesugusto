@@ -349,9 +349,9 @@ export async function getCartProducts(cartId) {
 }
 
 export async function getCartProductsCount(cartId) {
-  const { count, error } = await supabase
+  const { data, error } = await supabase
     .from("cart_items")
-    .select("*", { count: "exact", head: true })
+    .select("productId")
     .eq("cartId", cartId);
 
   if (error) {
@@ -359,5 +359,5 @@ export async function getCartProductsCount(cartId) {
     throw new Error("Errore nel conteggio dei prodotti nel carrello");
   }
 
-  return count;
+  return data;
 }

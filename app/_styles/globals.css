@@ -2,6 +2,16 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 @theme {
   --color-midnight: #170d03;
   --color-midnight-100: #2e1907;
@@ -180,6 +190,41 @@
   }
 }
 
+@theme {
+  --animate-show: show 300ms ease-in-out forwards;
+  @keyframes show {
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
+}
+@theme {
+  --animate-moveUp: moveUp 300ms ease-in-out forwards;
+  @keyframes show {
+    0% {
+      transform: translateY(-100%) scale(0.5);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+@theme {
+  --animate-spin: spin 1.2s linear infinite;
+  --animate-slideReveal: slideReveal 1.2s ease-out forwards;
+  @keyframes slideReveal {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
 @layer components {
   .spinner {
     margin: 3.2rem auto 1.6rem;
@@ -204,6 +249,16 @@
   .spinner-mini-colored {
     margin: 0;
     width: 28px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 5px solid var(--color-primary-100);
+    border-right-color: var(--color-primary-950);
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-super-mini {
+    margin: 0;
+    width: 22px;
     aspect-ratio: 1;
     border-radius: 50%;
     border: 5px solid var(--color-primary-100);

@@ -3,7 +3,6 @@ import { Outfit } from "next/font/google";
 import { DarkModeProvider } from "./_components/contexts/DarkModeContext";
 import Header from "./_components/ui/Header";
 import DemoTag from "./_components/ui/DemoTag";
-import { CartCountProvider } from "./_components/contexts/CartCountContext";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -25,14 +24,12 @@ function RootLayout({ children }) {
         className={`${outfit.className} antialiased bg-primary-50 text-primary-dark-900 min-h-screen flex flex-col dark:bg-dark-300 dark:text-primary-100`}
       >
         <DarkModeProvider>
-          <CartCountProvider>
-            <Header></Header>
-            <div className="flex-1 grid">
-              <main className="mx-auto w-full">{children}</main>
-              {/* <DemoTag></DemoTag> */}
-            </div>
-            <footer></footer>
-          </CartCountProvider>
+          <Header></Header>
+          <div className="flex-1 grid">
+            <main className="mx-auto w-full">{children}</main>
+            {/* <DemoTag></DemoTag> */}
+          </div>
+          <footer></footer>
         </DarkModeProvider>
       </body>
     </html>

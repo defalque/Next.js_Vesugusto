@@ -6,7 +6,6 @@ import { useOptimistic, useState } from "react";
 import Spinner from "./Spinner";
 import { deleteCartItem } from "@/app/_lib/actions";
 import Link from "next/link";
-import { useCartCount } from "../contexts/CartCountContext";
 
 function CartProductsList({
   products,
@@ -15,7 +14,6 @@ function CartProductsList({
   shippingCost,
   total,
 }) {
-  const { setCartItems } = useCartCount();
   const [optimisticProducts, optimisticDelete] = useOptimistic(
     products,
     (curProducts, productId) => {
@@ -27,18 +25,18 @@ function CartProductsList({
     optimisticDelete(productId);
     const success = await deleteCartItem(cartId, productId);
     if (success) {
-      setCartItems((prevItems) =>
-        prevItems.filter((item) => item.id !== productId)
-      );
+      // setCartItems((prevItems) =>
+      //   prevItems.filter((item) => item.id !== productId)
+      // );
     }
   }
 
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <>
+    <div className="relative">
       {isLoading && (
-        <div className="fixed inset-0 z-1000 bg-transparent backdrop-blur-sm flex items-center justify-center">
+        <div className="absolute inset-0 z-1000 bg-transparent backdrop-blur-sm flex items-center justify-center">
           <Spinner />
         </div>
       )}
@@ -101,7 +99,7 @@ function CartProductsList({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

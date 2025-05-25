@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getCartProducts } from "../_lib/data-service";
+import { getCartProducts, getCartProductsCount } from "../_lib/data-service";
 import CartProductsList from "../_components/ui/CartProductsList";
 
 export const metadata = {
@@ -9,6 +9,8 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
   const products = await getCartProducts(session.user.cartId);
+  const count = await getCartProductsCount(session.user.cartId);
+  console.log(count);
 
   const totalPrice = products.reduce((sum, product) => {
     return sum + product.cartQuantity * product.regularPrice;

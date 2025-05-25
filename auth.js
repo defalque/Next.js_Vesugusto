@@ -1,7 +1,12 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import { createUserAndCart, getCart, getUser } from "./app/_lib/data-service";
+import {
+  createUserAndCart,
+  getCart,
+  getCartProductsCount,
+  getUser,
+} from "./app/_lib/data-service";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],

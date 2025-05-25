@@ -1,3 +1,5 @@
+import ChatBot from "../_components/ui/ChatBot";
+
 export const metadata = {
   title: "creIAmo",
 };
@@ -5,7 +7,7 @@ export const metadata = {
 export default function Page() {
   return (
     <div>
-      <p className="text-orange-950 dark:text-orange-100">creIAmo</p>
+      <ChatBot></ChatBot>
     </div>
   );
 }

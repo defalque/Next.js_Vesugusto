@@ -2,9 +2,11 @@ import { auth } from "@/auth";
 import DarkModeToggle from "./DarkModeToggle";
 import Navigation from "./Navigation";
 import NavigationV2 from "./NavigationV2";
+import { getCartProductsCount } from "@/app/_lib/data-service";
 
 async function Header() {
   const session = await auth();
+  const cartItemsCount = await getCartProductsCount(session?.user?.cartId);
 
   return (
     <header className=" px-8 dark:py-0 border-b border-primary-100 dark:border-primary-dark-900 shadow-sm dark:shadow-2xl">
@@ -14,7 +16,10 @@ async function Header() {
         </p>
         <div className="flex gap-16">
           {/* <Navigation></Navigation> */}
-          <NavigationV2 session={session}></NavigationV2>
+          <NavigationV2
+            session={session}
+            cartItemsCount={cartItemsCount}
+          ></NavigationV2>
           <DarkModeToggle></DarkModeToggle>
         </div>
       </div>

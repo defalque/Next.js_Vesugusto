@@ -157,7 +157,8 @@ export async function addCartItem(cartId, productId, quantity) {
     throw new Error("Errore durante l'aggiunta del prodotto al carrello.");
   }
 
-  revalidatePath(`/products/${productId}`);
+  // revalidatePath(`/products/${productId}`);
+  revalidatePath(`/products`);
 
   return true;
 }
