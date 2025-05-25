@@ -1,15 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import chatImg from "@/public/nextjs-icon.svg";
-import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import {
+  DocumentDuplicateIcon,
+  ArrowUpIcon,
+} from "@heroicons/react/24/outline";
 
 export default function HomePage() {
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
+  const textareaRef = useRef(null);
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -47,19 +51,31 @@ export default function HomePage() {
     }
   };
 
+  const resizeTextarea = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
+  };
+
+  useEffect(() => {
+    resizeTextarea();
+  }, [input]);
+
   return (
     <div
-      className="grid grid-rows-[minmax(0,1fr)_6rem]"
+      className="grid grid-rows-[minmax(0,1fr)_auto]"
       style={{ height: "calc(100vh - 73px)" }}
     >
       {/* Header */}
 
       {/* Chat scrollable */}
-      <div className="overflow-y-auto min-h-0 px-6 w-full">
+      <div className="overflow-y-auto overflow-x-hidden min-h-0 px-6 w-full">
         <div className="text-center py-5">
           <div className="relative inline-block py-1">
             <h1 className="text-5xl font-medium tracking-wide relative z-10">
-              Chat con Vesugusto
+              Chatta con Vesugusto
             </h1>
             <div className="absolute top-0 left-0 h-full w-full bg-white z-20 animate-slideReveal pointer-events-none" />
           </div>
@@ -105,7 +121,7 @@ export default function HomePage() {
             </div>
           ))}
           {loading && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4 px-4 py-2">
               <Image
                 src={chatImg}
                 alt="Chat icon"
@@ -120,24 +136,35 @@ export default function HomePage() {
           )}
         </div>
       </div>
-      <div className="bg-transparent">
-        <div className="max-w-2xl mx-auto flex gap-2">
+      <div className="bg-transparent pb-10">
+        <div className="max-w-3xl mx-auto flex flex-col">
           <textarea
-            className="w-full px-5 py-3 shadow-md border bg-white border-gray-200 rounded-full resize-none outline-primary-950 leading-tight"
+            className="w-full px-5 pt-2 border-t border-r border-l bg-white border-gray-300 rounded-tl-2xl rounded-tr-2xl resize-none outline-primary-950 leading-tight font-light outline-none overflow-y-auto"
+            style={{
+              minHeight: "40px",
+              maxHeight: "150px",
+            }}
+            ref={textareaRef}
             rows={1}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setInput(e.target.value);
+              resizeTextarea();
+            }}
             onKeyDown={handleKeyDown}
             placeholder="Chiedi a Vesugusto..."
             disabled={loading}
           />
-          <button
-            className="bg-primary-950 text-white hover:bg-primary-800 transition-colors duration-200 px-4 py-2 rounded-md disabled:opacity-50 cursor-pointer"
-            onClick={sendMessage}
-            disabled={loading}
-          >
-            Invia
-          </button>
+
+          <div className="flex items-center justify-end py-2 rounded-br-2xl rounded-bl-2xl border-r border-l border-t-0 border-b bg-white border-gray-300">
+            <button
+              className="rounded-full mr-2 bg-primary-950 hover:bg-primary-800 transition-colors duration-200 px-1 py-1 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              onClick={sendMessage}
+              disabled={loading}
+            >
+              <ArrowUpIcon className="size-6 text-primary-100" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

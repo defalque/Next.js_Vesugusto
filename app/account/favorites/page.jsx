@@ -14,7 +14,7 @@ export default async function Page() {
   return (
     <div className="flex flex-col gap-8">
       <h1 className="text-5xl font-medium border-b border-b-zinc-200 tracking-wide pb-8">
-        Prodotti salvati
+        Prodotti preferiti
       </h1>
 
       {products.length === 0 ? (

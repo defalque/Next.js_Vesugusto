@@ -214,7 +214,8 @@
 }
 @theme {
   --animate-spin: spin 1.2s linear infinite;
-  --animate-slideReveal: slideReveal 1.2s ease-out forwards;
+  --animate-slideReveal: slideReveal 2s ease-in-out forwards;
+
   @keyframes slideReveal {
     0% {
       transform: translateX(0%);

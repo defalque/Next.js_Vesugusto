@@ -10,7 +10,6 @@ export default async function Page() {
   const session = await auth();
   const products = await getCartProducts(session.user.cartId);
   const count = await getCartProductsCount(session.user.cartId);
-  console.log(count);
 
   const totalPrice = products.reduce((sum, product) => {
     return sum + product.cartQuantity * product.regularPrice;
