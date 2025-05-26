@@ -28,7 +28,10 @@ export default async function Page({ searchParams }) {
 
   return (
     <ProductsHandler types={types} totalProducts={productCount.length}>
-      <Suspense fallback={<Spinner></Spinner>} key={filtersKey}>
+      <Suspense
+        fallback={<Spinner label="Caricamento prodotti..."></Spinner>}
+        key={filtersKey}
+      >
         <ProductsList products={products} totalProducts={productCount.length} />
       </Suspense>
     </ProductsHandler>

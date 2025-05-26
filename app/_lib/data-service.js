@@ -361,3 +361,18 @@ export async function getCartProductsCount(cartId) {
 
   return data;
 }
+
+export async function getUserInfo(userId) {
+  const { data, error } = await supabase
+    .from("users")
+    .select("via, numeroCivico, comune, cap")
+    .eq("id", userId)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Errore");
+  }
+
+  return data;
+}

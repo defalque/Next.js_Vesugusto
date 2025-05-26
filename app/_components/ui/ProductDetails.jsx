@@ -7,9 +7,11 @@ async function ProductDetails({ product }) {
 
   return (
     <div className="flex flex-col gap-3 ml-3">
-      <h1 className="text-5xl font-medium mb-1">{product.name}</h1>
+      <h1 className="text-5xl font-medium pb-5 border-b border-b-zinc-200">
+        {product.name}
+      </h1>
 
-      <span className="font-medium text-xl mb-3">
+      <span className="font-medium text-xl my-4">
         {Number.isInteger(product.regularPrice)
           ? `${product.regularPrice},00`
           : product.regularPrice.toFixed(2).replace(".", ",")}{" "}

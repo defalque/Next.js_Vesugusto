@@ -43,14 +43,14 @@ function ProductsSideNavigation({ types }) {
 
   return (
     <div className={`${isHidden ? "hidden" : ""}`}>
-      <div className="flex flex-col px-3 py-2 mt-8.5 text-md sticky font-normal top-5 w-full">
-        <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-2.5">
+      <div className="flex flex-col px-3 py-2 mt-4 text-md sticky font-normal top-5 w-full">
+        {/* <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-2.5">
           Filtra per
-        </span>
+        </span> */}
 
-        <div className=" border-b border-t py-3 border-b-zinc-300 border-t-zinc-300 ml-3">
+        <div className=" border-b py-3 border-b-zinc-200 ml-3">
           <div
-            className="flex items-center cursor-pointer mb-2"
+            className="flex items-center cursor-pointer mb-1"
             onClick={() => setCategory(!category)}
           >
             <span>Categoria</span>
@@ -60,28 +60,31 @@ function ProductsSideNavigation({ types }) {
               <ChevronRightIcon className="ml-auto size-4.5"></ChevronRightIcon>
             )}
           </div>
-          {category &&
-            types.map((type) => (
-              <label
-                className="flex items-center ml-1 cursor-pointer w-max"
-                key={type.type}
-              >
-                <input
-                  type="checkbox"
-                  checked={activeTypeFilters.includes(type.type)}
-                  onChange={() => handleMultiFilterClick("type", type.type)}
-                  className="mr-2"
-                />
-                <span className="text-primary-dark-900 font-light">
-                  {type.type.charAt(0).toUpperCase() + type.type.slice(1)}
-                </span>
-              </label>
-            ))}
+          {category && (
+            <div className="my-2">
+              {types.map((type) => (
+                <label
+                  className="flex items-center ml-1 cursor-pointer w-max"
+                  key={type.type}
+                >
+                  <input
+                    type="checkbox"
+                    checked={activeTypeFilters.includes(type.type)}
+                    onChange={() => handleMultiFilterClick("type", type.type)}
+                    className="mr-2"
+                  />
+                  <span className="text-primary-dark-900 font-light">
+                    {type.type.charAt(0).toUpperCase() + type.type.slice(1)}
+                  </span>
+                </label>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="mb-2 border-b py-3 border-b-zinc-300 border-t-primary-200 ml-3">
+        <div className="mb-2 py-3 ml-3">
           <div
-            className="flex items-center cursor-pointer mb-2"
+            className="flex items-center cursor-pointer mb-1"
             onClick={() => setPrice(!price)}
           >
             <span>Prezzo</span>
@@ -92,7 +95,7 @@ function ProductsSideNavigation({ types }) {
             )}
           </div>
           {price && (
-            <div>
+            <div className="my-2">
               {[
                 { value: "10", label: "Fino a 10€" },
                 { value: "10-20", label: "Da 10€ a 20€" },

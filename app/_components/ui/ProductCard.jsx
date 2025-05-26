@@ -17,26 +17,32 @@ async function ProductCard({ product }) {
 
   return (
     <div key={product.id} className="flex flex-col">
-      <div className="relative h-120 w-full aspect-2/3 group mb-2">
-        <Image
-          src={product.image?.at(0)}
-          fill
-          alt={product.name}
-          className={`object-cover rounded-lg transition duration-300 ease-in-out  ${
-            product.image?.at(1)
-              ? "group-hover:opacity-0"
-              : "group-hover:opacity-85"
-          }`}
-        ></Image>
-        {product.image?.at(1) ? (
+      <Link href={`/products/${product.id}`}>
+        <div className="relative h-130 w-full aspect-2/3 group mb-2">
           <Image
-            src={product.image?.at(1)}
-            alt={product.name}
+            src={product.image?.at(0)}
             fill
-            className="object-cover rounded-lg absolute top-0 left-0 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-85"
-          />
-        ) : null}
-      </div>
+            objectFit="cover"
+            quality={70}
+            alt={product.name}
+            className={` rounded-lg transition duration-300 ease-in-out  ${
+              product.image?.at(1)
+                ? "group-hover:opacity-0"
+                : "group-hover:opacity-85"
+            }`}
+          ></Image>
+          {product.image?.at(1) ? (
+            <Image
+              src={product.image?.at(1)}
+              alt={product.name}
+              fill
+              objectFit="cover"
+              quality={70}
+              className="rounded-lg absolute top-0 left-0 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100"
+            />
+          ) : null}
+        </div>
+      </Link>
 
       <ProductListButtons
         product={product}
@@ -47,7 +53,7 @@ async function ProductCard({ product }) {
       ></ProductListButtons>
 
       <div className="flex items-center">
-        <span className="font-medium text-xl">
+        <span className="font-normal text-2xl">
           {Number.isInteger(product.regularPrice)
             ? `${product.regularPrice},00`
             : product.regularPrice.toFixed(2).replace(".", ",")}{" "}

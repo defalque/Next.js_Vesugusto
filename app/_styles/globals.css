@@ -13,6 +13,46 @@
 }
 
 @theme {
+  --animate-moveInFromLeft: moveInFromLeft 1s ease-in-out forwards;
+  @keyframes moveInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+}
+
+@theme {
+  --animate-moveInFromRight: moveInFromRight 1s ease-in-out forwards;
+  @keyframes moveInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
+}
+
+@theme {
+  --animate-reveal: reveal 1s ease-in-out forwards;
+  @keyframes reveal {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+@theme {
   --color-midnight: #170d03;
   --color-midnight-100: #2e1907;
   --color-midnight-900: #fdf2e9;
@@ -58,6 +98,37 @@
       transform: translateY(-80px) scale(1.4);
     }
   }
+}
+
+@theme {
+  --animate-bounce-dot: bounce-dot 1s infinite;
+
+  @keyframes bounce-dot {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.5rem);
+    }
+  }
+}
+.animate-bounce-dot {
+  animation-name: bounce-dot;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.dot-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.dot-delay-2 {
+  animation-delay: 0.5s;
+}
+
+.dot-delay-3 {
+  animation-delay: 0.8s;
 }
 
 @theme {
@@ -214,7 +285,7 @@
 }
 @theme {
   --animate-spin: spin 1.2s linear infinite;
-  --animate-slideReveal: slideReveal 2s ease-in-out forwards;
+  --animate-slideReveal: slideReveal 1s ease-in-out forwards;
 
   @keyframes slideReveal {
     0% {
@@ -222,6 +293,19 @@
     }
     100% {
       transform: translateX(100%);
+    }
+  }
+}
+
+@theme {
+  --animate-slowSpin: slowSpin 5s linear infinite;
+
+  @keyframes slowSpin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 }

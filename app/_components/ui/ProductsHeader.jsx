@@ -7,10 +7,13 @@ function ProductsHeader({ totalProducts, children }) {
   const { isHidden, setIsHidden } = useHideFilters();
 
   return (
-    <div className="mt-1">
+    <div className="mt-1 px-10">
+      <h1 className="text-5xl font-medium tracking-wide py-8 border-b border-b-zinc-200">
+        Il nostro e-commerce
+      </h1>
       {isHidden ? (
-        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 px-8 sticky top-0 z-100 ">
-          <div className="flex items-center">
+        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-0 z-100 ">
+          <div className="flex items-center font-light">
             {totalProducts > 0 ? (
               <span>
                 {totalProducts === 1
@@ -31,8 +34,8 @@ function ProductsHeader({ totalProducts, children }) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 px-8 sticky top-0 z-100">
-          <div className="flex items-center">
+        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-0 z-100">
+          <div className="flex items-center font-light">
             {totalProducts > 0 ? (
               <span>
                 {totalProducts === 1
