@@ -2,6 +2,7 @@ import CheckoutButton from "@/app/_components/ui/CheckoutButton";
 import { getCartProducts, getUserInfo } from "@/app/_lib/data-service";
 import { auth } from "@/auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Checkout",
@@ -10,6 +11,10 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
   const products = await getCartProducts(session.user.cartId);
+  if (!products || products.length === 0) {
+    redirect("/cart"); // o altra pagina tipo homepage
+  }
+
   const {
     via,
     numeroCivico,

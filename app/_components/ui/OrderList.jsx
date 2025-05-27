@@ -1,0 +1,121 @@
+import { formatDate } from "@/app/_lib/formatDate";
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/solid";
+import Image from "next/image";
+
+function OrderList({ orders }) {
+  return (
+    <div className="flex flex-col gap-20 mt-10 px-20">
+      {orders.map((order) => (
+        <div
+          key={order.id}
+          className="flex flex-col border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
+        >
+          <div className="flex items-center gap-x-15 text-sm px-10 py-4 border-b border-b-gray-200 bg-gray-50">
+            <div className=" flex flex-col gap-1">
+              <h2 className="font-medium">Numero ordine</h2>
+              <span className="text-gray-500">#{order.id}</span>
+            </div>
+
+            <div className=" flex flex-col gap-1">
+              <h2 className="font-medium">Data dell'ordine</h2>
+              <span className="text-gray-500">
+                {formatDate(order.orderDate)}
+              </span>
+            </div>
+
+            <div className=" flex flex-col gap-1">
+              <h2 className="font-medium">Totale ordine</h2>
+              <span className="text-primary-dark-900 font-medium self-center">
+                {Number.isInteger(order.total)
+                  ? `${order.total},00`
+                  : order.total.toFixed(2).replace(".", ",")}{" "}
+                &euro;
+              </span>
+            </div>
+
+            {order.status === "delivered" && (
+              <div className="flex items-center gap-2 ml-auto">
+                <CheckCircleIcon className="size-6 fill-green-600"></CheckCircleIcon>
+                <span>Consegnato</span>
+              </div>
+            )}
+            {order.status === "unconfirmed" && (
+              <div className="flex items-center gap-2 ml-auto text-md font-light">
+                <ExclamationCircleIcon className="size-6 fill-yellow-400"></ExclamationCircleIcon>
+                <span>In preparazione</span>
+              </div>
+            )}
+
+            <div className="flex items-center ml-auto gap-3">
+              <button className="p-2 bg-primary-950 hover:bg-primary-900 text-primary-50 transition-colors duration-200 cursor-pointer rounded-lg text-md font-medium">
+                Vedi ordine
+              </button>
+              {order.status === "unconfirmed" && (
+                <button className="p-2 bg-primary-dark-700 hover:bg-primary-dark-500 text-primary-50 transition-colors duration-200 cursor-pointer rounded-lg text-md font-medium">
+                  Annulla
+                </button>
+              )}
+            </div>
+          </div>
+
+          {order.items.map((item, index) => (
+            <div className="flex flex-col" key={item.id}>
+              <div
+                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 px-10 py-8 font-light ${
+                  index < order.items.length - 1
+                    ? "border-b border-b-gray-200"
+                    : ""
+                }`}
+              >
+                <div className="h-40 relative aspect-2/3 row-span-3">
+                  <Image
+                    src={item.product.image.at(0)}
+                    fill
+                    alt={item.product.name}
+                    className="object-cover rounded-md"
+                  />
+                </div>
+
+                <h2 className="font-medium">{item.product.name}</h2>
+
+                <div className="flex justify-end font-medium">
+                  <span>
+                    {Number.isInteger(item.product.regularPrice)
+                      ? `${item.product.regularPrice},00`
+                      : item.product.regularPrice
+                          .toFixed(2)
+                          .replace(".", ",")}{" "}
+                    &euro;
+                  </span>
+                </div>
+
+                <p className="col-span-2 text-gray-500">
+                  {item.product.description}
+                </p>
+
+                <span className="text-sm self-end">
+                  Quantità: {item.quantity}
+                </span>
+
+                <div className="flex gap-3 items-center text-sm text-primary-dark-100 hover:text-primary-900 self-end">
+                  <button className="hover:underline cursor-pointer transition-all duration-200">
+                    Vedi prodotto
+                  </button>
+                  <span className="text-gray-200">|</span>
+                  <button className="hover:underline cursor-pointer transition-all duration-200">
+                    Compra di nuovo
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default OrderList;

@@ -253,3 +253,16 @@ export async function deleteCartItem(cartId, productId) {
 
   return true;
 }
+
+export async function createOrder(userId, cartId, sessionId) {
+  const { error } = await supabase.rpc("create_full_order", {
+    user_id: userId,
+    cart_id: cartId,
+    session_id: sessionId,
+  });
+
+  if (error) {
+    console.error("Errore nella creazione ordine atomica", error);
+    throw new Error("Errore nella creazione ordine atomica");
+  }
+}

@@ -6,10 +6,15 @@ import { getCartProductsCount } from "@/app/_lib/data-service";
 
 async function Header() {
   const session = await auth();
-  const cartItemsCount = await getCartProductsCount(session?.user?.cartId);
+  let cartItemsCount = [];
+  if (session?.user?.cartId) {
+    cartItemsCount = await getCartProductsCount(session.user.cartId);
+  } else {
+    cartItemsCount = [];
+  }
 
   return (
-    <header className=" px-8 dark:py-0 border-b border-primary-100 dark:border-primary-dark-900 shadow-sm dark:shadow-2xl">
+    <header className="px-8 dark:py-0 border-b border-b-gray-200 sticky top-0 left-0 bg-primary-50 z-1000">
       <div className="flex justify-between items-center mx-auto">
         <p className="text-4xl text-primary-950 dark:text-primary-100 tracking-wider font-medium">
           Vesugusto

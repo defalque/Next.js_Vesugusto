@@ -16,14 +16,11 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className="text-primary-dark-900 dark:text-primary-100 text-3xl font-bold mb-6">
+      <h1 className="text-primary-dark-900 dark:text-primary-100 text-5xl font-semibold mb-6">
         Benvenuto {session?.user?.name}!
       </h1>
-      <h2 className="font-semibold text-xl mb-2">
-        Aggiorna le tue informazioni di profilo
-      </h2>
 
-      <p className="text-md mb-8">
+      <p className="text-base font-normal text-gray-500 mb-8">
         Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
         tue informazioni personali.
       </p>

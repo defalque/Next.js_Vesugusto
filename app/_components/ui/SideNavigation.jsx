@@ -31,15 +31,18 @@ function SideNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="border-r border-orange-50 shadow-sm dark:border-midnight dark:shadow-2xl">
+    <nav
+      className="border-r border-r-gray-200 fixed top-18 left-0 w-58"
+      style={{ height: "calc(100vh - 73px)" }}
+    >
       <ul className="flex flex-col gap-2 text-lg px-3 py-7.5 h-full">
         {/* <li className="text-primary-950 text-sm px-3 font-semibold">Account</li> */}
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`rounded-xl py-0.5 px-2 hover:bg-primary-950 hover:text-primary-100 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors duration-100 flex items-center gap-4 font-semibold ${
+              className={`rounded-md py-1 px-2 hover:bg-primary-950 hover:text-primary-50 dark:hover:bg-primary-800 dark:hover:text-primary-50 transition-colors duration-100 text-base flex items-center gap-4 font-medium ${
                 pathname === link.href
-                  ? "bg-primary-950 text-primary-100 dark:bg-primary-800 dark:text-primary-50"
+                  ? "bg-primary-950 text-primary-50 dark:bg-primary-800 dark:text-primary-50"
                   : ""
               }`}
               href={link.href}

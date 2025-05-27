@@ -10,7 +10,7 @@ function TrashButton({ userId, productId, onDelete, startTransition }) {
 
   return (
     <button
-      className="px-2 py-2 rounded-full bg-zinc-200 hover:bg-gray-100 transition-colors duration-200 w-max cursor-pointer opacity-80 outline-primary-950"
+      className="px-2 py-2 rounded-full bg-zinc-100 hover:bg-gray-200 transition-colors duration-200 w-max cursor-pointer opacity-80 outline-primary-950"
       onClick={handleDelete}
     >
       <XMarkIcon className="size-6"></XMarkIcon>

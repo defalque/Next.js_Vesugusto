@@ -43,7 +43,7 @@ function ProductsSideNavigation({ types }) {
 
   return (
     <div className={`${isHidden ? "hidden" : ""}`}>
-      <div className="flex flex-col px-3 py-2 mt-4 text-md sticky font-normal top-5 w-full">
+      <div className="flex flex-col px-3 py-2 mt-4 text-md sticky font-normal top-25 w-full">
         {/* <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-2.5">
           Filtra per
         </span> */}
@@ -64,7 +64,7 @@ function ProductsSideNavigation({ types }) {
             <div className="my-2">
               {types.map((type) => (
                 <label
-                  className="flex items-center ml-1 cursor-pointer w-max"
+                  className="flex items-center ml-1 mt-1.5 cursor-pointer w-max"
                   key={type.type}
                 >
                   <input

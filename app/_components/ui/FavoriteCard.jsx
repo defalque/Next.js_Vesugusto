@@ -59,7 +59,7 @@ export default function FavoriteCard({
             className="py-2 px-2 w-max rounded-full bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold cursor-pointer transition-colors duration-300 text-center"
             onClick={handleAdd}
           >
-            <ShoppingBagIcon className="size-6" />
+            <ShoppingBagIcon className="size-5" />
           </button>
           <TrashButton
             userId={userId}

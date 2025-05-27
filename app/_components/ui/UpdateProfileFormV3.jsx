@@ -138,8 +138,8 @@ function UpdateProfileForm({ user }) {
 
   return (
     <form onSubmit={handleSubmit} className="px-3 text-md flex gap-4 flex-col">
-      <div className="space-y-2">
-        <label>Nome</label>
+      <div className="space-y-2 flex flex-col">
+        <label className="ml-1">Nome</label>
         <input
           name="name"
           disabled
@@ -148,8 +148,8 @@ function UpdateProfileForm({ user }) {
         />
       </div>
 
-      <div className="space-y-2">
-        <label>Email</label>
+      <div className="space-y-2 flex flex-col">
+        <label className="ml-1">Email</label>
         <input
           name="email"
           disabled
@@ -159,69 +159,84 @@ function UpdateProfileForm({ user }) {
       </div>
 
       <div className="grid grid-cols-4 gap-x-5 space-y-2">
-        <div className="col-span-3">
-          <label htmlFor="via">Via</label>
+        <div className="col-span-3 space-y-2 flex flex-col">
+          <label htmlFor="via" className="ml-1">
+            Via
+          </label>
           <input
             required
             name="via"
             defaultValue={via}
-            className="rounded-xl px-5 py-2 bg-primary-50 w-full shadow-md shadow-primary-200 dark:shadow-primary-dark-800 inset-shadow-sm inset-shadow-primary-200 text-primary-dark-900  dark:shadow-none dark:inset-shadow-none outline-primary-950 appearance-none"
+            className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
           />
           {formError.via && (
-            <p className="text-sm text-primary-950 dark:text-primary-800 mt-1">
+            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.via}
             </p>
           )}
         </div>
 
-        <div>
-          <label htmlFor="numeroCivico">Numero civico</label>
+        <div className="space-y-2 flex flex-col">
+          <label htmlFor="numeroCivico" className="ml-1">
+            Numero civico
+          </label>
           <input
             required
             name="numeroCivico"
             defaultValue={numeroCivico}
-            className="rounded-xl px-5 py-2 bg-primary-50 w-full shadow-md shadow-primary-200 dark:shadow-primary-dark-800 inset-shadow-sm inset-shadow-primary-200 text-primary-dark-900 dark:shadow-none dark:inset-shadow-none outline-primary-950"
+            className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
           />
           {formError.numeroCivico && (
-            <p className="text-sm text-primary-950 dark:text-primary-800 mt-1">
+            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.numeroCivico}
             </p>
           )}
         </div>
 
-        <div ref={wrapperRef} className="col-span-2 relative">
-          <label htmlFor="comune">Comune</label>
-          <input
-            required
-            name="comune"
-            className="rounded-xl px-5 py-2 bg-primary-50 w-full shadow-md shadow-primary-200 dark:shadow-primary-dark-800 inset-shadow-sm inset-shadow-primary-200 text-primary-dark-900 dark:shadow-none dark:inset-shadow-none outline-primary-950"
-            value={query}
-            // onChange={(e) => setQuery(e.target.value)}
-            onChange={handleInputChange}
-            autoComplete="off"
-          />
+        <div
+          ref={wrapperRef}
+          className="col-span-2 relative flex flex-col space-y-2"
+        >
+          <label htmlFor="comune" className="ml-1">
+            Comune
+          </label>
+          <div className="relative">
+            <input
+              required
+              name="comune"
+              className={`font-light px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none ${
+                suggestions.length > 0 ? " rounded-t-xl" : "rounded-xl"
+              }`}
+              value={query}
+              // onChange={(e) => setQuery(e.target.value)}
+              onChange={handleInputChange}
+              autoComplete="off"
+            />
+            {suggestions.length > 0 && (
+              <ul className="absolute z-20 text-primary-950 dark:text-primary-dark-200 dark:hover:text-primary-dark-200 bg-primary-50 border border-primary-200 w-full shadow -mt-1 overflow-y-auto max-h-36">
+                {suggestions.map((comune, index) => (
+                  <li
+                    key={index}
+                    className="font-light text-sm px-4 py-2 dark:hover:bg-primary-dark-200 hover:bg-primary-950 hover:text-primary-100 cursor-pointer"
+                    onClick={() => handleSelectComune(comune)}
+                  >
+                    {comune.denominazione_ita}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           {formError.comune && (
-            <p className="text-sm text-primary-950 dark:text-primary-800 mt-1">
+            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.comune}
             </p>
           )}
-          {suggestions.length > 0 && (
-            <ul className="absolute z-20 text-primary-950 dark:text-primary-dark-200 dark:hover:text-primary-dark-200 bg-primary-50 border border-primary-200 w-full shadow -mt-1 overflow-y-auto max-h-36">
-              {suggestions.map((comune, index) => (
-                <li
-                  key={index}
-                  className="text-sm px-4 py-2 dark:hover:bg-primary-dark-200 hover:bg-primary-950 hover:text-primary-100 cursor-pointer"
-                  onClick={() => handleSelectComune(comune)}
-                >
-                  {comune.denominazione_ita}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
 
-        <div>
-          <label htmlFor="cap">CAP</label>
+        <div className="space-y-2 flex flex-col">
+          <label htmlFor="cap" className="ml-1">
+            CAP
+          </label>
           <input
             required
             name="cap"
@@ -230,26 +245,28 @@ function UpdateProfileForm({ user }) {
               setFormError({ cap: "" });
               setCap(e.target.value);
             }}
-            className="rounded-xl px-5 py-2 bg-primary-50 w-full shadow-md shadow-primary-200 dark:shadow-primary-dark-800 inset-shadow-sm inset-shadow-primary-200 text-primary-dark-900 dark:shadow-none dark:inset-shadow-none outline-primary-950"
+            className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
           />
           {formError.cap && (
-            <p className="text-sm text-primary-950 dark:text-primary-800 mt-1">
+            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.cap}
             </p>
           )}
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label htmlFor="phoneNumber">Il tuo numero di telefono</label>
+      <div className=" space-y-2 flex flex-col">
+        <label htmlFor="phoneNumber" className="ml-1">
+          Il tuo numero di telefono
+        </label>
         <input
           required
           name="phoneNumber"
           defaultValue={phoneNumber}
-          className="rounded-xl px-5 py-2 bg-primary-50 w-full shadow-md shadow-primary-200 dark:shadow-primary-dark-800 inset-shadow-sm inset-shadow-primary-200 text-primary-dark-900 dark:shadow-none dark:inset-shadow-none outline-primary-950 mb-0"
+          className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
         />
         {formError.phoneNumber && (
-          <p className="text-sm text-primary-950 dark:text-primary-800 mt-1">
+          <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
             {formError.phoneNumber}
           </p>
         )}

@@ -13,9 +13,16 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-8">
-      <h1 className="text-5xl font-medium border-b border-b-zinc-200 tracking-wide pb-8">
-        Prodotti preferiti
-      </h1>
+      <div className=" flex flex-col gap-5 pb-4">
+        <h1 className="text-5xl font-medium tracking-wide">
+          Prodotti preferiti
+        </h1>
+        <h2 className="text-gray-500">
+          I tuoi prodotti preferiti a portata di click. Qui puoi trovare e
+          rivedere rapidamente tutti i prodotti che hai aggiunto alla tua lista
+          dei preferiti e, se vuoi, inserirli subito nel carrello.
+        </h2>
+      </div>
 
       {products.length === 0 ? (
         <div>
