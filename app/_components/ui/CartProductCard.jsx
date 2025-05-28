@@ -4,6 +4,7 @@ import { XMarkIcon, CheckIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import SelectCartQuantity from "./SelectCartQuantity";
 import { useTransition } from "react";
+import { formatPrice } from "@/app/_lib/formatPrice";
 
 function CartProducts({ product, cartId, setIsLoading, onDelete }) {
   const [isPending, startTransition] = useTransition();
@@ -29,10 +30,7 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
       <div className="flex flex-col h-full gap-2">
         <h1 className="text-lg text-zinc-500">{product.name}</h1>
         <span className="text-md font-semibold">
-          {Number.isInteger(product.regularPrice)
-            ? `${product.regularPrice},00`
-            : product.regularPrice.toFixed(2).replace(".", ",")}{" "}
-          &euro;
+          {formatPrice(product.regularPrice)}
         </span>
         <p className="text-sm font-light mt-auto text-zinc-500">
           {product.details}

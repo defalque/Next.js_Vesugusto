@@ -1,6 +1,6 @@
 "use client";
 
-import { useHideFilters } from "../contexts/HideFiltersProvider";
+import { useHideFilters } from "../contexts/HideFiltersContext";
 import ProductsSideNavigation from "./ProductsSideNavigation";
 import ProductsHeader from "./ProductsHeader";
 

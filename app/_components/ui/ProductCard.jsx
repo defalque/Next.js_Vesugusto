@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductListButtons from "./ProductsListButtons";
 import { getCartProducts, getFavorites } from "@/app/_lib/data-service";
+import { formatPrice } from "@/app/_lib/formatPrice";
 
 async function ProductCard({ product }) {
   const session = await auth();
@@ -54,10 +55,7 @@ async function ProductCard({ product }) {
 
       <div className="flex items-center">
         <span className="font-normal text-2xl">
-          {Number.isInteger(product.regularPrice)
-            ? `${product.regularPrice},00`
-            : product.regularPrice.toFixed(2).replace(".", ",")}{" "}
-          &euro;
+          {formatPrice(product.regularPrice)}
         </span>
         <Link
           href={`/products/${product.id}`}

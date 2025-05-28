@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { useHideFilters } from "../contexts/HideFiltersProvider";
+import { useHideFilters } from "../contexts/HideFiltersContext";
 
 function ProductsSideNavigation({ types }) {
   const urlSearchParams = useSearchParams();

@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import DarkModeToggle from "./DarkModeToggle";
 import Navigation from "./Navigation";
-import NavigationV2 from "./NavigationV2";
 import { getCartProductsCount } from "@/app/_lib/data-service";
 
 async function Header() {
@@ -20,11 +19,10 @@ async function Header() {
           Vesugusto
         </p>
         <div className="flex gap-16">
-          {/* <Navigation></Navigation> */}
-          <NavigationV2
+          <Navigation
             session={session}
             cartItemsCount={cartItemsCount}
-          ></NavigationV2>
+          ></Navigation>
           <DarkModeToggle></DarkModeToggle>
         </div>
       </div>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TrashButton from "@/app/_components/ui/TrashButton";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
+import { formatPrice } from "@/app/_lib/formatPrice";
 
 export default function FavoriteCard({
   product,
@@ -45,10 +46,7 @@ export default function FavoriteCard({
                 {product.name}
               </h1>
               <span className="font-medium ml-auto">
-                {Number.isInteger(product.regularPrice)
-                  ? `${product.regularPrice},00`
-                  : product.regularPrice.toFixed(2).replace(".", ",")}{" "}
-                &euro;
+                {formatPrice(product.regularPrice)}
               </span>
             </div>
           </div>

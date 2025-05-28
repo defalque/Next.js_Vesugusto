@@ -1,6 +1,4 @@
-const {
-  HideFiltersProvider,
-} = require("../_components/contexts/HideFiltersProvider");
+import { HideFiltersProvider } from "../_components/contexts/HideFiltersContext";
 
 function Layout({ children }) {
   return <HideFiltersProvider>{children}</HideFiltersProvider>;

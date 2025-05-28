@@ -1,6 +1,7 @@
 // import CheckoutButton from "@/app/_components/ui/CheckoutButton";
 import PaymentForm from "@/app/_components/ui/PaymentForm";
 import { getCartProducts, getUserInfo } from "@/app/_lib/data-service";
+import { formatPrice } from "@/app/_lib/formatPrice";
 import { auth } from "@/auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -30,18 +31,18 @@ export default async function Page() {
   const total = totalPrice + shippingCost;
 
   return (
-    <div className="flex flex-col gap-8 px-35 mt-10 mb-30">
-      <h1 className="text-5xl font-medium tracking-wide border-b border-b-zinc-200 pb-8">
+    <div className="flex flex-col gap-8 px-45 mt-14 mb-30">
+      {/* <h1 className="text-5xl font-medium tracking-wide border-b border-b-zinc-200 pb-8">
         Checkout
-      </h1>
+      </h1> */}
 
       <div className="grid grid-cols-2 gap-8">
         <div className="flex flex-col">
           <div className="border-b border-b-gray-200 pb-8 flex flex-col gap-7">
-            <h2 className="text-sm uppercase font-semibold text-gray-500">
+            <h2 className="text-sm uppercase font-semibold text-gray-900">
               Informazioni sulla spedizione
             </h2>
-            <div className="grid grid-cols-4 gap-x-5 gap-y-6">
+            <div className="grid grid-cols-4 gap-x-5 gap-y-6 font-normal">
               <div className="col-span-4">
                 <label htmlFor="indirizzo" className="pl-1">
                   Indirizzo
@@ -82,7 +83,7 @@ export default async function Page() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-sm uppercase font-semibold pt-6 text-gray-500">
+            <h2 className="text-sm uppercase font-semibold pt-6 text-gray-900">
               Pagamento
             </h2>
             <PaymentForm
@@ -97,10 +98,7 @@ export default async function Page() {
           <div className="flex flex-col gap-1">
             <h1 className="text-sm text-gray-600">Importo dovuto</h1>
             <span className="text-4xl font-semibold">
-              {Number.isInteger(totalPrice)
-                ? `${totalPrice},00`
-                : totalPrice.toFixed(2).replace(".", ",")}{" "}
-              &euro;
+              {formatPrice(totalPrice)}
             </span>
           </div>
 
@@ -130,10 +128,7 @@ export default async function Page() {
                 </div>
 
                 <span className="font-semibold">
-                  {Number.isInteger(product.regularPrice)
-                    ? `${product.regularPrice},00`
-                    : product.regularPrice.toFixed(2).replace(".", ",")}{" "}
-                  &euro;
+                  {formatPrice(product.regularPrice)}
                 </span>
               </div>
             ))}

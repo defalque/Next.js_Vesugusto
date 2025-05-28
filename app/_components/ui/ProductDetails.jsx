@@ -1,6 +1,7 @@
 import ProductDetailsAccordion from "./ProductDetailsAccordion";
 import { auth } from "@/auth";
 import ProductButtons from "./ProductButtons";
+import { formatPrice } from "@/app/_lib/formatPrice";
 
 async function ProductDetails({ product }) {
   const session = await auth();
@@ -12,10 +13,7 @@ async function ProductDetails({ product }) {
       </h1>
 
       <span className="font-medium text-xl my-4">
-        {Number.isInteger(product.regularPrice)
-          ? `${product.regularPrice},00`
-          : product.regularPrice.toFixed(2).replace(".", ",")}{" "}
-        &euro;
+        {formatPrice(product.regularPrice)}
       </span>
 
       <p className="text-lg text-zinc-500 mb-4">{product.description}</p>

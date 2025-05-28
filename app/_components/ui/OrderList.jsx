@@ -1,4 +1,5 @@
 import { formatDate } from "@/app/_lib/formatDate";
+import { formatPrice } from "@/app/_lib/formatPrice";
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -29,10 +30,7 @@ function OrderList({ orders }) {
             <div className=" flex flex-col gap-1">
               <h2 className="font-medium">Totale ordine</h2>
               <span className="text-primary-dark-900 font-medium self-center">
-                {Number.isInteger(order.total)
-                  ? `${order.total},00`
-                  : order.total.toFixed(2).replace(".", ",")}{" "}
-                &euro;
+                {formatPrice(order.total)}
               </span>
             </div>
 
@@ -54,7 +52,7 @@ function OrderList({ orders }) {
                 Vedi ordine
               </button>
               {order.status === "unconfirmed" && (
-                <button className="p-2 bg-primary-dark-700 hover:bg-primary-dark-500 text-primary-50 transition-colors duration-200 cursor-pointer rounded-lg text-md font-medium">
+                <button className="p-2 bg-primary-dark-950 hover:bg-primary-dark-800 text-primary-50 transition-colors duration-200 cursor-pointer rounded-lg text-md font-medium">
                   Annulla
                 </button>
               )}
@@ -82,14 +80,7 @@ function OrderList({ orders }) {
                 <h2 className="font-medium">{item.product.name}</h2>
 
                 <div className="flex justify-end font-medium">
-                  <span>
-                    {Number.isInteger(item.product.regularPrice)
-                      ? `${item.product.regularPrice},00`
-                      : item.product.regularPrice
-                          .toFixed(2)
-                          .replace(".", ",")}{" "}
-                    &euro;
-                  </span>
+                  <span>{formatPrice(item.product.regularPrice)}</span>
                 </div>
 
                 <p className="col-span-2 text-gray-500">

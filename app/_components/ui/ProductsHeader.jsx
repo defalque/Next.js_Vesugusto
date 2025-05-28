@@ -1,7 +1,7 @@
 "use client";
 
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { useHideFilters } from "../contexts/HideFiltersProvider";
+import { useHideFilters } from "../contexts/HideFiltersContext";
 
 function ProductsHeader({ totalProducts, children }) {
   const { isHidden, setIsHidden } = useHideFilters();

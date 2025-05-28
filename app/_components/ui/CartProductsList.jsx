@@ -6,6 +6,7 @@ import { useOptimistic, useState } from "react";
 import Spinner from "./Spinner";
 import { deleteCartItem } from "@/app/_lib/actions";
 import Link from "next/link";
+import { formatPrice } from "@/app/_lib/formatPrice";
 
 function CartProductsList({
   products,
@@ -65,29 +66,20 @@ function CartProductsList({
             <div className="flex items-center pb-2 border-b border-b-zinc-200">
               <span className="font-light">Subtotale</span>
               <span className="ml-auto font-semibold text-lg">
-                {Number.isInteger(totalPrice)
-                  ? `${totalPrice},00`
-                  : totalPrice.toFixed(2).replace(".", ",")}{" "}
-                &euro;
+                {formatPrice(totalPrice)}
               </span>
             </div>
             <div className="flex items-center pb-2 border-b border-b-zinc-200">
               <span className="font-light mr-2">Spese di spedizione</span>
               <QuestionMarkCircleIcon className="size-5 fill-primary-50"></QuestionMarkCircleIcon>
               <span className="ml-auto font-semibold text-lg">
-                {Number.isInteger(shippingCost)
-                  ? `${shippingCost},00`
-                  : shippingCost.toFixed(2).replace(".", ",")}{" "}
-                &euro;
+                {formatPrice(shippingCost)}
               </span>
             </div>
             <div className="flex items-center pb-2">
               <span className="font-medium text-lg">Totale ordine</span>
               <span className="ml-auto font-semibold text-lg">
-                {Number.isInteger(total)
-                  ? `${total},00`
-                  : total.toFixed(2).replace(".", ",")}{" "}
-                &euro;
+                {formatPrice(total)}
               </span>
             </div>
             <Link
