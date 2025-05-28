@@ -266,3 +266,17 @@ export async function createOrder(userId, cartId, sessionId) {
     throw new Error("Errore nella creazione ordine atomica");
   }
 }
+
+export async function createRecipe(title, description, userId) {
+  const { data, error } = await supabase
+    .from("recipes")
+    .insert([{ title, description, userId }])
+    .select();
+
+  if (error) {
+    console.error("Errore nella creazione della ricetta", error);
+    throw new Error("Errore nella creazione della ricetta");
+  }
+
+  return true;
+}

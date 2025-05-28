@@ -4,18 +4,20 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import logo from "@/public/vesugusto.png";
-import {
-  DocumentDuplicateIcon,
-  ArrowUpIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowUpIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { createRecipe } from "@/app/_lib/actions";
+import SpinnerSuperMini from "./SpinnerSuperMini";
 
-export default function HomePage() {
+export default function HomePage({ userId }) {
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState(false);
   const textareaRef = useRef(null);
   const messageRef = useRef(null);
+  const [savedIds, setSavedIds] = useState([]);
+  const [savingIds, setSavingIds] = useState([]);
 
   const defaultPrompts = [
     { id: 1, message: "Crea una ricetta dolce! 🍪" },
@@ -80,6 +82,25 @@ export default function HomePage() {
       messageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [chat]);
+
+  const handleSaveRecipe = async (content, id) => {
+    setSavingIds((prev) => [...prev, id]);
+    try {
+      const splitIndex = content.indexOf("\n");
+      const title = content.substring(0, splitIndex).replace(/^##\s*/, "");
+      const description = content.substring(splitIndex + 2);
+
+      const success = await createRecipe(title, description, userId);
+
+      if (success) {
+        setSavedIds((prev) => [...prev, id]);
+      }
+    } catch (error) {
+      console.error("Errore nel salvataggio ricetta:", error);
+    } finally {
+      setSavingIds((prev) => prev.filter((savingId) => savingId !== id));
+    }
+  };
 
   return (
     <div
@@ -167,20 +188,22 @@ export default function HomePage() {
                       width={50}
                       className="mt-1"
                     />
-                    <div className="mt-2 pb-1 flex flex-col gap-y-1.5">
+                    <div className="mt-5 pb-1 flex flex-col gap-y-1.5">
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
-                      <div className="flex items-center gap-2 mt-3">
-                        <button
-                          className="rounded-full p-1.5 hover:bg-zinc-50 cursor-pointer self-start"
-                          title="Copia"
-                        >
-                          <DocumentDuplicateIcon className="size-5"></DocumentDuplicateIcon>
-                        </button>
-                        {msg.content.includes("ricetta") && (
-                          <button className="text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 cursor-pointer hover:bg-primary-800 font-medium">
-                            Salva ricetta!
-                          </button>
-                        )}
+                      <div className="flex items-center mt-3">
+                        {msg.content.includes("ricetta") &&
+                          (savedIds.includes(i) ? (
+                            <CheckCircleIcon className="size-7 fill-primary-950" />
+                          ) : savingIds.includes(i) ? (
+                            <SpinnerSuperMini />
+                          ) : (
+                            <button
+                              className="text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 cursor-pointer hover:bg-primary-800 font-medium"
+                              onClick={() => handleSaveRecipe(msg.content, i)}
+                            >
+                              Salva!
+                            </button>
+                          ))}
                       </div>
                     </div>
                   </div>
@@ -191,7 +214,7 @@ export default function HomePage() {
             </div>
           ))}
           {loading && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 px-4 py-2">
               <Image
                 src={logo}
                 alt="Vesugusto logo"

@@ -4,6 +4,7 @@ import {
   ClipboardDocumentIcon,
   HeartIcon,
   UserIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,6 +25,11 @@ const navLinks = [
     name: "I tuoi preferiti",
     href: "/account/favorites",
     icon: <HeartIcon className="h-5 w-5 " />,
+  },
+  {
+    name: "Le tue ricette",
+    href: "/account/recipes",
+    icon: <SparklesIcon className="h-5 w-5 " />,
   },
 ];
 

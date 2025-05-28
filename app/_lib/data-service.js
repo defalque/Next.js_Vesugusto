@@ -530,3 +530,18 @@ export async function getOrderSession(userId, sessionId) {
 
   return order;
 }
+
+export async function getRecipes(userId) {
+  const { data: recipes, error } = await supabase
+    .from("recipes")
+    .select("*")
+    .eq("userId", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Errore nel recupero delle ricette dell'utente", error);
+    throw new Error("Errore nel recupero delle ricette dell'utente");
+  }
+
+  return recipes;
+}
