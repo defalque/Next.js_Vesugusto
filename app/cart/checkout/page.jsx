@@ -1,4 +1,5 @@
-import CheckoutButton from "@/app/_components/ui/CheckoutButton";
+// import CheckoutButton from "@/app/_components/ui/CheckoutButton";
+import PaymentForm from "@/app/_components/ui/PaymentForm";
 import { getCartProducts, getUserInfo } from "@/app/_lib/data-service";
 import { auth } from "@/auth";
 import Image from "next/image";
@@ -12,7 +13,7 @@ export default async function Page() {
   const session = await auth();
   const products = await getCartProducts(session.user.cartId);
   if (!products || products.length === 0) {
-    redirect("/cart"); // o altra pagina tipo homepage
+    redirect("/cart");
   }
 
   const {
@@ -29,51 +30,66 @@ export default async function Page() {
   const total = totalPrice + shippingCost;
 
   return (
-    <div className="flex flex-col gap-8 px-35 my-12">
+    <div className="flex flex-col gap-8 px-35 mt-10 mb-30">
       <h1 className="text-5xl font-medium tracking-wide border-b border-b-zinc-200 pb-8">
         Checkout
       </h1>
 
-      <div className="grid grid-cols-2 gap-5">
-        <div className="flex flex-col gap-y-10 py-5">
-          <h2 className="text-2xl">Informazioni sulla spedizione</h2>
-          <div className="grid grid-cols-4 gap-x-5 gap-y-6">
-            <div className="col-span-4">
-              <label htmlFor="indirizzo" className="pl-1">
-                Indirizzo
-              </label>
-              <input
-                required
-                name="indirizzo"
-                defaultValue={`${via}, ${numeroCivico}`}
-                className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950"
-              />
-            </div>
+      <div className="grid grid-cols-2 gap-8">
+        <div className="flex flex-col">
+          <div className="border-b border-b-gray-200 pb-8 flex flex-col gap-7">
+            <h2 className="text-sm uppercase font-semibold text-gray-500">
+              Informazioni sulla spedizione
+            </h2>
+            <div className="grid grid-cols-4 gap-x-5 gap-y-6">
+              <div className="col-span-4">
+                <label htmlFor="indirizzo" className="pl-1">
+                  Indirizzo
+                </label>
+                <input
+                  required
+                  name="indirizzo"
+                  defaultValue={`${via}, ${numeroCivico}`}
+                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950"
+                />
+              </div>
 
-            <div className="col-span-3">
-              <label htmlFor="city" className="pl-1">
-                Città
-              </label>
-              <input
-                required
-                name="city"
-                className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
-                defaultValue={city}
-                // onChange={(e) => setQuery(e.target.value)}
-              />
-            </div>
+              <div className="col-span-3">
+                <label htmlFor="city" className="pl-1">
+                  Città
+                </label>
+                <input
+                  required
+                  name="city"
+                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
+                  defaultValue={city}
+                  // onChange={(e) => setQuery(e.target.value)}
+                />
+              </div>
 
-            <div>
-              <label htmlFor="cap" className="pl-1">
-                CAP
-              </label>
-              <input
-                required
-                name="cap"
-                defaultValue={cap}
-                className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
-              />
+              <div>
+                <label htmlFor="cap" className="pl-1">
+                  CAP
+                </label>
+                <input
+                  required
+                  name="cap"
+                  defaultValue={cap}
+                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
+                />
+              </div>
             </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <h2 className="text-sm uppercase font-semibold pt-6 text-gray-500">
+              Pagamento
+            </h2>
+            <PaymentForm
+              total={total}
+              userId={session.user.userId}
+              cartId={session.user.cartId}
+            />
           </div>
         </div>
 
@@ -123,7 +139,7 @@ export default async function Page() {
             ))}
           </div>
 
-          <CheckoutButton />
+          {/* <CheckoutButton /> */}
         </div>
       </div>
     </div>

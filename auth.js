@@ -1,12 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import {
-  createUserAndCart,
-  getCart,
-  getCartProductsCount,
-  getUser,
-} from "./app/_lib/data-service";
+import { createUserAndCart, getCart, getUser } from "./app/_lib/data-service";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
@@ -20,7 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const existingUser = await getUser(user.email);
 
         if (!existingUser)
-          newUser = await createUserAndCart({
+          await createUserAndCart({
             email: user.email,
             name: user.name,
             image: user.image,
@@ -31,11 +26,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return false;
       }
     },
-    async session({ session }) {
-      const user = await getUser(session.user.email);
-      session.user.userId = user.id;
-      const cartId = await getCart(session.user.userId);
-      session.user.cartId = cartId.id;
+    // async session({ session }) {
+    //   try {
+    //     const user = await getUser(session.user.email);
+
+    //     if (user) {
+    //       session.user.userId = user.id;
+    //       const cart = await getCart(user.id);
+    //       session.user.cartId = cart?.id || null;
+    //     }
+
+    //     return session;
+    //   } catch (error) {
+    //     console.error("Errore nel session callback", error);
+    //     return session;
+    //   }
+    // },
+    async jwt({ token, user }) {
+      if (user) {
+        // Solo al login aggiungiamo userId e cartId nel token
+        const existingUser = await getUser(user.email);
+        const cart = await getCart(existingUser.id);
+
+        token.userId = existingUser.id;
+        token.cartId = cart?.id || null;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      // Prendiamo direttamente dal token i dati custom
+      session.user.userId = token.userId;
+      session.user.cartId = token.cartId;
       return session;
     },
   },

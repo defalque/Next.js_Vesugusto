@@ -29,6 +29,8 @@ export async function POST(req) {
       // Recupera i dati dal metadata della sessione
       const userId = session.metadata.userId;
       const cartId = session.metadata.cartId;
+      console.log("webhook: ", userId);
+      console.log("webhook: ", cartId);
 
       await createOrder(userId, cartId, session.id);
 

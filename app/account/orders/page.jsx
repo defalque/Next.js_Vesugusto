@@ -9,7 +9,7 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
   const orders = await getUserOrders(session.user.userId);
-  console.log(orders);
+
   return (
     <div>
       <div className=" flex flex-col gap-5 pb-4">

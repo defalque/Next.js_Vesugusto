@@ -235,7 +235,11 @@ export async function createFavoriteProduct(userId, productId) {
 
 export async function getFavorites(userId) {
   const { data: favoriteProducts, error: favoriteProductsError } =
-    await supabase.from("favorites").select("productId").eq("userId", userId);
+    await supabase
+      .from("favorites")
+      .select("productId")
+      .eq("userId", userId)
+      .order("created_at", { ascending: false });
 
   if (favoriteProductsError) {
     console.error(favoriteProductsError);
@@ -253,7 +257,11 @@ export async function getFavorites(userId) {
     console.error(error);
   }
 
-  return data;
+  const orderedProducts = productIds.map((id) =>
+    data.find((product) => product.id === id)
+  );
+
+  return orderedProducts;
 }
 
 export async function getProductsWithoutFilter() {

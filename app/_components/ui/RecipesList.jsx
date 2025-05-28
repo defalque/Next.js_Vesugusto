@@ -1,22 +1,20 @@
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { EyeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Downloader from "./Downloader";
 
 function RecipesList({ recipes }) {
   return (
-    <div className="grid grid-cols-4 gap-10 mt-10">
-      {recipes.map((recipe) => (
+    <div className="flex flex-col my-10 rounded border border-gray-300">
+      {recipes.map((recipe, index) => (
         <div
           key={recipe.id}
-          className="px-6 py-5 rounded-2xl space-y-4 flex flex-col items-center border border-gray-200 shadow-sm bg-white relative transition-all duration-300 hover:shadow-md hover:-translate-y-1"
+          className={`flex items-center gap-4 pb-3 pt-4 pr-14 pl-4 transition-all duration-300 relative ${
+            index < recipes.length - 1 ? "border-b border-b-gray-300" : ""
+          }`}
         >
-          <h1 className="text-base font-semibold text-center text-gray-800 px-2">
-            {recipe.title.length > 46
-              ? `${recipe.title.substring(0, 40)}...`
-              : recipe.title}
-          </h1>
+          <h1 className="text-medium font-medium">{recipe.title}</h1>
 
-          <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-4 py-2 bg-primary-950 text-primary-50 rounded-xl hover:bg-primary-800 transition duration-200 text-sm font-medium cursor-pointer">
+          <div className="flex items-center gap-3 ml-auto text-sm font-normal">
+            <button className="flex items-center gap-2 px-3 py-0.5 bg-primary-950 text-primary-50 rounded-lg hover:bg-primary-900 transition duration-200 cursor-pointer">
               <span>Vedi</span>
             </button>
 
@@ -24,7 +22,7 @@ function RecipesList({ recipes }) {
           </div>
 
           <button
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition cursor-pointer"
+            className="absolute top-1.5 right-1.5 text-gray-400 hover:text-gray-600 transition cursor-pointer"
             aria-label="Elimina ricetta"
           >
             <XMarkIcon className="size-5" />

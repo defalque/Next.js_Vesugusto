@@ -31,7 +31,7 @@ export default function FavoriteCard({
           className="pb-3 border-b border-zinc-200"
         >
           <div className="flex flex-col gap-3">
-            <div className="relative h-100 aspect-2/3 group">
+            <div className="relative h-85 aspect-2/3 group">
               <Image
                 src={product.image?.at(0)}
                 fill
