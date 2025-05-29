@@ -44,10 +44,13 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
                   : "text-yellow-500 font-medium"
               }`}
             />
-            {product.productQuantity > 10 && "Disponibile"}
-            {product.productQuantity > 0 &&
-              product.productQuantity <= 10 &&
-              `Disponibilità limitata: solo ${product.productQuantity} rimasti.`}
+            {product.productQuantity > 10
+              ? "Disponibile"
+              : product.productQuantity > 1
+              ? `Disponibilità limitata: ${product.productQuantity} disponibili.`
+              : product.productQuantity === 1
+              ? "Disponibilità limitata: 1 disponibile."
+              : "Non disponibile"}
           </span>
         ) : (
           <span className="flex items-start gap-1 text-sm font-light mt-auto mb-0.5">

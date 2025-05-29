@@ -38,7 +38,7 @@ function SideNavigation() {
 
   return (
     <nav
-      className="border-r border-r-gray-200 fixed top-18 left-0 w-58"
+      className="border-r my-5 border-r-gray-200 fixed top-18 left-0 w-58"
       style={{ height: "calc(100vh - 73px)" }}
     >
       <ul className="flex flex-col gap-2 text-lg px-3 py-7.5 h-full">

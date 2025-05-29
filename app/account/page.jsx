@@ -16,14 +16,16 @@ export default async function Page() {
 
   return (
     <div>
-      <h1 className="text-primary-dark-900 dark:text-primary-100 text-5xl font-semibold mb-6">
-        Benvenuto {session?.user?.name}!
-      </h1>
+      <div className="flex flex-col gap-5 pb-4 border-b border-b-gray-200">
+        <h1 className="text-primary-dark-900 dark:text-primary-100 text-5xl font-semibold ">
+          Benvenuto {session?.user?.name}!
+        </h1>
 
-      <p className="text-base font-normal text-gray-500 mb-8">
-        Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
-        tue informazioni personali.
-      </p>
+        <p className="text-base font-normal text-gray-500">
+          Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
+          tue informazioni personali.
+        </p>
+      </div>
 
       <Suspense fallback={<Spinner></Spinner>}>
         {/* <UpdateProfileForm user={user}></UpdateProfileForm> */}

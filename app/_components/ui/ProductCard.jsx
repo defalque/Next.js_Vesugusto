@@ -19,7 +19,7 @@ async function ProductCard({ product }) {
   return (
     <div key={product.id} className="flex flex-col">
       <Link href={`/products/${product.id}`}>
-        <div className="relative h-130 w-full aspect-2/3 group mb-2">
+        <div className="relative w-full aspect-2/3 group mb-2">
           <Image
             src={product.image?.at(0)}
             fill
@@ -54,7 +54,7 @@ async function ProductCard({ product }) {
       ></ProductListButtons>
 
       <div className="flex items-center">
-        <span className="font-normal text-2xl">
+        <span className="font-medium text-xl">
           {formatPrice(product.regularPrice)}
         </span>
         <Link

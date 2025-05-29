@@ -4,7 +4,6 @@ import { useTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TrashButton from "@/app/_components/ui/TrashButton";
-import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { formatPrice } from "@/app/_lib/formatPrice";
 
 export default function FavoriteCard({
@@ -26,46 +25,60 @@ export default function FavoriteCard({
         isPending ? "animate-scaleOut" : ""
       }`}
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col">
         <Link
           href={`/products/${product.id}`}
-          className="pb-3 border-b border-zinc-200"
+          className="pb-3 border-b border-gray-200"
         >
-          <div className="flex flex-col gap-3">
-            <div className="relative h-85 aspect-2/3 group">
+          <div className="flex flex-col gap-2">
+            <div className="relative aspect-2/3 group">
               <Image
                 src={product.image?.at(0)}
                 fill
                 alt={product.name}
                 className="object-cover rounded-lg"
               />
+              <TrashButton
+                userId={userId}
+                productId={product.id}
+                onDelete={onDelete}
+                startTransition={startTransition}
+              />
             </div>
 
-            <div className="flex items-center">
-              <h1 className="text-md text-zinc-500 font-normal">
-                {product.name}
-              </h1>
-              <span className="font-medium ml-auto">
-                {formatPrice(product.regularPrice)}
+            <div className="flex items-center text-sm">
+              <h1 className="text-gray-800 font-light">{product.name}</h1>
+              <span
+                className={`ml-auto text-xs text-primary-50 rounded-full px-2 py-0.5 ${
+                  product.quantity === 0
+                    ? "bg-red-500"
+                    : product.quantity < 10
+                    ? "bg-yellow-500"
+                    : "bg-green-600"
+                }`}
+              >
+                {product.quantity === 0
+                  ? "Esaurito"
+                  : product.quantity < 10
+                  ? `${product.quantity} ${
+                      product.quantity > 1 ? "rimasti" : "rimasto"
+                    }`
+                  : "Disponibile"}
               </span>
             </div>
+            <span className="font-semibold text-sm">
+              {formatPrice(product.regularPrice)}
+            </span>
           </div>
         </Link>
 
-        <div className="flex items-center justify-center gap-5 border-b border-b-zinc-200 w-full pb-3">
-          <button
-            className="py-2 px-2 w-max rounded-full bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold cursor-pointer transition-colors duration-300 text-center"
-            onClick={handleAdd}
-          >
-            <ShoppingBagIcon className="size-5" />
-          </button>
-          <TrashButton
-            userId={userId}
-            productId={product.id}
-            onDelete={onDelete}
-            startTransition={startTransition}
-          />
-        </div>
+        <button
+          className="uppercase text-xs w-full py-1 px-2 rounded bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold cursor-pointer transition-colors duration-300 text-center disabled:cursor-not-allowed disabled:bg-primary-800"
+          onClick={handleAdd}
+          disabled={product.quantity === 0}
+        >
+          Sposta nel carrello
+        </button>
       </div>
     </div>
   );

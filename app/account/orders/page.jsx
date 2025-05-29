@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <div>
-      <div className=" flex flex-col gap-5 pb-4">
+      <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200">
         <h1 className="text-5xl font-medium tracking-wide">
           Storico degli ordini
         </h1>

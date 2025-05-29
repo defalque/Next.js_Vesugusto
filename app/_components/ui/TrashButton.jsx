@@ -4,16 +4,18 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 function TrashButton({ userId, productId, onDelete, startTransition }) {
-  function handleDelete() {
+  function handleDelete(e) {
+    e.preventDefault();
+    e.stopPropagation();
     startTransition(() => onDelete(userId, productId));
   }
 
   return (
     <button
-      className="px-2 py-2 rounded-full bg-zinc-100 hover:bg-gray-200 transition-colors duration-200 w-max cursor-pointer opacity-80 outline-primary-950"
+      className="absolute top-1 right-1 px-1 py-1 rounded-full bg-primary-50 hover:bg-gray-50 transition-colors duration-200 w-max cursor-pointer opacity-95 outline-primary-950 font-bold"
       onClick={handleDelete}
     >
-      <XMarkIcon className="size-6"></XMarkIcon>
+      <XMarkIcon className="size-4"></XMarkIcon>
     </button>
   );
 }

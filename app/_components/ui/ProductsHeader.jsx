@@ -7,19 +7,19 @@ function ProductsHeader({ totalProducts, children }) {
   const { isHidden, setIsHidden } = useHideFilters();
 
   return (
-    <div className="mt-1 px-10">
-      <div className=" flex flex-col gap-5 pb-6 py-10">
+    <div className="px-10">
+      <div className=" flex flex-col gap-5 pb-6 mt-5 mb-5 border-b border-b-gray-200">
         <h1 className="text-5xl font-medium tracking-wide">
           Il nostro e-commerce
         </h1>
-        <h2 className="text-gray-500">
+        <h2 className="text-gray-500 font-normal">
           Esplora il nostro ampio catalogo di prodotti. Utilizza i filtri per
           categoria e prezzo per trovare esattamente ciò che stai cercando. Ogni
           prodotto è descritto dettagliatamente per aiutarti nella tua scelta.
         </h2>
       </div>
       {isHidden ? (
-        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-18 z-100 ">
+        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-17 z-100 ">
           <div className="flex items-center font-light">
             {totalProducts > 0 ? (
               <span>
@@ -41,7 +41,7 @@ function ProductsHeader({ totalProducts, children }) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-18 z-100">
+        <div className="flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-17 z-100">
           <div className="flex items-center font-light">
             {totalProducts > 0 ? (
               <span>

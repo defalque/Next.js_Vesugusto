@@ -41,7 +41,7 @@ function FavoritesList({ products, userId, cartId }) {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-10">
+    <div className="grid grid-cols-4 gap-x-20 gap-y-20">
       {optimisticProducts.map((product) => (
         <FavoriteCard
           key={product.id}

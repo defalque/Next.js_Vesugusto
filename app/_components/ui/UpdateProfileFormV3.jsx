@@ -137,7 +137,7 @@ function UpdateProfileForm({ user }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="px-3 text-md flex gap-4 flex-col">
+    <form onSubmit={handleSubmit} className="px-5 my-8 flex gap-4 flex-col">
       <div className="space-y-2 flex flex-col">
         <label className="ml-1">Nome</label>
         <input
@@ -158,7 +158,7 @@ function UpdateProfileForm({ user }) {
         />
       </div>
 
-      <div className="grid grid-cols-4 gap-x-5 space-y-2">
+      <div className="grid grid-cols-4 gap-x-5 gap-y-4">
         <div className="col-span-3 space-y-2 flex flex-col">
           <label htmlFor="via" className="ml-1">
             Via

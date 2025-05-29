@@ -104,16 +104,49 @@ export default function HomePage({ userId }) {
 
   return (
     <div
-      className="grid grid-rows-[minmax(0,1fr)_auto]"
-      style={{ height: "calc(100vh - 73px)" }}
+      className="grid grid-rows-[minmax(0,1fr)_auto] relative"
+      style={{
+        height: "calc(100vh - 73px)",
+      }}
     >
+      {!userId && (
+        <div
+          className="absolute top-0 left-0 h-10 w-full z-100 flex items-center justify-center animate-moveInFromTop"
+          style={{
+            backgroundImage: `
+      radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),
+      radial-gradient(circle at 80% 50%, rgba(248, 6, 179, 0.4) 0%, transparent 70%),
+      radial-gradient(circle at 50% 100%, rgba(233, 190, 205, 0.3) 0%, transparent 70%)
+    `,
+            backdropFilter: "blur(12px)",
+          }}
+        >
+          <span className="text-primary-dark-950 text-sm text-center">
+            Crea un account o accedi per salvare le ricette create dalla nostra
+            IA!
+          </span>
+        </div>
+      )}
+
+      {/* <div
+        aria-hidden="true"
+        className="absolute top-1/3 left-1/3 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+      >
+        <div
+          style={{
+            clipPath:
+              "polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)",
+          }}
+          className="aspect-577/310 w-144.25 bg-linear-to-r from-[#fa5252] to-[#fecbcb] opacity-30"
+        />
+      </div> */}
       {/* Chat scrollable */}
       <div
         className={`overflow-y-auto overflow-x-hidden min-h-0 px-6 w-full ${
           display ? "" : "flex flex-col items-center"
         }`}
       >
-        <div className="text-center py-5">
+        <div className={`text-center py-5 ${userId ? "" : "mt-10"}`}>
           <div className="relative inline-block py-1">
             <h1 className="text-5xl font-medium tracking-wide relative z-10">
               creIAmo con{" "}
@@ -126,7 +159,7 @@ export default function HomePage({ userId }) {
         </div>
 
         <div
-          className={`rounded-full p-2 bg-primary-50 h-max mt-10 ${
+          className={`rounded-full bg-primary-50 h-max mt-10 ${
             display ? "hidden" : ""
           }`}
         >
@@ -191,7 +224,8 @@ export default function HomePage({ userId }) {
                     <div className="mt-5 pb-1 flex flex-col gap-y-1.5">
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                       <div className="flex items-center mt-3">
-                        {msg.content.includes("ricetta") &&
+                        {userId &&
+                          msg.content.includes("ricetta") &&
                           (savedIds.includes(i) ? (
                             <CheckCircleIcon className="size-7 fill-primary-950" />
                           ) : savingIds.includes(i) ? (
