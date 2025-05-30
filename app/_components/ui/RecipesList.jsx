@@ -11,7 +11,7 @@ function RecipesList({ recipes }) {
             index < recipes.length - 1 ? "border-b border-b-gray-300" : ""
           }`}
         >
-          <h1 className="text-medium font-medium hover:text-gray-600 hover:underline transition-all duration-200 cursor-pointer">
+          <h1 className="text-medium font-medium hover:text-primary-dark-100 hover:underline transition-all duration-100 cursor-pointer">
             {recipe.title}
           </h1>
 

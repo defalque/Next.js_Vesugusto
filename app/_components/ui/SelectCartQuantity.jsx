@@ -1,12 +1,18 @@
 "use client";
 
 import { updateCartItem } from "@/app/_lib/actions";
+import toast, { Toaster } from "react-hot-toast";
 
 function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
   const handleQuantity = async (e) => {
-    setIsLoading(true);
-    await updateCartItem(cartId, product.id, Number(e.target.value));
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      await updateCartItem(cartId, product.id, Number(e.target.value));
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      toast.error(err.message);
+    }
   };
 
   return (
@@ -31,6 +37,7 @@ function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
           </option>
         ))}
       </select>
+      <Toaster></Toaster>
     </div>
   );
 }

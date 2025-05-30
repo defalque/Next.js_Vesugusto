@@ -84,7 +84,7 @@ function Navigation({ session, cartItemsCount }) {
                 height={32}
               />
             ) : (
-              <UserIcon className="size-4 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300 transition-colors duration-300"></UserIcon>
+              <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300 transition-colors duration-300"></UserIcon>
             )}
           </Link>
         </li>

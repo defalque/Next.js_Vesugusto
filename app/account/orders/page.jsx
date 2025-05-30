@@ -1,14 +1,22 @@
 import OrderList from "@/app/_components/ui/OrderList";
-import { getUserOrders } from "@/app/_lib/data-service";
-import { auth } from "@/auth";
+import Spinner from "@/app/_components/ui/Spinner";
+// import { ORDERS_LIMIT } from "@/app/_lib/constants";
+// import {
+//   getUserOrders,
+//   getUserOrdersWithPagination,
+// } from "@/app/_lib/data-service";
+// import { auth } from "@/auth";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "I tuoi ordini",
 };
 
-export default async function Page() {
-  const session = await auth();
-  const orders = await getUserOrders(session.user.userId);
+export default async function Page({ searchParams }) {
+  const params = await searchParams;
+  const filters = {
+    page: Number(params?.page) || 0,
+  };
 
   return (
     <div>
@@ -21,11 +29,13 @@ export default async function Page() {
           prodotti simili.
         </h2>
       </div>
-      {orders.length > 0 ? (
-        <OrderList orders={orders}></OrderList>
-      ) : (
-        <p className="mt-8">Non hai ancora effettuato nessun ordine.</p>
-      )}
+
+      <Suspense
+        fallback={<Spinner label="Caricamento ordini..."></Spinner>}
+        key={filters}
+      >
+        <OrderList filters={filters}></OrderList>
+      </Suspense>
     </div>
   );
 }

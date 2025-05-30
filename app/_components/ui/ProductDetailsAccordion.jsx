@@ -22,7 +22,7 @@ function ProductDetailsAccordion({ productAttribute, label, isLast }) {
         </span>
       </div>
       {open && (
-        <p className="mb-5 font-light pr-5 leading-relaxed">
+        <p className="mb-5 font-light pr-5 leading-relaxed cursor-default">
           {productAttribute}
         </p>
       )}

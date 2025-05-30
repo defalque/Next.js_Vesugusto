@@ -1,15 +1,12 @@
-import RecipesList from "@/app/_components/ui/RecipesList";
-import { getRecipes } from "@/app/_lib/data-service";
-import { auth } from "@/auth";
+import Recipes from "@/app/_components/ui/Recipes";
+import Spinner from "@/app/_components/ui/Spinner";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Le tue ricette",
 };
 
-export default async function Page() {
-  const session = await auth();
-  const recipes = await getRecipes(session.user.userId);
-
+export default function Page() {
   return (
     <div>
       <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200">
@@ -23,11 +20,9 @@ export default async function Page() {
         </h2>
       </div>
 
-      {recipes.length > 0 ? (
-        <RecipesList recipes={recipes} />
-      ) : (
-        <p className="mt-8">Non hai ancora salvato nessuna ricetta.</p>
-      )}
+      <Suspense fallback={<Spinner label="Caricamento ricette..."></Spinner>}>
+        <Recipes></Recipes>
+      </Suspense>
     </div>
   );
 }

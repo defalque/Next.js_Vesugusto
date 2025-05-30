@@ -208,8 +208,8 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
   }
 
   if (newCartItemQuantity > product.quantity + cartItem.quantity) {
-    console.error("Scorte esaurite");
-    throw new Error("Scorte esaurite.");
+    console.error("Scorte insufficienti");
+    throw new Error("Scorte insufficienti.");
   }
 
   // ------------------------ ATOMICA ----------------------------------
@@ -255,6 +255,9 @@ export async function deleteCartItem(cartId, productId) {
 }
 
 export async function createOrder(userId, cartId, sessionId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
   const { error } = await supabase.rpc("create_full_order", {
     user_id: userId,
     cart_id: cartId,
@@ -268,6 +271,9 @@ export async function createOrder(userId, cartId, sessionId) {
 }
 
 export async function createRecipe(title, description, userId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
   const { data, error } = await supabase
     .from("recipes")
     .insert([{ title, description, userId }])

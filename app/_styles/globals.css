@@ -99,6 +99,13 @@
   --color-dark-100: #333333;
 }
 
+@layer base {
+  ::selection {
+    background-color: var(--color-primary-950);
+    color: var(--color-primary-50);
+  }
+}
+
 @theme {
   --animate-fly-up: fly-up 1s ease-out;
   @keyframes fly-up {

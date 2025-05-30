@@ -456,6 +456,81 @@ export async function getUserOrders(userId) {
   return ordersWithItems;
 }
 
+export async function getUserOrdersWithPagination(limit, filters, userId) {
+  const from = filters.page * limit;
+  const to = from + limit - 1;
+
+  const { data: orders, error: ordersError } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("userId", userId)
+    .range(from, to)
+    .order("created_at", { ascending: false });
+
+  if (ordersError) {
+    console.error(
+      "Errore nel recupero degli ordini dell'utente: ",
+      ordersError
+    );
+    throw new Error("Errore nel recupero degli ordini dell'utente");
+  }
+
+  // Se non ci sono ordini, ritorna direttamente
+  if (!orders || orders.length === 0) {
+    return [];
+  }
+
+  // Prendi gli ID degli ordini
+  const orderIds = orders.map((order) => order.id);
+
+  // Recupera gli order_items associati a quegli ordini
+  const { data: orderItems, error: orderItemsError } = await supabase
+    .from("order_items")
+    .select("*")
+    .in("orderId", orderIds);
+
+  if (orderItemsError) {
+    console.error("Errore nel recupero degli order_items: ", orderItemsError);
+    throw new Error("Errore nel recupero degli order_items");
+  }
+
+  const productIds = orderItems.map((item) => item.productId);
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select("*")
+    .in("id", productIds);
+
+  if (productsError) {
+    console.error("Errore nel recupero dei prodotti: ", productsError);
+    throw new Error("Errore nel recupero dei prodotti");
+  }
+
+  // Associa i prodotti agli orderItems
+  const orderItemsWithProducts = orderItems.map((item) => ({
+    ...item,
+    product: products.find((product) => product.id === item.productId),
+  }));
+
+  // Raggruppa per ordine e calcola totale
+  const ordersWithItems = orders.map((order) => {
+    const items = orderItemsWithProducts.filter(
+      (item) => item.orderId === order.id
+    );
+
+    const total = items.reduce((sum, item) => {
+      return sum + (item.product?.regularPrice || 0) * item.quantity;
+    }, 0);
+
+    return {
+      ...order,
+      items,
+      total,
+    };
+  });
+
+  return ordersWithItems;
+}
+
 export async function getUserOrder(userId, orderId) {
   const { data: order, error: orderError } = await supabase
     .from("orders")

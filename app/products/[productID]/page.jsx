@@ -33,17 +33,3 @@ export default async function Page({ params }) {
     </div>
   );
 }
-
-// <div className="flex flex-col justify-center gap-10 -mt-10">
-//   <h1 className="text-5xl font-medium">Ops! Prodotto esaurito</h1>
-//   <p className="text-xl">
-//     Ci dispiace, questo prodotto è momentaneamente esaurito. Stiamo
-//     lavorando per renderlo nuovamente disponibile al più presto. Nel
-//     frattempo, dai un’occhiata ai nostri{" "}
-//     <Link href="/products" className="text-primary-950 font-semibold">
-//       prodotti
-//     </Link>
-//     {", "}
-//     potresti trovare qualcosa di ancora più interessante!
-//   </p>
-// </div>

@@ -16,7 +16,7 @@ async function ProductDetails({ product }) {
         {formatPrice(product.regularPrice)}
       </span>
 
-      <p className="text-lg text-zinc-500 mb-4">{product.description}</p>
+      <p className="text-lg text-zinc-500 mb-10">{product.description}</p>
 
       <ProductButtons
         cartId={session?.user?.cartId}

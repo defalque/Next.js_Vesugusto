@@ -1,3 +1,4 @@
+import { LIMIT } from "@/app/_lib/constants";
 import Pagination from "./Pagination";
 import ProductCard from "./ProductCard";
 
@@ -11,8 +12,10 @@ function ProductsList({ products, totalProducts }) {
       </div>
 
       <Pagination
-        products={products}
-        totalProducts={totalProducts}
+        limit={LIMIT}
+        label="prodotti"
+        items={products}
+        totalItems={totalProducts}
       ></Pagination>
     </div>
   );

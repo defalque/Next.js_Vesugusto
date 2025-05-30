@@ -72,6 +72,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import StripePaymentForm from "@/app/_components/ui/StripePaymentForm";
 import SpinnerMini from "./SpinnerMiniColored";
+import Spinner from "./Spinner";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
@@ -100,7 +101,11 @@ function PaymentForm({ total, userId, cartId }) {
   };
 
   if (!clientSecret) {
-    return <SpinnerMini></SpinnerMini>;
+    return (
+      <div className="flex items-center justify-center py-5">
+        <Spinner></Spinner>;
+      </div>
+    );
   }
 
   return (

@@ -1,4 +1,3 @@
-// "use client";
 import { formatDate } from "@/app/_lib/formatDate";
 import { formatPrice } from "@/app/_lib/formatPrice";
 import {
@@ -7,41 +6,28 @@ import {
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-// import { useState } from "react";
+import Pagination from "./Pagination";
+import { ORDERS_LIMIT } from "@/app/_lib/constants";
+import {
+  getUserOrders,
+  getUserOrdersWithPagination,
+} from "@/app/_lib/data-service";
+import { auth } from "@/auth";
 
-function OrderList({ orders }) {
-  // const [showCancelModal, setShowCancelModal] = useState(false);
-  // const [selectedOrderId, setSelectedOrderId] = useState(null);
+async function OrderList({ filters }) {
+  const session = await auth();
 
-  return (
+  const allOrdersData = getUserOrders(session.user.userId);
+  const ordersData = getUserOrdersWithPagination(
+    ORDERS_LIMIT,
+    filters,
+    session.user.userId
+  );
+
+  const [allOrders, orders] = await Promise.all([allOrdersData, ordersData]);
+
+  return orders.length > 0 ? (
     <div className="flex flex-col gap-20 mt-10 px-20 relative">
-      {/* {showCancelModal && (
-        <div className="absolute inset-0 top-0 left-0 h-screen w-full flex flex-col items-center justify-center z-50 bg-transparent backdrop-blur-sm">
-          <div className="bg-primary-50 py-10 px-20 flex flex-col items-center rounded-2xl border border-gray-200 shadow-md">
-            <h2 className="text-2xl font-medium mb-4">
-              Sei sicuro di voler annullare l'ordine?
-            </h2>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => {
-                  // qui puoi annullare l'ordine selectedOrderId
-                  setShowCancelModal(false);
-                }}
-                className="cursor-pointer bg-primary-50 text-primary-dark-900 px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
-              >
-                Conferma
-              </button>
-              <button
-                onClick={() => setShowCancelModal(false)}
-                className="cursor-pointer bg-primary-950 text-primary-50 px-4 py-2 rounded-md hover:bg-primary-800 transition-colors duration-200"
-              >
-                Annulla
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
-
       {orders.map((order) => (
         <div
           key={order.id}
@@ -147,7 +133,18 @@ function OrderList({ orders }) {
           ))}
         </div>
       ))}
+
+      <div className="-mt-20">
+        <Pagination
+          limit={ORDERS_LIMIT}
+          label="ordini"
+          items={orders}
+          totalItems={allOrders.length}
+        ></Pagination>
+      </div>
     </div>
+  ) : (
+    <p className="mt-8">Non hai ancora effettuato nessun ordine.</p>
   );
 }
 

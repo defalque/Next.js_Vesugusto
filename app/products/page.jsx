@@ -25,6 +25,15 @@ export default async function Page({ searchParams }) {
   const types = await getAllProductTypes();
   const productCount = await getFilteredProductsCount(filters);
   const products = await getFilteredProductsWithPagination(LIMIT, filters);
+  // const typesData = getAllProductTypes();
+  // const productCountData = getFilteredProductsCount(filters);
+  // const productsData = getFilteredProductsWithPagination(LIMIT, filters);
+
+  // const [types, productCount, products] = await Promise.all([
+  //   typesData,
+  //   productCountData,
+  //   productsData,
+  // ]);
 
   return (
     <ProductsHandler types={types} totalProducts={productCount.length}>

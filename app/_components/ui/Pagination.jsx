@@ -1,12 +1,11 @@
 "use client";
 
-import { LIMIT } from "@/app/_lib/constants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import SpinnerMini from "./SpinnerMini";
 
-export default function Pagination({ products, totalProducts }) {
+export default function Pagination({ limit, label, items, totalItems }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -16,7 +15,7 @@ export default function Pagination({ products, totalProducts }) {
   const currentPage = !searchParams.get("page")
     ? 0
     : Number(searchParams.get("page"));
-  const pageCount = Math.ceil(totalProducts / LIMIT);
+  const pageCount = Math.ceil(totalItems / limit);
 
   useEffect(() => {
     if (isLeftLoading) setIsLeftLoading(false);
@@ -26,7 +25,7 @@ export default function Pagination({ products, totalProducts }) {
     if (isLeftLoading || isRightLoading) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [products]);
+  }, [items]);
 
   useEffect(() => {
     if (currentPage + 1 > pageCount && pageCount > 0) {
@@ -65,18 +64,18 @@ export default function Pagination({ products, totalProducts }) {
 
   return (
     <>
-      {products?.length > 0 && (
+      {items?.length > 0 && (
         <div className="flex items-center py-3 mt-8 mb-4">
           <div className="text-primary-700 text-sm">
             Hai visualizzato da{" "}
-            <span className="font-semibold">{currentPage * LIMIT + 1}</span> a
+            <span className="font-semibold">{currentPage * limit + 1}</span> a
             <span className="font-semibold">
               {" "}
               {currentPage === pageCount - 1
-                ? totalProducts
-                : (currentPage + 1) * LIMIT}
+                ? totalItems
+                : (currentPage + 1) * limit}
             </span>{" "}
-            di <span className="font-semibold">{totalProducts}</span> prodotti.
+            di <span className="font-semibold">{totalItems}</span> {label}.
           </div>
 
           <div className="ml-auto flex items-center gap-8">

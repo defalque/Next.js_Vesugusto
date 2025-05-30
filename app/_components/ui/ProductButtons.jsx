@@ -18,17 +18,21 @@ function ProductButtons({ cartId, userId, product }) {
 
   const handleClick = async () => {
     if (userId) {
-      const succes = await addCartItem(cartId, product.id, quantity);
-      if (succes) {
-        // setCartItems((prevItems) => {
-        //   const existing = prevItems.find((item) => item.id === product.id);
-        //   if (!existing) {
-        //     return [...prevItems, { id: product.id }];
-        //   }
-        //   return prevItems;
-        // });
-        setQuantity(1);
-        toast.success("Prodotto aggiunto al carrello");
+      try {
+        const succes = await addCartItem(cartId, product.id, quantity);
+        if (succes) {
+          // setCartItems((prevItems) => {
+          //   const existing = prevItems.find((item) => item.id === product.id);
+          //   if (!existing) {
+          //     return [...prevItems, { id: product.id }];
+          //   }
+          //   return prevItems;
+          // });
+          setQuantity(1);
+          toast.success("Prodotto aggiunto al carrello");
+        }
+      } catch (err) {
+        toast.error(err.message);
       }
     } else
       toast("Accedi o registrati per aggiungere questo prodotto al carrello", {

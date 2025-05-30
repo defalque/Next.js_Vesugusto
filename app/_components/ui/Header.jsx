@@ -16,7 +16,7 @@ async function Header() {
   }
 
   return (
-    <header className="px-8 py-2 dark:py-0 sticky top-0 left-0 bg-primary-50 z-1000 flex items-center">
+    <header className="px-8 dark:py-0 sticky top-0 left-0 bg-primary-50 z-1000 flex items-center border-b border-b-gray-50">
       <Image
         src={vesugusto}
         width={55}

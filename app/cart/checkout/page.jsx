@@ -50,7 +50,7 @@ export default async function Page() {
                 <input
                   required
                   name="indirizzo"
-                  defaultValue={`${via}, ${numeroCivico}`}
+                  defaultValue={via ? `${via}, ${numeroCivico}` : ""}
                   className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950"
                 />
               </div>

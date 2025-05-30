@@ -146,7 +146,7 @@ export default function HomePage({ userId }) {
           display ? "" : "flex flex-col items-center"
         }`}
       >
-        <div className={`text-center py-5 ${userId ? "" : "mt-10"}`}>
+        <div className={`text-center py-5 ${userId ? "" : "mt-12"}`}>
           <div className="relative inline-block py-1">
             <h1 className="text-5xl font-medium tracking-wide relative z-10">
               creIAmo con{" "}

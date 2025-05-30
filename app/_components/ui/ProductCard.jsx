@@ -10,8 +10,13 @@ async function ProductCard({ product }) {
 
   let isFavorite, isCart;
   if (session?.user?.userId) {
-    const favorites = await getFavorites(session?.user?.userId);
-    const cartProducts = await getCartProducts(session?.user?.cartId);
+    const favoritesData = getFavorites(session?.user?.userId);
+    const cartProductsData = getCartProducts(session?.user?.cartId);
+    const [favorites, cartProducts] = await Promise.all([
+      favoritesData,
+      cartProductsData,
+    ]);
+
     isFavorite = favorites?.some((fav) => fav.id === product.id);
     isCart = cartProducts?.some((prod) => prod.id === product.id);
   }
