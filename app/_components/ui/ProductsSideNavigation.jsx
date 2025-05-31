@@ -9,8 +9,8 @@ function ProductsSideNavigation({ types }) {
   const urlSearchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [category, setCategory] = useState(false);
-  const [price, setPrice] = useState(false);
+  const [category, setCategory] = useState(true);
+  const [price, setPrice] = useState(true);
   const { isHidden } = useHideFilters();
 
   const activeTypeFilters = urlSearchParams.get("type")?.split(",") ?? [];
@@ -43,7 +43,7 @@ function ProductsSideNavigation({ types }) {
 
   return (
     <div className={`${isHidden ? "hidden" : ""}`}>
-      <div className="flex flex-col px-3 py-2 mt-4 text-md sticky font-normal top-25 w-full">
+      <div className="flex flex-col px-3 py-2 mt-2 text-md sticky font-normal top-15 w-full">
         {/* <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-2.5">
           Filtra per
         </span> */}

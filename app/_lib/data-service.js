@@ -96,8 +96,7 @@ export async function getFilteredProductsWithPagination(limit, filters) {
     .from("products")
     .select("*")
     .gt("quantity", 0)
-    .range(from, to)
-    .order("created_at", { ascending: true });
+    .range(from, to);
 
   // Filtro per type (array)
   if (filters.type.length > 0) {
@@ -118,6 +117,15 @@ export async function getFilteredProductsWithPagination(limit, filters) {
 
     const orFilter = orClauses.join(",");
     query = query.or(orFilter);
+  }
+
+  // Ordinamento dinamico
+  if (filters.sort === "price-asc") {
+    query = query.order("regularPrice", { ascending: true });
+  } else if (filters.sort === "price-desc") {
+    query = query.order("regularPrice", { ascending: false });
+  } else {
+    query = query.order("created_at", { ascending: true });
   }
 
   const { data, error } = await query;

@@ -28,10 +28,9 @@ async function ProductCard({ product }) {
           <Image
             src={product.image?.at(0)}
             fill
-            objectFit="cover"
             quality={70}
             alt={product.name}
-            className={` rounded-lg transition duration-300 ease-in-out  ${
+            className={`object-cover rounded-lg transition duration-300 ease-in-out  ${
               product.image?.at(1)
                 ? "group-hover:opacity-0"
                 : "group-hover:opacity-85"
@@ -42,9 +41,8 @@ async function ProductCard({ product }) {
               src={product.image?.at(1)}
               alt={product.name}
               fill
-              objectFit="cover"
               quality={70}
-              className="rounded-lg absolute top-0 left-0 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100"
+              className="object-cover rounded-lg absolute top-0 left-0 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100"
             />
           ) : null}
         </div>

@@ -256,7 +256,7 @@ export default function HomePage({ userId }) {
                 width={50}
                 className=""
               />
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 animate-pulse">
                 <div className="w-2 h-2 bg-primary-950 rounded-full animate-bounce-dot transition dot-delay-1"></div>
                 <div className="w-2 h-2 bg-primary-950 rounded-full animate-bounce-dot transition dot-delay-2"></div>
                 <div className="w-2 h-2 bg-primary-950 rounded-full animate-bounce-dot transition dot-delay-3"></div>

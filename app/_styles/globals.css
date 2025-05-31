@@ -2,6 +2,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+.text-stroke {
+  -webkit-text-stroke: 1px #fa5252;
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;

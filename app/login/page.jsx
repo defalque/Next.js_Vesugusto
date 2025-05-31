@@ -8,7 +8,7 @@ export const metadata = {
 export default function Page() {
   return (
     <div className="flex flex-col gap-5 mt-40 items-center">
-      <h2 className="text-3xl font-semibold mb-8">Crea un account o accedi!</h2>
+      <h2 className="text-4xl font-semibold mb-8">Crea un account o accedi!</h2>
 
       <SignIn></SignIn>
 

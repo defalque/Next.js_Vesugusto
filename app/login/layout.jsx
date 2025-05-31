@@ -1,5 +1,7 @@
 import Image from "next/image";
 import background from "@/public/login.jpg";
+import img1 from "@/public/lapillove-2.jpg";
+import img2 from "@/public/succo.jpg";
 
 function Layout({ children }) {
   return (
@@ -15,8 +17,8 @@ function Layout({ children }) {
           className="object-cover brightness-40"
         ></Image>
 
-        <div className="relative z-10">
-          <h1 className=" text-7xl tracking-tight font-bold text-primary-50 max-w-fit mb-20">
+        <div className="relative z-10 flex items-center justify-center">
+          <h1 className=" text-7xl tracking-tight text-center font-bold text-primary-50 max-w-fit mb-20 drop-shadow-[0_0_2px_#000]">
             Gustati i nostri prodotti.<br></br> Inizia ora.
           </h1>
         </div>

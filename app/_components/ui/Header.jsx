@@ -19,9 +19,10 @@ async function Header() {
     <header className="px-8 dark:py-0 sticky top-0 left-0 bg-primary-50 z-1000 flex items-center border-b border-b-gray-50">
       <Image
         src={vesugusto}
-        width={55}
-        height={45}
+        width={60}
+        height={60}
         alt="Vesugusto logo"
+        className="-ml-6"
       ></Image>
       <span className="text-4xl -ml-3 text-primary-950 dark:text-primary-100 tracking-wider font-medium self-center">
         esugusto

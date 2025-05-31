@@ -4,7 +4,7 @@ import { useHideFilters } from "../contexts/HideFiltersContext";
 import ProductsSideNavigation from "./ProductsSideNavigation";
 import ProductsHeader from "./ProductsHeader";
 
-function ProductsHandler({ totalProducts, types, children }) {
+function ProductsHandler({ totalProducts, types, currentSort, children }) {
   const { isHidden } = useHideFilters();
 
   return (
@@ -14,7 +14,9 @@ function ProductsHandler({ totalProducts, types, children }) {
       }`}
     >
       <ProductsSideNavigation types={types}></ProductsSideNavigation>
-      <ProductsHeader totalProducts={totalProducts}>{children}</ProductsHeader>
+      <ProductsHeader totalProducts={totalProducts} currentSort={currentSort}>
+        {children}
+      </ProductsHeader>
     </div>
   );
 }

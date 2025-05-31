@@ -18,9 +18,10 @@ export default async function Page({ searchParams }) {
   const filters = {
     type: params?.type ? params.type.split(",") : [],
     price: params?.price ? params.price.split(",") : [],
+    sort: params?.sort || "default",
     page: Number(params?.page) || 0,
   };
-  const filtersKey = `${filters.type}-${filters.price}`;
+  const filtersKey = `${filters.type}-${filters.price}-${filters.sort}`;
 
   const types = await getAllProductTypes();
   const productCount = await getFilteredProductsCount(filters);
@@ -36,7 +37,11 @@ export default async function Page({ searchParams }) {
   // ]);
 
   return (
-    <ProductsHandler types={types} totalProducts={productCount.length}>
+    <ProductsHandler
+      types={types}
+      totalProducts={productCount.length}
+      currentSort={filters.sort}
+    >
       <Suspense
         fallback={<Spinner label="Caricamento prodotti..."></Spinner>}
         key={filtersKey}
