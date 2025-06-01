@@ -48,7 +48,7 @@ function ProductsSideNavigation({ types }) {
           Filtra per
         </span> */}
 
-        <div className=" border-b py-3 border-b-zinc-200 ml-3">
+        <div className=" border-b py-3 border-b-zinc-200 dark:border-b-dark-200 ml-3">
           <div
             className="flex items-center cursor-pointer mb-1"
             onClick={() => setCategory(!category)}
@@ -73,7 +73,7 @@ function ProductsSideNavigation({ types }) {
                     onChange={() => handleMultiFilterClick("type", type.type)}
                     className="mr-2"
                   />
-                  <span className="text-primary-dark-900 font-light">
+                  <span className="text-primary-dark-900 dark:text-primary-50 font-light">
                     {type.type.charAt(0).toUpperCase() + type.type.slice(1)}
                   </span>
                 </label>
@@ -112,7 +112,7 @@ function ProductsSideNavigation({ types }) {
                     onChange={() => handleMultiFilterClick("price", value)}
                     className="w-4 h-4 cursor-pointer"
                   />
-                  <span className="text-primary-dark-900 font-light">
+                  <span className="text-primary-dark-900 dark:text-primary-50 font-light">
                     {label}
                   </span>
                 </label>

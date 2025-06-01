@@ -26,17 +26,14 @@ export default function FavoriteCard({
       }`}
     >
       <div className="flex flex-col">
-        <Link
-          href={`/products/${product.id}`}
-          className="pb-3 border-b border-gray-200"
-        >
+        <Link href={`/products/${product.id}`} className="pb-3">
           <div className="flex flex-col gap-2">
             <div className="relative aspect-2/3 group">
               <Image
                 src={product.image?.at(0)}
                 fill
                 alt={product.name}
-                className="object-cover rounded-lg"
+                className="object-cover rounded-lg dark:brightness-80"
               />
               <TrashButton
                 userId={userId}
@@ -47,7 +44,9 @@ export default function FavoriteCard({
             </div>
 
             <div className="flex items-center text-sm">
-              <h1 className="text-gray-800 font-light">{product.name}</h1>
+              <h1 className="text-gray-800 dark:text-gray-300 font-light">
+                {product.name}
+              </h1>
               <span
                 className={`ml-auto text-xs text-primary-50 rounded-full px-2 py-0.5 ${
                   product.quantity === 0

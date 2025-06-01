@@ -42,7 +42,7 @@ async function NotFound() {
               fill
               quality={80}
               priority={true}
-              className="object-cover"
+              className="object-cover ark:brightness-80"
             ></Image>
           </div>
         ))}

@@ -16,7 +16,7 @@ async function Header() {
   }
 
   return (
-    <header className="px-8 dark:py-0 sticky top-0 left-0 bg-primary-50 z-1000 flex items-center border-b border-b-gray-50">
+    <header className="px-8 sticky top-0 left-0 bg-primary-50 dark:bg-primary-dark-950 z-1000 flex items-center border-b border-b-gray-50 dark:border-b-dark-400">
       <Image
         src={vesugusto}
         width={60}
@@ -24,7 +24,7 @@ async function Header() {
         alt="Vesugusto logo"
         className="-ml-6"
       ></Image>
-      <span className="text-4xl -ml-3 text-primary-950 dark:text-primary-100 tracking-wider font-medium self-center">
+      <span className="text-4xl -ml-3 text-primary-950 tracking-wider font-medium self-center">
         esugusto
       </span>
       <div className="flex gap-16 ml-auto">

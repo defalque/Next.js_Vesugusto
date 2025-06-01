@@ -31,24 +31,26 @@ async function OrderList({ filters }) {
       {orders.map((order) => (
         <div
           key={order.id}
-          className="flex flex-col border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
+          className="flex flex-col border border-gray-200 dark:border-dark-200 rounded-2xl overflow-hidden shadow-sm"
         >
-          <div className="flex items-center gap-x-15 text-sm px-10 py-4 border-b border-b-gray-200 bg-gray-50">
+          <div className="flex items-center gap-x-15 text-sm px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
             <div className=" flex flex-col gap-1">
               <h2 className="font-medium">Numero ordine</h2>
-              <span className="text-gray-500">#{order.id}</span>
+              <span className="text-gray-500 dark:text-gray-300">
+                #{order.id}
+              </span>
             </div>
 
             <div className=" flex flex-col gap-1">
               <h2 className="font-medium">Data dell'ordine</h2>
-              <span className="text-gray-500">
+              <span className="text-gray-500 dark:text-gray-300">
                 {formatDate(order.orderDate)}
               </span>
             </div>
 
             <div className=" flex flex-col gap-1">
               <h2 className="font-medium">Totale ordine</h2>
-              <span className="text-primary-dark-900 font-medium self-center">
+              <span className="text-primary-dark-900 dark:text-gray-300 font-medium self-center">
                 {formatPrice(order.total)}
               </span>
             </div>
@@ -89,7 +91,7 @@ async function OrderList({ filters }) {
               <div
                 className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 px-10 py-8 font-light ${
                   index < order.items.length - 1
-                    ? "border-b border-b-gray-200"
+                    ? "border-b border-b-gray-200 dark:border-b-dark-200"
                     : ""
                 }`}
               >
@@ -98,7 +100,7 @@ async function OrderList({ filters }) {
                     src={item.product.image.at(0)}
                     fill
                     alt={item.product.name}
-                    className="object-cover rounded-md"
+                    className="object-cover rounded-md dark:brightness-80"
                   />
                 </div>
 
@@ -108,7 +110,7 @@ async function OrderList({ filters }) {
                   <span>{formatPrice(item.product.regularPrice)}</span>
                 </div>
 
-                <p className="col-span-2 text-gray-500">
+                <p className="col-span-2 text-gray-500 dark:text-gray-300">
                   {item.product.description}
                 </p>
 
@@ -116,15 +118,15 @@ async function OrderList({ filters }) {
                   Quantità: {item.quantity}
                 </span>
 
-                <div className="flex gap-3 items-center text-sm text-primary-dark-100 hover:text-primary-900 self-end">
+                <div className="flex gap-3 items-center text-sm text-primary-dark-100 dark:text-primary-800 hover:text-primary-900 self-end">
                   <Link
                     href={`/products/${item.product.id}`}
                     className="hover:underline cursor-pointer transition-all duration-200"
                   >
                     Vedi prodotto
                   </Link>
-                  <span className="text-gray-200">|</span>
-                  <button className="hover:underline cursor-pointer transition-all duration-200">
+                  <span className="text-gray-200 dark:text-gray-800">|</span>
+                  <button className="hover:underline cursor-pointer transition-all duration-200 dark:text-primary-800 ">
                     Compra di nuovo
                   </button>
                 </div>

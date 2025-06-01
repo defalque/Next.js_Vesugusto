@@ -144,7 +144,7 @@ function UpdateProfileForm({ user }) {
           name="name"
           disabled
           defaultValue={name}
-          className="rounded-xl px-5 py-2 w-full disabled:cursor-not-allowed disabled:bg-primary-100 disabled:text-neutral-400 dark:disabled:bg-zinc-100"
+          className="rounded-xl px-5 py-2 w-full disabled:cursor-not-allowed disabled:bg-primary-100 disabled:text-neutral-400 dark:disabled:bg-zinc-700"
         />
       </div>
 
@@ -154,7 +154,7 @@ function UpdateProfileForm({ user }) {
           name="email"
           disabled
           defaultValue={email}
-          className="rounded-xl px-5 py-2 w-full disabled:cursor-not-allowed disabled:bg-primary-100 disabled:text-neutral-400 dark:disabled:bg-zinc-100"
+          className="rounded-xl px-5 py-2 w-full disabled:cursor-not-allowed disabled:bg-primary-100 disabled:text-neutral-400 dark:disabled:bg-zinc-700"
         />
       </div>
 
@@ -167,7 +167,7 @@ function UpdateProfileForm({ user }) {
             required
             name="via"
             defaultValue={via}
-            className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
+            className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.via && (
             <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
@@ -184,7 +184,7 @@ function UpdateProfileForm({ user }) {
             required
             name="numeroCivico"
             defaultValue={numeroCivico}
-            className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
+            className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.numeroCivico && (
             <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
@@ -204,7 +204,7 @@ function UpdateProfileForm({ user }) {
             <input
               required
               name="comune"
-              className={`font-light px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none ${
+              className={`font-light px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none ${
                 suggestions.length > 0 ? " rounded-t-xl" : "rounded-xl"
               }`}
               value={query}
@@ -213,11 +213,11 @@ function UpdateProfileForm({ user }) {
               autoComplete="off"
             />
             {suggestions.length > 0 && (
-              <ul className="absolute z-20 text-primary-950 dark:text-primary-dark-200 dark:hover:text-primary-dark-200 bg-primary-50 border border-primary-200 w-full shadow -mt-1 overflow-y-auto max-h-36">
+              <ul className="absolute z-20 text-primary-950 bg-primary-50 border border-primary-200 dark:bg-dark-300 dark:text-primary-50 dark:border-dark-200 w-full shadow -mt-1 overflow-y-auto max-h-36">
                 {suggestions.map((comune, index) => (
                   <li
                     key={index}
-                    className="font-light text-sm px-4 py-2 dark:hover:bg-primary-dark-200 hover:bg-primary-950 hover:text-primary-100 cursor-pointer"
+                    className="font-light text-sm px-4 py-2 dark:hover:bg-dark-200 hover:bg-primary-950 hover:text-primary-100 cursor-pointer"
                     onClick={() => handleSelectComune(comune)}
                   >
                     {comune.denominazione_ita}
@@ -245,7 +245,7 @@ function UpdateProfileForm({ user }) {
               setFormError({ cap: "" });
               setCap(e.target.value);
             }}
-            className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
+            className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.cap && (
             <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
@@ -263,7 +263,7 @@ function UpdateProfileForm({ user }) {
           required
           name="phoneNumber"
           defaultValue={phoneNumber}
-          className="font-light rounded-xl px-5 py-2 bg-primary-50 border border-gray-300 w-full outline-primary-950 appearance-none"
+          className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
         />
         {formError.phoneNumber && (
           <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">

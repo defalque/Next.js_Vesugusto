@@ -14,23 +14,10 @@ function Navigation({ session, cartItemsCount }) {
       <ul className="flex gap-16 dark:gap-11 items-center">
         <li className="py-5.5">
           <Link
-            href="/about"
-            className={`dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
-              pathname === "/about"
-                ? "text-primary-950 dark:bg-dark-400 dark:hover:bg-dark-400"
-                : "text-primary-dark-900"
-            }`}
-          >
-            Chi siamo
-          </Link>
-        </li>
-
-        <li className="py-5.5">
-          <Link
             href="/products"
             className={` dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
               pathname === "/products"
-                ? "text-primary-950 dark:bg-dark-400 dark:hover:bg-dark-400"
+                ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
                 : "text-primary-dark-900"
             }`}
           >
@@ -43,7 +30,7 @@ function Navigation({ session, cartItemsCount }) {
             href="/create"
             className={`py-5.5 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
               pathname === "/create"
-                ? "text-primary-950 dark:bg-dark-400 dark:hover:bg-dark-400"
+                ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
                 : "text-primary-dark-900"
             }`}
           >
@@ -58,7 +45,7 @@ function Navigation({ session, cartItemsCount }) {
                 <ShoppingBagIcon
                   className={`size-6 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-zinc-500 transition-colors duration-300 ${
                     pathname === "/cart"
-                      ? "text-primary-900 dark:text-primary-800"
+                      ? "text-primary-900 dark:text-dark-300"
                       : "text-primary-dark-900"
                   }`}
                 />
@@ -84,7 +71,7 @@ function Navigation({ session, cartItemsCount }) {
                 height={32}
               />
             ) : (
-              <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-300 transition-colors duration-300"></UserIcon>
+              <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-gray-500 transition-colors duration-300"></UserIcon>
             )}
           </Link>
         </li>

@@ -24,7 +24,7 @@ function ProductImage({ product }) {
                 fill
                 quality={80}
                 priority={true}
-                className={`object-cover`}
+                className={`object-cover dark:brightness-80`}
               />
             </button>
           ))}
@@ -45,7 +45,7 @@ function ProductImage({ product }) {
               fill
               quality={80}
               priority={true}
-              className="object-cover"
+              className="object-cover dark:brightness-80"
             />
           </div>
         ))}

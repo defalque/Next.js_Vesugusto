@@ -12,7 +12,7 @@ function TrashButton({ userId, productId, onDelete, startTransition }) {
 
   return (
     <button
-      className="absolute top-1 right-1 px-1 py-1 rounded-full bg-primary-50 hover:bg-gray-50 transition-colors duration-200 w-max cursor-pointer opacity-95 outline-primary-950 font-bold"
+      className="absolute top-1 right-1 px-1 py-1 rounded-full bg-primary-50 dark:text-primary-dark-950 hover:bg-gray-50 transition-colors duration-200 w-max cursor-pointer opacity-95 outline-primary-950 font-bold"
       onClick={handleDelete}
     >
       <XMarkIcon className="size-4"></XMarkIcon>

@@ -5,11 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import logo from "@/public/vesugusto.png";
 import { ArrowUpIcon } from "@heroicons/react/24/outline";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { createRecipe } from "@/app/_lib/actions";
 import SpinnerSuperMini from "./SpinnerSuperMini";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HomePage({ userId }) {
+  const [showBanner, setShowBanner] = useState(true);
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -110,22 +112,63 @@ export default function HomePage({ userId }) {
       }}
     >
       {!userId && (
-        <div
-          className="absolute top-0 left-0 h-10 w-full z-100 flex items-center justify-center animate-moveInFromTop"
-          style={{
-            backgroundImage: `
-      radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),
-      radial-gradient(circle at 80% 50%, rgba(248, 6, 179, 0.4) 0%, transparent 70%),
-      radial-gradient(circle at 50% 100%, rgba(233, 190, 205, 0.3) 0%, transparent 70%)
-    `,
-            backdropFilter: "blur(12px)",
-          }}
-        >
-          <span className="text-primary-dark-950 text-sm text-center">
-            Crea un account o accedi per salvare le ricette create dalla nostra
-            IA!
-          </span>
-        </div>
+        //   (
+        //     <div
+        //       className="absolute top-0 left-0 h-10 w-full z-100 flex items-center justify-center animate-moveInFromTop"
+        //       style={{
+        //         backgroundImage: `
+        //   radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),
+        //   radial-gradient(circle at 80% 50%, rgba(248, 6, 179, 0.4) 0%, transparent 70%),
+        //   radial-gradient(circle at 50% 100%, rgba(233, 190, 205, 0.3) 0%, transparent 70%)
+        // `,
+        //         backdropFilter: "blur(12px)",
+        //       }}
+        //     >
+        //       <span className="text-primary-dark-950 text-sm text-center">
+        //         Crea un account o accedi per salvare le ricette create dalla nostra
+        //         IA!
+        //       </span>
+        //       <button
+        //         className="absolute top-1 right-2 p-1 text-gray-600 hover:text-black cursor-pointer"
+        //         // onClick={() => setShowBanner(false)}
+        //         aria-label="Chiudi"
+        //       >
+        //         <XMarkIcon className="size-4" />
+        //       </button>
+        //     </div>
+        //   )
+        <AnimatePresence>
+          {showBanner && (
+            <motion.div
+              className="absolute top-0 left-0 h-10 w-full z-[100] flex items-center justify-center"
+              style={{
+                backgroundImage: `
+              radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),
+              radial-gradient(circle at 80% 50%, rgba(248, 6, 179, 0.4) 0%, transparent 70%),
+              radial-gradient(circle at 50% 100%, rgba(233, 190, 205, 0.3) 0%, transparent 70%)
+            `,
+                backdropFilter: "blur(12px)",
+              }}
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <span className="text-primary-dark-950 dark:text-primary-50 text-sm text-center">
+                Crea un account o accedi per salvare le ricette create dalla
+                nostra IA!
+              </span>
+
+              <button
+                className="absolute top-1 right-2 p-1 text-gray-600 dark:text-gray-200 hover:text-black dark:hover:text-white cursor-pointer"
+                onClick={() => setShowBanner(false)}
+                aria-label="Chiudi"
+              >
+                <XMarkIcon className="size-4.5" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       )}
 
       {/* <div
@@ -154,12 +197,12 @@ export default function HomePage({ userId }) {
                 Vesugusto
               </span>
             </h1>
-            <div className="absolute top-0 left-0 h-full w-full bg-white z-20 animate-slideReveal pointer-events-none" />
+            <div className="absolute top-0 left-0 h-full w-full bg-white dark:bg-primary-dark-950 z-20 animate-slideReveal pointer-events-none" />
           </div>
         </div>
 
         <div
-          className={`rounded-full bg-primary-50 h-max mt-10 ${
+          className={`rounded-full bg-primary-50 dark:bg-primary-dark-950 h-max mt-10 ${
             display ? "hidden" : ""
           }`}
         >
@@ -181,7 +224,7 @@ export default function HomePage({ userId }) {
             <button
               key={prompt.id}
               onClick={() => sendMessage(prompt.message)}
-              className={`text-lg py-4 px-4 border border-gray-200 rounded-4xl hover:bg-gray-50 cursor-pointer transition-all duration-200 hover:-translate-y-1 ${
+              className={`text-lg py-4 px-4 border border-gray-200 dark:border-dark-200 dark:bg-dark-300 rounded-4xl hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 hover:-translate-y-1 ${
                 prompt.id % 2 == 0
                   ? "animate-moveInFromRight"
                   : "animate-moveInFromLeft"
@@ -208,8 +251,8 @@ export default function HomePage({ userId }) {
                 ref={messageRef}
                 className={`px-4 py-2 rounded-xl whitespace-pre-wrap ${
                   msg.role === "user"
-                    ? "bg-primary-950 text-white"
-                    : "text-gray-800"
+                    ? "bg-primary-950 text-primary-50"
+                    : "text-gray-800 dark:text-gray-200"
                 }`}
               >
                 {msg.role === "ai" ? (
@@ -232,7 +275,7 @@ export default function HomePage({ userId }) {
                             <SpinnerSuperMini />
                           ) : (
                             <button
-                              className="text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 cursor-pointer hover:bg-primary-800 font-medium"
+                              className="text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 dark:text-gray-200 cursor-pointer hover:bg-primary-800 font-medium"
                               onClick={() => handleSaveRecipe(msg.content, i)}
                             >
                               Salva!
@@ -269,7 +312,7 @@ export default function HomePage({ userId }) {
       <div className="bg-transparent pb-10">
         <div className="max-w-3xl mx-auto flex flex-col animate-reveal">
           <textarea
-            className="w-full px-5 pt-2 border-t border-r border-l bg-white border-gray-300 rounded-tl-2xl rounded-tr-2xl resize-none outline-primary-950 leading-tight font-light outline-none overflow-y-auto"
+            className="w-full px-5 pt-2 border-t border-r border-l bg-white dark:border-dark-200 dark:bg-dark-300 border-gray-300 rounded-tl-2xl rounded-tr-2xl resize-none outline-primary-950 leading-tight font-light outline-none overflow-y-auto"
             style={{
               minHeight: "40px",
               maxHeight: "150px",
@@ -286,7 +329,7 @@ export default function HomePage({ userId }) {
             disabled={loading}
           />
 
-          <div className="flex items-center justify-end py-2 rounded-br-2xl rounded-bl-2xl border-r border-l border-t-0 border-b bg-white border-gray-300">
+          <div className="flex items-center justify-end py-2 rounded-br-2xl rounded-bl-2xl border-r border-l border-t-0 border-b bg-white border-gray-300 dark:border-dark-200 dark:bg-dark-300">
             <button
               className="rounded-full mr-2 bg-primary-950 hover:bg-primary-800 transition-colors duration-200 px-1 py-1 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               onClick={sendMessage}

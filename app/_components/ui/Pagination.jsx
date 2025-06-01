@@ -66,7 +66,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
     <>
       {items?.length > 0 && (
         <div className="flex items-center py-3 mt-8 mb-4">
-          <div className="text-primary-700 text-sm">
+          <div className="text-primary-700 dark:text-gray-200 text-sm">
             Hai visualizzato da{" "}
             <span className="font-semibold">{currentPage * limit + 1}</span> a
             <span className="font-semibold">

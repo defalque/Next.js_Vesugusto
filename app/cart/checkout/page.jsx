@@ -38,8 +38,8 @@ export default async function Page() {
 
       <div className="grid grid-cols-2 gap-8">
         <div className="flex flex-col">
-          <div className="border-b border-b-gray-200 pb-8 flex flex-col gap-7">
-            <h2 className="text-sm uppercase font-semibold text-gray-900">
+          <div className="border-b border-b-gray-200 dark:border-b-dark-200 pb-8 flex flex-col gap-7">
+            <h2 className="text-sm uppercase font-semibold text-gray-900 dark:text-gray-300">
               Informazioni sulla spedizione
             </h2>
             <div className="grid grid-cols-4 gap-x-5 gap-y-6 font-normal">
@@ -51,7 +51,7 @@ export default async function Page() {
                   required
                   name="indirizzo"
                   defaultValue={via ? `${via}, ${numeroCivico}` : ""}
-                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950"
+                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 dark:border-dark-200 dark:bg-dark-300 dark:text-gray-200 w-full text-primary-dark-900  outline-primary-950"
                 />
               </div>
 
@@ -62,7 +62,7 @@ export default async function Page() {
                 <input
                   required
                   name="city"
-                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
+                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 dark:border-dark-200 dark:bg-dark-300 dark:text-gray-200 w-full text-primary-dark-900  outline-primary-950 "
                   defaultValue={city}
                   // onChange={(e) => setQuery(e.target.value)}
                 />
@@ -76,14 +76,14 @@ export default async function Page() {
                   required
                   name="cap"
                   defaultValue={cap}
-                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
+                  className="mt-1 rounded-xl px-3 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 dark:text-gray-200 border border-gray-300 w-full text-primary-dark-900  outline-primary-950 "
                 />
               </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            <h2 className="text-sm uppercase font-semibold pt-6 text-gray-900">
+            <h2 className="text-sm uppercase font-semibold pt-6 text-gray-900 dark:text-gray-300">
               Pagamento
             </h2>
             <PaymentForm
@@ -94,15 +94,17 @@ export default async function Page() {
           </div>
         </div>
 
-        <div className="bg-gray-50 text-primary-dark-950 flex flex-col gap-6 h-max py-5 px-8">
+        <div className="bg-gray-50 dark:bg-dark-400 text-primary-dark-950 flex flex-col gap-6 h-max py-5 px-8">
           <div className="flex flex-col gap-1">
-            <h1 className="text-sm text-gray-600">Importo dovuto</h1>
-            <span className="text-4xl font-semibold">
+            <h1 className="text-sm text-gray-600 dark:text-gray-300">
+              Importo dovuto
+            </h1>
+            <span className="text-4xl font-semibold dark:text-gray-200">
               {formatPrice(totalPrice)}
             </span>
           </div>
 
-          <div className="bg-gray-50 text-primary-dark-950 flex flex-col h-max">
+          <div className="bg-gray-50 dark:bg-dark-400 text-primary-dark-950 flex flex-col h-max">
             {products.map((product, index) => (
               <div
                 className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6  py-8 ${
@@ -119,7 +121,7 @@ export default async function Page() {
                   />
                 </div>
 
-                <div className="flex flex-col h-full gap-2">
+                <div className="flex flex-col h-full gap-2 dark:text-gray-200">
                   <h1 className="font-semibold">{product.name}</h1>
                   <p className="text-sm font-light">{product.details || ""}</p>
                   <p className="text-sm mt-auto">
@@ -127,7 +129,7 @@ export default async function Page() {
                   </p>
                 </div>
 
-                <span className="font-semibold">
+                <span className="font-semibold dark:text-gray-200">
                   {formatPrice(product.regularPrice)}
                 </span>
               </div>

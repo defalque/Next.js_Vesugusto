@@ -1,35 +1,17 @@
 import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
-export async function createUserAndCart(newUser) {
-  const { data: userData, error } = await supabase
-    .from("users")
-    .insert([newUser])
-    .select()
-    .single();
+export async function createUserAndCart(email, name, image) {
+  const { error } = await supabase.rpc("create_user_and_cart_atomic", {
+    p_email: email,
+    p_name: name,
+    p_image: image,
+  });
 
   if (error) {
-    console.error(error);
-    throw new Error("User could not be created");
+    console.error("Errore nella creazione di user e cart:", error);
+    throw new Error("Impossibile creare utente e carrello.");
   }
-
-  const userId = userData.id;
-
-  const { data: cartData, error: cartError } = await supabase
-    .from("carts")
-    .insert([{ userId, created_at: new Date().toISOString() }])
-    .select()
-    .single();
-
-  if (cartError) {
-    console.error(cartError);
-    throw new Error("Cart could not be created");
-  }
-
-  return {
-    user: userData,
-    cart: cartData,
-  };
 }
 
 export async function getUser(email) {

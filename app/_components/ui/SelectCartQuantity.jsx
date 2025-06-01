@@ -25,7 +25,7 @@ function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
         id="quantity"
         value={cartQuantity}
         onChange={handleQuantity}
-        className="px-2 py-2 w-20 shadow-sm rounded-md border border-zinc-300 transition duration-150 focus:outline-none focus:ring-1 focus:ring-primary-950"
+        className="px-2 py-2 w-20 shadow-sm rounded-md border border-zinc-300 dark:border-gray-700 dark:bg-dark-300 transition duration-150 focus:outline-none focus:ring-1 focus:ring-primary-950"
         required
       >
         {Array.from(

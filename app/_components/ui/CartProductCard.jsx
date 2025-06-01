@@ -16,7 +16,7 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
   return (
     <div
       key={product.id}
-      className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] gap-x-5 items-start py-6 border-t border-t-zinc-200 last:border-b last:border-b-zinc-200"
+      className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] gap-x-5 items-start py-6 border-t border-t-zinc-200 dark:border-dark-200 last:border-b last:border-b-zinc-200 dark:last:border-dark-200"
     >
       <div className="h-50 relative aspect-2/3">
         <Image
@@ -28,11 +28,13 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
       </div>
 
       <div className="flex flex-col h-full gap-2">
-        <h1 className="text-lg text-zinc-500">{product.name}</h1>
+        <h1 className="text-lg text-zinc-500 dark:text-gray-300">
+          {product.name}
+        </h1>
         <span className="text-md font-semibold">
           {formatPrice(product.regularPrice)}
         </span>
-        <p className="text-sm font-light mt-auto text-zinc-500">
+        <p className="text-sm font-light mt-auto text-zinc-500 dark:text-gray-300">
           {product.details}
         </p>
         {product.productQuantity > 0 ? (

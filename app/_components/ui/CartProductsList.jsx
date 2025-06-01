@@ -55,21 +55,21 @@ function CartProductsList({
             ))}
           </div>
         ) : (
-          <div className="pt-8 border-t border-t-zinc-200">
+          <div className="pt-8 border-t border-t-zinc-200 dark:border-t-gray-700">
             <p>Non hai nessun prodotto nel carrello.</p>
           </div>
         )}
 
         {optimisticProducts.length > 0 && (
-          <div className="flex flex-col gap-6 bg-slate-50 h-max px-5 py-5 rounded-md">
+          <div className="flex flex-col gap-6 bg-slate-50 dark:bg-dark-400 h-max px-5 py-5 rounded-md">
             <h1 className="text-xl font-medium mb-4">Riepilogo</h1>
-            <div className="flex items-center pb-2 border-b border-b-zinc-200">
+            <div className="flex items-center pb-2 border-b border-b-zinc-200 dark:border-b-dark-100">
               <span className="font-light">Subtotale</span>
               <span className="ml-auto font-semibold text-lg">
                 {formatPrice(totalPrice)}
               </span>
             </div>
-            <div className="flex items-center pb-2 border-b border-b-zinc-200">
+            <div className="flex items-center pb-2 border-b border-b-zinc-200 dark:border-b-dark-100">
               <span className="font-light mr-2">Spese di spedizione</span>
               <QuestionMarkCircleIcon className="size-5 fill-primary-50"></QuestionMarkCircleIcon>
               <span className="ml-auto font-semibold text-lg">

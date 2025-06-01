@@ -3,15 +3,17 @@ import Downloader from "./Downloader";
 
 function RecipesList({ recipes }) {
   return (
-    <div className="flex flex-col my-10 rounded border border-gray-300">
+    <div className="flex flex-col my-10 rounded border border-gray-300 dark:border-dark-100">
       {recipes.map((recipe, index) => (
         <div
           key={recipe.id}
           className={`flex items-center gap-4 pb-3 pt-4 pr-4 pl-4 transition-all duration-300 relative ${
-            index < recipes.length - 1 ? "border-b border-b-gray-300" : ""
+            index < recipes.length - 1
+              ? "border-b border-b-gray-300 dark:border-b-dark-100"
+              : ""
           }`}
         >
-          <h1 className="text-medium font-medium hover:text-primary-dark-100 hover:underline transition-all duration-100 cursor-pointer">
+          <h1 className="text-medium font-medium hover:text-primary-dark-100 dark:hover:text-primary-50 hover:underline transition-all duration-100 cursor-pointer">
             {recipe.title}
           </h1>
 

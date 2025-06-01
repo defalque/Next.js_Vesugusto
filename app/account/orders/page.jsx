@@ -20,11 +20,11 @@ export default async function Page({ searchParams }) {
 
   return (
     <div>
-      <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200">
+      <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
         <h1 className="text-5xl font-medium tracking-wide">
           Storico degli ordini
         </h1>
-        <h2 className="text-gray-500">
+        <h2 className="text-gray-500 dark:text-gray-300">
           Visualizza lo stato degli ordini recenti, gestisci i resi e scopri
           prodotti simili.
         </h2>

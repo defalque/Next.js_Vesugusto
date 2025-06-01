@@ -15,11 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const existingUser = await getUser(user.email);
 
         if (!existingUser)
-          await createUserAndCart({
-            email: user.email,
-            name: user.name,
-            image: user.image,
-          });
+          await createUserAndCart(user.email, user.name, user.image);
 
         return true;
       } catch {

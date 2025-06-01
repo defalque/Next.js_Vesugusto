@@ -8,7 +8,7 @@ async function ProductDetails({ product }) {
 
   return (
     <div className="flex flex-col gap-3 ml-3">
-      <h1 className="text-5xl font-medium pb-5 border-b border-b-zinc-200">
+      <h1 className="text-5xl font-medium pb-5 border-b border-b-zinc-200 dark:border-b-dark-200">
         {product.name}
       </h1>
 
@@ -16,7 +16,9 @@ async function ProductDetails({ product }) {
         {formatPrice(product.regularPrice)}
       </span>
 
-      <p className="text-lg text-zinc-500 mb-10">{product.description}</p>
+      <p className="text-lg text-zinc-500 dark:text-gray-300 mb-10">
+        {product.description}
+      </p>
 
       <ProductButtons
         cartId={session?.user?.cartId}

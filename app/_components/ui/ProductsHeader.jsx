@@ -33,11 +33,11 @@ function ProductsHeader({ totalProducts, currentSort, children }) {
 
   return (
     <div className={`${isHidden ? "px-30" : "px-10"}`}>
-      <div className=" flex flex-col gap-5 pb-6 mt-5 mb-5 border-b border-b-gray-200">
+      <div className=" flex flex-col gap-5 pb-6 mt-5 mb-5 border-b border-b-gray-200 dark:border-b-dark-200">
         <h1 className="text-5xl font-medium tracking-wide">
           Il nostro e-commerce
         </h1>
-        <h2 className="text-gray-500 font-normal">
+        <h2 className="text-gray-500 dark:text-gray-300 font-normal">
           Esplora il nostro ampio catalogo di prodotti. Utilizza i filtri per
           categoria e prezzo per trovare esattamente ciò che stai cercando. Ogni
           prodotto è descritto dettagliatamente per aiutarti nella tua scelta.
@@ -45,7 +45,7 @@ function ProductsHeader({ totalProducts, currentSort, children }) {
       </div>
       <div
         className={
-          "flex flex-col gap-5 w-full justify-end mb-2 bg-primary-50 py-4 sticky top-17 z-100"
+          "flex flex-col gap-5 w-full justify-end mb-2 py-4 sticky top-17 z-100 bg-primary-50 dark:bg-primary-dark-950 "
         }
       >
         <div className="flex items-center font-light text-sm">
@@ -62,7 +62,7 @@ function ProductsHeader({ totalProducts, currentSort, children }) {
             <select
               value={sortOption}
               onChange={handleSortChange}
-              className="block w-full px-1 py-1 bg-white border border-gray-300 rounded-lg  focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-sm"
+              className="block w-full px-1 py-1 border border-gray-300 dark:border-dark-200 bg-primary-50 dark:bg-dark-300 rounded-lg  focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-sm"
             >
               <option value="default">Ordina</option>
               <option value="price-asc">Prezzo: dal più basso</option>

@@ -40,7 +40,7 @@ function HeartBurstButton({ userId, productId }) {
   return (
     <div className="relative">
       <button
-        className="px-3 py-3 bg-primary-100 rounded-full cursor-pointer outline-primary-950"
+        className="px-3 py-3 bg-primary-100 dark:bg-primary-300 rounded-full cursor-pointer outline-primary-950"
         onClick={handleClick}
         disabled={isClicked}
       >

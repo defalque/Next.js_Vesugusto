@@ -78,6 +78,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 function PaymentForm({ total, userId, cartId }) {
   const [clientSecret, setClientSecret] = useState(null);
+  const [theme, setTheme] = useState("stripe");
 
   useEffect(() => {
     const createPaymentIntent = async () => {
@@ -93,10 +94,31 @@ function PaymentForm({ total, userId, cartId }) {
     createPaymentIntent();
   }, [total]);
 
+  useEffect(() => {
+    const updateTheme = () => {
+      if (document.documentElement.classList.contains("dark")) {
+        setTheme("night");
+      } else {
+        setTheme("stripe");
+      }
+    };
+
+    updateTheme(); // imposta il tema al primo render
+
+    // Osserva i cambiamenti nella classe `dark`
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const options = {
     clientSecret,
     appearance: {
-      theme: "stripe",
+      theme,
     },
   };
 

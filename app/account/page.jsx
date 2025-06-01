@@ -16,12 +16,12 @@ export default async function Page() {
 
   return (
     <div>
-      <div className="flex flex-col gap-5 pb-4 border-b border-b-gray-200">
-        <h1 className="text-primary-dark-900 dark:text-primary-100 text-5xl font-semibold ">
+      <div className="flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
+        <h1 className="text-primary-dark-900 dark:text-gray-200 text-5xl font-semibold ">
           Benvenuto {session?.user?.name}!
         </h1>
 
-        <p className="text-base font-normal text-gray-500">
+        <p className="text-base font-normal text-gray-500 dark:text-gray-300">
           Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
           tue informazioni personali.
         </p>

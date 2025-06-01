@@ -1,7 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return (
-    <div>
-      <p className="text-orange-950 dark:text-orange-100">Home</p>
-    </div>
-  );
+  redirect(`/products`);
 }
