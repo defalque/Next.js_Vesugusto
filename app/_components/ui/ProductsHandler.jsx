@@ -10,7 +10,9 @@ function ProductsHandler({ totalProducts, types, currentSort, children }) {
   return (
     <div
       className={`grid h-full  ${
-        isHidden ? "grid-cols-[1fr]" : "grid-cols-[12rem_1fr]"
+        isHidden
+          ? "grid-cols-[1fr]"
+          : "grid-cols-[1fr] sm:grid-cols-[12rem_1fr]"
       }`}
     >
       <ProductsSideNavigation types={types}></ProductsSideNavigation>

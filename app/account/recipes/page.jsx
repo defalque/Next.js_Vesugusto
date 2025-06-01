@@ -10,8 +10,10 @@ export default function Page() {
   return (
     <div>
       <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
-        <h1 className="text-5xl font-medium tracking-wide">Ricette salvate</h1>
-        <h2 className="text-gray-500 dark:text-gray-300">
+        <h1 className="text-2xl md:text-5xl font-medium tracking-wide">
+          Ricette salvate
+        </h1>
+        <h2 className="text-gray-500 dark:text-gray-300 text-sm md:text-base">
           Qui trovi tutte le ricette create nella sezione "creIAmo" e che hai
           deciso di conservare per ispirarti in cucina quando vuoi. Puoi
           rileggere le tue ricette preferite, scaricarle o condividerle con chi

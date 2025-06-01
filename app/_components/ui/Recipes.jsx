@@ -9,7 +9,9 @@ async function Recipes() {
   return recipes.length > 0 ? (
     <RecipesList recipes={recipes} />
   ) : (
-    <p className="mt-8">Non hai ancora salvato nessuna ricetta.</p>
+    <p className="mt-8 text-sm md:text-base">
+      Non hai ancora salvato nessuna ricetta.
+    </p>
   );
 }
 

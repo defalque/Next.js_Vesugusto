@@ -33,6 +33,7 @@ export default function FavoriteCard({
                 src={product.image?.at(0)}
                 fill
                 alt={product.name}
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="object-cover rounded-lg dark:brightness-80"
               />
               <TrashButton
@@ -43,7 +44,7 @@ export default function FavoriteCard({
               />
             </div>
 
-            <div className="flex items-center text-sm">
+            <div className="flex items-center md:gap-8 text-sm">
               <h1 className="text-gray-800 dark:text-gray-300 font-light">
                 {product.name}
               </h1>
@@ -72,7 +73,7 @@ export default function FavoriteCard({
         </Link>
 
         <button
-          className="uppercase text-xs w-full py-1 px-2 rounded bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold cursor-pointer transition-colors duration-300 text-center disabled:cursor-not-allowed disabled:bg-primary-800"
+          className="uppercase text-xs w-full py-1 px-2 rounded bg-primary-950 hover:bg-primary-800 text-primary-100 font-semibold sm:font-bold cursor-pointer transition-colors duration-300 text-center disabled:cursor-not-allowed disabled:bg-primary-800"
           onClick={handleAdd}
           disabled={product.quantity === 0}
         >

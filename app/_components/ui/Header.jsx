@@ -27,7 +27,7 @@ async function Header() {
       <span className="text-4xl -ml-3 text-primary-950 tracking-wider font-medium self-center">
         esugusto
       </span>
-      <div className="flex gap-16 ml-auto">
+      <div className="flex gap-8 md:gap-16 ml-auto">
         <Navigation
           session={session}
           cartItemsCount={cartItemsCount}

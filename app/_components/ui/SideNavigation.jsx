@@ -38,7 +38,7 @@ function SideNavigation() {
 
   return (
     <nav
-      className="border-r my-5 border-r-gray-200 dark:border-r-dark-200 fixed top-18 left-0 w-58"
+      className="border-r my-5 border-r-gray-200 dark:border-r-dark-200 fixed top-18 left-0 w-max md:w-58"
       style={{ height: "calc(100vh - 73px)" }}
     >
       <ul className="flex flex-col gap-2 text-lg px-3 py-3 h-full">
@@ -46,13 +46,15 @@ function SideNavigation() {
         {navLinks.map((link) => (
           <li key={link.name}>
             <Link
-              className={`rounded-md py-1 px-2 hover:bg-primary-950 hover:text-primary-50 transition-colors duration-100 text-base flex items-center gap-4 font-medium ${
-                pathname === link.href ? "bg-primary-950 text-primary-50" : ""
+              className={`rounded-md py-2 md:py-1 px-2 hover:text-primary-950 md:hover:bg-primary-950 md:hover:text-primary-50 transition-colors duration-100 text-base flex items-center gap-4 font-medium ${
+                pathname === link.href
+                  ? "text-primary-950 md:bg-primary-950 md:text-primary-50"
+                  : ""
               }`}
               href={link.href}
             >
               {link.icon}
-              <span>{link.name}</span>
+              <span className="hidden md:flex">{link.name}</span>
             </Link>
           </li>
         ))}

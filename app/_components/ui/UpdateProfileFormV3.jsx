@@ -137,7 +137,10 @@ function UpdateProfileForm({ user }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="px-5 my-8 flex gap-4 flex-col">
+    <form
+      onSubmit={handleSubmit}
+      className="px-5 my-8 flex gap-4 flex-col text-xs sm:text-sm md:text-base"
+    >
       <div className="space-y-2 flex flex-col">
         <label className="ml-1">Nome</label>
         <input
@@ -159,7 +162,7 @@ function UpdateProfileForm({ user }) {
       </div>
 
       <div className="grid grid-cols-4 gap-x-5 gap-y-4">
-        <div className="col-span-3 space-y-2 flex flex-col">
+        <div className="col-span-4 md:col-span-3 space-y-2 flex flex-col">
           <label htmlFor="via" className="ml-1">
             Via
           </label>
@@ -167,7 +170,7 @@ function UpdateProfileForm({ user }) {
             required
             name="via"
             defaultValue={via}
-            className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
+            className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.via && (
             <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
@@ -178,13 +181,13 @@ function UpdateProfileForm({ user }) {
 
         <div className="space-y-2 flex flex-col">
           <label htmlFor="numeroCivico" className="ml-1">
-            Numero civico
+            Civico
           </label>
           <input
             required
             name="numeroCivico"
             defaultValue={numeroCivico}
-            className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
+            className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.numeroCivico && (
             <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
@@ -204,7 +207,7 @@ function UpdateProfileForm({ user }) {
             <input
               required
               name="comune"
-              className={`font-light px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none ${
+              className={`font-light px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none ${
                 suggestions.length > 0 ? " rounded-t-xl" : "rounded-xl"
               }`}
               value={query}
@@ -245,7 +248,7 @@ function UpdateProfileForm({ user }) {
               setFormError({ cap: "" });
               setCap(e.target.value);
             }}
-            className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
+            className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.cap && (
             <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
@@ -263,7 +266,7 @@ function UpdateProfileForm({ user }) {
           required
           name="phoneNumber"
           defaultValue={phoneNumber}
-          className="font-light rounded-xl px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
+          className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
         />
         {formError.phoneNumber && (
           <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">

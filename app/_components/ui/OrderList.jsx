@@ -27,13 +27,13 @@ async function OrderList({ filters }) {
   const [allOrders, orders] = await Promise.all([allOrdersData, ordersData]);
 
   return orders.length > 0 ? (
-    <div className="flex flex-col gap-20 mt-10 px-20 relative">
+    <div className="flex flex-col gap-20 mt-10 px-5 xl:px-20 relative">
       {orders.map((order) => (
         <div
           key={order.id}
           className="flex flex-col border border-gray-200 dark:border-dark-200 rounded-2xl overflow-hidden shadow-sm"
         >
-          <div className="flex items-center gap-x-15 text-sm px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
+          <div className="flex items-center gap-x-7 xl:gap-x-15 text-xs lg:text-sm px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
             <div className=" flex flex-col gap-1">
               <h2 className="font-medium">Numero ordine</h2>
               <span className="text-gray-500 dark:text-gray-300">
@@ -58,13 +58,13 @@ async function OrderList({ filters }) {
             {order.status === "delivered" && (
               <div className="flex items-center gap-2 ml-auto">
                 <CheckCircleIcon className="size-6 fill-green-600"></CheckCircleIcon>
-                <span>Consegnato</span>
+                <span className="hidden md:flex">Consegnato</span>
               </div>
             )}
             {order.status === "unconfirmed" && (
               <div className="flex items-center gap-2 ml-auto text-md font-light">
                 <ExclamationCircleIcon className="size-6 fill-yellow-400"></ExclamationCircleIcon>
-                <span>In preparazione</span>
+                <span className="hidden md:flex">In preparazione</span>
               </div>
             )}
 
@@ -89,7 +89,7 @@ async function OrderList({ filters }) {
           {order.items.map((item, index) => (
             <div className="flex flex-col" key={item.id}>
               <div
-                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 px-10 py-8 font-light ${
+                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 gap-y-3 lg:gap-y-0 px-5 xl:px-10 py-4 lg:py-8 font-light ${
                   index < order.items.length - 1
                     ? "border-b border-b-gray-200 dark:border-b-dark-200"
                     : ""
@@ -110,15 +110,15 @@ async function OrderList({ filters }) {
                   <span>{formatPrice(item.product.regularPrice)}</span>
                 </div>
 
-                <p className="col-span-2 text-gray-500 dark:text-gray-300">
+                <p className="col-span-2 text-xs md:text-sm lg:text-base text-gray-500 dark:text-gray-300">
                   {item.product.description}
                 </p>
 
-                <span className="text-sm self-end">
+                <span className="text-xs col-span-2 lg:col-span-1 lg:text-sm self-end">
                   Quantità: {item.quantity}
                 </span>
 
-                <div className="flex gap-3 items-center text-sm text-primary-dark-100 dark:text-primary-800 hover:text-primary-900 self-end">
+                <div className="flex gap-3 col-span-2 col-start-2 lg:col-span-1 lg:col-start-3 items-center text-xs lg:text-sm text-primary-dark-100 dark:text-primary-800 hover:text-primary-900 self-end">
                   <Link
                     href={`/products/${item.product.id}`}
                     className="hover:underline cursor-pointer transition-all duration-200"
