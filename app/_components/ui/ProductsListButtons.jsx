@@ -97,7 +97,7 @@ function ProductButtons({ product, userId, cartId, isFavorite, isCart }) {
         className="ml-auto px-0.5 py-0.5 outline-primary-950"
       >
         <HeartIcon
-          className={`size-5.5 cursor-pointer hover:text-primary-dark-900 dark:hover:text-primary-50 transition-colors duration-200 ${
+          className={`size-4.5 lg:size-5.5 cursor-pointer hover:text-primary-dark-900 dark:hover:text-primary-50 transition-colors duration-200 ${
             isClicked
               ? "fill-primary-dark-900 text-primary-dark-900 dark:fill-primary-50 dark:text-primary-50"
               : "text-zinc-500 hover:fill-primary-dark-900 dark:text-primary-50 dark:hover:fill-primary-50"

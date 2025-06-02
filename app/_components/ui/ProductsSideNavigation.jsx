@@ -1,8 +1,12 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
 import { useHideFilters } from "../contexts/HideFiltersContext";
 
 function ProductsSideNavigation({ types }) {
@@ -11,7 +15,7 @@ function ProductsSideNavigation({ types }) {
   const pathname = usePathname();
   const [category, setCategory] = useState(true);
   const [price, setPrice] = useState(true);
-  const { isHidden } = useHideFilters();
+  const { isHidden, setIsHidden } = useHideFilters();
 
   const activeTypeFilters = urlSearchParams.get("type")?.split(",") ?? [];
   const activePriceFilters = urlSearchParams.get("price")?.split(",") ?? [];
@@ -41,16 +45,41 @@ function ProductsSideNavigation({ types }) {
     });
   }
 
-  return (
-    <div className={`${isHidden ? "hidden" : ""}`}>
-      <div className="flex flex-col px-3 py-2 mt-2 text-md sticky font-normal top-15 w-full">
-        {/* <span className="uppercase text-[0.7rem] px-3 text-zinc-400 font-bold mb-2.5">
-          Filtra per
-        </span> */}
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
 
-        <div className=" border-b py-3 border-b-zinc-200 dark:border-b-dark-200 ml-3">
+    const handleMediaChange = (e) => {
+      if (e.matches) {
+        setIsHidden(true); // chiudi sotto i 768px
+      } else {
+        setIsHidden(false); // riapri sopra i 768px
+      }
+    };
+
+    // subito al mount
+    handleMediaChange(mediaQuery);
+
+    mediaQuery.addEventListener("change", handleMediaChange);
+
+    return () => mediaQuery.removeEventListener("change", handleMediaChange);
+  }, [setIsHidden]);
+
+  return (
+    <div
+      className={`${
+        isHidden
+          ? "hidden"
+          : "fixed inset-0 top-0 left-0 w-full min-h-screen z-1000 bg-primary-50 dark:bg-primary-dark-950  md:relative"
+      }`}
+    >
+      <div className="flex flex-col px-1.5 lg:px-3 py-2 mt-2 text-md md:sticky font-normal top-15 w-full ">
+        <div className=" border-b py-3 border-b-zinc-200 dark:border-b-dark-200 ml-1.5 lg:ml-3">
+          <XMarkIcon
+            className="flex size-10 ml-auto mb-10 text-gray-900 dark:text-primary-50 hover:text-primary-950 cursor-pointer md:hidden"
+            onClick={() => setIsHidden(!isHidden)}
+          />
           <div
-            className="flex items-center cursor-pointer mb-1"
+            className="flex items-center text-base md:text-sm lg:text-base cursor-pointer mb-1"
             onClick={() => setCategory(!category)}
           >
             <span>Categoria</span>
@@ -64,7 +93,7 @@ function ProductsSideNavigation({ types }) {
             <div className="my-2">
               {types.map((type) => (
                 <label
-                  className="flex items-center ml-1 mt-1.5 cursor-pointer w-max"
+                  className="flex items-center text-base md:text-sm lg:text-base ml-1 mt-1.5 cursor-pointer w-max"
                   key={type.type}
                 >
                   <input
@@ -82,7 +111,7 @@ function ProductsSideNavigation({ types }) {
           )}
         </div>
 
-        <div className="mb-2 py-3 ml-3">
+        <div className="mb-2 py-3 ml-1.5 lg:ml-3">
           <div
             className="flex items-center cursor-pointer mb-1"
             onClick={() => setPrice(!price)}
@@ -104,7 +133,7 @@ function ProductsSideNavigation({ types }) {
               ].map(({ value, label }) => (
                 <label
                   key={value}
-                  className="flex items-center gap-2 ml-1 mt-1.5 cursor-pointer w-max"
+                  className="flex items-center text-base md:text-sm lg:text-base gap-2 ml-1 mt-1.5 cursor-pointer w-max"
                 >
                   <input
                     type="checkbox"

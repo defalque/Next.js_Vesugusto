@@ -21,7 +21,7 @@ function Navigation({ session, cartItemsCount }) {
         <li className="py-5.5">
           <Link
             href="/products"
-            className={` dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
+            className={` dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
               pathname === "/products"
                 ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
                 : "text-primary-dark-900"
@@ -34,7 +34,7 @@ function Navigation({ session, cartItemsCount }) {
         <li className="py-5.5">
           <Link
             href="/create"
-            className={`py-5.5 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
+            className={`py-5.5 dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
               pathname === "/create"
                 ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
                 : "text-primary-dark-900"
@@ -49,7 +49,7 @@ function Navigation({ session, cartItemsCount }) {
             <Link href="/cart">
               <div className="relative">
                 <ShoppingBagIcon
-                  className={`size-6 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-950 transition-colors duration-300 ${
+                  className={`size-6 dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-950 transition-colors duration-300 ${
                     pathname === "/cart"
                       ? "text-primary-900 dark:text-dark-300"
                       : "text-primary-dark-900"

@@ -57,12 +57,12 @@ async function ProductCard({ product }) {
       ></ProductListButtons>
 
       <div className="flex items-center">
-        <span className="font-medium text-xl">
+        <span className="font-medium text-base lg:text-xl">
           {formatPrice(product.regularPrice)}
         </span>
         <Link
           href={`/products/${product.id}`}
-          className="text-sm text-primary-950 ml-auto hover:text-primary-800"
+          className="text-xs lg:text-sm text-primary-950 ml-auto hover:text-primary-800"
         >
           Vai ai dettagli &rarr;
         </Link>
