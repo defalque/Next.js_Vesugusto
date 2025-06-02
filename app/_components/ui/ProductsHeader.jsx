@@ -38,7 +38,7 @@ function ProductsHeader({ totalProducts, currentSort, children }) {
   return (
     <div className={`${isHidden ? "px-5 lg:px-30" : "px-5 lg:px-10"}`}>
       <div className=" flex flex-col gap-5 pb-6 mt-5 mb-5 border-b border-b-gray-200 dark:border-b-dark-200">
-        <h1 className="text-4xl lg:text-5xl font-medium tracking-wide">
+        <h1 className="text-3xl xs:text-4xl lg:text-5xl font-medium tracking-wide">
           Il nostro e-commerce
         </h1>
         <h2 className="text-gray-500 dark:text-gray-300 text-sm lg:text-base font-normal">

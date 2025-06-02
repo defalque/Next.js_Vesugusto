@@ -187,7 +187,7 @@ export default function HomePage({ userId }) {
             <button
               key={prompt.id}
               onClick={() => sendMessage(prompt.message)}
-              className={`text-sm md:text-lg py-2 sm:py-4 px-2 sm:px-4 border border-gray-200 dark:border-dark-200 dark:bg-dark-300 rounded-4xl hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 hover:-translate-y-1 ${
+              className={`text-[10px] xs:text-sm md:text-lg py-2 sm:py-4 px-2 sm:px-4 border border-gray-200 dark:border-dark-200 dark:bg-dark-300 rounded-4xl hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 hover:-translate-y-1 ${
                 prompt.id % 2 == 0
                   ? "animate-moveInFromRight"
                   : "animate-moveInFromLeft"
@@ -199,14 +199,14 @@ export default function HomePage({ userId }) {
         </div>
 
         <div
-          className={`max-w-md sm:max-w-xl md:max-w-3xl mx-auto gap-4 py-4 font-light ${
+          className={`max-w-xs xs:max-w-md sm:max-w-xl md:max-w-3xl mx-auto gap-4 py-4 font-light ${
             display ? "flex flex-col" : "hidden"
           }`}
         >
           {chat.map((msg, i) => (
             <div
               key={i}
-              className={`flex text-sm md:text-base ${
+              className={`flex text-xs xs:text-sm md:text-base ${
                 msg.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
@@ -273,7 +273,7 @@ export default function HomePage({ userId }) {
       </div>
 
       <div className="bg-transparent pb-10 text-sm md:text-base">
-        <div className="max-w-md sm:max-w-xl md:max-w-3xl mx-auto flex flex-col animate-reveal">
+        <div className="max-w-xs xs:max-w-md sm:max-w-xl md:max-w-3xl mx-auto flex flex-col animate-reveal">
           <textarea
             className="w-full px-5 pt-2 border-t border-r border-l bg-white dark:border-dark-200 dark:bg-dark-300 border-gray-300 rounded-tl-2xl rounded-tr-2xl resize-none outline-primary-950 leading-tight font-light outline-none overflow-y-auto"
             style={{

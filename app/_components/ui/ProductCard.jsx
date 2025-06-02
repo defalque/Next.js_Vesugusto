@@ -62,9 +62,15 @@ async function ProductCard({ product }) {
         </span>
         <Link
           href={`/products/${product.id}`}
-          className="text-xs lg:text-sm text-primary-950 ml-auto hover:text-primary-800"
+          className="hidden xs:block text-xs lg:text-sm text-primary-950 ml-auto hover:text-primary-800"
         >
           Vai ai dettagli &rarr;
+        </Link>
+        <Link
+          href={`/products/${product.id}`}
+          className="text-xs lg:text-sm text-primary-950 ml-auto hover:text-primary-800 xs:hidden"
+        >
+          Vedi &rarr;
         </Link>
       </div>
     </div>

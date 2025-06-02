@@ -49,7 +49,7 @@ export default function FavoriteCard({
                 {product.name}
               </h1>
               <span
-                className={`ml-auto text-xs text-primary-50 rounded-full px-2 py-0.5 ${
+                className={`ml-auto text-[10px] xs:text-xs text-primary-50 rounded-full px-2 py-0.5 ${
                   product.quantity === 0
                     ? "bg-red-500"
                     : product.quantity < 10
@@ -73,7 +73,7 @@ export default function FavoriteCard({
         </Link>
 
         <button
-          className="uppercase text-xs w-full py-1 px-2 rounded bg-primary-950 hover:bg-primary-800 text-primary-100 font-semibold sm:font-bold cursor-pointer transition-colors duration-300 text-center disabled:cursor-not-allowed disabled:bg-primary-800"
+          className="uppercase text-[10px] xs:text-xs w-full py-1 px-2 rounded bg-primary-950 hover:bg-primary-800 text-primary-100 font-semibold sm:font-bold cursor-pointer transition-colors duration-300 text-center disabled:cursor-not-allowed disabled:bg-primary-800"
           onClick={handleAdd}
           disabled={product.quantity === 0}
         >

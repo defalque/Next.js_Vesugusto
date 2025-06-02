@@ -139,7 +139,7 @@ function UpdateProfileForm({ user }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="px-5 my-8 flex gap-4 flex-col text-xs sm:text-sm md:text-base"
+      className="px-1 xxs:px-5 my-8 flex gap-4 flex-col text-xs sm:text-sm md:text-base"
     >
       <div className="space-y-2 flex flex-col">
         <label className="ml-1">Nome</label>

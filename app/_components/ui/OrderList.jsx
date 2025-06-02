@@ -33,23 +33,26 @@ async function OrderList({ filters }) {
           key={order.id}
           className="flex flex-col border border-gray-200 dark:border-dark-200 rounded-2xl overflow-hidden shadow-sm"
         >
-          <div className="flex items-center gap-x-7 xl:gap-x-15 text-[10px] md:text-xs lg:text-sm px-4 xl:px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
-            <div className=" flex flex-col gap-1">
-              <h2 className="font-medium">Numero ordine</h2>
+          <div className="flex items-center gap-x-3 sm:gap-x-7 xl:gap-x-15 text-[10px] sm:text-xs lg:text-sm px-4 xl:px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
+            <div className="flex flex-row sm:flex-col gap-1">
+              <h2 className="font-medium hidden sm:flex">Numero ordine</h2>
+              <h2 className="flex sm:hidden">N.</h2>
               <span className="text-gray-500 dark:text-gray-300">
                 #{order.id}
               </span>
             </div>
 
-            <div className=" flex flex-col gap-1">
-              <h2 className="font-medium">Data dell'ordine</h2>
+            <div className=" flex flex-row sm:flex-col gap-1">
+              <h2 className="font-medium hidden sm:flex">Data dell'ordine</h2>
+              <h2 className="font-medium hidden xs:flex sm:hidden">Data:</h2>
               <span className="text-gray-500 dark:text-gray-300">
                 {formatDate(order.orderDate)}
               </span>
             </div>
 
-            <div className=" flex flex-col gap-1">
-              <h2 className="font-medium">Totale ordine</h2>
+            <div className=" flex flex-row sm:flex-col gap-1">
+              <h2 className="font-medium hidden sm:flex">Totale ordine</h2>
+              <h2 className="font-medium hidden xs:flex sm:hidden">Tot.</h2>
               <span className="text-primary-dark-900 dark:text-gray-300 font-medium self-center">
                 {formatPrice(order.total)}
               </span>
@@ -89,7 +92,7 @@ async function OrderList({ filters }) {
           {order.items.map((item, index) => (
             <div className="flex flex-col" key={item.id}>
               <div
-                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 gap-y-3 lg:gap-y-0 px-3 md:px-5 xl:px-10 py-4 lg:py-8 font-light ${
+                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 gap-y-2 xs:gap-y-3 lg:gap-y-0 px-3 md:px-5 xl:px-10 py-4 lg:py-8 font-light ${
                   index < order.items.length - 1
                     ? "border-b border-b-gray-200 dark:border-b-dark-200"
                     : ""
@@ -104,14 +107,26 @@ async function OrderList({ filters }) {
                   />
                 </div>
 
-                <h2 className="font-medium">{item.product.name}</h2>
+                <h2 className="font-medium col-span-2 xxs:col-span-1 text-xs xs:text-base">
+                  {item.product.name}
+                </h2>
 
-                <div className="flex justify-end font-medium text-sm lg:text-base">
+                <div className="flex justify-start xs:justify-end font-medium text-xs xs:text-sm lg:text-base">
                   <span>{formatPrice(item.product.regularPrice)}</span>
                 </div>
 
                 <p className="col-span-2 text-[10px] md:text-sm lg:text-base text-gray-500 dark:text-gray-300">
-                  {item.product.description}
+                  <span className="hidden xs:flex">
+                    {item.product.description}
+                  </span>
+                  <span className="block xs:hidden">
+                    {item.product.description.split(" ").length > 25
+                      ? item.product.description
+                          .split(" ")
+                          .slice(0, 25)
+                          .join(" ") + "..."
+                      : item.product.description}
+                  </span>
                 </p>
 
                 <span className="text-xs col-span-2 lg:col-span-1 lg:text-sm self-end">

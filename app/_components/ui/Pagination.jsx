@@ -66,7 +66,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
     <>
       {items?.length > 0 && (
         <div className="flex items-center py-3 mt-8 mb-4">
-          <div className="text-primary-700 dark:text-gray-200 text-xs md:text-sm">
+          <div className="text-primary-700 dark:text-gray-200 text-[10px] xs:text-xs md:text-sm">
             Hai visualizzato da{" "}
             <span className="font-semibold">{currentPage * limit + 1}</span> a
             <span className="font-semibold">
@@ -87,7 +87,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
               {isLeftLoading ? (
                 <SpinnerMini></SpinnerMini>
               ) : (
-                <ChevronLeftIcon className="size-6" />
+                <ChevronLeftIcon className="size-4 xs:size-6" />
               )}
             </PaginationButton>
 
@@ -99,7 +99,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
               {isRightLoading ? (
                 <SpinnerMini></SpinnerMini>
               ) : (
-                <ChevronRightIcon className="size-6" />
+                <ChevronRightIcon className="size-4 xs:size-6" />
               )}
             </PaginationButton>
           </div>

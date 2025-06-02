@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xxs: 23rem;
+  --breakpoint-xs: 30rem;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 .text-stroke {
@@ -207,6 +212,12 @@ html.dark ::-webkit-scrollbar-thumb:hover {
     border: 2px solid var(--color-primary-100);
     border-right-color: transparent;
     animation: rotate 1s infinite linear;
+  }
+  @media (max-width: 30rem) {
+    .spinner-mini {
+      width: 16px;
+      border-width: 1.5px;
+    }
   }
 
   .spinner-mini-colored {

@@ -16,7 +16,7 @@ function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
   };
 
   return (
-    <div className="flex flex-col gap-2 mx-1 xl:mx-8 text-sm xl:text-base">
+    <div className="flex flex-col gap-2 mx-1 xl:mx-8 text-xs xs:text-sm xl:text-base">
       <label htmlFor="quantity" className="">
         Quantità
       </label>
@@ -25,7 +25,7 @@ function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
         id="quantity"
         value={cartQuantity}
         onChange={handleQuantity}
-        className="px-1 py-1 lg:px-2 lg:py-2 w-15 lg:w-20 shadow-sm rounded-md border border-zinc-300 dark:border-dark-200 dark:bg-dark-300 transition duration-150 focus:outline-none focus:ring-1 focus:ring-primary-950"
+        className="px-1 py-1 lg:px-2 lg:py-2 w-10 xs:w-15 lg:w-20 shadow-sm rounded-md border border-zinc-300 dark:border-dark-200 dark:bg-dark-300 transition duration-150 focus:outline-none focus:ring-1 focus:ring-primary-950"
         required
       >
         {Array.from(

@@ -31,7 +31,7 @@ export default async function Page() {
   const total = totalPrice + shippingCost;
 
   return (
-    <div className="flex flex-col gap-8 px-10 xl:px-45 mt-14 mb-30">
+    <div className="flex flex-col gap-8 px-5 xs:px-10 xl:px-45 mt-14 mb-30">
       {/* <h1 className="text-5xl font-medium tracking-wide border-b border-b-zinc-200 pb-8">
         Checkout
       </h1> */}
@@ -94,7 +94,7 @@ export default async function Page() {
           </div>
         </div>
 
-        <div className="bg-gray-50 dark:bg-dark-400 text-primary-dark-950 flex flex-col gap-6 h-max py-5 px-8">
+        <div className="bg-gray-50 dark:bg-dark-400 text-primary-dark-950 flex flex-col gap-6 h-max py-5 px-3 xxs:px-8">
           <div className="flex flex-col gap-1">
             <h1 className="text-sm text-gray-600 dark:text-gray-300">
               Importo dovuto
