@@ -31,18 +31,18 @@ export default async function Page() {
   const total = totalPrice + shippingCost;
 
   return (
-    <div className="flex flex-col gap-8 px-45 mt-14 mb-30">
+    <div className="flex flex-col gap-8 px-10 xl:px-45 mt-14 mb-30">
       {/* <h1 className="text-5xl font-medium tracking-wide border-b border-b-zinc-200 pb-8">
         Checkout
       </h1> */}
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="flex flex-col">
           <div className="border-b border-b-gray-200 dark:border-b-dark-200 pb-8 flex flex-col gap-7">
             <h2 className="text-sm uppercase font-semibold text-gray-900 dark:text-gray-300">
               Informazioni sulla spedizione
             </h2>
-            <div className="grid grid-cols-4 gap-x-5 gap-y-6 font-normal">
+            <div className="grid grid-cols-4 gap-x-5 gap-y-6 font-normal text-sm md:text-base">
               <div className="col-span-4">
                 <label htmlFor="indirizzo" className="pl-1">
                   Indirizzo
@@ -99,7 +99,7 @@ export default async function Page() {
             <h1 className="text-sm text-gray-600 dark:text-gray-300">
               Importo dovuto
             </h1>
-            <span className="text-4xl font-semibold dark:text-gray-200">
+            <span className="text-3xl sm:text-4xl font-semibold dark:text-gray-200">
               {formatPrice(totalPrice)}
             </span>
           </div>
@@ -108,7 +108,9 @@ export default async function Page() {
             {products.map((product, index) => (
               <div
                 className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6  py-8 ${
-                  index < products.length - 1 ? "border-b border-gray-200" : ""
+                  index < products.length - 1
+                    ? "border-b border-gray-200 dark:border-dark-200"
+                    : ""
                 }`}
                 key={product.id}
               >
@@ -123,7 +125,9 @@ export default async function Page() {
 
                 <div className="flex flex-col h-full gap-2 dark:text-gray-200">
                   <h1 className="font-semibold">{product.name}</h1>
-                  <p className="text-sm font-light">{product.details || ""}</p>
+                  <p className="text-xs sm:text-sm font-light">
+                    {product.details || ""}
+                  </p>
                   <p className="text-sm mt-auto">
                     Quantità: {product.cartQuantity}
                   </p>

@@ -18,7 +18,7 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
       key={product.id}
       className="grid grid-cols-[auto_minmax(0,1fr)_auto_auto] gap-x-5 items-start py-6 border-t border-t-zinc-200 dark:border-dark-200 last:border-b last:border-b-zinc-200 dark:last:border-dark-200"
     >
-      <div className="h-50 relative aspect-2/3">
+      <div className="h-40 sm:h-50 aspect-2/3 relative">
         <Image
           src={product.image?.at(0)}
           fill
@@ -34,11 +34,11 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
         <span className="text-md font-semibold">
           {formatPrice(product.regularPrice)}
         </span>
-        <p className="text-sm font-light mt-auto text-zinc-500 dark:text-gray-300">
+        <p className="text-xs lg:text-sm font-light mt-1 text-zinc-500 dark:text-gray-300">
           {product.details}
         </p>
         {product.productQuantity > 0 ? (
-          <span className="flex items-start gap-1 text-sm font-light mt-auto mb-0.5">
+          <span className="flex items-center gap-1 text-xs lg:text-sm font-light mt-auto mb-0.5">
             <CheckIcon
               className={`size-5 ${
                 product.productQuantity > 10
@@ -46,17 +46,29 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
                   : "text-yellow-500 font-medium"
               }`}
             />
-            {product.productQuantity > 10
-              ? "Disponibile"
-              : product.productQuantity > 1
-              ? `Disponibilità limitata: ${product.productQuantity} disponibili.`
-              : product.productQuantity === 1
-              ? "Disponibilità limitata: 1 disponibile."
-              : "Non disponibile"}
+            {product.productQuantity > 10 ? (
+              "Disponibile"
+            ) : product.productQuantity > 1 ? (
+              <>
+                <span className="hidden md:inline">
+                  Disponibilità limitata:{" "}
+                </span>
+                {product.productQuantity} disponibili
+              </>
+            ) : product.productQuantity === 1 ? (
+              <>
+                <span className="hidden md:inline">
+                  Disponibilità limitata:{" "}
+                </span>
+                1 disponibile
+              </>
+            ) : (
+              "Non disponibile"
+            )}
           </span>
         ) : (
-          <span className="flex items-start gap-1 text-sm font-light mt-auto mb-0.5">
-            <XMarkIcon className={`size-5 text-red-600`} />
+          <span className="flex items-center gap-1 text-sm font-light mt-auto mb-0.5">
+            <XMarkIcon className="size-5 text-red-600" />
             Esaurito
           </span>
         )}
@@ -73,7 +85,7 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
         className="ml-auto cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-950"
         onClick={handleDelete}
       >
-        <XMarkIcon className="size-5 hover:fill-zinc-500 transition-colors duration-200"></XMarkIcon>
+        <XMarkIcon className="size-4.5 lg:size-5 hover:fill-zinc-500 transition-colors duration-200"></XMarkIcon>
       </button>
     </div>
   );

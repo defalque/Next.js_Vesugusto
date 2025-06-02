@@ -41,7 +41,7 @@ function CartProductsList({
           <Spinner />
         </div>
       )}
-      <div className="grid grid-cols-[1.5fr_1fr] gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10">
         {optimisticProducts.length > 0 ? (
           <div className="flex flex-col">
             {optimisticProducts.map((product) => (
@@ -62,29 +62,33 @@ function CartProductsList({
 
         {optimisticProducts.length > 0 && (
           <div className="flex flex-col gap-6 bg-slate-50 dark:bg-dark-400 h-max px-5 py-5 rounded-md">
-            <h1 className="text-xl font-medium mb-4">Riepilogo</h1>
+            <h1 className="text-base sm:text-xl font-medium mb-4">Riepilogo</h1>
             <div className="flex items-center pb-2 border-b border-b-zinc-200 dark:border-b-dark-100">
-              <span className="font-light">Subtotale</span>
-              <span className="ml-auto font-semibold text-lg">
+              <span className="font-light text-sm sm:text-base">Subtotale</span>
+              <span className="ml-auto font-semibold text-base sm:text-lg">
                 {formatPrice(totalPrice)}
               </span>
             </div>
             <div className="flex items-center pb-2 border-b border-b-zinc-200 dark:border-b-dark-100">
-              <span className="font-light mr-2">Spese di spedizione</span>
-              <QuestionMarkCircleIcon className="size-5 fill-primary-50"></QuestionMarkCircleIcon>
-              <span className="ml-auto font-semibold text-lg">
+              <span className="font-light mr-2 text-sm sm:text-base">
+                Spese di spedizione
+              </span>
+              <QuestionMarkCircleIcon className="size-5 fill-primary-50 dark:text-primary-dark-950"></QuestionMarkCircleIcon>
+              <span className="ml-auto font-semibold text-base sm:text-lg">
                 {formatPrice(shippingCost)}
               </span>
             </div>
             <div className="flex items-center pb-2">
-              <span className="font-medium text-lg">Totale ordine</span>
-              <span className="ml-auto font-semibold text-lg">
+              <span className="font-medium text-base sm:text-lg">
+                Totale ordine
+              </span>
+              <span className="ml-auto font-semibold text-base sm:text-lg">
                 {formatPrice(total)}
               </span>
             </div>
             <Link
               href="/cart/checkout"
-              className="py-3 uppercase text-center bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold w-3xs mx-auto mt-3 cursor-pointer rounded-md"
+              className="text-sm sm:text-base py-3 uppercase text-center bg-primary-950 hover:bg-primary-800 text-primary-100 font-bold w-3xs mx-auto mt-3 cursor-pointer rounded-md"
             >
               Procedi all'acqusto
             </Link>
