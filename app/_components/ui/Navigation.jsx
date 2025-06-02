@@ -49,7 +49,7 @@ function Navigation({ session, cartItemsCount }) {
             <Link href="/cart">
               <div className="relative">
                 <ShoppingBagIcon
-                  className={`size-6 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-zinc-500 transition-colors duration-300 ${
+                  className={`size-6 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-950 transition-colors duration-300 ${
                     pathname === "/cart"
                       ? "text-primary-900 dark:text-dark-300"
                       : "text-primary-dark-900"
@@ -77,7 +77,7 @@ function Navigation({ session, cartItemsCount }) {
                 height={32}
               />
             ) : (
-              <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-gray-500 transition-colors duration-300"></UserIcon>
+              <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-950transition-colors duration-300"></UserIcon>
             )}
           </Link>
         </li>

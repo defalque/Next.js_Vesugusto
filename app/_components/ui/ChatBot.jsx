@@ -112,35 +112,10 @@ export default function HomePage({ userId }) {
       }}
     >
       {!userId && (
-        //   (
-        //     <div
-        //       className="absolute top-0 left-0 h-10 w-full z-100 flex items-center justify-center animate-moveInFromTop"
-        //       style={{
-        //         backgroundImage: `
-        //   radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),
-        //   radial-gradient(circle at 80% 50%, rgba(248, 6, 179, 0.4) 0%, transparent 70%),
-        //   radial-gradient(circle at 50% 100%, rgba(233, 190, 205, 0.3) 0%, transparent 70%)
-        // `,
-        //         backdropFilter: "blur(12px)",
-        //       }}
-        //     >
-        //       <span className="text-primary-dark-950 text-sm text-center">
-        //         Crea un account o accedi per salvare le ricette create dalla nostra
-        //         IA!
-        //       </span>
-        //       <button
-        //         className="absolute top-1 right-2 p-1 text-gray-600 hover:text-black cursor-pointer"
-        //         // onClick={() => setShowBanner(false)}
-        //         aria-label="Chiudi"
-        //       >
-        //         <XMarkIcon className="size-4" />
-        //       </button>
-        //     </div>
-        //   )
         <AnimatePresence>
           {showBanner && (
             <motion.div
-              className="absolute top-0 left-0 h-10 w-full z-[100] flex items-center justify-center"
+              className="absolute top-0 left-0 h-8 md:h-10 w-full z-[100] flex items-center justify-center"
               style={{
                 backgroundImage: `
               radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),
@@ -154,7 +129,7 @@ export default function HomePage({ userId }) {
               exit={{ y: -50, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <span className="text-primary-dark-950 dark:text-primary-50 text-sm text-center">
+              <span className="text-primary-dark-950 dark:text-primary-50 text-xs md:text-sm text-center">
                 Crea un account o accedi per salvare le ricette create dalla
                 nostra IA!
               </span>
@@ -164,25 +139,13 @@ export default function HomePage({ userId }) {
                 onClick={() => setShowBanner(false)}
                 aria-label="Chiudi"
               >
-                <XMarkIcon className="size-4.5" />
+                <XMarkIcon className=" size-4 md:size-4.5" />
               </button>
             </motion.div>
           )}
         </AnimatePresence>
       )}
 
-      {/* <div
-        aria-hidden="true"
-        className="absolute top-1/3 left-1/3 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-      >
-        <div
-          style={{
-            clipPath:
-              "polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)",
-          }}
-          className="aspect-577/310 w-144.25 bg-linear-to-r from-[#fa5252] to-[#fecbcb] opacity-30"
-        />
-      </div> */}
       {/* Chat scrollable */}
       <div
         className={`overflow-y-auto overflow-x-hidden min-h-0 px-6 w-full ${
@@ -191,7 +154,7 @@ export default function HomePage({ userId }) {
       >
         <div className={`text-center py-5 ${userId ? "" : "mt-12"}`}>
           <div className="relative inline-block py-1">
-            <h1 className="text-5xl font-medium tracking-wide relative z-10">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-wide relative z-10">
               creIAmo con{" "}
               <span className="tracking-wider font-medium text-primary-950">
                 Vesugusto
@@ -202,16 +165,16 @@ export default function HomePage({ userId }) {
         </div>
 
         <div
-          className={`rounded-full bg-primary-50 dark:bg-primary-dark-950 h-max mt-10 ${
+          className={`rounded-full flex items-center bg-primary-50 dark:bg-primary-dark-950 mt-5 md:mt-0 ${
             display ? "hidden" : ""
-          }`}
+          } xl:h-max`}
         >
           <Image
             src={logo}
             alt="Chat icon"
             height={150}
             width={150}
-            className="shadow-md rounded-full"
+            className="shadow-md rounded-full w-auto h-full"
           />
         </div>
 
@@ -224,7 +187,7 @@ export default function HomePage({ userId }) {
             <button
               key={prompt.id}
               onClick={() => sendMessage(prompt.message)}
-              className={`text-lg py-4 px-4 border border-gray-200 dark:border-dark-200 dark:bg-dark-300 rounded-4xl hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 hover:-translate-y-1 ${
+              className={`text-sm md:text-lg py-2 sm:py-4 px-2 sm:px-4 border border-gray-200 dark:border-dark-200 dark:bg-dark-300 rounded-4xl hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all duration-200 hover:-translate-y-1 ${
                 prompt.id % 2 == 0
                   ? "animate-moveInFromRight"
                   : "animate-moveInFromLeft"
@@ -236,27 +199,27 @@ export default function HomePage({ userId }) {
         </div>
 
         <div
-          className={`max-w-3xl mx-auto gap-4 py-4 font-light ${
+          className={`max-w-md sm:max-w-xl md:max-w-3xl mx-auto gap-4 py-4 font-light ${
             display ? "flex flex-col" : "hidden"
           }`}
         >
           {chat.map((msg, i) => (
             <div
               key={i}
-              className={`flex ${
+              className={`flex text-sm md:text-base ${
                 msg.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 ref={messageRef}
-                className={`px-4 py-2 rounded-xl whitespace-pre-wrap ${
+                className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-xl whitespace-pre-wrap ${
                   msg.role === "user"
                     ? "bg-primary-950 text-primary-50"
                     : "text-gray-800 dark:text-gray-200"
                 }`}
               >
                 {msg.role === "ai" ? (
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-2 md:gap-4">
                     <Image
                       src={logo}
                       alt="Vesugusto logo"
@@ -275,7 +238,7 @@ export default function HomePage({ userId }) {
                             <SpinnerSuperMini />
                           ) : (
                             <button
-                              className="text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 dark:text-gray-200 cursor-pointer hover:bg-primary-800 font-medium"
+                              className="text-xs md:text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 dark:text-gray-200 cursor-pointer hover:bg-primary-800 font-medium"
                               onClick={() => handleSaveRecipe(msg.content, i)}
                             >
                               Salva!
@@ -309,8 +272,8 @@ export default function HomePage({ userId }) {
         </div>
       </div>
 
-      <div className="bg-transparent pb-10">
-        <div className="max-w-3xl mx-auto flex flex-col animate-reveal">
+      <div className="bg-transparent pb-10 text-sm md:text-base">
+        <div className="max-w-md sm:max-w-xl md:max-w-3xl mx-auto flex flex-col animate-reveal">
           <textarea
             className="w-full px-5 pt-2 border-t border-r border-l bg-white dark:border-dark-200 dark:bg-dark-300 border-gray-300 rounded-tl-2xl rounded-tr-2xl resize-none outline-primary-950 leading-tight font-light outline-none overflow-y-auto"
             style={{
@@ -335,7 +298,7 @@ export default function HomePage({ userId }) {
               onClick={sendMessage}
               disabled={loading}
             >
-              <ArrowUpIcon className="size-6 text-primary-100" />
+              <ArrowUpIcon className="size-4 md:size-6 text-primary-100" />
             </button>
           </div>
         </div>

@@ -173,7 +173,7 @@ function UpdateProfileForm({ user }) {
             className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.via && (
-            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
+            <p className="text-xs sm:text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.via}
             </p>
           )}
@@ -190,7 +190,7 @@ function UpdateProfileForm({ user }) {
             className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.numeroCivico && (
-            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
+            <p className="text-xs sm:text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.numeroCivico}
             </p>
           )}
@@ -220,7 +220,7 @@ function UpdateProfileForm({ user }) {
                 {suggestions.map((comune, index) => (
                   <li
                     key={index}
-                    className="font-light text-sm px-4 py-2 dark:hover:bg-dark-200 hover:bg-primary-950 hover:text-primary-100 cursor-pointer"
+                    className="font-light text-xs sm:text-sm md:text-base px-2 md:px-4 py-2 dark:hover:bg-dark-200 hover:bg-primary-950 hover:text-primary-100 cursor-pointer"
                     onClick={() => handleSelectComune(comune)}
                   >
                     {comune.denominazione_ita}
@@ -230,7 +230,7 @@ function UpdateProfileForm({ user }) {
             )}
           </div>
           {formError.comune && (
-            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
+            <p className="text-xs sm:text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.comune}
             </p>
           )}
@@ -251,7 +251,7 @@ function UpdateProfileForm({ user }) {
             className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
           />
           {formError.cap && (
-            <p className="text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
+            <p className="text-xs sm:text-sm mb-1 -mt-1 text-primary-950 dark:text-primary-800">
               {formError.cap}
             </p>
           )}

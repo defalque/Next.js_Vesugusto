@@ -66,7 +66,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
     <>
       {items?.length > 0 && (
         <div className="flex items-center py-3 mt-8 mb-4">
-          <div className="text-primary-700 dark:text-gray-200 text-sm">
+          <div className="text-primary-700 dark:text-gray-200 text-xs md:text-sm">
             Hai visualizzato da{" "}
             <span className="font-semibold">{currentPage * limit + 1}</span> a
             <span className="font-semibold">
@@ -78,7 +78,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
             di <span className="font-semibold">{totalItems}</span> {label}.
           </div>
 
-          <div className="ml-auto flex items-center gap-8">
+          <div className="ml-auto flex items-center gap-4 md:gap-8">
             <PaginationButton
               currentPage={currentPage}
               pageCount={0}
@@ -112,7 +112,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
 function PaginationButton({ currentPage, pageCount, handleClick, children }) {
   return (
     <button
-      className={`px-4 py-2 text-white rounded-lg transition-colors duration-300 ${
+      className={`px-2 py-1 md:px-4 md:py-2 text-white rounded-lg transition-colors duration-300 ${
         currentPage === pageCount
           ? "bg-zinc-200 hover:bg-zinc-200 cursor-not-allowed hidden"
           : "bg-primary-950 hover:bg-primary-800 cursor-pointer"

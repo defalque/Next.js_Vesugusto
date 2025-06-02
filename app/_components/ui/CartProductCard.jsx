@@ -23,7 +23,7 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
           src={product.image?.at(0)}
           fill
           alt={product.name}
-          className="object-cover rounded-lg"
+          className="object-cover rounded-lg dark:shadow-sm dark:shadow-dark-100"
         />
       </div>
 

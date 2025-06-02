@@ -15,7 +15,7 @@ function DarkModeToggle() {
       {isDarkMode ? (
         <SunIcon className="size-6 text-primary-dark-900 hover:text-primary-dark-100"></SunIcon>
       ) : (
-        <MoonIcon className="size-6 dark:text-primary-50 dark:hover:text-gray-500"></MoonIcon>
+        <MoonIcon className="size-6 dark:text-primary-50 dark:hover:text-primary-950"></MoonIcon>
       )}
     </button>
   );

@@ -33,7 +33,7 @@ async function OrderList({ filters }) {
           key={order.id}
           className="flex flex-col border border-gray-200 dark:border-dark-200 rounded-2xl overflow-hidden shadow-sm"
         >
-          <div className="flex items-center gap-x-7 xl:gap-x-15 text-xs lg:text-sm px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
+          <div className="flex items-center gap-x-7 xl:gap-x-15 text-[10px] md:text-xs lg:text-sm px-4 xl:px-10 py-4 border-b border-b-gray-200 bg-gray-50 dark:border-dark-200 dark:bg-dark-300">
             <div className=" flex flex-col gap-1">
               <h2 className="font-medium">Numero ordine</h2>
               <span className="text-gray-500 dark:text-gray-300">
@@ -89,7 +89,7 @@ async function OrderList({ filters }) {
           {order.items.map((item, index) => (
             <div className="flex flex-col" key={item.id}>
               <div
-                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 gap-y-3 lg:gap-y-0 px-5 xl:px-10 py-4 lg:py-8 font-light ${
+                className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-5 gap-y-3 lg:gap-y-0 px-3 md:px-5 xl:px-10 py-4 lg:py-8 font-light ${
                   index < order.items.length - 1
                     ? "border-b border-b-gray-200 dark:border-b-dark-200"
                     : ""
@@ -106,11 +106,11 @@ async function OrderList({ filters }) {
 
                 <h2 className="font-medium">{item.product.name}</h2>
 
-                <div className="flex justify-end font-medium">
+                <div className="flex justify-end font-medium text-sm lg:text-base">
                   <span>{formatPrice(item.product.regularPrice)}</span>
                 </div>
 
-                <p className="col-span-2 text-xs md:text-sm lg:text-base text-gray-500 dark:text-gray-300">
+                <p className="col-span-2 text-[10px] md:text-sm lg:text-base text-gray-500 dark:text-gray-300">
                   {item.product.description}
                 </p>
 
@@ -118,7 +118,7 @@ async function OrderList({ filters }) {
                   Quantità: {item.quantity}
                 </span>
 
-                <div className="flex gap-3 col-span-2 col-start-2 lg:col-span-1 lg:col-start-3 items-center text-xs lg:text-sm text-primary-dark-100 dark:text-primary-800 hover:text-primary-900 self-end">
+                <div className="flex gap-3 col-span-full col-start-1 mt-2 lg:mt-0 lg:col-span-1 lg:col-start-3 items-center text-xs lg:text-sm text-primary-dark-100 dark:text-primary-800 hover:text-primary-900 self-end">
                   <Link
                     href={`/products/${item.product.id}`}
                     className="hover:underline cursor-pointer transition-all duration-200"
