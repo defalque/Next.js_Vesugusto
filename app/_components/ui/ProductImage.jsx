@@ -10,7 +10,7 @@ function ProductImage({ product }) {
   return (
     <div className="flex items-start gap-x-5">
       {product.image.at(1) && (
-        <div className="flex flex-col items-center gap-4">
+        <div className="hidden lg:flex flex-col items-center gap-4">
           {product.image.map((img, index) => (
             <button
               key={index + 1}
@@ -24,7 +24,7 @@ function ProductImage({ product }) {
                 fill
                 quality={80}
                 priority={true}
-                className={`object-cover dark:brightness-80`}
+                className={`object-cover dark:brightness-80 dark:shadow-sm dark:shadow-primary-dark-700`}
               />
             </button>
           ))}
@@ -45,7 +45,7 @@ function ProductImage({ product }) {
               fill
               quality={80}
               priority={true}
-              className="object-cover dark:brightness-80"
+              className="object-cover dark:brightness-80 dark:shadow-sm dark:shadow-dark-100"
             />
           </div>
         ))}

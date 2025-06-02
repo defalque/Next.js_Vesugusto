@@ -69,7 +69,7 @@ function ProductsSideNavigation({ types }) {
       className={`${
         isHidden
           ? "hidden"
-          : "fixed inset-0 top-0 left-0 w-full min-h-screen z-1000 bg-primary-50 dark:bg-primary-dark-950  md:relative"
+          : "fixed inset-0 top-0 left-0 w-full min-h-screen z-1000 bg-primary-50 dark:bg-primary-dark-950  md:relative md:z-100"
       }`}
     >
       <div className="flex flex-col px-1.5 lg:px-3 py-2 mt-2 text-md md:sticky font-normal top-15 w-full ">

@@ -19,7 +19,9 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-8 px-5 xs:px-10 xl:px-35 my-12">
-      <h1 className={`text-3xl xs:text-5xl font-medium tracking-wide`}>
+      <h1
+        className={`text-3xl xs:text-4xl lg:text-5xl font-medium tracking-wide`}
+      >
         Il mio carrello
       </h1>
       <CartProductsList

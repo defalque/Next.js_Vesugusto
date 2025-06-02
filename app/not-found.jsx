@@ -18,12 +18,12 @@ async function NotFound() {
   ];
 
   return (
-    <main className="grid grid-cols-2 h-full gap-12">
-      <div className="flex flex-col items-baseline gap-10 px-10">
-        <h1 className="text-5xl font-semibold mt-40">
+    <main className="grid grid-cols-1 md:grid-cols-2 h-full gap-12">
+      <div className="flex flex-col items-center sm:items-baseline gap-10 px-5 sm:px-10">
+        <h1 className="text-3xl text-center sm:text-start sm:text-5xl font-semibold mt-40">
           Ops! Pagina non trovata
         </h1>
-        <p className="text-lg">
+        <p className="text-sm text-center sm:text-base sm:text-start">
           Non sembra che siamo arrivati al punto desiderato. Non preoccuparti
           però! Puoi sempre visitare i nostri{" "}
           <Link href="/products" className="text-primary-950 font-semibold">
@@ -32,7 +32,7 @@ async function NotFound() {
           e trovare qualcosa di più interessante.
         </p>
       </div>
-      <div className="grid grid-cols-3">
+      <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3">
         {products.map((product) => (
           <div key={product.id} className="relative aspect-auto w-full">
             <Image

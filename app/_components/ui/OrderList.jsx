@@ -161,7 +161,9 @@ async function OrderList({ filters }) {
       </div>
     </div>
   ) : (
-    <p className="mt-8">Non hai ancora effettuato nessun ordine.</p>
+    <p className="mt-8 text-sm md:text-base">
+      Non hai ancora effettuato nessun ordine.
+    </p>
   );
 }
 

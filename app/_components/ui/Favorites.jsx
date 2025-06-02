@@ -8,7 +8,9 @@ async function Favorites() {
   const products = await getFavorites(session.user.userId);
 
   return products.length === 0 ? (
-    <p className="-mt-5">Non hai nessun prodotto tra i preferiti.</p>
+    <p className="-mt-5 text-sm md:text-base">
+      Non hai nessun prodotto tra i preferiti.
+    </p>
   ) : (
     <FavoritesList
       products={products}

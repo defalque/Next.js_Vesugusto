@@ -42,20 +42,22 @@ async function Page({ searchParams }) {
   ];
 
   return (
-    <div className="grid grid-cols-2 h-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-full">
       <div className="p-10 flex flex-col gap-1.5 mt-30">
         <div className="flex items-center justify-between">
-          <h2 className="text-xs uppercase text-green-800 font-bold">
+          <h2 className="text-[10px] sm:text-xs uppercase text-green-800 font-bold">
             Pagamento efettuato
           </h2>
           {paymentIntent && (
-            <p className="mt-2 text-xs uppercase text-gray-500 font-semibold">
+            <p className="text-[10px] sm:text-xs uppercase text-gray-500 font-semibold">
               (Id ordine: {order[0].id})
             </p>
           )}
         </div>
-        <h1 className="text-5xl font-bold mb-4">Grazie per il tuo ordine!</h1>
-        <p className="text-md">
+        <h1 className="text-3xl text-center sm:text-start sm:text-5xl mt-3 font-bold mb-4">
+          Grazie per il tuo ordine!
+        </h1>
+        <p className="text-sm sm:text-md">
           Abbiamo ricevuto il tuo pagamento e ora possiamo dare il via
           all'elaborazione del tuo ordine. Puoi seguire l'avanzamento e tutti i
           dettagli nella sezione dei tuoi{" "}
@@ -69,7 +71,7 @@ async function Page({ searchParams }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-3">
+      <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3">
         {products.map((product) => (
           <div key={product.id} className="relative w-full h-full">
             <Image
