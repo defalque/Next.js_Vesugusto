@@ -7,7 +7,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
   callbacks: {
     authorized: async ({ auth }) => {
-      // Logged in users are authenticated, otherwise redirect to login page
       return !!auth;
     },
     async signIn({ user, account, profile }) {
@@ -40,7 +39,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // },
     async jwt({ token, user }) {
       if (user) {
-        // Solo al login aggiungiamo userId e cartId nel token
         const existingUser = await getUser(user.email);
         const cart = await getCart(existingUser.id);
 
@@ -51,7 +49,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async session({ session, token }) {
-      // Prendiamo direttamente dal token i dati custom
       session.user.userId = token.userId;
       session.user.cartId = token.cartId;
       return session;

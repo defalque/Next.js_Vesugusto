@@ -18,7 +18,7 @@ export default async function Page() {
   const total = totalPrice + shippingCost;
 
   return (
-    <div className="flex flex-col gap-8 px-5 xs:px-10 xl:px-35 my-12">
+    <div className="flex flex-col gap-8 px-5 xs:px-10 xl:px-35 my-5">
       <h1
         className={`text-3xl xs:text-4xl lg:text-5xl font-medium tracking-wide`}
       >

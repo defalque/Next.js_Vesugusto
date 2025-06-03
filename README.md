@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Applicazione web full-stack in Next.js
 
-## Getting Started
+**Vesugusto** è un progetto full-stack sviluppato con **Next.js** (`React framework`), pensato come template e-commerce per la vendita di prodotti tipici vesuviani. Integra una sezione shop moderna, autenticazione, AI per la generazione di ricette personalizzate e tutte le funzionalità tipiche di una web app professionale.
 
-First, run the development server:
+## Funzionalità principali
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Interfaccia moderna e responsive** sviluppata con **React** e **Tailwind CSS**, perfetta su qualsiasi dispositivo.
+- **Sistema di autenticazione** **`OAuth`** integrato tramite [Auth.js](https://authjs.dev/).
+- **Backend API** con [Supabase](https://supabase.com/) per contenuti dinamici e operazioni CRUD.
+- **Sezione e-commerce** completa con:
+  - Schede prodotto dettagliate.
+  - Possibilità di **filtrare** i prodotti e **ordinarli**.
+  - **Paginazione** integrata per una navigazione ottimale.
+  - Carrello.
+  - Checkout simulato con integrazione ai **pagamenti** reali tramite [Stripe](https://stripe.com).
+- **Chat AI** basata su **`Gemini`** per suggerire ricette personalizzate, consentirne il salvataggio e il download.
+- **Dark mode** disponibile su tutta l’applicazione.
+- **Ottimizzazione di immagini, SEO e performance** grazie alle funzionalità avanzate di Next.js.
+- **Sistema di routing e gestione delle pagine** dinamico e scalabile con Next.js.
