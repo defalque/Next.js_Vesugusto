@@ -1,9 +1,12 @@
 "use client";
 
 import { updateCartItem } from "@/app/_lib/actions";
-import toast, { Toaster } from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
+  const { isDarkMode } = useDarkMode();
+
   const handleQuantity = async (e) => {
     try {
       setIsLoading(true);
@@ -11,7 +14,7 @@ function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      toast.error(err.message);
+      toast.error(<span>{err.message}</span>);
     }
   };
 
@@ -37,7 +40,13 @@ function SelectCartQuantity({ cartId, cartQuantity, product, setIsLoading }) {
           </option>
         ))}
       </select>
-      <Toaster></Toaster>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        closeOnClick
+        pauseOnHover
+        theme={isDarkMode ? "light" : "dark"}
+      />
     </div>
   );
 }

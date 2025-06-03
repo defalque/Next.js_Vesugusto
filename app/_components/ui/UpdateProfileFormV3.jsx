@@ -5,9 +5,9 @@ import { SubmitButton } from "./SubmitButton";
 import comuni from "@/app/_lib/gi_comuni_cap.json";
 import comuniMulticap from "@/app/_lib/multicap.json";
 import { useEffect, useRef, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { updateProfileSchema } from "@/app/_lib/schemas/updateProfileSchema";
+import { toast, ToastContainer } from "react-toastify";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 function UpdateProfileForm({ user }) {
   const {
@@ -26,6 +26,7 @@ function UpdateProfileForm({ user }) {
   const [suggestions, setSuggestions] = useState([]);
   const [formError, setFormError] = useState({ comune: "", cap: "" });
   const wrapperRef = useRef(null);
+  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -128,12 +129,17 @@ function UpdateProfileForm({ user }) {
       return;
     }
 
-    const success = await updateUserProfile(formData);
-    if (success) {
-      toast.success("Profilo aggiornato con successo.", {
-        icon: <CheckCircleIcon className="w-6 h-6 text-primary-950" />,
-      });
-    }
+    toast.promise(
+      updateUserProfile(formData),
+      {
+        pending: "Aggiornamento in corso...",
+        success: "Profilo aggiornato con successo!",
+        error: "Errore durante l'aggiornamento.",
+      },
+      {
+        theme: isDarkMode ? "light" : "dark",
+      }
+    );
   };
 
   return (
@@ -276,13 +282,13 @@ function UpdateProfileForm({ user }) {
       </div>
 
       <SubmitButton></SubmitButton>
-      <Toaster
-        toastOptions={{
-          style: {
-            border: "1px solid #fa5252",
-          },
-        }}
-      ></Toaster>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        closeOnClick
+        pauseOnHover
+        theme={isDarkMode ? "light" : "dark"}
+      />
     </form>
   );
 }

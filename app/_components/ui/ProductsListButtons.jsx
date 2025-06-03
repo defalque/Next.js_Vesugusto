@@ -2,19 +2,21 @@
 
 import {
   // addCartItem,
-  addFavorite,
   // deleteCartItem,
+  addFavorite,
   deleteFavorite,
 } from "@/app/_lib/actions";
 import { HeartIcon } from "@heroicons/react/24/outline";
-// import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast, ToastContainer } from "react-toastify";
+import { useDarkMode } from "../contexts/DarkModeContext";
+// import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 // import SpinnerMini from "./SpinnerMiniColored";
 // import SpinnerSuperMini from "./SpinnerSuperMini";
 
 function ProductButtons({ product, userId, cartId, isFavorite, isCart }) {
   const [isClicked, setIsClicked] = useState(isFavorite);
+  const { isDarkMode } = useDarkMode();
   // const [isCartClicked, setIsCartClicked] = useState(isCart);
   // const [isLoading, setIsLoading] = useState(false);
 
@@ -28,11 +30,10 @@ function ProductButtons({ product, userId, cartId, isFavorite, isCart }) {
         await deleteFavorite(userId, product.id);
       }
     } else {
-      toast(
-        "Accedi o registrati per aggiungere questo prodotto tra i preferiti",
-        {
-          icon: "❤️",
-        }
+      toast.warning(
+        <span>
+          Accedi o registrati per aggiungere questo prodotto tra i preferiti
+        </span>
       );
     }
   };
@@ -104,7 +105,13 @@ function ProductButtons({ product, userId, cartId, isFavorite, isCart }) {
           }`}
         ></HeartIcon>
       </button>
-      <Toaster toastOptions={{}}></Toaster>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        closeOnClick
+        pauseOnHover
+        theme={isDarkMode ? "light" : "dark"}
+      />
     </div>
   );
 }

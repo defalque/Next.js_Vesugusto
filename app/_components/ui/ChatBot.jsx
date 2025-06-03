@@ -129,13 +129,13 @@ export default function HomePage({ userId }) {
               exit={{ y: -50, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <span className="text-primary-dark-950 dark:text-primary-50 text-xs md:text-sm text-center">
+              <span className="text-primary-dark-950 dark:text-primary-50 text-[10px] xs:text-xs md:text-sm text-center">
                 Crea un account o accedi per salvare le ricette create dalla
                 nostra IA!
               </span>
 
               <button
-                className="absolute top-1 right-2 p-1 text-gray-600 dark:text-gray-200 hover:text-black dark:hover:text-white cursor-pointer"
+                className="absolute top-1 right-1 xxs:right-2 p-1 text-gray-600 dark:text-gray-200 hover:text-black dark:hover:text-white cursor-pointer"
                 onClick={() => setShowBanner(false)}
                 aria-label="Chiudi"
               >
@@ -172,6 +172,7 @@ export default function HomePage({ userId }) {
           <Image
             src={logo}
             alt="Chat icon"
+            placeholder="blur"
             height={150}
             width={150}
             className="shadow-md rounded-full w-auto h-full"

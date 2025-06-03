@@ -2,7 +2,7 @@ import { githubSignInAction, googleSignInAction } from "@/app/_lib/actions";
 
 export default function SignIn() {
   return (
-    <div className="flex flex-col xl:flex-row items-center gap-4 xl:gap-9">
+    <div className="flex flex-col xl:flex-row items-center gap-6 xl:gap-9">
       <form action={githubSignInAction}>
         <button
           type="submit"

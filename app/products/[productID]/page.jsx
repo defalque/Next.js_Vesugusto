@@ -1,7 +1,6 @@
 import ProductDetails from "@/app/_components/ui/ProductDetails";
 import ProductImage from "@/app/_components/ui/ProductImage";
 import { getAllProducts, getProduct } from "@/app/_lib/data-service";
-import { Toaster } from "react-hot-toast";
 
 export async function generateMetadata({ params }) {
   const { productID } = await params;
@@ -28,7 +27,6 @@ export default async function Page({ params }) {
       <div className="grid gap-x-5 gap-y-10 grid-cols-1 md:grid-cols-2 md:gap-y-0">
         <ProductImage product={product}></ProductImage>
         <ProductDetails product={product}></ProductDetails>
-        <Toaster toastOptions={{}}></Toaster>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { addFavorite } from "@/app/_lib/actions";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 function HeartBurstButton({ userId, productId }) {
   const [hearts, setHearts] = useState([]);
@@ -24,23 +24,19 @@ function HeartBurstButton({ userId, productId }) {
         setTimeout(() => {
           setHearts((prev) => prev.slice(newHearts.length));
         }, 600);
-      } else
-        toast("Questo prodotto è già tra i preferiti", {
-          icon: "❤️",
-        });
+      } else toast.info(<span>Questo prodotto è già tra i preferiti</span>);
     } else
-      toast(
-        "Accedi o registrati per aggiungere questo prodotto tra i preferiti",
-        {
-          icon: "❤️",
-        }
+      toast.warning(
+        <span>
+          Accedi o registrati per aggiungere questo prodotto tra i preferiti
+        </span>
       );
   };
 
   return (
     <div className="relative">
       <button
-        className="px-3 py-3 bg-primary-100 dark:bg-primary-300 rounded-full cursor-pointer outline-primary-950"
+        className="px-3 py-3 bg-primary-100 dark:bg-primary-400 rounded-full cursor-pointer outline-primary-950"
         onClick={handleClick}
         disabled={isClicked}
       >
@@ -62,7 +58,6 @@ function HeartBurstButton({ userId, productId }) {
           }}
         />
       ))}
-      <Toaster toastOptions={{}}></Toaster>
     </div>
   );
 }

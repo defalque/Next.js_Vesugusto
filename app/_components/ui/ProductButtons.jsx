@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import HeartBurstButton from "./HeartBurstButton";
-import toast from "react-hot-toast";
 import { addCartItem } from "@/app/_lib/actions";
+import { toast, ToastContainer } from "react-toastify";
+import { useDarkMode } from "../contexts/DarkModeContext";
 
 function ProductButtons({ cartId, userId, product }) {
   const [quantity, setQuantity] = useState(1);
+  const { isDarkMode } = useDarkMode();
 
   const handleLessClick = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
@@ -21,23 +23,18 @@ function ProductButtons({ cartId, userId, product }) {
       try {
         const succes = await addCartItem(cartId, product.id, quantity);
         if (succes) {
-          // setCartItems((prevItems) => {
-          //   const existing = prevItems.find((item) => item.id === product.id);
-          //   if (!existing) {
-          //     return [...prevItems, { id: product.id }];
-          //   }
-          //   return prevItems;
-          // });
           setQuantity(1);
-          toast.success("Prodotto aggiunto al carrello");
+          toast.success(<span>Prodotto aggiunto al carrello</span>);
         }
       } catch (err) {
         toast.error(err.message);
       }
     } else
-      toast("Accedi o registrati per aggiungere questo prodotto al carrello", {
-        icon: "🛒",
-      });
+      toast.warning(
+        <span>
+          Accedi o registrati per aggiungere questo prodotto al carrello
+        </span>
+      );
   };
 
   return (
@@ -85,6 +82,13 @@ function ProductButtons({ cartId, userId, product }) {
           userId={userId}
           productId={product.id}
         ></HeartBurstButton>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          closeOnClick
+          pauseOnHover
+          theme={isDarkMode ? "light" : "dark"}
+        />
       </div>
     </div>
   );
