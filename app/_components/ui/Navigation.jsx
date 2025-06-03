@@ -3,6 +3,8 @@
 import Link from "next/link";
 import {
   Bars3Icon,
+  DevicePhoneMobileIcon,
+  MapPinIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
@@ -10,8 +12,9 @@ import { usePathname } from "next/navigation";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useState } from "react";
+import { HoverCard } from "radix-ui";
 
-function Navigation({ session, cartItemsCount }) {
+function Navigation({ session, cartItemsCount, info }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -21,7 +24,7 @@ function Navigation({ session, cartItemsCount }) {
         <li className="py-5.5">
           <Link
             href="/products"
-            className={` dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
+            className={` dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-50 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
               pathname === "/products"
                 ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
                 : "text-primary-dark-900"
@@ -34,7 +37,7 @@ function Navigation({ session, cartItemsCount }) {
         <li className="py-5.5">
           <Link
             href="/create"
-            className={`py-5.5 dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-100 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
+            className={`py-5.5 dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-50 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
               pathname === "/create"
                 ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
                 : "text-primary-dark-900"
@@ -68,14 +71,59 @@ function Navigation({ session, cartItemsCount }) {
         <li>
           <Link href="/account">
             {session?.user?.image ? (
-              <Image
-                src={session.user.image}
-                className="h-8 rounded-full hover:brightness-95"
-                alt={session.user.name}
-                referrerPolicy="no-referrer"
-                width={32}
-                height={32}
-              />
+              <div>
+                <HoverCard.Root>
+                  <HoverCard.Trigger asChild>
+                    <Image
+                      src={session.user.image}
+                      className="h-8 w-8 rounded-full hover:brightness-95 cursor-pointer"
+                      alt={session.user.name}
+                      referrerPolicy="no-referrer"
+                      width={32}
+                      height={32}
+                    />
+                  </HoverCard.Trigger>
+
+                  <HoverCard.Portal>
+                    <HoverCard.Content
+                      className="z-1100 w-55 rounded-xl bg-primary-950 dark:bg-dark-300 p-3 border border-primary-950 dark:border-dark-100 shadow-xl space-y-1"
+                      sideOffset={0}
+                      side="top"
+                    >
+                      <div className="space-y-5">
+                        <div className="flex items-center gap-1.5">
+                          <UserIcon className="size-4 fill-primary-50" />
+                          <p className="text-sm font-semibold text-primary-50">
+                            {session.user.name}
+                          </p>
+                        </div>
+                        {info.via ? (
+                          <div className="space-y-4">
+                            <div className="flex items-start gap-1.5">
+                              <MapPinIcon className="size-4 fill-primary-50" />
+                              <p className="text-xs text-primary-50">
+                                {`${info.via}, ${info.numeroCivico}, ${info.comune}`}
+                              </p>
+                            </div>
+                            <div className="flex items-start gap-1.5">
+                              <DevicePhoneMobileIcon className="size-4 fill-primary-50" />
+                              <p className="text-xs text-primary-50">
+                                {info.phoneNumber}
+                              </p>
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-primary-50">
+                            Aggiorna le tue informazioni di profilo!
+                          </p>
+                        )}
+                      </div>
+
+                      <HoverCard.Arrow className="fill-primary-900 dark:fill-dark-300" />
+                    </HoverCard.Content>
+                  </HoverCard.Portal>
+                </HoverCard.Root>
+              </div>
             ) : (
               <UserIcon className="size-6 text-primary-dark-900 dark:text-primary-100 hover:text-primary-dark-100 dark:hover:text-primary-950transition-colors duration-300"></UserIcon>
             )}

@@ -1,5 +1,6 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
 import Downloader from "./Downloader";
+import { AlertDialog } from "radix-ui";
 
 function RecipesList({ recipes }) {
   return (
@@ -20,9 +21,34 @@ function RecipesList({ recipes }) {
           <div className="flex items-center gap-3 ml-auto text-sm font-normal">
             <Downloader recipe={recipe} />
 
-            <button className="flex items-center gap-2 px-2 md:px-3  py-1 bg-primary-950 text-primary-50 rounded-lg hover:bg-primary-900 transition duration-200 cursor-pointer">
-              <TrashIcon className="size-2.5 sm:size-3 md:size-4"></TrashIcon>
-            </button>
+            <AlertDialog.Root>
+              <AlertDialog.Trigger asChild>
+                <button className="flex items-center gap-2 px-2 md:px-3  py-1 bg-primary-950 text-primary-50 rounded-lg hover:bg-primary-900 transition duration-200 cursor-pointer">
+                  <TrashIcon className="size-2.5 sm:size-3 md:size-4"></TrashIcon>
+                </button>
+              </AlertDialog.Trigger>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className="fixed inset-0 bg-gray-50/80 dark:bg-dark-400/80 z-50" />
+                <AlertDialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 max-w-lg max-h-80 bg-slate-100 dark:bg-dark-300 border border-gray-300 dark:border-dark-100 rounded-2xl p-6 shadow-xl text-primary-50 space-y-4">
+                  <AlertDialog.Title className="text-lg md:text-2xl text-center md:text-start font-semibold text-gray-500 dark:text-gray-100">
+                    Sei sicuro?
+                  </AlertDialog.Title>
+                  <AlertDialog.Description className="text-sm text-center md:text-base md:text-start text-gray-500 dark:text-gray-100">
+                    Questa è una demo. Non ho ancora implementato questa
+                    funzionalità.
+                  </AlertDialog.Description>
+
+                  <div className="flex justify-end gap-3 text-sm md:text-base">
+                    <AlertDialog.Cancel className="px-4 py-2 rounded-xl bg-gray-50 dark:bg-dark-100 text-gray-500 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-200 transition cursor-pointer">
+                      Annulla
+                    </AlertDialog.Cancel>
+                    <AlertDialog.Action className="px-4 py-2 rounded-xl bg-primary-950 text-primary-50 hover:bg-primary-900 transition cursor-pointer">
+                      Conferma
+                    </AlertDialog.Action>
+                  </div>
+                </AlertDialog.Content>
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
           </div>
         </div>
       ))}

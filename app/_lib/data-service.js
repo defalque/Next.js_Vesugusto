@@ -363,7 +363,7 @@ export async function getCartProductsCount(cartId) {
 export async function getUserInfo(userId) {
   const { data, error } = await supabase
     .from("users")
-    .select("via, numeroCivico, comune, cap")
+    .select("via, numeroCivico, comune, cap, phoneNumber")
     .eq("id", userId)
     .single();
 

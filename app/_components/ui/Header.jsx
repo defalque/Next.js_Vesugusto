@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import DarkModeToggle from "./DarkModeToggle";
 import Navigation from "./Navigation";
-import { getCartProductsCount } from "@/app/_lib/data-service";
+import { getCartProductsCount, getUserInfo } from "@/app/_lib/data-service";
 import Image from "next/image";
 
 import vesugusto from "@/public/vesugusto.png";
@@ -9,8 +9,10 @@ import vesugusto from "@/public/vesugusto.png";
 async function Header() {
   const session = await auth();
   let cartItemsCount = [];
+  let info = [];
   if (session?.user?.cartId) {
     cartItemsCount = await getCartProductsCount(session.user.cartId);
+    info = await getUserInfo(session.user.userId);
   } else {
     cartItemsCount = [];
   }
@@ -31,6 +33,7 @@ async function Header() {
         <Navigation
           session={session}
           cartItemsCount={cartItemsCount}
+          info={info}
         ></Navigation>
         <DarkModeToggle></DarkModeToggle>
       </div>

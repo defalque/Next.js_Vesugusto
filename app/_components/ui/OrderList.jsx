@@ -13,6 +13,7 @@ import {
   getUserOrdersWithPagination,
 } from "@/app/_lib/data-service";
 import { auth } from "@/auth";
+import { Popover } from "radix-ui";
 
 async function OrderList({ filters }) {
   const session = await auth();
@@ -60,14 +61,44 @@ async function OrderList({ filters }) {
 
             {order.status === "delivered" && (
               <div className="flex items-center gap-2 ml-auto">
-                <CheckCircleIcon className="size-6 fill-green-600"></CheckCircleIcon>
+                <CheckCircleIcon className="hidden md:block size-6 fill-green-600"></CheckCircleIcon>
                 <span className="hidden md:flex">Consegnato</span>
+                <Popover.Root>
+                  <Popover.Trigger>
+                    <CheckCircleIcon className="size-6 fill-green-600 cursor-pointer"></CheckCircleIcon>
+                  </Popover.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      side="top"
+                      sideOffset={4}
+                      className="relative overflow-visible px-2 py-1 bg-primary-950 text-primary-50 rounded text-xs"
+                    >
+                      Consegnato
+                      <Popover.Arrow className="fill-primary-950 w-3 h-2" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </Popover.Root>
               </div>
             )}
             {order.status === "unconfirmed" && (
               <div className="flex items-center gap-2 ml-auto text-md font-light">
-                <ExclamationCircleIcon className="size-6 fill-yellow-400"></ExclamationCircleIcon>
+                <ExclamationCircleIcon className="hidden md:block size-6 fill-yellow-400"></ExclamationCircleIcon>
                 <span className="hidden md:flex">In preparazione</span>
+                <Popover.Root>
+                  <Popover.Trigger className="flex md:hidden">
+                    <ExclamationCircleIcon className="size-6 fill-yellow-400 cursor-pointer"></ExclamationCircleIcon>
+                  </Popover.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      side="top"
+                      sideOffset={4}
+                      className="relative overflow-visible px-2 py-1 bg-primary-950 text-primary-50 rounded text-xs"
+                    >
+                      In preparazione
+                      <Popover.Arrow className="fill-primary-950 w-3 h-2" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </Popover.Root>
               </div>
             )}
 
