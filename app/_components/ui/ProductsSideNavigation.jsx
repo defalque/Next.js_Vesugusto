@@ -69,7 +69,7 @@ function ProductsSideNavigation({ types }) {
       className={`${
         isHidden
           ? "hidden"
-          : "fixed inset-0 top-0 left-0 w-full min-h-screen z-1000 bg-primary-50 dark:bg-primary-dark-950  md:relative md:z-100"
+          : "fixed inset-0 top-0 left-0 w-full min-h-screen z-1000 bg-primary-50 dark:bg-primary-dark-950 md:relative md:z-100"
       }`}
     >
       <div className="flex flex-col px-1.5 lg:px-3 py-2 mt-2 text-md md:sticky font-normal top-15 w-full ">
@@ -79,21 +79,21 @@ function ProductsSideNavigation({ types }) {
             onClick={() => setIsHidden(!isHidden)}
           />
           <div
-            className="flex items-center text-base md:text-sm lg:text-base cursor-pointer mb-1"
+            className="flex items-center text-xl md:text-sm lg:text-base cursor-pointer mb-1"
             onClick={() => setCategory(!category)}
           >
             <span>Categoria</span>
             {category ? (
-              <ChevronDownIcon className="ml-auto size-4.5"></ChevronDownIcon>
+              <ChevronDownIcon className="ml-auto size-6 md:size-4.5"></ChevronDownIcon>
             ) : (
-              <ChevronRightIcon className="ml-auto size-4.5"></ChevronRightIcon>
+              <ChevronRightIcon className="ml-auto size-6 md:size-4.5"></ChevronRightIcon>
             )}
           </div>
           {category && (
             <div className="my-2">
               {types.map((type) => (
                 <label
-                  className="flex items-center text-base md:text-sm lg:text-base ml-1 mt-1.5 cursor-pointer w-max"
+                  className="flex items-center text-xl md:text-sm lg:text-base ml-1 mt-1.5 cursor-pointer w-max"
                   key={type.type}
                 >
                   <input
@@ -113,14 +113,14 @@ function ProductsSideNavigation({ types }) {
 
         <div className="mb-2 py-3 ml-1.5 lg:ml-3">
           <div
-            className="flex items-center cursor-pointer mb-1"
+            className="flex items-center text-xl md:text-sm lg:text-base cursor-pointer mb-1"
             onClick={() => setPrice(!price)}
           >
             <span>Prezzo</span>
             {price ? (
-              <ChevronDownIcon className="ml-auto size-4.5"></ChevronDownIcon>
+              <ChevronDownIcon className="ml-auto size-6 md:size-4.5"></ChevronDownIcon>
             ) : (
-              <ChevronRightIcon className="ml-auto size-4.5"></ChevronRightIcon>
+              <ChevronRightIcon className="ml-auto size-6 md:size-4.5"></ChevronRightIcon>
             )}
           </div>
           {price && (
@@ -133,7 +133,7 @@ function ProductsSideNavigation({ types }) {
               ].map(({ value, label }) => (
                 <label
                   key={value}
-                  className="flex items-center text-base md:text-sm lg:text-base gap-2 ml-1 mt-1.5 cursor-pointer w-max"
+                  className="flex items-center text-xl md:text-sm lg:text-base gap-2 ml-1 mt-1.5 cursor-pointer w-max"
                 >
                   <input
                     type="checkbox"

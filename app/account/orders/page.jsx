@@ -19,8 +19,8 @@ export default async function Page({ searchParams }) {
   };
 
   return (
-    <div>
-      <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
+    <div className="">
+      <div className="flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
         <h1 className="text-2xl md:text-5xl font-medium tracking-wide">
           Storico degli ordini
         </h1>

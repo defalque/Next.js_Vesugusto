@@ -101,14 +101,14 @@ function Navigation({ session, cartItemsCount }) {
         <div className="absolute top-full left-0 right-0 bg-primary-50 dark:bg-primary-dark-950 z-20 flex flex-col items-center text-xl font-normal md:hidden shadow-lg dark:shadow-dark-400 transition-all duration-300">
           <Link
             href="/products"
-            className="hover:bg-gray-100 dark:hover:dark:bg-dark-300 w-full text-center py-3"
+            className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
             onClick={() => setMenuOpen(false)}
           >
             Prodotti
           </Link>
           <Link
             href="/create"
-            className="hover:bg-gray-100 dark:hover:dark:bg-dark-300 w-full text-center py-3"
+            className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
             onClick={() => setMenuOpen(false)}
           >
             creIAmo
@@ -116,7 +116,7 @@ function Navigation({ session, cartItemsCount }) {
           {session?.user && (
             <Link
               href="/cart"
-              className="hover:bg-gray-100 dark:hover:dark:bg-dark-300 w-full text-center py-3"
+              className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
               onClick={() => setMenuOpen(false)}
             >
               Carrello ({cartItemsCount?.length || 0})
@@ -124,7 +124,7 @@ function Navigation({ session, cartItemsCount }) {
           )}
           <Link
             href="/account"
-            className="hover:bg-gray-100 dark:hover:dark:bg-dark-300 w-full text-center py-3"
+            className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
             onClick={() => setMenuOpen(false)}
           >
             Account

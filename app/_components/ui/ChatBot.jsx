@@ -220,15 +220,55 @@ export default function HomePage({ userId }) {
               >
                 {msg.role === "ai" ? (
                   <div className="flex items-start gap-2 md:gap-4">
-                    <Image
-                      src={logo}
-                      alt="Vesugusto logo"
-                      height={50}
-                      width={50}
-                      className="mt-1"
-                    />
-                    <div className="mt-5 pb-1 flex flex-col gap-y-1.5">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    <div className="pb-1 flex flex-col gap-y-1.5">
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ReactMarkdown
+                          components={{
+                            h1: ({ node, ...props }) => (
+                              <h1
+                                className="text-3xl font-bold my-4"
+                                {...props}
+                              />
+                            ),
+                            h2: ({ node, ...props }) => (
+                              <h2
+                                className="text-lg font-bold sm:text-2xl sm:font-semibold my-3"
+                                {...props}
+                              />
+                            ),
+                            p: ({ node, ...props }) => (
+                              <p
+                                className="text-sm sm:text-base leading-relaxed my-2"
+                                {...props}
+                              />
+                            ),
+                            li: ({ node, ...props }) => (
+                              <li
+                                className="ml-6 list-disc marker:text-primary-950"
+                                {...props}
+                              />
+                            ),
+                            code: ({ node, ...props }) => (
+                              <code
+                                className="bg-gray-100 dark:bg-dark-200 px-1.5 py-0.5 rounded text-sm font-mono"
+                                {...props}
+                              />
+                            ),
+                            strong: ({ node, ...props }) => (
+                              <strong
+                                className="font-semibold text-primary-950"
+                                {...props}
+                              />
+                            ),
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
+                      </motion.div>
                       <div className="flex items-center mt-3">
                         {userId &&
                           msg.content.includes("ricetta") &&
@@ -254,13 +294,13 @@ export default function HomePage({ userId }) {
             </div>
           ))}
           {loading && (
-            <div className="flex items-center gap-4 px-4 py-2">
+            <div className="flex items-center gap-2 sm:gap-4 px-4 py-2">
               <Image
                 src={logo}
                 alt="Vesugusto logo"
                 height={50}
                 width={50}
-                className=""
+                className="-ml-8"
               />
               <div className="flex items-center gap-2 animate-pulse">
                 <div className="w-2 h-2 bg-primary-950 rounded-full animate-bounce-dot transition dot-delay-1"></div>
@@ -272,7 +312,7 @@ export default function HomePage({ userId }) {
         </div>
       </div>
 
-      <div className="bg-transparent pb-10 text-sm md:text-base">
+      <div className="bg-transparent pb-3 sm:pb-10 text-sm md:text-base">
         <div className="max-w-xs xs:max-w-md sm:max-w-xl md:max-w-3xl mx-auto flex flex-col animate-reveal">
           <textarea
             className="w-full px-5 pt-2 border-t border-r border-l bg-white dark:border-dark-200 dark:bg-dark-300 border-gray-300 rounded-tl-2xl rounded-tr-2xl resize-none outline-primary-950 leading-tight font-light outline-none overflow-y-auto"

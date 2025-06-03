@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="mb-10 flex flex-col gap-8">
       <div className=" flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200 mb-5">
         <h1 className="text-2xl md:text-5xl font-medium tracking-wide">
           Prodotti preferiti
