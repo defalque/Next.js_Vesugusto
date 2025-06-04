@@ -205,7 +205,7 @@ export default function HomePage({ userId }) {
           }`}
         >
           {chat.map((msg, i) => {
-            console.log(msg); // stampa msg in console
+            // console.log(msg); // stampa msg in console
             return (
               <div
                 key={i}
