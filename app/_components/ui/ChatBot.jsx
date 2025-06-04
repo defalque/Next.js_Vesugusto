@@ -48,6 +48,9 @@ export default function HomePage({ userId }) {
 
       const data = await res.json();
       const aiMessage = { role: "ai", content: data.reply };
+      console.log("Risposta ricevuta dal server:", data);
+      console.log("Tipo di reply:", typeof data.reply);
+
       setChat((prev) => [...prev, aiMessage]);
     } catch (error) {
       console.error("Errore:", error);
