@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 function ProductDetailsAccordion({ productAttribute, label, isLast }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <div
       className={`flex flex-col gap-5 py-3 border-t border-t-gray-300 dark:border-t-dark-200 cursor-pointer ${

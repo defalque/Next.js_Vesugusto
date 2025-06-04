@@ -204,96 +204,103 @@ export default function HomePage({ userId }) {
             display ? "flex flex-col" : "hidden"
           }`}
         >
-          {chat.map((msg, i) => (
-            <div
-              key={i}
-              className={`flex text-xs xs:text-sm md:text-base ${
-                msg.role === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
+          {chat.map((msg, i) => {
+            console.log(msg); // stampa msg in console
+            return (
               <div
-                ref={messageRef}
-                className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-xl whitespace-pre-wrap ${
-                  msg.role === "user"
-                    ? "bg-primary-950 text-primary-50"
-                    : "text-gray-800 dark:text-gray-200"
+                key={i}
+                className={`flex text-xs xs:text-sm md:text-base ${
+                  msg.role === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                {msg.role === "ai" ? (
-                  <div className="flex items-start gap-2 md:gap-4">
-                    <div className="pb-1 flex flex-col gap-y-1.5">
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ReactMarkdown
-                          components={{
-                            h1: ({ node, ...props }) => (
-                              <h1
-                                className="text-3xl font-bold my-4"
-                                {...props}
-                              />
-                            ),
-                            h2: ({ node, ...props }) => (
-                              <h2
-                                className="text-lg font-bold sm:text-2xl sm:font-semibold my-3"
-                                {...props}
-                              />
-                            ),
-                            p: ({ node, ...props }) => (
-                              <p
-                                className="text-sm sm:text-base leading-relaxed my-2"
-                                {...props}
-                              />
-                            ),
-                            li: ({ node, ...props }) => (
-                              <li
-                                className="ml-6 list-disc marker:text-primary-950"
-                                {...props}
-                              />
-                            ),
-                            code: ({ node, ...props }) => (
-                              <code
-                                className="bg-gray-100 dark:bg-dark-200 px-1.5 py-0.5 rounded text-sm font-mono"
-                                {...props}
-                              />
-                            ),
-                            strong: ({ node, ...props }) => (
-                              <strong
-                                className="font-semibold text-primary-950"
-                                {...props}
-                              />
-                            ),
-                          }}
+                <div
+                  ref={messageRef}
+                  className={`px-2.5 md:px-4 py-1.5 md:py-2 rounded-xl whitespace-pre-wrap ${
+                    msg.role === "user"
+                      ? "bg-primary-950 text-primary-50"
+                      : "text-gray-800 dark:text-gray-200"
+                  }`}
+                >
+                  {msg.role === "ai" ? (
+                    <div className="flex items-start gap-2 md:gap-4">
+                      <div className="pb-1 flex flex-col gap-y-1.5 relative">
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
                         >
-                          {msg.content}
-                        </ReactMarkdown>
-                      </motion.div>
-                      <div className="flex items-center mt-3">
-                        {userId &&
-                          msg.content.includes("ricetta") &&
-                          (savedIds.includes(i) ? (
-                            <CheckCircleIcon className="size-7 fill-primary-950" />
-                          ) : savingIds.includes(i) ? (
-                            <SpinnerSuperMini />
-                          ) : (
-                            <button
-                              className="text-xs md:text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 dark:text-gray-200 cursor-pointer hover:bg-primary-800 font-medium"
-                              onClick={() => handleSaveRecipe(msg.content, i)}
-                            >
-                              Salva!
-                            </button>
-                          ))}
+                          <ReactMarkdown
+                            components={{
+                              h1: ({ node, ...props }) => (
+                                <h1
+                                  className="text-3xl font-bold my-4"
+                                  {...props}
+                                />
+                              ),
+                              h2: ({ node, ...props }) => (
+                                <h2
+                                  className="text-lg font-bold sm:text-2xl sm:font-semibold my-0"
+                                  {...props}
+                                />
+                              ),
+                              p: ({ node, ...props }) => (
+                                <p
+                                  className=" text-sm sm:text-base leading-relaxed my-0"
+                                  {...props}
+                                />
+                              ),
+                              li: ({ node, ...props }) => (
+                                <li
+                                  className="ml-6 list-disc dark:marker:text-primary-950"
+                                  {...props}
+                                />
+                              ),
+                              code: ({ node, ...props }) => (
+                                <code
+                                  className="bg-gray-100 dark:bg-dark-200 px-1.5 py-0.5 rounded text-sm"
+                                  {...props}
+                                />
+                              ),
+                              strong: ({ node, ...props }) => (
+                                <strong className="font-semibold" {...props} />
+                              ),
+                              pre: ({ node, ...props }) => (
+                                <pre
+                                  className="bg-gray-900 text-gray-100 p-4 rounded-md max-w-md sm:max-w-xl md:max-w-2xl overflow-x-scroll my-4 mx-auto"
+                                  {...props}
+                                />
+                              ),
+                            }}
+                          >
+                            {msg.content}
+                          </ReactMarkdown>
+                        </motion.div>
+
+                        <div className="flex items-center mt-3">
+                          {userId &&
+                            msg.content.includes("ricetta") &&
+                            (savedIds.includes(i) ? (
+                              <CheckCircleIcon className="size-7 fill-primary-950" />
+                            ) : savingIds.includes(i) ? (
+                              <SpinnerSuperMini />
+                            ) : (
+                              <button
+                                className="text-xs md:text-sm rounded-4xl py-1 px-2 bg-primary-950 text-primary-50 dark:text-gray-200 cursor-pointer hover:bg-primary-800 font-medium"
+                                onClick={() => handleSaveRecipe(msg.content, i)}
+                              >
+                                Salva!
+                              </button>
+                            ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  msg.content
-                )}
+                  ) : (
+                    msg.content
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
           {loading && (
             <div className="flex items-center gap-2 sm:gap-4 px-4 py-2">
               <Image

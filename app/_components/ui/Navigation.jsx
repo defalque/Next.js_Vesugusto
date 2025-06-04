@@ -86,20 +86,20 @@ function Navigation({ session, cartItemsCount, info }) {
 
                   <HoverCard.Portal>
                     <HoverCard.Content
-                      className="z-1100 w-55 rounded-xl bg-primary-950 dark:bg-dark-300 p-3 border border-primary-950 dark:border-dark-100 shadow-xl space-y-1"
+                      className="z-1100 w-55 rounded-xl bg-gray-100 dark:bg-dark-300 p-3 border border-gray-200 dark:border-dark-100 shadow-xl space-y-1"
                       sideOffset={0}
                       side="top"
                     >
                       <div className="space-y-5">
                         <div className="flex items-center gap-1.5">
-                          <UserIcon className="size-4 fill-primary-50" />
-                          <p className="text-sm font-semibold text-primary-50">
+                          <UserIcon className="size-4 dark:fill-primary-50" />
+                          <p className="text-base font-bold dark:text-primary-50">
                             {session.user.name}
                           </p>
                         </div>
-                        {info.via ? (
+                        {/* {info.via ? (
                           <div className="space-y-4">
-                            <div className="flex items-start gap-1.5">
+                            <div className="grid grid-cols-[auto_1fr] gap-1.5">
                               <MapPinIcon className="size-4 fill-primary-50" />
                               <p className="text-xs text-primary-50">
                                 {`${info.via}, ${info.numeroCivico}, ${info.comune}`}
@@ -116,10 +116,30 @@ function Navigation({ session, cartItemsCount, info }) {
                           <p className="text-xs text-primary-50">
                             Aggiorna le tue informazioni di profilo!
                           </p>
-                        )}
+                        )} */}
+                        <div className="flex flex-col text-sm space-y-1 transition-colors duration-200">
+                          <Link
+                            href="/account/orders"
+                            className="hover:text-primary-950"
+                          >
+                            I tuoi ordini
+                          </Link>
+                          <Link
+                            href="/account/favorites"
+                            className="hover:text-primary-950"
+                          >
+                            I tuoi preferiti
+                          </Link>
+                          <Link
+                            href="/account/recipes"
+                            className="hover:text-primary-950"
+                          >
+                            Le tue ricette
+                          </Link>
+                        </div>
                       </div>
 
-                      <HoverCard.Arrow className="fill-primary-900 dark:fill-dark-300" />
+                      <HoverCard.Arrow className="fill-gray-100 dark:fill-dark-300" />
                     </HoverCard.Content>
                   </HoverCard.Portal>
                 </HoverCard.Root>

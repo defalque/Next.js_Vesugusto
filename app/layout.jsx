@@ -1,5 +1,6 @@
 import "@/app/_styles/globals.css";
-import { Outfit } from "next/font/google";
+
+import { Outfit, Nunito } from "next/font/google";
 import { DarkModeProvider } from "./_components/contexts/DarkModeContext";
 import Header from "./_components/ui/Header";
 import DemoTag from "./_components/ui/DemoTag";
@@ -8,6 +9,10 @@ import DemoTag from "./_components/ui/DemoTag";
 // import Link from "next/link";
 
 const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+});
+const nunito = Nunito({
   subsets: ["latin"],
   display: "swap",
 });
@@ -24,7 +29,7 @@ function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${outfit.className} antialiased bg-primary-50 text-primary-dark-900 min-h-screen flex flex-col dark:bg-primary-dark-950 dark:text-gray-200`}
+        className={`${nunito.className} antialiased bg-primary-50 text-primary-dark-900 min-h-screen flex flex-col dark:bg-primary-dark-950 dark:text-gray-200`}
       >
         <DarkModeProvider>
           <Header></Header>

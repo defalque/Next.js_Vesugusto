@@ -26,7 +26,7 @@ async function Header() {
         alt="Vesugusto logo"
         className="-ml-3 sm:-ml-6"
       ></Image>
-      <span className="text-4xl -ml-3 text-primary-950 tracking-wider font-medium self-center">
+      <span className="text-4xl -ml-3 text-primary-950 tracking-wider font-bold self-center">
         esugusto
       </span>
       <div className="flex gap-4 sm:gap-8 md:gap-16 ml-auto">
