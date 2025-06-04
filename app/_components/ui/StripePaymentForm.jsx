@@ -311,7 +311,7 @@ export default function StripePaymentForm({ totalAmount, userId, cartId }) {
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
+        return_url: `${process.env.NEXT_PUBLIC_PROD_BASE_URL}/success`,
       },
       redirect: "if_required",
     });
@@ -329,7 +329,7 @@ export default function StripePaymentForm({ totalAmount, userId, cartId }) {
           paymentIntentId: paymentIntent.id,
         }),
       });
-      window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/success?payment_intent=${paymentIntent.id}`;
+      window.location.href = `${process.env.NEXT_PUBLIC_PROD_BASE_URL}/success?payment_intent=${paymentIntent.id}`;
       setLoading(false);
     }
   };
