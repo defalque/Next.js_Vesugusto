@@ -63,7 +63,12 @@ function ProductsHeader({ totalProducts, currentSort, children }) {
             <span>Nessun prodotto trovato.</span>
           )}
           <div className="ml-auto mr-5 w-26 sm:w-40">
+            <label htmlFor="ordina" className="sr-only">
+              Ordina
+            </label>
             <select
+              id="ordina"
+              name="ordina"
               value={sortOption}
               onChange={handleSortChange}
               className="block w-full px-1 py-1 border border-gray-300 dark:border-dark-200 bg-primary-50 dark:bg-dark-300 rounded-lg  focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-xs sm:text-sm"

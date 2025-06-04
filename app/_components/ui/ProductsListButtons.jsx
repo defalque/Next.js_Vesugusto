@@ -96,6 +96,7 @@ function ProductButtons({ product, userId, cartId, isFavorite, isCart }) {
       <button
         onClick={handleFavoriteClick}
         className="ml-auto px-0.5 py-0.5 outline-primary-950"
+        aria-label="Aggiungi ai preferiti"
       >
         <HeartIcon
           className={`size-4.5 lg:size-5.5 cursor-pointer hover:text-primary-dark-900 dark:hover:text-primary-50 transition-colors duration-200 ${

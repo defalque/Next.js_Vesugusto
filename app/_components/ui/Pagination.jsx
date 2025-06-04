@@ -83,6 +83,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
               currentPage={currentPage}
               pageCount={0}
               handleClick={handlePrevClick}
+              ariaLabel="Indietro"
             >
               {isLeftLoading ? (
                 <SpinnerMini></SpinnerMini>
@@ -95,6 +96,7 @@ export default function Pagination({ limit, label, items, totalItems }) {
               currentPage={currentPage}
               pageCount={pageCount - 1}
               handleClick={handleNextClick}
+              ariaLabel="Avanti"
             >
               {isRightLoading ? (
                 <SpinnerMini></SpinnerMini>
@@ -109,7 +111,13 @@ export default function Pagination({ limit, label, items, totalItems }) {
   );
 }
 
-function PaginationButton({ currentPage, pageCount, handleClick, children }) {
+function PaginationButton({
+  currentPage,
+  pageCount,
+  handleClick,
+  ariaLabel = "Avanti / Indietro",
+  children,
+}) {
   return (
     <button
       className={`px-2 py-1 md:px-4 md:py-2 text-white rounded-lg transition-colors duration-300 ${
@@ -119,6 +127,7 @@ function PaginationButton({ currentPage, pageCount, handleClick, children }) {
       }`}
       onClick={handleClick}
       disabled={currentPage === pageCount}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
