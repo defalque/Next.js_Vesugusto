@@ -28,8 +28,15 @@ export default function HomePage({ userId }) {
     { id: 4, message: "Ricetta del giorno! 🗓️" },
   ];
 
-  const sendMessage = async (customPrompt) => {
-    const messageToSend = customPrompt || input.trim();
+  const sendMessage = async (param) => {
+    // Se è un evento React (o evento nativo), evita di usarlo come messaggio
+    if (param && typeof param === "object" && "nativeEvent" in param) {
+      param.preventDefault?.();
+    }
+
+    const messageToSend =
+      typeof param === "string" && param.length > 0 ? param : input.trim();
+
     if (!messageToSend || loading) return;
 
     setDisplay(true);
