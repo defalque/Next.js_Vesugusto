@@ -350,7 +350,7 @@ export default function HomePage({ userId }) {
           <div className="flex items-center justify-end py-2 rounded-br-2xl rounded-bl-2xl border-r border-l border-t-0 border-b bg-white border-gray-300 dark:border-dark-200 dark:bg-dark-300">
             <button
               className="rounded-full mr-2 bg-primary-950 hover:bg-primary-800 transition-colors duration-200 px-1 py-1 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              onClick={sendMessage}
+              onClick={() => sendMessage}
               disabled={loading}
             >
               <ArrowUpIcon className="size-4 md:size-6 text-primary-100" />
