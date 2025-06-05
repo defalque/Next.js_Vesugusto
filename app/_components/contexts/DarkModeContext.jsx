@@ -11,6 +11,20 @@ function DarkModeProvider({ children }) {
     defaultValue: false,
   });
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = (e) => {
+      setIsDarkMode(!e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
+
   // Usa useEffect per leggere le preferenze del sistema *solo nel browser*
   useEffect(() => {
     const prefersDark = window.matchMedia(

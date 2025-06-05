@@ -13,6 +13,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useState } from "react";
 import { HoverCard } from "radix-ui";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Navigation({ session, cartItemsCount, info }) {
   const pathname = usePathname();
@@ -165,40 +166,48 @@ function Navigation({ session, cartItemsCount, info }) {
       </div>
 
       {/* Mobile Nav Menu */}
-      {menuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-primary-50 dark:bg-primary-dark-950 z-20 flex flex-col items-center text-xl font-normal md:hidden shadow-lg dark:shadow-dark-400 transition-all duration-300">
-          <Link
-            href="/products"
-            className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
-            onClick={() => setMenuOpen(false)}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ y: -250, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -250, opacity: 0.3 }}
+            transition={{ duration: 0, type: "spring", staggerChildren: 0.05 }}
+            className="absolute top-full left-0 right-0 bg-primary-50 dark:bg-primary-dark-950 z-5 flex flex-col items-center text-xl font-normal md:hidden shadow-lg dark:shadow-dark-400 transition-all duration-300"
           >
-            Prodotti
-          </Link>
-          <Link
-            href="/create"
-            className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
-            onClick={() => setMenuOpen(false)}
-          >
-            creIAmo
-          </Link>
-          {session?.user && (
             <Link
-              href="/cart"
+              href="/products"
               className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
               onClick={() => setMenuOpen(false)}
             >
-              Carrello ({cartItemsCount?.length || 0})
+              Prodotti
             </Link>
-          )}
-          <Link
-            href="/account"
-            className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
-            onClick={() => setMenuOpen(false)}
-          >
-            Account
-          </Link>
-        </div>
-      )}
+            <Link
+              href="/create"
+              className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
+              onClick={() => setMenuOpen(false)}
+            >
+              creIAmo
+            </Link>
+            {session?.user && (
+              <Link
+                href="/cart"
+                className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
+                Carrello ({cartItemsCount?.length || 0})
+              </Link>
+            )}
+            <Link
+              href="/account"
+              className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
+              onClick={() => setMenuOpen(false)}
+            >
+              Account
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

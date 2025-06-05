@@ -7,6 +7,7 @@ import Spinner from "./Spinner";
 import { deleteCartItem } from "@/app/_lib/actions";
 import Link from "next/link";
 import { formatPrice } from "@/app/_lib/formatPrice";
+import { AnimatePresence, motion } from "framer-motion";
 
 function CartProductsList({
   products,
@@ -41,24 +42,44 @@ function CartProductsList({
           <Spinner />
         </div>
       )}
+
       <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10">
-        {optimisticProducts.length > 0 ? (
-          <div className="flex flex-col">
-            {optimisticProducts.map((product) => (
-              <CartProductCard
-                product={product}
-                cartId={cartId}
-                setIsLoading={setIsLoading}
-                onDelete={handleDelete}
-                key={product.id}
-              ></CartProductCard>
-            ))}
-          </div>
-        ) : (
-          <div className="pt-8 border-t border-t-zinc-200 dark:border-t-gray-700">
-            <p>Non hai nessun prodotto nel carrello.</p>
-          </div>
-        )}
+        <AnimatePresence>
+          {optimisticProducts.length > 0 ? (
+            <motion.div
+              layout
+              transition={{
+                type: "spring",
+                visualDuration: 0.2,
+                bounce: 0.2,
+              }}
+              className="flex flex-col"
+            >
+              {optimisticProducts.map((product) => (
+                <motion.div
+                  key={product.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <CartProductCard
+                    product={product}
+                    cartId={cartId}
+                    setIsLoading={setIsLoading}
+                    onDelete={handleDelete}
+                    key={product.id}
+                  ></CartProductCard>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div className="pt-8 border-t border-t-zinc-200 dark:border-t-gray-700">
+              <p>Non hai nessun prodotto nel carrello.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {optimisticProducts.length > 0 && (
           <div className="flex flex-col gap-6 bg-slate-50 dark:bg-dark-400 h-max px-5 py-5 rounded-md">

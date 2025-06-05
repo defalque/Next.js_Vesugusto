@@ -3,6 +3,7 @@
 import { useOptimistic } from "react";
 import FavoriteCard from "./FavoriteCard";
 import { addCartItem, deleteFavorite } from "@/app/_lib/actions";
+import { AnimatePresence, motion } from "framer-motion";
 
 function FavoritesList({ products, userId, cartId }) {
   const [optimisticProducts, optimisticDelete] = useOptimistic(
@@ -41,18 +42,33 @@ function FavoritesList({ products, userId, cartId }) {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 sm:gap-x-20 gap-y-20">
-      {optimisticProducts.map((product) => (
-        <FavoriteCard
-          key={product.id}
-          product={product}
-          userId={userId}
-          cartId={cartId}
-          onDelete={handleDelete}
-          onAdd={handleAddToCart}
-        />
-      ))}
-    </div>
+    <AnimatePresence>
+      <motion.div
+        layout
+        transition={{ type: "spring" }}
+        className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 sm:gap-x-20 gap-y-20"
+      >
+        {optimisticProducts.map((product) => (
+          <motion.div
+            key={product.id}
+            layout
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
+          >
+            <FavoriteCard
+              key={product.id}
+              product={product}
+              userId={userId}
+              cartId={cartId}
+              onDelete={handleDelete}
+              onAdd={handleAddToCart}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
