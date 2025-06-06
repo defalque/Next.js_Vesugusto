@@ -1,19 +1,20 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 function ProductDetailsAccordion({ productAttribute, label, isLast }) {
   const [open, setOpen] = useState(true);
+
   return (
-    <div
-      className={`flex flex-col gap-5 py-3 border-t border-t-gray-300 dark:border-t-dark-200 ${
+    <motion.div
+      layout
+      className={`flex flex-col border-t border-t-gray-300 dark:border-t-dark-200 ${
         isLast ? "border-b border-gray-300 dark:border-dark-200" : ""
       }`}
     >
-      {/* <div className="flex flex-col gap-3"> */}
       <button
-        className="flex items-center cursor-pointer"
+        className="flex items-center py-3 cursor-pointer"
         onClick={() => setOpen(!open)}
       >
         <span className="font-medium text-base lg:text-lg">{label}</span>
@@ -26,18 +27,23 @@ function ProductDetailsAccordion({ productAttribute, label, isLast }) {
           ></span>
         </span>
       </button>
-      {open && (
-        <motion.p
-          initial={{ y: -30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="mb-5 font-light text-sm lg:text-base pr-5 leading-relaxed cursor-default"
-        >
-          {productAttribute}
-        </motion.p>
-      )}
-      {/* </div> */}
-    </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, type: "tween", ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <p className="font-light py-3 text-sm lg:text-base text-left alig cursor-default">
+              {productAttribute}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 

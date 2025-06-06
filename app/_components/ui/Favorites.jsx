@@ -1,22 +1,18 @@
 import { getFavorites } from "@/app/_lib/data-service";
-import FavoritesList from "./FavoritesList";
 import { auth } from "@/auth";
+import FavoritesHandler from "./FavoritesHandler";
 
 async function Favorites() {
   const session = await auth();
 
   const products = await getFavorites(session.user.userId);
 
-  return products.length === 0 ? (
-    <p className="-mt-5 text-sm md:text-base">
-      Non hai nessun prodotto tra i preferiti.
-    </p>
-  ) : (
-    <FavoritesList
+  return (
+    <FavoritesHandler
       products={products}
       userId={session.user.userId}
       cartId={session.user.cartId}
-    />
+    ></FavoritesHandler>
   );
 }
 

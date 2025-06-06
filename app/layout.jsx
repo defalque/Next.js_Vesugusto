@@ -24,17 +24,17 @@ export const metadata = {
   },
   description:
     "Vesugusto è un template e-commerce pensato per la vendita di prodotti tipici vesuviani. Integra una sezione shop moderna, autenticazione, AI per la generazione di ricette personalizzate e tutte le funzionalità tipiche di una web app professionale.",
-  openGraph: {
-    title: "Vesusgusto",
-    images: [
-      {
-        url: "/api/og?title=Vesugusto",
-        width: 1200,
-        height: 630,
-        alt: "Vesugusto",
-      },
-    ],
-  },
+  // openGraph: {
+  //   title: "Vesusgusto",
+  //   images: [
+  //     {
+  //       url: "/api/og?title=Vesugusto",
+  //       width: 1200,
+  //       height: 630,
+  //       alt: "Vesugusto",
+  //     },
+  //   ],
+  // },
 };
 
 function RootLayout({ children }) {

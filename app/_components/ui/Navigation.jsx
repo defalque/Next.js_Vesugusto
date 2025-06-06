@@ -25,26 +25,32 @@ function Navigation({ session, cartItemsCount, info }) {
         <li className="py-5.5">
           <Link
             href="/products"
-            className={` dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-50 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
-              pathname === "/products"
-                ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
-                : "text-primary-dark-900"
-            }`}
+            className={`relative dark:text-gray-200 dark:hover:text-white py-3 px-2 rounded-2xl dark:cursor-pointer transition-colors duration-300`}
           >
             Prodotti
+            {pathname === "/products" ? (
+              <motion.div
+                id="nav-tab-indicator"
+                layoutId="nav-tab-indicator"
+                className="absolute -z-10 top-0 right-0 left-0 h-full bg-primary-100 dark:bg-dark-300 rounded-2xl"
+              ></motion.div>
+            ) : null}
           </Link>
         </li>
 
         <li className="py-5.5">
           <Link
             href="/create"
-            className={`py-5.5 dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-50 dark:py-3 dark:px-2 dark:rounded-2xl dark:hover:bg-dark-200 dark:cursor-pointer transition-colors duration-300 ${
-              pathname === "/create"
-                ? "text-primary-950 dark:bg-dark-300 dark:hover:bg-dark-300"
-                : "text-primary-dark-900"
-            }`}
+            className={`relative dark:text-gray-200 dark:hover:text-white py-3 px-2 rounded-2xl dark:cursor-pointer transition-colors duration-300`}
           >
             creIAmo
+            {pathname === "/create" ? (
+              <motion.div
+                id="nav-tab-indicator"
+                layoutId="nav-tab-indicator"
+                className="absolute -z-10 top-0 right-0 left-0 h-full bg-primary-100 dark:bg-dark-300 rounded-2xl"
+              ></motion.div>
+            ) : null}
           </Link>
         </li>
 
@@ -60,9 +66,14 @@ function Navigation({ session, cartItemsCount, info }) {
                   }`}
                 />
                 {cartItemsCount?.length > 0 && (
-                  <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-white bg-primary-950 rounded-full">
+                  <motion.span
+                    key={cartItemsCount.length}
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-white bg-primary-950 rounded-full"
+                  >
                     {cartItemsCount?.length}
-                  </span>
+                  </motion.span>
                 )}
               </div>
             </Link>

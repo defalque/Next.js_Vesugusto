@@ -15,5 +15,6 @@
   - Checkout simulato con integrazione ai **pagamenti** tramite [Stripe](https://stripe.com).
 - **Chat AI** basata su **`Gemini`** per suggerire ricette personalizzate, consentirne il salvataggio e il download.
 - **Dark mode** disponibile su tutta l’applicazione.
+- **Animazioni** fluide grazie a [Motion](https://motion.dev/).
 - **Ottimizzazione di immagini, SEO e performance** grazie alle funzionalità avanzate di Next.js.
 - **Sistema di routing e gestione delle pagine** dinamico e scalabile con Next.js.

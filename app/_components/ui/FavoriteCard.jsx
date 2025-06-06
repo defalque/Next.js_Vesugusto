@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TrashButton from "@/app/_components/ui/TrashButton";
 import { formatPrice } from "@/app/_lib/formatPrice";
+import { motion } from "framer-motion";
 
 export default function FavoriteCard({
   product,
@@ -20,10 +21,10 @@ export default function FavoriteCard({
   }
 
   return (
-    <div
-      className={`transition-all duration-300 ease-in-out ${
-        isPending ? "animate-scaleOut" : ""
-      }`}
+    <motion.div
+      layout
+      exit={{ scale: 0.95, opacity: 0 }}
+      transition={{ duration: 0.3 }}
     >
       <div className="flex flex-col">
         <Link href={`/products/${product.id}`} className="pb-3">
@@ -80,7 +81,7 @@ export default function FavoriteCard({
           Sposta nel carrello
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -44,26 +44,15 @@ function CartProductsList({
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10">
-        <AnimatePresence>
-          {optimisticProducts.length > 0 ? (
+        <AnimatePresence mode="wait">
+          {optimisticProducts.length > 0 && (
             <motion.div
-              layout
-              transition={{
-                type: "spring",
-                visualDuration: 0.2,
-                bounce: 0.2,
-              }}
+              key="list"
+              exit={{ x: -70, opacity: 0 }}
               className="flex flex-col"
             >
-              {optimisticProducts.map((product) => (
-                <motion.div
-                  key={product.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
-                >
+              <AnimatePresence>
+                {optimisticProducts.map((product) => (
                   <CartProductCard
                     product={product}
                     cartId={cartId}
@@ -71,11 +60,19 @@ function CartProductsList({
                     onDelete={handleDelete}
                     key={product.id}
                   ></CartProductCard>
-                </motion.div>
-              ))}
+                ))}
+              </AnimatePresence>
             </motion.div>
-          ) : (
-            <motion.div className="pt-8 border-t border-t-zinc-200 dark:border-t-gray-700">
+          )}
+
+          {optimisticProducts.length === 0 && (
+            <motion.div
+              key="fallback"
+              initial={{ opacity: 0, x: 70 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 70 }}
+              className="pt-8 border-t border-t-zinc-200 dark:border-t-gray-700"
+            >
               <p>Non hai nessun prodotto nel carrello.</p>
             </motion.div>
           )}
