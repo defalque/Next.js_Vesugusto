@@ -13,9 +13,8 @@ export default function FavoriteCard({
   cartId,
   onDelete,
   onAdd,
+  startTransition,
 }) {
-  const [isPending, startTransition] = useTransition();
-
   function handleAdd() {
     startTransition(() => onAdd(cartId, userId, product.id));
   }

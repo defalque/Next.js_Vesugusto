@@ -1,9 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useOptimistic } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import FavoriteCard from "./FavoriteCard";
 import { addCartItem, deleteFavorite } from "@/app/_lib/actions";
+import Spinner from "./Spinner";
 
 function FavoritesHandler({ products, userId, cartId }) {
   const [optimisticProducts, optimisticDelete] = useOptimistic(
@@ -13,53 +14,66 @@ function FavoritesHandler({ products, userId, cartId }) {
     }
   );
 
+  const [isPending, startTransition] = useTransition();
+
   async function handleDelete(userId, productId) {
     optimisticDelete(productId);
     await deleteFavorite(userId, productId);
   }
 
   async function handleAddToCart(cartId, userId, productId) {
-    optimisticDelete(productId);
+    console.log("Loading start");
     await addCartItem(cartId, productId, 1);
     await deleteFavorite(userId, productId);
+    optimisticDelete(productId);
+    console.log("Loading end");
   }
 
   return (
-    <AnimatePresence mode="wait">
-      {optimisticProducts.length === 0 && (
-        <motion.p
-          key="fallback"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className="-mt-5 text-sm md:text-base"
-        >
-          Non hai nessun prodotto tra i preferiti.
-        </motion.p>
+    <>
+      {isPending && (
+        <div className="fixed inset-0 z-1000 bg-black/70 backdrop-blur-sm flex items-center justify-center">
+          <Spinner />
+        </div>
       )}
 
-      {optimisticProducts.length > 0 && (
-        <motion.div
-          key="list"
-          exit={{ scale: 0.95, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 sm:gap-x-20 gap-y-20"
-        >
-          <AnimatePresence>
-            {optimisticProducts.map((product) => (
-              <FavoriteCard
-                key={product.id}
-                product={product}
-                userId={userId}
-                cartId={cartId}
-                onDelete={handleDelete}
-                onAdd={handleAddToCart}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      <AnimatePresence mode="wait">
+        {optimisticProducts.length === 0 && (
+          <motion.p
+            key="fallback"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="-mt-5 text-sm md:text-base"
+          >
+            Non hai nessun prodotto tra i preferiti.
+          </motion.p>
+        )}
+
+        {optimisticProducts.length > 0 && (
+          <motion.div
+            key="list"
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 sm:gap-x-20 gap-y-20"
+          >
+            <AnimatePresence>
+              {optimisticProducts.map((product) => (
+                <FavoriteCard
+                  key={product.id}
+                  product={product}
+                  userId={userId}
+                  cartId={cartId}
+                  onDelete={handleDelete}
+                  onAdd={handleAddToCart}
+                  startTransition={startTransition}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
