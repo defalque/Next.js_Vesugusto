@@ -93,6 +93,7 @@ function CartProducts({ product, cartId, setIsLoading, onDelete }) {
         <button
           className="ml-auto cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary-950"
           onClick={handleDelete}
+          aria-label="Elimina"
         >
           <XMarkIcon className="size-4.5 lg:size-5 hover:fill-zinc-500 transition-colors duration-200"></XMarkIcon>
         </button>

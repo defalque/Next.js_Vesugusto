@@ -76,6 +76,7 @@ export default function FavoriteCard({
         <button
           className="uppercase text-[10px] xs:text-xs w-full py-1 px-2 rounded bg-primary-950 hover:bg-primary-800 text-primary-100 font-semibold sm:font-bold cursor-pointer transition-colors duration-300 text-center disabled:cursor-not-allowed disabled:bg-primary-800"
           onClick={handleAdd}
+          aria-label="Aggiungi al carrello"
           disabled={product.quantity === 0}
         >
           Sposta nel carrello

@@ -46,7 +46,7 @@ function CartProductsList({
       <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10">
         <AnimatePresence mode="wait">
           {optimisticProducts.length > 0 && (
-            <motion.div
+            <motion.ul
               key="list"
               exit={{ x: -70, opacity: 0 }}
               className="flex flex-col"
@@ -62,7 +62,7 @@ function CartProductsList({
                   ></CartProductCard>
                 ))}
               </AnimatePresence>
-            </motion.div>
+            </motion.ul>
           )}
 
           {optimisticProducts.length === 0 && (

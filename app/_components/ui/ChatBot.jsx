@@ -358,6 +358,7 @@ export default function HomePage({ userId }) {
             <button
               className="rounded-full mr-2 bg-primary-950 hover:bg-primary-800 transition-colors duration-200 px-1 py-1 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               onClick={() => sendMessage()}
+              aria-label="Invia"
               disabled={loading}
             >
               <ArrowUpIcon className="size-4 md:size-6 text-primary-100" />

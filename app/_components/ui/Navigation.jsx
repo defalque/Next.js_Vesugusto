@@ -56,7 +56,7 @@ function Navigation({ session, cartItemsCount, info }) {
 
         {session?.user ? (
           <li>
-            <Link href="/cart">
+            <Link href="/cart" aria-label="Carrello">
               <div className="relative">
                 <ShoppingBagIcon
                   className={`size-6 dark:text-gray-100 hover:text-primary-dark-100 dark:hover:text-primary-950 transition-colors duration-300 ${

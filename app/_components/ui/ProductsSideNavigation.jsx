@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
@@ -21,30 +21,55 @@ function ProductsSideNavigation({ types }) {
   const activeTypeFilters = urlSearchParams.get("type")?.split(",") ?? [];
   const activePriceFilters = urlSearchParams.get("price")?.split(",") ?? [];
 
-  function handleMultiFilterClick(filter, value) {
-    const params = new URLSearchParams(urlSearchParams.toString());
-    const currentValues = params.get(filter)?.split(",") ?? [];
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(urlSearchParams);
+      const currentValues = params.get(name)?.split(",") ?? [];
 
-    let updatedValues;
-    if (currentValues.includes(value)) {
-      updatedValues = currentValues.filter((v) => v !== value);
-    } else {
-      updatedValues = [...currentValues, value];
-    }
+      let updatedValues;
+      if (currentValues.includes(value)) {
+        updatedValues = currentValues.filter((v) => v !== value);
+      } else {
+        updatedValues = [...currentValues, value];
+      }
 
-    if (updatedValues.length === 0) {
-      params.delete(filter);
-    } else {
-      params.set(filter, updatedValues.join(","));
-    }
+      if (updatedValues.length === 0) {
+        params.delete(name);
+      } else {
+        params.set(name, updatedValues.join(","));
+      }
 
-    params.set("page", 0);
+      params.set("page", 0);
 
-    const queryString = params.toString();
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
-      scroll: false,
-    });
-  }
+      return params.toString();
+    },
+    [urlSearchParams]
+  );
+
+  // function handleMultiFilterClick(filter, value) {
+  //   const params = new URLSearchParams(urlSearchParams);
+  //   const currentValues = params.get(filter)?.split(",") ?? [];
+
+  //   let updatedValues;
+  //   if (currentValues.includes(value)) {
+  //     updatedValues = currentValues.filter((v) => v !== value);
+  //   } else {
+  //     updatedValues = [...currentValues, value];
+  //   }
+
+  //   if (updatedValues.length === 0) {
+  //     params.delete(filter);
+  //   } else {
+  //     params.set(filter, updatedValues.join(","));
+  //   }
+
+  //   params.set("page", 0);
+
+  //   const queryString = params.toString();
+  //   router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+  //     scroll: false,
+  //   });
+  // }
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 767px)");
@@ -107,7 +132,12 @@ function ProductsSideNavigation({ types }) {
                     <input
                       type="checkbox"
                       checked={activeTypeFilters.includes(type.type)}
-                      onChange={() => handleMultiFilterClick("type", type.type)}
+                      // onChange={() => handleMultiFilterClick("type", type.type)}
+                      onChange={() => {
+                        router.push(
+                          pathname + "?" + createQueryString("type", type.type)
+                        );
+                      }}
                       className="mr-2"
                     />
                     <span className="text-primary-dark-900 dark:text-primary-50 font-light">
@@ -154,7 +184,12 @@ function ProductsSideNavigation({ types }) {
                     <input
                       type="checkbox"
                       checked={activePriceFilters.includes(value)}
-                      onChange={() => handleMultiFilterClick("price", value)}
+                      // onChange={() => handleMultiFilterClick("price", value)}
+                      onChange={() => {
+                        router.push(
+                          pathname + "?" + createQueryString("price", value)
+                        );
+                      }}
                       className="w-4 h-4 cursor-pointer"
                     />
                     <span className="text-primary-dark-900 dark:text-primary-50 font-light">

@@ -148,8 +148,11 @@ function UpdateProfileForm({ user }) {
       className="px-1 xxs:px-5 my-8 flex gap-4 flex-col text-xs sm:text-sm md:text-base"
     >
       <div className="space-y-2 flex flex-col">
-        <label className="ml-1">Nome</label>
+        <label className="ml-1" htmlFor="name">
+          Nome
+        </label>
         <input
+          id="name"
           name="name"
           disabled
           defaultValue={name}
@@ -158,8 +161,11 @@ function UpdateProfileForm({ user }) {
       </div>
 
       <div className="space-y-2 flex flex-col">
-        <label className="ml-1">Email</label>
+        <label className="ml-1" htmlFor="email">
+          Email
+        </label>
         <input
+          id="email"
           name="email"
           disabled
           defaultValue={email}
@@ -174,6 +180,7 @@ function UpdateProfileForm({ user }) {
           </label>
           <input
             required
+            id="via"
             name="via"
             defaultValue={via}
             className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
@@ -191,6 +198,7 @@ function UpdateProfileForm({ user }) {
           </label>
           <input
             required
+            id="numeroCivico"
             name="numeroCivico"
             defaultValue={numeroCivico}
             className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"
@@ -212,6 +220,7 @@ function UpdateProfileForm({ user }) {
           <div className="relative">
             <input
               required
+              id="comune"
               name="comune"
               className={`font-light px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none ${
                 suggestions.length > 0 ? " rounded-t-xl" : "rounded-xl"
@@ -248,6 +257,7 @@ function UpdateProfileForm({ user }) {
           </label>
           <input
             required
+            id="cap"
             name="cap"
             value={cap}
             onChange={(e) => {
@@ -270,6 +280,7 @@ function UpdateProfileForm({ user }) {
         </label>
         <input
           required
+          id="phoneNumber"
           name="phoneNumber"
           defaultValue={phoneNumber}
           className="font-light rounded-xl px-2 md:px-5 py-2 bg-primary-50 dark:border-dark-200 dark:bg-dark-300 border border-gray-300 w-full outline-primary-950 dark:outline-gray-700 appearance-none"

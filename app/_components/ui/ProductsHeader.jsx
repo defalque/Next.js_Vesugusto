@@ -6,37 +6,54 @@ import {
   AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/solid";
 import { useHideFilters } from "../contexts/HideFiltersContext";
-import { useState } from "react";
+import { startTransition, useCallback, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function ProductsHeader({ totalProducts, currentSort, children }) {
+function ProductsHeader({ totalProducts, children }) {
   const urlSearchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const { isHidden, setIsHidden } = useHideFilters();
-  const [sortOption, setSortOption] = useState("default");
+  const activeSortFilter = urlSearchParams.get("sort") ?? "default";
 
-  const handleSortChange = (e) => {
-    const value = e.target.value;
-    setSortOption(value);
-    const params = new URLSearchParams(urlSearchParams.toString());
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(urlSearchParams);
+      params.set(name, value);
 
-    if (value === "default") {
-      params.delete("sort");
-    } else {
-      params.set("sort", value);
-    }
+      return params.toString();
+    },
+    [urlSearchParams]
+  );
 
-    params.set("page", 0);
+  // const handleSortChange = (e) => {
+  //   const value = e.target.value;
+  //   setSortOption(value);
+  //   const params = new URLSearchParams(urlSearchParams.toString());
 
-    const queryString = params.toString();
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
-      scroll: false,
-    });
-  };
+  //   if (value === "default") {
+  //     params.delete("sort");
+  //   } else {
+  //     params.set("sort", value);
+  //   }
+
+  //   params.set("page", 0);
+
+  //   const queryString = params.toString();
+
+  //   router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+  //     scroll: false,
+  //   });
+  // };
 
   return (
-    <div className={`mb-10 ${isHidden ? "px-5 lg:px-30" : "px-5 lg:px-10"}`}>
+    <div
+      className={`mb-10 relative ${
+        isHidden ? "px-5 lg:px-30" : "px-5 lg:px-10"
+      }`}
+    >
       <div className=" flex flex-col gap-5 pb-6 mt-5 mb-5 border-b border-b-gray-200 dark:border-b-dark-200">
         <h1 className="text-3xl xs:text-4xl lg:text-5xl font-medium tracking-wide">
           Il nostro e-commerce
@@ -69,8 +86,12 @@ function ProductsHeader({ totalProducts, currentSort, children }) {
             <select
               id="ordina"
               name="ordina"
-              value={sortOption}
-              onChange={handleSortChange}
+              value={activeSortFilter}
+              // onChange={handleSortChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                router.push(pathname + "?" + createQueryString("sort", value));
+              }}
               className="block w-full px-1 py-1 border border-gray-300 dark:border-dark-200 bg-primary-50 dark:bg-dark-300 rounded-lg  focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-xs sm:text-sm"
             >
               <option value="default">Ordina</option>
