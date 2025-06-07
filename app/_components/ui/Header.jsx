@@ -6,8 +6,6 @@ import Image from "next/image";
 import vesugusto from "@/public/vesugusto.png";
 import { Suspense } from "react";
 import CartItemsCount from "./CartItemsCount";
-import SpinnerSuperMini from "./SpinnerSuperMini";
-import CartIconSkeleton from "./SkeletonCartBadge";
 import SkeletonCartBadge from "./SkeletonCartBadge";
 
 async function Header() {
