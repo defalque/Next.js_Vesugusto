@@ -20,16 +20,7 @@ function FavoritesHandler({ products, userId, cartId }) {
 
   async function handleAddToCart(cartId, userId, productId) {
     optimisticDelete(productId);
-    const success = await addCartItem(cartId, productId, 1);
-    if (success) {
-      // setCartItems((prevItems) => {
-      //   const existing = prevItems.find((item) => item.id === productId);
-      //   if (!existing) {
-      //     return [...prevItems, { id: productId }];
-      //   }
-      //   return prevItems;
-      // });
-    }
+    await addCartItem(cartId, productId, 1);
     await deleteFavorite(userId, productId);
   }
 

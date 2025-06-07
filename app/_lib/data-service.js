@@ -347,6 +347,9 @@ export async function getCartProducts(cartId) {
 }
 
 export async function getCartProductsCount(cartId) {
+  // console.log("Fetching revenue data...");
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const { data, error } = await supabase
     .from("cart_items")
     .select("productId")

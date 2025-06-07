@@ -158,7 +158,7 @@ export async function addCartItem(cartId, productId, quantity) {
   }
 
   // revalidatePath(`/products/${productId}`);
-  revalidatePath(`/products`);
+  revalidatePath(`/`);
 
   return true;
 }

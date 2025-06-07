@@ -118,6 +118,8 @@ export default async function Page() {
                   <Image
                     src={product.image?.at(0)}
                     fill
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
                     alt={product.name}
                     className="object-cover rounded-lg"
                   />

@@ -22,6 +22,8 @@ function ProductImage({ product }) {
                 src={img}
                 alt={`${product.name}-${index + 1}`}
                 fill
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
                 quality={80}
                 priority={true}
                 className={`object-cover dark:brightness-80 dark:shadow-sm dark:shadow-primary-dark-700`}
@@ -43,6 +45,8 @@ function ProductImage({ product }) {
               src={img}
               alt={`${product.name}-${index + 1}`}
               fill
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
               quality={80}
               priority={true}
               className="object-cover dark:brightness-80 dark:shadow-sm dark:shadow-dark-100"

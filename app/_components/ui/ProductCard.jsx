@@ -25,6 +25,8 @@ async function ProductCard({ product }) {
         <div className="relative w-full aspect-2/3 group mb-2">
           <Image
             src={product.image?.at(0)}
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
             fill
             quality={70}
             alt={product.name}

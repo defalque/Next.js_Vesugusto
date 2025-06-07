@@ -3,8 +3,6 @@
 import Link from "next/link";
 import {
   Bars3Icon,
-  DevicePhoneMobileIcon,
-  MapPinIcon,
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
@@ -15,7 +13,7 @@ import { useState } from "react";
 import { HoverCard } from "radix-ui";
 import { AnimatePresence, motion } from "framer-motion";
 
-function Navigation({ session, cartItemsCount, info }) {
+function Navigation({ session, children }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -65,16 +63,7 @@ function Navigation({ session, cartItemsCount, info }) {
                       : "text-primary-dark-900"
                   }`}
                 />
-                {cartItemsCount?.length > 0 && (
-                  <motion.span
-                    key={cartItemsCount.length}
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-xs font-semibold text-white bg-primary-950 rounded-full"
-                  >
-                    {cartItemsCount?.length}
-                  </motion.span>
-                )}
+                {children}
               </div>
             </Link>
           </li>
@@ -109,26 +98,6 @@ function Navigation({ session, cartItemsCount, info }) {
                             {session.user.name}
                           </p>
                         </div>
-                        {/* {info.via ? (
-                          <div className="space-y-4">
-                            <div className="grid grid-cols-[auto_1fr] gap-1.5">
-                              <MapPinIcon className="size-4 fill-primary-50" />
-                              <p className="text-xs text-primary-50">
-                                {`${info.via}, ${info.numeroCivico}, ${info.comune}`}
-                              </p>
-                            </div>
-                            <div className="flex items-start gap-1.5">
-                              <DevicePhoneMobileIcon className="size-4 fill-primary-50" />
-                              <p className="text-xs text-primary-50">
-                                {info.phoneNumber}
-                              </p>
-                            </div>
-                          </div>
-                        ) : (
-                          <p className="text-xs text-primary-50">
-                            Aggiorna le tue informazioni di profilo!
-                          </p>
-                        )} */}
                         <div className="flex flex-col text-sm space-y-1 transition-colors duration-200">
                           <Link
                             href="/account/orders"
@@ -162,6 +131,7 @@ function Navigation({ session, cartItemsCount, info }) {
           </Link>
         </li>
       </ul>
+
       {/* Mobile Nav Toggle */}
       <div className="flex items-center justify-between md:hidden">
         <button
