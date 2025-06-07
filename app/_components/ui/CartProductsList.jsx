@@ -2,7 +2,7 @@
 
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import CartProductCard from "./CartProductCard";
-import { useOptimistic, useState } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import Spinner from "./Spinner";
 import { deleteCartItem } from "@/app/_lib/actions";
 import Link from "next/link";
@@ -22,6 +22,7 @@ function CartProductsList({
       return curProducts.filter((product) => product.id !== productId);
     }
   );
+  const [isPending, startTransition] = useTransition();
 
   async function handleDelete(cartId, productId) {
     optimisticDelete(productId);
@@ -37,11 +38,11 @@ function CartProductsList({
 
   return (
     <div className="relative">
-      {isLoading && (
-        <div className="absolute inset-0 z-1000 bg-transparent backdrop-blur-sm flex items-center justify-center">
+      {isLoading || isPending ? (
+        <div className="fixed inset-0 z-1000 bg-transparent backdrop-blur-sm flex items-center justify-center">
           <Spinner />
         </div>
-      )}
+      ) : null}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10">
         <AnimatePresence mode="wait">
@@ -58,6 +59,7 @@ function CartProductsList({
                     cartId={cartId}
                     setIsLoading={setIsLoading}
                     onDelete={handleDelete}
+                    startTransition={startTransition}
                     key={product.id}
                   ></CartProductCard>
                 ))}

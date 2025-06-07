@@ -129,7 +129,7 @@ export default function HomePage({ userId }) {
         <AnimatePresence>
           {showBanner && (
             <motion.div
-              className="absolute top-0 left-0 h-8 md:h-10 w-full z-[100] flex items-center justify-center"
+              className="absolute top-0 left-0 h-8 md:h-10 w-full z-40 flex items-center justify-center"
               style={{
                 backgroundImage: `
               radial-gradient(circle at 10% 20%, rgba(249, 5, 33, 0.5) 0%, transparent 70%),

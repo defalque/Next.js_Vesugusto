@@ -32,7 +32,7 @@ function FavoritesHandler({ products, userId, cartId }) {
   return (
     <>
       {isPending && (
-        <div className="fixed inset-0 z-1000 bg-black/70 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 z-1000 bg-transparent backdrop-blur-sm flex items-center justify-center">
           <Spinner />
         </div>
       )}
@@ -53,7 +53,9 @@ function FavoritesHandler({ products, userId, cartId }) {
         {optimisticProducts.length > 0 && (
           <motion.div
             key="list"
-            exit={{ scale: 0.95, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 sm:gap-x-20 gap-y-20"
           >

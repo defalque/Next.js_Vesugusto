@@ -66,7 +66,7 @@ function ProductsHeader({ totalProducts, children }) {
       </div>
       <div
         className={
-          "flex flex-col gap-5 w-full justify-end mb-2 py-4 sticky top-14 sm:top-15 md:top-17 z-100 bg-primary-50 dark:bg-primary-dark-950 "
+          "flex flex-col gap-5 w-full justify-end mb-2 py-4 sticky top-14 sm:top-15 md:top-17 z-1 bg-primary-50 dark:bg-primary-dark-950 "
         }
       >
         <div className="flex items-center font-light text-xs sm:text-sm">

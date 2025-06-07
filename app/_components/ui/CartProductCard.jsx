@@ -3,13 +3,16 @@
 import { XMarkIcon, CheckIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import SelectCartQuantity from "./SelectCartQuantity";
-import { useTransition } from "react";
 import { formatPrice } from "@/app/_lib/formatPrice";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "motion/react";
 
-function CartProducts({ product, cartId, setIsLoading, onDelete }) {
-  const [isPending, startTransition] = useTransition();
-
+function CartProducts({
+  product,
+  cartId,
+  setIsLoading,
+  onDelete,
+  startTransition,
+}) {
   function handleDelete() {
     startTransition(() => onDelete(cartId, product.id));
   }

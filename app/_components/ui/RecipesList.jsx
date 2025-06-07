@@ -4,16 +4,35 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import Downloader from "./Downloader";
 import { AlertDialog } from "radix-ui";
 import * as motion from "motion/react-client";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, scale } from "motion/react";
 import { useState } from "react";
 
 function RecipesList({ recipes }) {
   const [openDialog, setOpenDialog] = useState(null);
 
+  const containerVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+  };
+
   return (
-    <div className="flex flex-col my-10 rounded border border-gray-300 dark:border-dark-100">
+    <motion.div
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
+      className="flex flex-col my-10 rounded border border-gray-300 dark:border-dark-100"
+    >
       {recipes.map((recipe, index) => (
-        <div
+        <motion.div
+          variants={itemVariants}
           key={recipe.id}
           className={`flex items-start gap-6 sm:gap-4 pb-3 pt-4 pr-4 pl-4 transition-all duration-300 relative ${
             index < recipes.length - 1
@@ -81,9 +100,9 @@ function RecipesList({ recipes }) {
               )}
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 

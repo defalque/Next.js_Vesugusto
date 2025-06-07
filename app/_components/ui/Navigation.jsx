@@ -17,6 +17,27 @@ function Navigation({ session, children }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const containerVariants = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+    exit: {
+      transition: {
+        staggerChildren: 0.1,
+        staggerDirection: -1, // per invertire lo stagger all'uscita (facoltativo)
+      },
+    },
+  };
+
+  const itemVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+
   return (
     <nav className="z-10 text-lg font-normal mx-auto w-full">
       <ul className="hidden md:flex gap-16 dark:gap-11 items-center">
@@ -150,42 +171,65 @@ function Navigation({ session, children }) {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ y: -250, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -250, opacity: 0.3 }}
-            transition={{ duration: 0, type: "spring", staggerChildren: 0.05 }}
-            className="absolute top-full left-0 right-0 bg-primary-50 dark:bg-primary-dark-950 z-5 flex flex-col items-center text-xl font-normal md:hidden shadow-lg dark:shadow-dark-400 transition-all duration-300"
+            variants={containerVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="absolute top-full left-0 right-0 z-500 flex flex-col items-center text-xl font-normal md:hidden transition-all duration-300"
           >
-            <Link
-              href="/products"
-              className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
-              onClick={() => setMenuOpen(false)}
+            <motion.div
+              className="w-full flex items-center"
+              variants={itemVariants}
             >
-              Prodotti
-            </Link>
-            <Link
-              href="/create"
-              className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
-              onClick={() => setMenuOpen(false)}
-            >
-              creIAmo
-            </Link>
-            {session?.user && (
               <Link
-                href="/cart"
-                className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
+                href="/products"
+                className=" hover:bg-gray-50 bg-primary-50 dark:bg-primary-dark-950 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
                 onClick={() => setMenuOpen(false)}
               >
-                Carrello ({cartItemsCount?.length || 0})
+                Prodotti
               </Link>
-            )}
-            <Link
-              href="/account"
-              className="hover:bg-gray-50 hover:text-primary-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
-              onClick={() => setMenuOpen(false)}
+            </motion.div>
+
+            <motion.div
+              className="w-full flex items-center"
+              variants={itemVariants}
             >
-              Account
-            </Link>
+              <Link
+                href="/create"
+                className="hover:bg-gray-50 hover:text-primary-950 bg-primary-50 dark:bg-primary-dark-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
+                creIAmo
+              </Link>
+            </motion.div>
+
+            {session?.user && (
+              <motion.div
+                className="w-full flex items-center"
+                variants={itemVariants}
+              >
+                <Link
+                  href="/cart"
+                  className="hover:bg-gray-50 hover:text-primary-950 bg-primary-50 dark:bg-primary-dark-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Carrello ({children ?? 0})
+                </Link>
+              </motion.div>
+            )}
+
+            <motion.div
+              className="w-full flex items-center"
+              variants={itemVariants}
+            >
+              <Link
+                href="/account"
+                className="hover:bg-gray-50 hover:text-primary-950 bg-primary-50 dark:bg-primary-dark-950 dark:hover:text-primary-50 dark:hover:dark:bg-dark-400 w-full text-center py-3 transition-colors duration-200 shadow-lg dark:shadow-dark-400"
+                onClick={() => setMenuOpen(false)}
+              >
+                Account
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
