@@ -23,9 +23,9 @@ export default async function Page({ searchParams }) {
   };
   const filtersKey = `${filters.type}-${filters.price}-${filters.sort}`;
 
-  const types = await getAllProductTypes();
-  const productCount = await getFilteredProductsCount(filters);
-  const products = await getFilteredProductsWithPagination(LIMIT, filters);
+  // const types = await getAllProductTypes();
+  // const productCount = await getFilteredProductsCount(filters);
+  // const products = await getFilteredProductsWithPagination(LIMIT, filters);
   // const typesData = getAllProductTypes();
   // const productCountData = getFilteredProductsCount(filters);
   // const productsData = getFilteredProductsWithPagination(LIMIT, filters);
@@ -35,6 +35,12 @@ export default async function Page({ searchParams }) {
   //   productCountData,
   //   productsData,
   // ]);
+
+  const [types, productCount, products] = await Promise.all([
+    getAllProductTypes(),
+    getFilteredProductsCount(filters),
+    getFilteredProductsWithPagination(LIMIT, filters),
+  ]);
 
   return (
     <ProductsHandler

@@ -18,14 +18,10 @@ import { Popover } from "radix-ui";
 async function OrderList({ filters }) {
   const session = await auth();
 
-  const allOrdersData = getUserOrders(session.user.userId);
-  const ordersData = getUserOrdersWithPagination(
-    ORDERS_LIMIT,
-    filters,
-    session.user.userId
-  );
-
-  const [allOrders, orders] = await Promise.all([allOrdersData, ordersData]);
+  const [allOrders, orders] = await Promise.all([
+    getUserOrders(session.user.userId),
+    getUserOrdersWithPagination(ORDERS_LIMIT, filters, session.user.userId),
+  ]);
 
   return orders.length > 0 ? (
     <div className="flex flex-col gap-20 mt-10 px-5 xl:px-20 relative">

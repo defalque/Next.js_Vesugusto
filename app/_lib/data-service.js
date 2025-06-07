@@ -76,7 +76,7 @@ export async function getFilteredProductsWithPagination(limit, filters) {
 
   let query = supabase
     .from("products")
-    .select("*")
+    .select("id, name, regularPrice, image")
     .gt("quantity", 0)
     .range(from, to);
 
