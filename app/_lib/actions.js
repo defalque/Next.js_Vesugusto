@@ -124,25 +124,25 @@ export async function addCartItem(cartId, productId, quantity) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const { data: availability, error: availabilityError } = await supabase
-    .from("products")
-    .select("quantity")
-    .eq("id", productId)
-    .single();
+  // const { data: availability, error: availabilityError } = await supabase
+  //   .from("products")
+  //   .select("quantity")
+  //   .eq("id", productId)
+  //   .single();
 
-  if (availabilityError) {
-    console.error(
-      "Errore durante il fetching della disponibilità del prodotto:",
-      availabilityError
-    );
-    throw new Error(
-      "Errore durante il fetching della disponibilità del prodotto."
-    );
-  }
+  // if (availabilityError) {
+  //   console.error(
+  //     "Errore durante il fetching della disponibilità del prodotto:",
+  //     availabilityError
+  //   );
+  //   throw new Error(
+  //     "Errore durante il fetching della disponibilità del prodotto."
+  //   );
+  // }
 
-  if (!availability || availability.quantity < quantity) {
-    throw new Error("Quantità richiesta non disponibile");
-  }
+  // if (!availability || availability.quantity < quantity) {
+  //   throw new Error("Quantità richiesta non disponibile");
+  // }
 
   // ------------------------ ATOMICA ----------------------------------
 
@@ -158,7 +158,7 @@ export async function addCartItem(cartId, productId, quantity) {
   }
 
   // revalidatePath(`/products/${productId}`);
-  revalidatePath(`/`, "layout");
+  revalidatePath(`/`);
 
   return true;
 }
