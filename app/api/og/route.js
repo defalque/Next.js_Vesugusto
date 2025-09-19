@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import vesugusto from "@/public/vesugusto.png";
+import Image from "next/image";
 // App router includes @vercel/og.
 // No need to install it.
 
@@ -37,7 +38,7 @@ export async function GET(request) {
               justifyItems: "center",
             }}
           >
-            <img
+            <Image
               alt="Vesugusto"
               height={250}
               src="http://localhost:3000/vesugusto.png"
@@ -65,7 +66,7 @@ export async function GET(request) {
       {
         width: 1200,
         height: 630,
-      }
+      },
     );
   } catch (e) {
     console.log(`${e.message}`);

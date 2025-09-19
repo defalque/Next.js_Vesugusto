@@ -1,133 +1,128 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
-import SpinnerMini from "./SpinnerMini";
+import { useCallback, useTransition } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
-export default function Pagination({ limit, label, items, totalItems }) {
+function Pagination({ count, limit }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [isLeftLoading, setIsLeftLoading] = useState(false);
-  const [isRightLoading, setIsRightLoading] = useState(false);
+
+  const [isPending, startTransition] = useTransition();
 
   const currentPage = !searchParams.get("page")
-    ? 0
+    ? 1
     : Number(searchParams.get("page"));
-  const pageCount = Math.ceil(totalItems / limit);
 
-  useEffect(() => {
-    if (isLeftLoading) setIsLeftLoading(false);
+  const pageCount = Math.ceil(count / limit);
 
-    if (isRightLoading) setIsRightLoading(false);
-
-    if (isLeftLoading || isRightLoading) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [items]);
-
-  useEffect(() => {
-    if (currentPage + 1 > pageCount && pageCount > 0) {
+  const createQueryString = useCallback(
+    (filterField, value) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set("page", "0");
-      router.replace(`?${params.toString()}`);
-    }
-  }, [currentPage, pageCount, searchParams, router]);
+      params.set(filterField, value);
 
-  const handleNextClick = () => {
-    setIsRightLoading(true);
-    const params = new URLSearchParams(searchParams.toString());
-    const nextPage =
-      currentPage === pageCount - 1 ? currentPage : currentPage + 1;
+      return params.toString();
+    },
+    [searchParams],
+  );
 
-    params.set("page", nextPage.toString());
+  if (count === 0) return null;
 
-    router.replace(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-  };
+  function nextPage() {
+    const next = currentPage === pageCount ? currentPage : currentPage + 1;
+    router.push(pathname + "?" + createQueryString("page", String(next)));
+  }
 
-  const handlePrevClick = () => {
-    setIsLeftLoading(true);
-    const params = new URLSearchParams(searchParams.toString());
-    const nextPage = currentPage === 0 ? currentPage : currentPage - 1;
-
-    params.set("page", nextPage.toString());
-
-    router.replace(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-  };
-
-  if (pageCount <= 1) return null;
+  function prevPage() {
+    const prev = currentPage === 1 ? currentPage : currentPage - 1;
+    router.push(pathname + "?" + createQueryString("page", String(prev)));
+  }
 
   return (
-    <>
-      {items?.length > 0 && (
-        <div className="flex items-center py-3 mt-8 mb-4">
-          <div className="text-primary-700 dark:text-gray-200 text-[10px] xs:text-xs md:text-sm">
-            Hai visualizzato da{" "}
-            <span className="font-semibold">{currentPage * limit + 1}</span> a
-            <span className="font-semibold">
-              {" "}
-              {currentPage === pageCount - 1
-                ? totalItems
-                : (currentPage + 1) * limit}
-            </span>{" "}
-            di <span className="font-semibold">{totalItems}</span> {label}.
-          </div>
+    <div
+      role="navigation"
+      aria-label="Paginazione"
+      className="flex w-full items-center justify-between py-3 text-base"
+    >
+      <span className="sr-only" aria-live="polite">
+        Pagina {currentPage} di {pageCount}
+      </span>
 
-          <div className="ml-auto flex items-center gap-4 md:gap-8">
+      {pageCount > 1 && (
+        <p>
+          {(currentPage - 1) * limit + 1 ===
+          (currentPage === pageCount ? count : currentPage * limit) ? (
+            <span>Ultimo risultato</span>
+          ) : (
+            <>
+              <span className="font-semibold">
+                {(currentPage - 1) * limit + 1}
+              </span>
+              -
+              <span className="font-semibold">
+                {currentPage === pageCount ? count : currentPage * limit}
+              </span>
+            </>
+          )}{" "}
+          di <span className="font-semibold">{count}</span> risultati trovati.
+        </p>
+      )}
+
+      {pageCount <= 1 && count > 1 && (
+        <p className="py-2">
+          {" "}
+          <span className="font-semibold">{count}</span> risultati trovati.
+        </p>
+      )}
+      {pageCount <= 1 && count === 1 && (
+        <p className="py-2">Un risultato trovato.</p>
+      )}
+
+      {pageCount > 1 && (
+        <div className="flex gap-2">
+          {currentPage !== 1 && (
             <PaginationButton
-              currentPage={currentPage}
-              pageCount={0}
-              handleClick={handlePrevClick}
               ariaLabel="Indietro"
+              onClick={() => {
+                startTransition(() => {
+                  prevPage();
+                });
+              }}
+              disabled={isPending}
             >
-              {isLeftLoading ? (
-                <SpinnerMini></SpinnerMini>
-              ) : (
-                <ChevronLeftIcon className="size-4 xs:size-6" />
-              )}
+              <ChevronLeftIcon className="size-8 md:size-5" />
             </PaginationButton>
+          )}
 
+          {currentPage !== pageCount && (
             <PaginationButton
-              currentPage={currentPage}
-              pageCount={pageCount - 1}
-              handleClick={handleNextClick}
               ariaLabel="Avanti"
+              onClick={() => {
+                startTransition(() => {
+                  nextPage();
+                });
+              }}
+              disabled={isPending}
             >
-              {isRightLoading ? (
-                <SpinnerMini></SpinnerMini>
-              ) : (
-                <ChevronRightIcon className="size-4 xs:size-6" />
-              )}
+              <ChevronRightIcon className="size-8 md:size-5" />
             </PaginationButton>
-          </div>
+          )}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
-function PaginationButton({
-  currentPage,
-  pageCount,
-  handleClick,
-  ariaLabel = "Avanti / Indietro",
-  children,
-}) {
+export default Pagination;
+
+function PaginationButton({ onClick, ariaLabel, disabled, children }) {
   return (
     <button
-      className={`px-2 py-1 md:px-4 md:py-2 text-white rounded-lg transition-colors duration-300 ${
-        currentPage === pageCount
-          ? "bg-zinc-200 hover:bg-zinc-200 cursor-not-allowed hidden"
-          : "bg-primary-950 hover:bg-primary-800 cursor-pointer"
-      }`}
-      onClick={handleClick}
-      disabled={currentPage === pageCount}
+      className="dark:border-primary-dark-300 inset-shadow-primary-50/60 dark:hover:border-primary-dark-100 bg-primary-950 hover:bg-primary-800 dark:hover:bg-primary-950/40 dark:bg-primary-950/25 disabled:dark:text-primary-50 focus-visible:outline-primary-950 outline-primary-dark-100 dark:disabled:border-primary-dark-300 inline-flex cursor-pointer items-center rounded-lg px-4 py-1 font-semibold text-white inset-shadow-sm transition-colors duration-300 text-shadow-md/10 focus:outline focus-visible:outline-2 disabled:animate-pulse disabled:cursor-not-allowed disabled:text-white disabled:text-shadow-none md:py-2 dark:border dark:inset-shadow-none"
       aria-label={ariaLabel}
+      onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

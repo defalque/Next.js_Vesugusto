@@ -1,53 +1,27 @@
-import Image from "next/image";
-import Link from "next/link";
-import biscotti from "@/public/biscotti.jpg";
-import bronte_box from "@/public/bronte-box.jpg";
-import salsa from "@/public/salsa.jpg";
-import succo from "@/public/succo.jpg";
-import succo_rosso from "@/public/succo-rosso.jpg";
-import alcol from "@/public/alcol3.jpg";
+import { FaceFrownIcon } from "@heroicons/react/24/outline";
+import Button from "./_components/ui/Button";
 
 async function NotFound() {
-  const products = [
-    { id: 1, name: "Scorzette", image: biscotti },
-    { id: 2, name: "Bronte Vesuviano", image: bronte_box },
-    { id: 3, name: "Oro Giallo", image: salsa },
-    { id: 4, name: "Essenza d'Arancia", image: succo },
-    { id: 5, name: "Rubino di Frutta", image: succo_rosso },
-    { id: 6, name: "Ciliegi di Cenere", image: alcol },
-  ];
-
   return (
-    <main className="grid grid-cols-1 md:grid-cols-2 h-full gap-12">
-      <div className="flex flex-col items-center sm:items-baseline gap-10 px-5 sm:px-10">
-        <h1 className="text-3xl text-center sm:text-start sm:text-5xl font-semibold mt-40">
-          Ops! Pagina non trovata
-        </h1>
-        <p className="text-sm text-center sm:text-base sm:text-start">
-          Non sembra che siamo arrivati al punto desiderato. Non preoccuparti
-          però! Puoi sempre visitare i nostri{" "}
-          <Link href="/products" className="text-primary-950 font-semibold">
-            prodotti
-          </Link>{" "}
-          e trovare qualcosa di più interessante.
-        </p>
-      </div>
-      <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3">
-        {products.map((product) => (
-          <div key={product.id} className="relative aspect-auto w-full">
-            <Image
-              src={product.image}
-              alt={product.name}
-              placeholder="blur"
-              fill
-              quality={80}
-              priority={true}
-              className="object-cover ark:brightness-80"
-            ></Image>
-          </div>
-        ))}
-      </div>
-    </main>
+    <section
+      aria-labelledby="not-found-heading"
+      className="-mt-20 flex h-full min-h-screen flex-col items-center justify-center gap-2"
+    >
+      <FaceFrownIcon className="w-10 text-gray-400" />
+      <h1 id="not-found-heading" className="sr-only">
+        Pagina non trovata
+      </h1>
+      <h2 className="text-xl font-semibold">404 Not Found</h2>
+      <p className="text-center">
+        Non è stato possibile trovare la pagina da te richiesta.
+      </p>
+      <Button
+        className="mt-2 rounded-full px-4 py-1 text-base font-semibold sm:text-lg"
+        href="/shop"
+      >
+        Vai ai prodotti
+      </Button>
+    </section>
   );
 }
 

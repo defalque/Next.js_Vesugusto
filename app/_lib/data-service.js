@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
+//----------------------------------------------------------- ✅
 export async function createUserAndCart(email, name, image) {
   const { error } = await supabase.rpc("create_user_and_cart_atomic", {
     p_email: email,
@@ -14,6 +15,7 @@ export async function createUserAndCart(email, name, image) {
   }
 }
 
+//----------------------------------------------------------- ✅
 export async function getUser(email) {
   const { data, error } = await supabase
     .from("users")
@@ -25,6 +27,7 @@ export async function getUser(email) {
   return data;
 }
 
+//----------------------------------------------------------- ✅
 export async function getCart(userId) {
   let { data, error } = await supabase
     .from("carts")
@@ -35,43 +38,16 @@ export async function getCart(userId) {
   if (error) {
     console.error(error);
     throw new Error(
-      "Non è stato possibile recuperare l'id del carrello dell'utente"
+      "Non è stato possibile recuperare l'id del carrello dell'utente",
     );
   }
 
   return data;
 }
 
-export async function getProductsWithPagination(limit, filters) {
-  const from = filters.page * limit;
-  const to = from + limit - 1;
-
-  let query = supabase
-    .from("products")
-    .select("*")
-    .gt("quantity", 0)
-    .range(from, to);
-
-  if (filters.type !== "all") {
-    query = query.eq("type", filters.type);
-  }
-
-  if (filters.price === "10") query = query.lte("regularPrice", 10);
-  if (filters.price === "10-20")
-    query = query.gt("regularPrice", 10).lte("regularPrice", 20);
-  if (filters.price === "20-30")
-    query = query.gt("regularPrice", 20).lte("regularPrice", 30);
-  if (filters.price === "30-50")
-    query = query.gt("regularPrice", 30).lte("regularPrice", 50);
-
-  const { data, error } = await query;
-  if (error) throw error;
-
-  return data;
-}
-
-export async function getFilteredProductsWithPagination(limit, filters) {
-  const from = filters.page * limit;
+//----------------------------------------------------------- ✅
+export async function getPaginatedProducts(limit, filters) {
+  const from = (filters.page - 1) * limit;
   const to = from + limit - 1;
 
   let query = supabase
@@ -80,9 +56,13 @@ export async function getFilteredProductsWithPagination(limit, filters) {
     .gt("quantity", 0)
     .range(from, to);
 
+  if (filters.query) {
+    query = query.ilike("name", `%${filters.query}%`);
+  }
+
   // Filtro per type (array)
-  if (filters.type.length > 0) {
-    query = query.in("type", filters.type);
+  if (filters.category.length > 0) {
+    query = query.in("type", filters.category);
   }
 
   // Filtro per price (array con più range)
@@ -90,10 +70,10 @@ export async function getFilteredProductsWithPagination(limit, filters) {
     const orClauses = filters.price.map((range) => {
       if (range.includes("-")) {
         const [min, max] = range.split("-").map(Number);
-        return `and(regularPrice.gte.${min},regularPrice.lte.${max})`;
+        return `and(regularPrice.gte.${min * 100},regularPrice.lte.${max * 100})`;
       } else {
         const max = Number(range);
-        return `regularPrice.lte.${max}`;
+        return `regularPrice.lte.${max * 100}`;
       }
     });
 
@@ -101,13 +81,12 @@ export async function getFilteredProductsWithPagination(limit, filters) {
     query = query.or(orFilter);
   }
 
-  // Ordinamento dinamico
   if (filters.sort === "price-asc") {
     query = query.order("regularPrice", { ascending: true });
   } else if (filters.sort === "price-desc") {
     query = query.order("regularPrice", { ascending: false });
-  } else {
-    query = query.order("created_at", { ascending: true });
+  } else if (filters.sort === "default") {
+    query = query.order("created_at", { ascending: false });
   }
 
   const { data, error } = await query;
@@ -116,44 +95,31 @@ export async function getFilteredProductsWithPagination(limit, filters) {
   return data;
 }
 
-export async function getProductsCount(filters) {
-  let query = supabase.from("products").select("*").gt("quantity", 0);
-
-  if (filters.type !== "all") {
-    query = query.eq("type", filters.type);
-  }
-
-  if (filters.price === "10") query = query.lte("regularPrice", 10);
-  if (filters.price === "10-20")
-    query = query.gt("regularPrice", 10).lte("regularPrice", 20);
-  if (filters.price === "20-30")
-    query = query.gt("regularPrice", 20).lte("regularPrice", 30);
-  if (filters.price === "30-50")
-    query = query.gt("regularPrice", 30).lte("regularPrice", 50);
-
-  const { data, error } = await query;
-  if (error) throw error;
-
-  return data;
-}
-
+//----------------------------------------------------------- ✅
 export async function getFilteredProductsCount(filters) {
-  let query = supabase.from("products").select("*").gt("quantity", 0);
+  let query = supabase
+    .from("products")
+    .select("id", { count: "exact" })
+    .gt("quantity", 0);
 
-  // Filtro per tipo (multipli)
-  if (filters.type.length > 0) {
-    query = query.in("type", filters.type);
+  if (filters.query) {
+    query = query.ilike("name", `%${filters.query}%`);
   }
 
-  // Filtro per prezzo (multipli)
+  // Filtro per type (array)
+  if (filters.category.length > 0) {
+    query = query.in("type", filters.category);
+  }
+
+  // Filtro per price (array con più range)
   if (filters.price.length > 0) {
     const orClauses = filters.price.map((range) => {
       if (range.includes("-")) {
         const [min, max] = range.split("-").map(Number);
-        return `and(regularPrice.gte.${min},regularPrice.lte.${max})`;
+        return `and(regularPrice.gte.${min * 100},regularPrice.lte.${max * 100})`;
       } else {
         const max = Number(range);
-        return `regularPrice.lte.${max}`;
+        return `regularPrice.lte.${max * 100}`;
       }
     });
 
@@ -161,73 +127,61 @@ export async function getFilteredProductsCount(filters) {
     query = query.or(orFilter);
   }
 
-  const { data, error } = await query;
+  // if (filters.sort === "price-asc") {
+  //   query = query.order("regularPrice", { ascending: true });
+  // } else if (filters.sort === "price-desc") {
+  //   query = query.order("regularPrice", { ascending: false });
+  // } else if (filters.sort === "default") {
+  //   query = query.order("created_at", { ascending: false });
+  // }
+
+  const { count, error } = await query;
 
   if (error) throw error;
 
-  return data;
+  return count ?? 0;
 }
 
-export async function getNotFoundPageProducts() {
-  const { data, error } = await supabase
-    .from("products")
-    .select("name, image")
-    .range(0, 5);
-
-  if (error) {
-    console.error(error);
-    throw new Error("Product could not be loaded");
-  }
-
-  return data;
-}
-
+//----------------------------------------------------------- ✅
 export async function getProduct(id) {
   const { data, error } = await supabase
     .from("products")
     .select("*")
     .eq("id", id)
-    .single();
-
-  if (error) {
-    // console.error(error);
-    notFound();
-  }
-
-  return data;
-}
-
-export async function getAllProductTypes() {
-  let { data, error } = await supabase
-    .from("unique_product_types")
-    .select("type");
+    .maybeSingle();
 
   if (error) {
     console.error(error);
+    throw new Error("Non è stato possibile caricare il prodotto.");
   }
 
   return data;
 }
 
-export async function createFavoriteProduct(userId, productId) {
+//----------------------------------------------------------- ✅
+export async function getProductNameAndDescription(id) {
   const { data, error } = await supabase
-    .from("favorites")
-    .insert([{ userId, productId }])
-    .select();
+    .from("products")
+    .select("name, description")
+    .eq("id", id)
+    .maybeSingle();
 
   if (error) {
     console.error(error);
-    throw new Error("Favorite product could not be created");
+    throw new Error("Non è stato possibile caricare il prodotto.");
   }
 
   return data;
 }
 
+//----------------------------------------------------------- ✅
 export async function getFavorites(userId) {
   const { data: favoriteProducts, error: favoriteProductsError } =
     await supabase
       .from("favorites")
-      .select("productId")
+      .select(
+        "id, productId(id, name, image, quantity, regularPrice, discount)",
+      )
       .eq("userId", userId)
       .order("created_at", { ascending: false });
 
@@ -236,50 +190,39 @@ export async function getFavorites(userId) {
     throw new Error(favoriteProductsError);
   }
 
-  const productIds = favoriteProducts?.map((item) => Number(item.productId));
+  // Normalizzazione: prendi solo la prima immagine
+  const normalizedFavorites = favoriteProducts.map((fav) => {
+    const product = fav.productId;
+    return {
+      ...fav,
+      productId: {
+        ...product,
+        image: Array.isArray(product.image) ? product.image[0] : product.image,
+      },
+    };
+  });
 
+  return normalizedFavorites;
+}
+
+//----------------------------------------------------------- ✅
+export async function getFavoriteProductIds(userId) {
   const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .in("id", productIds);
+    .from("favorites")
+    .select("productId")
+    .eq("userId", userId);
 
   if (error) {
     console.error(error);
-  }
-
-  const orderedProducts = productIds.map((id) =>
-    data.find((product) => product.id === id)
-  );
-
-  return orderedProducts;
-}
-
-export async function getProductsWithoutFilter() {
-  const { data, error } = await supabase.from("products").select("*");
-
-  if (error) {
-    console.error(error);
-    throw new Error("Product could not be loaded");
+    throw new Error(error.message);
   }
 
   return data;
 }
 
-export async function getProducts(filter) {
-  let query = supabase.from("products").select("*");
-
-  if (filter !== "all") {
-    query = query.eq("type", filter);
-  }
-
-  const { data, error } = await query;
-  if (error) throw error;
-
-  return data;
-}
-
+//----------------------------------------------------------- ✅
 export async function getAllProducts() {
-  const { data, error } = await supabase.from("products").select("*");
+  const { data, error } = await supabase.from("products").select("id");
 
   if (error) {
     console.error(error);
@@ -289,6 +232,38 @@ export async function getAllProducts() {
   return data;
 }
 
+//----------------------------------------------------------- ✅
+export async function getCartProd(cartId) {
+  const { data, error } = await supabase
+    .from("cart_items")
+    .select(
+      "id, created_at, productId(id, name, regularPrice, discount, quantity, details, image), quantity",
+    )
+    .eq("cartId", cartId)
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cart products could not be loaded");
+  }
+
+  // Normalizza i dati
+  const normalizedData = data.map((item) => ({
+    id: item.id,
+    created_at: item.created_at,
+    quantity: item.quantity,
+    cartItemPrice:
+      item.quantity * (item.productId?.regularPrice - item.productId?.discount),
+    product: {
+      ...item.productId,
+      image: item.productId?.image?.[0] || null,
+    },
+  }));
+
+  return normalizedData;
+}
+
+//----------------------------------------------------------- ❌
 export async function getCartProducts(cartId) {
   const { data: cartItems, error: cartError } = await supabase
     .from("cart_items")
@@ -346,10 +321,11 @@ export async function getCartProducts(cartId) {
   return cartProducts;
 }
 
+//----------------------------------------------------------- ✅
 export async function getCartProductsCount(cartId) {
-  const { data, error } = await supabase
+  const { count, error } = await supabase
     .from("cart_items")
-    .select("productId")
+    .select("productId", { count: "exact" })
     .eq("cartId", cartId);
 
   if (error) {
@@ -357,9 +333,10 @@ export async function getCartProductsCount(cartId) {
     throw new Error("Errore nel conteggio dei prodotti nel carrello");
   }
 
-  return data;
+  return count;
 }
 
+//----------------------------------------------------------- ✅
 export async function getUserInfo(userId) {
   const { data, error } = await supabase
     .from("users")
@@ -369,98 +346,81 @@ export async function getUserInfo(userId) {
 
   if (error) {
     console.error(error);
-    throw new Error("Errore");
+    throw new Error(
+      "Non è stato possibile ottenere le informazioni del tuo profilo.",
+    );
   }
 
   return data;
 }
 
-export async function getUserOrders(userId) {
-  const { data: orders, error: ordersError } = await supabase
+//----------------------------------------------------------- ✅
+export async function getUserOrdersCount(userId, filters) {
+  let query = supabase
     .from("orders")
-    .select("*")
+    .select("id", { count: "exact" })
     .eq("userId", userId)
     .order("created_at", { ascending: false });
+
+  if (filters.query) {
+    query.eq("id", filters.query);
+  }
+
+  const { count, error: ordersError } = await query;
 
   if (ordersError) {
     console.error(
       "Errore nel recupero degli ordini dell'utente: ",
-      ordersError
+      ordersError,
     );
     throw new Error("Errore nel recupero degli ordini dell'utente");
   }
+  // const { count, error: ordersError } = await supabase
+  //   .from("orders")
+  //   .select("id", { count: "exact" })
+  //   .eq("userId", userId)
+  //   .order("created_at", { ascending: false });
 
-  // Se non ci sono ordini, ritorna direttamente
-  if (!orders || orders.length === 0) {
-    return [];
-  }
+  // if (ordersError) {
+  //   console.error(
+  //     "Errore nel recupero degli ordini dell'utente: ",
+  //     ordersError,
+  //   );
+  //   throw new Error("Errore nel recupero degli ordini dell'utente.");
+  // }
 
-  // Prendi gli ID degli ordini
-  const orderIds = orders.map((order) => order.id);
-
-  // Recupera gli order_items associati a quegli ordini
-  const { data: orderItems, error: orderItemsError } = await supabase
-    .from("order_items")
-    .select("*")
-    .in("orderId", orderIds);
-
-  if (orderItemsError) {
-    console.error("Errore nel recupero degli order_items: ", orderItemsError);
-    throw new Error("Errore nel recupero degli order_items");
-  }
-
-  const productIds = orderItems.map((item) => item.productId);
-  const { data: products, error: productsError } = await supabase
-    .from("products")
-    .select("*")
-    .in("id", productIds);
-
-  if (productsError) {
-    console.error("Errore nel recupero dei prodotti: ", productsError);
-    throw new Error("Errore nel recupero dei prodotti");
-  }
-
-  // Associa i prodotti agli orderItems
-  const orderItemsWithProducts = orderItems.map((item) => ({
-    ...item,
-    product: products.find((product) => product.id === item.productId),
-  }));
-
-  // Raggruppa per ordine e calcola totale
-  const ordersWithItems = orders.map((order) => {
-    const items = orderItemsWithProducts.filter(
-      (item) => item.orderId === order.id
-    );
-
-    const total = items.reduce((sum, item) => {
-      return sum + (item.product?.regularPrice || 0) * item.quantity;
-    }, 0);
-
-    return {
-      ...order,
-      items,
-      total,
-    };
-  });
-
-  return ordersWithItems;
+  return count ?? 0;
 }
 
-export async function getUserOrdersWithPagination(limit, filters, userId) {
-  const from = filters.page * limit;
+//----------------------------------------------------------- ✅
+export async function getPaginatedUserOrders(limit, filters, userId) {
+  const from = (filters.page - 1) * limit;
   const to = from + limit - 1;
 
-  const { data: orders, error: ordersError } = await supabase
+  // const { data: orders, error: ordersError } = await supabase
+  //   .from("orders")
+  //   .select("id, orderDate, status, totalCost")
+  //   .eq("userId", userId)
+  //   .range(from, to)
+  //   .order("created_at", { ascending: false });
+
+  let query = supabase
     .from("orders")
-    .select("*")
+    .select("id, orderDate, status, totalCost")
     .eq("userId", userId)
     .range(from, to)
     .order("created_at", { ascending: false });
 
+  if (filters.query) {
+    query.eq("id", filters.query);
+  }
+
+  const { data: orders, error: ordersError } = await query;
+
   if (ordersError) {
     console.error(
       "Errore nel recupero degli ordini dell'utente: ",
-      ordersError
+      ordersError,
     );
     throw new Error("Errore nel recupero degli ordini dell'utente");
   }
@@ -476,7 +436,9 @@ export async function getUserOrdersWithPagination(limit, filters, userId) {
   // Recupera gli order_items associati a quegli ordini
   const { data: orderItems, error: orderItemsError } = await supabase
     .from("order_items")
-    .select("*")
+    .select(
+      "id, orderId, quantity, productId(id, name, image, regularPrice, discount, description)",
+    )
     .in("orderId", orderIds);
 
   if (orderItemsError) {
@@ -484,137 +446,87 @@ export async function getUserOrdersWithPagination(limit, filters, userId) {
     throw new Error("Errore nel recupero degli order_items");
   }
 
-  const productIds = orderItems.map((item) => item.productId);
-  const { data: products, error: productsError } = await supabase
-    .from("products")
-    .select("*")
-    .in("id", productIds);
-
-  if (productsError) {
-    console.error("Errore nel recupero dei prodotti: ", productsError);
-    throw new Error("Errore nel recupero dei prodotti");
-  }
-
-  // Associa i prodotti agli orderItems
-  const orderItemsWithProducts = orderItems.map((item) => ({
-    ...item,
-    product: products.find((product) => product.id === item.productId),
-  }));
-
-  // Raggruppa per ordine e calcola totale
-  const ordersWithItems = orders.map((order) => {
-    const items = orderItemsWithProducts.filter(
-      (item) => item.orderId === order.id
+  const normalizedData = orders.map((order) => {
+    const items = orderItems.filter(
+      (orderItem) => orderItem.orderId === order.id,
     );
 
-    const total = items.reduce((sum, item) => {
-      return sum + (item.product?.regularPrice || 0) * item.quantity;
-    }, 0);
-
     return {
-      ...order,
-      items,
-      total,
+      id: order.id,
+      orderDate: order.orderDate,
+      status: order.status,
+      totalCost: order.totalCost,
+      orderItems: items,
     };
   });
 
-  return ordersWithItems;
+  return normalizedData;
 }
 
-export async function getUserOrder(userId, orderId) {
+export async function getOrder(userId, orderId) {
   const { data: order, error: orderError } = await supabase
     .from("orders")
-    .select("*")
+    .select("id")
+    .eq("id", orderId)
     .eq("userId", userId)
-    .eq("id", orderId);
+    .maybeSingle();
 
   if (orderError) {
     console.error("Errore nel recupero dell'ordine dell'utente: ", orderError);
     throw new Error("Errore nel recupero dell'ordine dell'utente");
   }
 
-  // Se non ci sono ordini, ritorna direttamente
-  if (!order || order.length === 0) {
-    return [];
-  }
-
-  const orderIds = order.map((order) => order.id);
-
-  // Recupera gli order_items associati a quegli ordini
-  const { data: orderItems, error: orderItemsError } = await supabase
-    .from("order_items")
-    .select("*")
-    .in("orderId", orderIds);
-
-  if (orderItemsError) {
-    console.error("Errore nel recupero degli order_items: ", orderItemsError);
-    throw new Error("Errore nel recupero degli order_items");
-  }
-
-  const productIds = orderItems.map((item) => item.productId);
-  const { data: products, error: productsError } = await supabase
-    .from("products")
-    .select("*")
-    .in("id", productIds);
-
-  if (productsError) {
-    console.error("Errore nel recupero dei prodotti: ", productsError);
-    throw new Error("Errore nel recupero dei prodotti");
-  }
-
-  // Associa i prodotti agli orderItems
-  const orderItemsWithProducts = orderItems.map((item) => ({
-    ...item,
-    product: products.find((product) => product.id === item.productId),
-  }));
-
-  // Raggruppa per ordine e calcola totale
-  const ordersWithItems = order.map((order) => {
-    const items = orderItemsWithProducts.filter(
-      (item) => item.orderId === order.id
-    );
-
-    const total = items.reduce((sum, item) => {
-      return sum + (item.product?.regularPrice || 0) * item.quantity;
-    }, 0);
-
-    return {
-      ...order,
-      items,
-      total,
-    };
-  });
-
-  return ordersWithItems;
-}
-
-export async function getOrderSession(userId, sessionId) {
-  const { data: order, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("userId", userId)
-    .eq("sessionId", sessionId)
-    .single();
-
-  if (error) {
-    console.error("Errore nel recupero dello stato dell'ordine", error);
-    throw new Error("Errore nel recupero dello stato dell'ordine");
-  }
-
   return order;
 }
 
-export async function getRecipes(userId) {
-  const { data: recipes, error } = await supabase
-    .from("recipes")
-    .select("*")
+//----------------------------------------------------------- ✅
+export async function getUserOrder(userId, paymentIntent) {
+  const { data: order, error: orderError } = await supabase
+    .from("orders")
+    .select("id, isTokenUsed")
     .eq("userId", userId)
-    .order("created_at", { ascending: false });
+    .eq("paymentIntent", paymentIntent)
+    .single();
 
-  if (error) {
-    console.error("Errore nel recupero delle ricette dell'utente", error);
-    throw new Error("Errore nel recupero delle ricette dell'utente");
+  if (orderError) {
+    console.error("Errore nel recupero dell'ordine dell'utente: ", orderError);
+    throw new Error("Errore nel recupero dell'ordine dell'utente");
   }
 
-  return recipes;
+  const { id: orderId, isTokenUsed } = order;
+
+  if (isTokenUsed) {
+    return { success: false };
+  }
+
+  const { data: order_items, error: orderItemsError } = await supabase
+    .from("order_items")
+    .select(
+      "id, productId(id, name, regularPrice, discount, quantity, details, image), quantity",
+    )
+    .eq("orderId", orderId);
+
+  if (orderItemsError) {
+    console.error(
+      "Errore nel recupero dei prodotti dell'ordine dell'utente: ",
+      orderItemsError,
+    );
+    throw new Error("Errore nel recupero dei prodotti dell'ordine dell'utente");
+  }
+
+  // Normalizza i dati
+  const normalizedData = order_items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    orderItemPrice:
+      item.quantity * (item.productId?.regularPrice - item.productId?.discount),
+    product: {
+      ...item.productId,
+      image: item.productId?.image?.[0] || null,
+    },
+  }));
+
+  console.log(orderId);
+
+  return { data: normalizedData, orderId, success: true };
 }

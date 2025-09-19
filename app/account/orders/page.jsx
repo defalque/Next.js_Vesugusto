@@ -1,41 +1,73 @@
-import OrderList from "@/app/_components/ui/OrderList";
-import Spinner from "@/app/_components/ui/Spinner";
-// import { ORDERS_LIMIT } from "@/app/_lib/constants";
-// import {
-//   getUserOrders,
-//   getUserOrdersWithPagination,
-// } from "@/app/_lib/data-service";
-// import { auth } from "@/auth";
+import AccountHeading from "@/app/_components/account/AccountHeading";
+import OrdersList from "@/app/_components/account/orders/OrdersList";
+import Pagination from "@/app/_components/ui/Pagination";
+import Search from "@/app/_components/ui/Search";
+import { OrdersListSkeleton } from "@/app/_components/ui/skeleton/Skeletons";
+import { FiltersProvider } from "@/app/_contexts/FiltersContext";
+import { ORDERS_LIMIT } from "@/app/_lib/constants";
+import { getUserOrdersCount } from "@/app/_lib/data-service";
+import { auth } from "@/auth";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "I tuoi ordini",
+  title: "I miei ordini",
+  description: "Controlla lo stato dei tuoi ordini.",
 };
 
 export default async function Page({ searchParams }) {
+  const session = await auth();
+
   const params = await searchParams;
   const filters = {
-    page: Number(params?.page) || 0,
+    query: params?.query || "",
+    page: Number(params?.page) || 1,
   };
+  const filtersKey = `${filters.page}-${filters.query}`;
+
+  const count = await getUserOrdersCount(session.user.userId, filters);
+  const totalPages = Math.ceil(count / ORDERS_LIMIT);
+  const isPageOutOfBounds = Number(filters.page) > totalPages;
 
   return (
-    <div className="">
-      <div className="flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
-        <h1 className="text-2xl md:text-5xl font-medium tracking-wide">
-          Storico degli ordini
-        </h1>
-        <h2 className="text-gray-500 dark:text-gray-300 text-sm md:text-base">
-          Visualizza lo stato degli ordini recenti, gestisci i resi e scopri
-          prodotti simili.
-        </h2>
-      </div>
+    <div className="mb-10 flex flex-col gap-8">
+      <AccountHeading
+        accessibleLabel="orders-heading"
+        title="Storico degli ordini"
+        text="Visualizza lo stato degli ordini recenti, gestisci i resi e scopri
+          prodotti simili."
+      />
 
-      <Suspense
-        fallback={<Spinner label="Caricamento ordini..."></Spinner>}
-        key={filters}
+      <section className="sticky top-26 z-10 flex w-full justify-end gap-5 bg-transparent md:top-30">
+        <FiltersProvider>
+          <Search placeholder="Cerca ordine per numero..." />
+        </FiltersProvider>
+      </section>
+
+      <section
+        aria-labelledby="orders-results-heading"
+        className="flex flex-col gap-10"
       >
-        <OrderList filters={filters}></OrderList>
-      </Suspense>
+        <h2 id="orders-results-heading" className="sr-only">
+          Risultati ordini
+        </h2>
+
+        <div
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+          role="status"
+        >
+          {`Sono stati trovati ${count ?? 0} ordini`}
+        </div>
+
+        <Suspense key={filtersKey} fallback={<OrdersListSkeleton />}>
+          <OrdersList filters={filters} />
+        </Suspense>
+
+        {!isPageOutOfBounds && (
+          <Pagination count={count ?? 0} limit={ORDERS_LIMIT} />
+        )}
+      </section>
     </div>
   );
 }

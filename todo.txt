@@ -1,0 +1,72 @@
+homepage
+stripe dashboard
+seo
+stripe webhook maybe?
+
+------------------------------------------------------------------
+
+Route (app)                                 Size  First Load JS    
+┌ ƒ /                                      195 B         102 kB
+├ ƒ /_not-found                            195 B         102 kB
+├ ƒ /account                              334 kB         445 kB
+├ ƒ /account/favorites                   2.78 kB         150 kB
+├ ƒ /account/orders                      49.2 kB         184 kB
+├ ƒ /account/recipes                      495 kB         646 kB
+├ ƒ /api/auth/[...nextauth]                195 B         102 kB
+├ ƒ /api/chat                              195 B         102 kB
+├ ƒ /api/checkout                          195 B         102 kB
+├ ƒ /api/create-order                      195 B         102 kB
+├ ƒ /api/create-payment-intent             195 B         102 kB
+├ ƒ /api/og                                501 B         102 kB
+├ ƒ /api/shop                          195 B         102 kB
+├ ƒ /api/stripe-webhook                    195 B         102 kB
+├ ƒ /cart                                3.61 kB         197 kB
+├ ƒ /cart/checkout                       7.64 kB         115 kB
+├ ƒ /cart/checkout/cancel                  195 B         102 kB
+├ ƒ /cart/checkout/success               1.25 kB         111 kB
+├ ƒ /create                              38.4 kB         183 kB
+├ ○ /icon.png                                0 B            0 B
+├ ƒ /login                                 502 B         105 kB
+├ ƒ /shop                               5 kB         162 kB
+└ ● /shop/[productID]                3.33 kB         157 kB
+    ├ /shop/8
+    ├ /shop/13
+    ├ /shop/12
+    └ [+8 more paths]
++ First Load JS shared by all             102 kB
+  ├ chunks/1684-b804f8dc1c643194.js      46.4 kB
+  ├ chunks/4bd1b696-c441090061a2d4e8.js  53.2 kB
+  └ other shared chunks (total)          1.94 kB
+
+
+ƒ Middleware                              116 kB
+
+
+Route (app)                                 Size  First Load JS    
+┌ ƒ /                                      161 B         102 kB
+├ ƒ /_not-found                            161 B         102 kB
+├ ƒ /account                             12.1 kB         117 kB
+├ ƒ /account/favorites                   1.54 kB         120 kB
+├ ƒ /account/orders                      3.29 kB         113 kB
+├ ƒ /account/orders/[orderId]              161 B         102 kB
+├ ƒ /api/auth/[...nextauth]                161 B         102 kB
+├ ƒ /api/create-payment-intent             161 B         102 kB
+├ ƒ /api/og                                837 B         108 kB
+├ ƒ /cart                                 2.9 kB         118 kB
+├ ƒ /cart/checkout                         475 B         112 kB
+├ ○ /icon.png                                0 B            0 B
+├ ƒ /login                                 188 B         110 kB
+├ ƒ /payment-success                       736 B         111 kB
+├ ƒ /shop                             4.8 kB         117 kB
+└ ● /shop/[productId]                3.34 kB         121 kB
+    ├ /shop/8
+    ├ /shop/6
+    ├ /shop/11
+    └ [+9 more paths]
++ First Load JS shared by all             101 kB
+  ├ chunks/1684-8044931fa8ca482d.js      45.9 kB
+  ├ chunks/4bd1b696-6167975f3440ddee.js  53.2 kB
+  └ other shared chunks (total)          2.37 kB
+
+
+ƒ Middleware                              116 kB

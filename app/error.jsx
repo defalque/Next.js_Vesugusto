@@ -1,43 +1,40 @@
-// "use client";
-
-// export default function Error({ error, reset }) {
-//   return (
-//     <main className="flex justify-center items-center flex-col gap-6">
-//       <h1 className="text-3xl font-semibold">Qualcosa è andato storto!</h1>
-//       <p className="text-lg">{error.message}</p>
-
-//       <button
-//         className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg"
-//         onClick={reset}
-//       >
-//         Riprova
-//       </button>
-//     </main>
-//   );
-// }
-
-"use client"; // Error boundaries must be Client Components
+"use client";
 
 import { useEffect } from "react";
+import Button from "./_components/ui/Button";
 
 export default function Error({ error, reset }) {
   useEffect(() => {
-    // Log the error to an error reporting service
+    // Optionally log the error to an error reporting service
     console.error(error);
   }, [error]);
 
   return (
-    <div className="flex justify-center items-center flex-col gap-6">
-      <h2 className="text-3xl font-semibold">Something went wrong!</h2>
-      <button
-        className="inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg cursor-pointer"
+    <section
+      role="alert"
+      aria-labelledby="error-heading"
+      className="flex min-h-screen flex-col items-center justify-center gap-3 pb-10"
+    >
+      <h2 id="error-heading" className="text-center text-2xl">
+        Qualcosa è andato storto! 😓
+      </h2>
+      <p
+        className="text-primary-dark-950 max-w-md text-center text-base dark:text-gray-50"
+        role="status"
+      >
+        Si è verificato un errore durante il caricamento della pagina. Puoi
+        riprovare cliccando il pulsante qui sotto.
+      </p>
+      <Button
+        className="rounded px-4"
         onClick={
-          // Attempt to recover by trying to re-render the segment
+          // Attempt to recover by trying to re-render the invoices route
           () => reset()
         }
+        ariaLabel="Riprova a caricare la pagina"
       >
-        Try again
-      </button>
-    </div>
+        Riprova
+      </Button>
+    </section>
   );
 }

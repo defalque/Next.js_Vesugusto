@@ -5,115 +5,9 @@
   --breakpoint-xs: 30rem;
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-.text-stroke {
-  -webkit-text-stroke: 1px #fa5252;
-}
+/* @custom-variant dark (&:where(.dark, .dark *)); */
 
 @theme {
-  --animate-moveInFromLeft: moveInFromLeft 1s ease-in-out forwards;
-  @keyframes moveInFromLeft {
-    0% {
-      transform: translateX(-100%);
-      opacity: 0.5;
-    }
-    100% {
-      transform: translateX(0%);
-      opacity: 1;
-    }
-  }
-}
-
-@theme {
-  --animate-moveInFromRight: moveInFromRight 1s ease-in-out forwards;
-  @keyframes moveInFromRight {
-    0% {
-      transform: translateX(100%);
-      opacity: 0.5;
-    }
-    100% {
-      transform: translateX(0%);
-      opacity: 1;
-    }
-  }
-}
-
-@theme {
-  --animate-reveal: reveal 1s ease-in-out forwards;
-  @keyframes reveal {
-    0% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-}
-
-@theme {
-  --animate-fly-up: fly-up 1s ease-out;
-  @keyframes fly-up {
-    0% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-80px) scale(1.4);
-    }
-  }
-}
-
-@theme {
-  --animate-slideReveal: slideReveal 1s ease-in-out forwards;
-
-  @keyframes slideReveal {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-}
-
-@theme {
-  --animate-bounce-dot: bounce-dot 1s infinite;
-
-  @keyframes bounce-dot {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-0.5rem);
-    }
-  }
-}
-.animate-bounce-dot {
-  animation-name: bounce-dot;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-}
-
-.dot-delay-1 {
-  animation-delay: 0.2s;
-}
-
-.dot-delay-2 {
-  animation-delay: 0.5s;
-}
-
-.dot-delay-3 {
-  animation-delay: 0.8s;
-}
-
-@theme {
-  --color-midnight: #170d03;
-  --color-midnight-100: #2e1907;
-  --color-midnight-900: #fdf2e9;
-
   --color-primary-50: #ffffff;
   --color-primary-100: #ffeeee;
   --color-primary-200: #fedcdc;
@@ -136,11 +30,6 @@
   --color-primary-dark-800: #321010;
   --color-primary-dark-900: #190808;
   --color-primary-dark-950: #000000;
-
-  --color-dark-400: #121212;
-  --color-dark-300: #1e1e1e;
-  --color-dark-200: #2c2c2c;
-  --color-dark-100: #333333;
 }
 
 @layer base {
@@ -148,52 +37,103 @@
     background-color: var(--color-primary-950);
     color: var(--color-primary-50);
   }
-}
 
-/* Scrollbar base */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+  :root {
+    --toast-bg: var(--color-white);
+    --toast-text: var(--color-black);
+    --toast-border: #e5e7eb; /* light: gray-200 */
 
-/* Track (background della scrollbar) */
-::-webkit-scrollbar-track {
-  background: #f0f0f0;
-}
+    --stripeBg: var(--color-gray-50);
+  }
 
-/* Thumb (maniglia mobile) */
-::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 10px;
-}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --toast-bg: var(--color-black);
+      --toast-text: var(--color-white);
+      --toast-border: #3f3f46; /* dark: zinc-700 */
 
-/* Hover effetto */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #999;
-}
-
-html.dark ::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-html.dark ::-webkit-scrollbar-thumb {
-  background-color: #555;
-}
-
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background-color: #777;
+      --stripeBg: var(--color-zinc-600);
+    }
+  }
 }
 
 @layer components {
+  .focus {
+    outline-color: var(--color-primary-dark-100); /* base outline color */
+
+    /* Only on keyboard focus */
+    &:focus-visible {
+      outline-color: var(--color-primary-950);
+      outline-width: 2px;
+      outline-style: solid;
+    }
+  }
+
+  .focus-mobile {
+    outline-color: var(--color-primary-dark-100); /* base outline color */
+
+    /* Only on keyboard focus */
+    &:focus-visible {
+      outline-color: var(--color-primary-950);
+      outline-width: 1px;
+      outline-style: solid;
+    }
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
   .spinner {
-    margin: 3.2rem auto 1.6rem;
-    width: 60px;
+    margin: 2.4rem auto;
+
+    width: 5.8rem;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid var(--color-primary-100);
-    border-right-color: var(--color-primary-950);
-    animation: rotate 1s infinite linear;
+    background:
+      radial-gradient(farthest-side, var(--color-primary-950) 94%, #0000)
+        top/10px 10px no-repeat,
+      conic-gradient(#0000 30%, var(--color-primary-950));
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      #0000 calc(100% - 10px),
+      #000 0
+    );
+    mask: radial-gradient(
+      farthest-side,
+      #0000 calc(100% - 10px),
+      #000 0
+    ); /* standard fallback */
+    animation: rotate 1.5s infinite linear;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .spinner {
+      margin: 2.4rem auto;
+
+      width: 5.8rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(farthest-side, #495057 94%, #0000) top/10px 10px
+          no-repeat,
+        conic-gradient(#0000 30%, #495057);
+      -webkit-mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 10px),
+        #000 0
+      );
+      mask: radial-gradient(
+        farthest-side,
+        #0000 calc(100% - 10px),
+        #000 0
+      ); /* standard fallback */
+      animation: rotate 1.5s infinite linear;
+    }
+  }
+
   .dark .spinner {
     margin: 3.2rem auto 1.6rem;
     width: 60px;
@@ -248,58 +188,22 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 }
 
 input:-webkit-autofill {
-  border-radius: 0.75rem;
-  padding: 0.5rem 1.25rem;
-  background-color: var(--color-primary-50) !important;
-  box-shadow: 0 4px 6px -1px var(--color-primary-200),
-    inset 0 2px 4px 0 var(--color-primary-200) !important;
-  color: var(--color-primary-dark-900) !important;
-  -webkit-text-fill-color: var(--color-primary-dark-900) !important;
+  -webkit-text-fill-color: #18181b !important; /* equivalente a text-zinc-900 */
+  -webkit-box-shadow: inset 0 0 0px 1000px #ffffff !important; /* bg-primary-50 */
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.dark input:-webkit-autofill {
-  border-radius: 0.75rem;
-  padding: 0.5rem 1.25rem;
-  background-color: var(--color-dark-100) !important;
-  box-shadow: none !important;
-  /* color: var(--color-primary-100) !important; */
-  /* -webkit-text-fill-color: var(--color-primary-100) !important; */
-  transition: background-color 5000s ease-in-out 0s;
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #18181b !important;
 }
 
-/* Rimuove lo stile nativo della checkbox */
-input[type="checkbox"] {
-  -webkit-appearance: none; /* Safari/Chrome */
-  -moz-appearance: none; /* Firefox */
-  appearance: none;
+@media (prefers-color-scheme: dark) {
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-box-shadow: inset 0 0 0px 1000px #18181b !important; /* dark:bg-zinc-900 */
+  }
 
-  width: 16px;
-  height: 16px;
-  border: 1px solid #555;
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-  position: relative;
-  background-color: white;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Stato checked */
-input[type="checkbox"]:checked {
-  background-color: var(--color-primary-950);
-  border-color: var(--color-primary-950);
-}
-
-/* Checkmark personalizzato usando ::after */
-input[type="checkbox"]:checked::after {
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 5px;
-  width: 4px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff !important;
+  }
 }

@@ -9,6 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authorized: async ({ auth }) => {
       return !!auth;
     },
+
     async signIn({ user, account, profile }) {
       try {
         const existingUser = await getUser(user.email);
@@ -45,11 +46,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.userId = existingUser.id;
         token.cartId = cart?.id || null;
       }
+
       return token;
     },
 
     async session({ session, token }) {
       session.user.userId = token.userId;
+      session.user.name = token.name;
+      session.user.email = token.email;
       session.user.cartId = token.cartId;
       return session;
     },

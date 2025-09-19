@@ -1,35 +1,23 @@
-import { auth } from "@/auth";
-import { getCartProducts } from "../_lib/data-service";
-import CartProductsList from "../_components/ui/CartProductsList";
+import { Suspense } from "react";
+import { CartProductsListSkeleton } from "../_components/ui/skeleton/Skeletons";
+import CartWrapper from "../_components/cart/CartWrapper";
 
 export const metadata = {
   title: "Carrello",
+  description:
+    "Visualizza e gestisci i prodotti aggiunti al tuo carrello. Procedi al checkout o modifica le quantità per ogni articolo.",
 };
 
-export default async function Page() {
-  const session = await auth();
-  const products = await getCartProducts(session.user.cartId);
-
-  const totalPrice = products.reduce((sum, product) => {
-    return sum + product.cartQuantity * product.regularPrice;
-  }, 0);
-  const shippingCost = 0;
-  const total = totalPrice + shippingCost;
-
+export default function Page() {
   return (
-    <div className="flex flex-col gap-8 px-5 xs:px-10 xl:px-35 my-5">
-      <h1
-        className={`text-3xl xs:text-4xl lg:text-5xl font-medium tracking-wide`}
-      >
+    <div className="my-5 flex min-h-screen flex-col gap-8 px-4 xl:px-20">
+      <h1 className="xs:text-4xl col-span-full text-3xl font-medium tracking-wide lg:text-5xl">
         Il mio carrello
       </h1>
-      <CartProductsList
-        products={products}
-        cartId={session.user.cartId}
-        totalPrice={totalPrice}
-        shippingCost={shippingCost}
-        total={total}
-      />
+
+      <Suspense fallback={<CartProductsListSkeleton />}>
+        <CartWrapper />
+      </Suspense>
     </div>
   );
 }

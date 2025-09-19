@@ -1,17 +1,28 @@
 "use client";
 
+import Button from "../_components/ui/Button";
+
 export default function Error({ error, reset }) {
   return (
-    <main className="flex justify-center items-center flex-col gap-6">
-      <h1 className="text-3xl font-semibold">Qualcosa è andato storto!</h1>
-      <p className="text-lg">{error.message}</p>
+    <section
+      role="alert"
+      aria-labelledby="error-heading"
+      className="flex flex-col items-center justify-center gap-6"
+    >
+      <h1 id="error-heading" className="text-3xl font-semibold">
+        Qualcosa è andato storto!
+      </h1>
+      <p className="text-lg" role="status">
+        {error.message}
+      </p>
 
-      <button
-        className="inline-block cursor-pointer bg-primary-950 dark:bg-primary-dark-200 hover:bg-primary-900 dark:hover:bg-primary-dark-300 text-primary-100 rounded-2xl px-6 py-3 text-lg"
+      <Button
+        className="rounded px-2 py-1 text-lg"
+        ariaLabel="Riprova a caricare la pagina"
         onClick={reset}
       >
         Riprova
-      </button>
-    </main>
+      </Button>
+    </section>
   );
 }

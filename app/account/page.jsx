@@ -1,33 +1,41 @@
-import { auth } from "@/auth";
-import UpdateProfileFormV3 from "../_components/ui/UpdateProfileFormV3";
-import { getUser } from "../_lib/data-service";
 import { Suspense } from "react";
-import Spinner from "../_components/ui/Spinner";
+import UserName from "../_components/account/UserName";
+import UpdateProfileFormWrapper from "../_components/account/UpdateProfileFormWrapper";
+import AccountHeading from "../_components/account/AccountHeading";
+import {
+  UpdateProfileFormSkeleton,
+  UserNameSkeleton,
+} from "../_components/ui/skeleton/Skeletons";
 
 export const metadata = {
   title: "Account",
+  description:
+    "Aggiorna le tue informazioni personali per garantirti un servizio sempre migliore. Gestisci i tuoi dati direttamente dal tuo profilo account.",
 };
 
-export default async function Page() {
-  const session = await auth();
-  const user = await getUser(session?.user?.email);
-
+export default function Page() {
   return (
-    <div>
-      <div className="flex flex-col gap-5 pb-4 border-b border-b-gray-200 dark:border-b-dark-200">
-        <h1 className="text-primary-dark-900 dark:text-gray-200 text-2xl md:text-5xl font-medium ">
-          Benvenuto {session?.user?.name}!
-        </h1>
+    <>
+      <AccountHeading
+        accessibleLabel="account-heading"
+        text="Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
+          tue informazioni personali."
+      >
+        Benvenuto{" "}
+        <Suspense fallback={<UserNameSkeleton />}>
+          <UserName />
+        </Suspense>
+      </AccountHeading>
 
-        <p className="text-sm md:text-base font-normal text-gray-500 dark:text-gray-300">
-          Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
-          tue informazioni personali.
-        </p>
-      </div>
+      <section aria-labelledby="profile-form-title">
+        <h2 id="profile-form-title" className="sr-only">
+          Aggiorna profilo
+        </h2>
 
-      <Suspense fallback={<Spinner></Spinner>}>
-        <UpdateProfileFormV3 user={user}></UpdateProfileFormV3>
-      </Suspense>
-    </div>
+        <Suspense fallback={<UpdateProfileFormSkeleton />}>
+          <UpdateProfileFormWrapper />
+        </Suspense>
+      </section>
+    </>
   );
 }

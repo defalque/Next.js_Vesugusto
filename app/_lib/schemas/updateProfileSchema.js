@@ -1,40 +1,48 @@
-import { z } from "zod";
-import comuni from "@/app/_lib/gi_comuni_cap.json";
+import * as z from "zod/mini";
 
-const comuniList = comuni.map((c) => c.denominazione_ita.toLowerCase());
+export const updateProfileSchema = z.object({
+  comune: z
+    .string()
+    .check(
+      z.trim(),
+      z.minLength(1, "Obbligatorio!"),
+      z.maxLength(100, "Comune troppo lungo!"),
+      z.regex(/^[a-zàèéìòù\s'-]{2,}$/i, "Comune non valido!"),
+    ),
 
-export const updateProfileSchema = z
-  .object({
-    comune: z.string().trim().toLowerCase(),
-    cap: z.string().trim(),
-    via: z.string().min(5, "La via non è valida"),
-    numeroCivico: z.string().min(1, "Numero civico obbligatorio"),
-    phoneNumber: z
-      .string()
-      .regex(
-        /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/,
-        "Numero di telefono non valido"
+  cap: z.string().check(z.trim(), z.regex(/^\d{5}$/, "CAP non valido!")),
+
+  via: z
+    .string()
+    .check(
+      z.trim(),
+      z.minLength(5, "La via deve contenere almeno 5 caratteri!"),
+      z.regex(
+        /^[a-zA-Z0-9\s.'àèéìòù,-]{5,}$/i,
+        "La via contiene caratteri non validi!",
       ),
-  })
-  .superRefine((data, ctx) => {
-    const comuneValido = comuniList.includes(data.comune);
-    if (!comuneValido) {
-      ctx.addIssue({
-        path: ["comune"],
-        code: z.ZodIssueCode.custom,
-        message: "Comune non valido",
-      });
-    }
+    ),
 
-    const capValido = comuni.some(
-      (c) =>
-        c.denominazione_ita.toLowerCase() === data.comune && c.cap === data.cap
-    );
-    if (!capValido) {
-      ctx.addIssue({
-        path: ["cap"],
-        code: z.ZodIssueCode.custom,
-        message: "CAP non valido per il comune selezionato",
-      });
-    }
-  });
+  numeroCivico: z
+    .string()
+    .check(
+      z.trim(),
+      z.minLength(1, "Obbligatorio!"),
+      z.maxLength(10, "Numero civico troppo lungo!"),
+      z.regex(/^[a-zA-Z0-9/-]+$/, "Numero civico non valido!"),
+    ),
+
+  phoneNumber: z.optional(
+    z.string().check(
+      z.trim(),
+      z.regex(
+        /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/,
+        "Numero di telefono non valido",
+      ),
+      z.refine(
+        (val) => val.length >= 8 && val.length <= 20,
+        "Numero di telefono deve contenere tra 8 e 20 cifre!",
+      ),
+    ),
+  ),
+});

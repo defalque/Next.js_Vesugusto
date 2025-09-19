@@ -1,62 +1,55 @@
 "use server";
 
 import { auth, signIn, signOut } from "@/auth";
-import comuni from "@/app/_lib/gi_comuni_cap.json";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
+import { updateProfileSchema } from "./schemas/updateProfileSchema";
+import { redirect } from "next/navigation";
 
+//----------------------------------------------------------- ✅
 export async function googleSignInAction() {
   await signIn("google", { redirectTo: "/account" });
 }
 
+//----------------------------------------------------------- ✅
 export async function githubSignInAction() {
   await signIn("github", { redirectTo: "/account" });
 }
 
+//----------------------------------------------------------- ✅
 export async function signOutAction() {
   await signOut({ redirectTo: "/" });
 }
 
-export async function updateUserProfile(formData) {
+//----------------------------------------------------------- ✅
+export async function updateUserProfile(data) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const via = formData.get("via").slice(0, 1000);
-  const numeroCivico = formData.get("numeroCivico").slice(0, 1000);
-  const comune = formData.get("comune").slice(0, 1000);
-  const cap = formData.get("cap").slice(0, 1000);
-  const phoneNumber = formData.get("phoneNumber").slice(0, 1000);
+  // console.log(data);
 
-  //validazione comune
-  if (
-    !comuni.find(
-      (c) => c.denominazione_ita.toLowerCase() === comune.toLowerCase()
-    )
-  )
-    throw new Error(`${comune} non è un comune valido.`);
+  const validationData = {
+    via: data.via.slice(0, 1000),
+    numeroCivico: data.numeroCivico.slice(0, 1000),
+    comune: data.comune.slice(0, 1000),
+    cap: data.cap.slice(0, 1000),
+    ...(data.phoneNumber && { phoneNumber: data.phoneNumber.slice(0, 1000) }),
+  };
 
-  //validazione cap
-  if (
-    !comuni.find(
-      (c) =>
-        c.denominazione_ita.toLowerCase() === comune.toLowerCase() &&
-        c.cap === cap
-    )
-  )
-    throw new Error(`${cap} non è un cap valido per ${comune}`);
+  const validatedFields = updateProfileSchema.safeParse(validationData);
 
-  //validazione numero di telefono
-  const regex = /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/;
-  if (!regex.test(phoneNumber))
-    throw new Error("Please provide a valid phone number");
-
-  console.log(via, numeroCivico, comune, cap, phoneNumber);
-
-  const updatedData = { phoneNumber, via, numeroCivico, comune, cap };
+  if (!validatedFields.success) {
+    console.error("Validation failed:", validatedFields.error.issues);
+    throw new Error(
+      "Dati non validi: " +
+        validatedFields.error.issues.map((i) => i.message).join(", "),
+    );
+  }
+  // console.log(validatedFields);
 
   const { error } = await supabase
     .from("users")
-    .update(updatedData)
+    .update(validatedFields.data)
     .eq("id", session.user.userId);
 
   if (error) throw new Error("User could not be updated");
@@ -66,25 +59,62 @@ export async function updateUserProfile(formData) {
   return true;
 }
 
-export async function addFavorite(userId, productId) {
+//----------------------------------------------------------- ✅
+export async function updateAddressInfo(data) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const { data: existing, error: checkError } = await supabase
-    .from("favorites")
-    .select("*")
-    .eq("userId", userId)
-    .eq("productId", productId);
+  const validationData = {
+    via: data.via.slice(0, 1000),
+    numeroCivico: data.numeroCivico.slice(0, 1000),
+    comune: data.comune.slice(0, 1000),
+    cap: data.cap.slice(0, 1000),
+  };
 
-  if (checkError) {
-    console.error("Errore durante il controllo:", checkError);
-    throw new Error("Errore durante il fetching dei preferiti.");
-  }
+  const validatedFields = updateProfileSchema.safeParse(validationData);
 
-  if (existing.length > 0) {
-    console.log("Già nei preferiti");
-    return false;
+  if (!validatedFields.success) {
+    console.error("Validation failed:", validatedFields.error.issues);
+    throw new Error(
+      "Dati non validi: " +
+        validatedFields.error.issues.map((i) => i.message).join(", "),
+    );
   }
+  // console.log(validatedFields);
+
+  const { error } = await supabase
+    .from("users")
+    .update(validatedFields.data)
+    .eq("id", session.user.userId);
+
+  if (error) throw new Error("User could not be updated");
+
+  revalidatePath("/cart/checkout");
+
+  return true;
+}
+
+//----------------------------------------------------------- ✅
+export async function addFavorite(userId, productId) {
+  const session = await auth();
+  if (!session)
+    throw new Error("You must be logged in to perform this action!");
+
+  // const { data: existing, error: checkError } = await supabase
+  //   .from("favorites")
+  //   .select("*")
+  //   .eq("userId", userId)
+  //   .eq("productId", productId);
+
+  // if (checkError) {
+  //   console.error("Errore durante il controllo:", checkError);
+  //   throw new Error("Errore durante il fetching dei preferiti.");
+  // }
+
+  // if (existing.length > 0) {
+  //   console.log("Già nei preferiti");
+  //   return false;
+  // }
 
   const { error: insertError } = await supabase
     .from("favorites")
@@ -93,19 +123,21 @@ export async function addFavorite(userId, productId) {
 
   if (insertError) {
     console.error("Errore durante l'inserimento:", insertError);
-    return false;
+    throw new Error(
+      "Non è stato possibile inserire il prodotto tra i preferiti.",
+    );
   }
 
-  revalidatePath("/products");
-
-  return true;
+  revalidatePath("/shop");
 }
 
+//----------------------------------------------------------- ✅
 export async function deleteFavorite(userId, productId) {
   const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  if (!session)
+    throw new Error("You must be logged in to perform this action!");
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("favorites")
     .delete()
     .eq("userId", userId)
@@ -113,13 +145,16 @@ export async function deleteFavorite(userId, productId) {
 
   if (error) {
     console.error(error);
-    throw new Error("Favorite product could not be deleted");
+    throw new Error(
+      "Non è stato possibile eliminare il prodotto dai preferiti.",
+    );
   }
 
   revalidatePath("/account/favorites");
-  revalidatePath("/products");
+  revalidatePath("/shop");
 }
 
+//----------------------------------------------------------- ✅
 export async function addCartItem(cartId, productId, quantity) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -157,12 +192,36 @@ export async function addCartItem(cartId, productId, quantity) {
     throw new Error("Errore durante l'aggiunta del prodotto al carrello.");
   }
 
-  // revalidatePath(`/products/${productId}`);
   revalidatePath(`/`);
-
-  return true;
 }
 
+export async function addFavoriteToCartAndDeleteFavorite(
+  userId,
+  cartId,
+  productId,
+) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { error } = await supabase.rpc(
+    "increment_cart_decrement_stock_delete_favorite",
+    {
+      p_user_id: userId,
+      p_cart_id: cartId,
+      p_product_id: productId,
+      p_amount: 1,
+    },
+  );
+
+  if (error) {
+    console.error("Errore RPC:", error);
+    throw new Error("Errore durante l'aggiunta del prodotto al carrello.");
+  }
+
+  revalidatePath(`/`);
+}
+
+//----------------------------------------------------------- 🤔 forse si può migliorare
 export async function updateCartItem(cartId, productId, newCartItemQuantity) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -186,10 +245,10 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
   if (cartItemError) {
     console.error(
       "Errore durante il fetching della quantità del prodotto nel carrello:",
-      checkError
+      checkError,
     );
     throw new Error(
-      "Errore durante il fetching della quantità del prodotto nel carrello."
+      "Errore durante il fetching della quantità del prodotto nel carrello.",
     );
   }
 
@@ -202,7 +261,7 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
   if (productError) {
     console.error(
       "Errore durante il fetching della quantità del prodotto:",
-      productError
+      productError,
     );
     throw new Error("Errore durante il fetching della quantità del prodotto.");
   }
@@ -228,9 +287,10 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
   }
 
   revalidatePath("/cart");
-  revalidatePath(`/products/${productId}`);
+  revalidatePath(`/shop/${productId}`);
 }
 
+//----------------------------------------------------------- ✅
 export async function deleteCartItem(cartId, productId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -242,26 +302,80 @@ export async function deleteCartItem(cartId, productId) {
     {
       p_cart_id: cartId,
       p_product_id: productId,
-    }
+    },
   );
+
   if (error) {
     console.error(error);
-    throw new Error(error);
+    throw new Error(error.message);
   }
 
-  revalidatePath(`/products/${productId}`);
-
-  return true;
+  revalidatePath(`/`);
 }
 
-export async function createOrder(userId, cartId, sessionId) {
+//----------------------------------------------------------- ✅
+export async function createOrder(userId, cartId, name, email, totalCost) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const { error } = await supabase.rpc("create_full_order", {
+  const { data, error } = await supabase.rpc("create_order", {
     user_id: userId,
     cart_id: cartId,
-    session_id: sessionId,
+    name: name,
+    email: email,
+    total_cost: totalCost,
+  });
+
+  if (error) {
+    console.error("Errore nella creazione ordine atomica", error);
+    throw new Error("Errore nella creazione ordine atomica");
+  }
+
+  return data;
+}
+
+//----------------------------------------------------------- ✅
+export async function confirmOrder(
+  orderId,
+  totalCost,
+  paymentIntentId,
+  paymentIntentClientSecret,
+  paymentIntentStatus,
+) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status: "unconfirmed",
+      paymentIntent: paymentIntentId,
+      isTokenUsed: false,
+    })
+    .eq("id", orderId);
+
+  if (error) {
+    console.error("Errore nell'aggiornamento dell'ordine", error);
+    throw new Error("Errore nell'aggiornamento dell'ordine");
+  }
+
+  redirect(
+    `/payment-success?amount=${totalCost}&payment_intent=${paymentIntentId}&payment_intent_client_secret=${paymentIntentClientSecret}&redirect_status=${paymentIntentStatus}`,
+    // `/payment-success/amount?=${totalCost}&payment_intent=${paymentIntentId}&payment_intent_client_secret=${paymentIntentClientSecret}&redirect_status=${paymentIntentStatus}`,
+  );
+}
+
+//----------------------------------------------------------- ✅
+export async function simulateOrder(userId, cartId, name, email, totalCost) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { error } = await supabase.rpc("simulate_full_order", {
+    user_id: userId,
+    cart_id: cartId,
+    name: name,
+    email: email,
+    total_cost: totalCost,
   });
 
   if (error) {
@@ -270,18 +384,21 @@ export async function createOrder(userId, cartId, sessionId) {
   }
 }
 
-export async function createRecipe(title, description, userId) {
+//----------------------------------------------------------- ✅
+export async function invalidateOrderToken(orderId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const { data, error } = await supabase
-    .from("recipes")
-    .insert([{ title, description, userId }])
-    .select();
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      isTokenUsed: true,
+    })
+    .eq("id", orderId);
 
   if (error) {
-    console.error("Errore nella creazione della ricetta", error);
-    throw new Error("Errore nella creazione della ricetta");
+    console.error("Errore nell'aggiornamento del token dell'ordine", error);
+    throw new Error("Errore nell'aggiornamento del token dell'ordine");
   }
 
   return true;

@@ -1,20 +1,20 @@
 # Applicazione web full stack in Next.js
 
-[Vesugusto](https://nextjs-vesugusto.vercel.app) è un progetto full stack, sviluppato con **Next.js** (`React framework`), e concepito come template e-commerce per la vendita di prodotti tipici vesuviani. Integra una sezione shop moderna, autenticazione, AI per la generazione di ricette personalizzate e tutte le funzionalità tipiche di una web app professionale.
+[Vesugusto](https://nextjs-vesugusto.vercel.app) è un progetto full stack, sviluppato con **Next.js** (`React framework`), e concepito come template e-commerce per la vendita di prodotti tipici vesuviani. Integra una sezione shop moderna, autenticazione e tutte le funzionalità tipiche di una web app professionale.
 
 ## Funzionalità principali
 
 - **Interfaccia moderna e responsive** sviluppata con **React** e **Tailwind CSS**, perfetta su qualsiasi dispositivo.
 - **Sistema di autenticazione** **`OAuth`** integrato tramite [Auth.js](https://authjs.dev/).
 - **Backend API** con [Supabase](https://supabase.com/) per contenuti dinamici e operazioni CRUD atomiche.
+- **Sezione area utente**.
 - **Sezione e-commerce** completa con:
   - Schede prodotto dettagliate.
-  - Possibilità di **filtrare** i prodotti e **ordinarli**.
+  - Possibilità di **ricercare**, **filtrare** e **ordinare** i prodotti.
   - **Paginazione** integrata per una navigazione ottimale.
   - Carrello.
   - Checkout simulato con integrazione ai **pagamenti** tramite [Stripe](https://stripe.com).
-- **Chat AI** basata su **`Gemini`** per suggerire ricette personalizzate, consentirne il salvataggio e il download.
-- **Dark mode** disponibile su tutta l’applicazione.
+- Versione **light e dark** basata sulle preferenze del dispositivo disponibile su tutta l’applicazione.
 - **Animazioni** fluide grazie a [Motion](https://motion.dev/).
 - **Ottimizzazione di immagini, SEO e performance** grazie alle funzionalità avanzate di Next.js.
 - **Sistema di routing e gestione delle pagine** dinamico e scalabile con Next.js.
