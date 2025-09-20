@@ -90,7 +90,7 @@ function Footer() {
 
       <div
         aria-label="Social media links"
-        className="text-primary-950 dark:text-primary-950/90 flex items-center gap-8 text-2xl"
+        className="text-primary-950 dark:text-primary-950/90 flex items-center gap-8 text-2xl dark:opacity-70"
       >
         {socialLinks.map((social) => (
           <Link

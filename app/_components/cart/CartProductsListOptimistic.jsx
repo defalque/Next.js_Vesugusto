@@ -163,6 +163,7 @@ function CartProductsListOptimistic({
             <CartSummary
               products={optimisticProducts}
               totalPrice={totalPrice + SHIPPING_COST}
+              isPending={isPending}
             >
               <Button
                 href="/cart/checkout"

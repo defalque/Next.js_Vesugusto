@@ -1,7 +1,7 @@
 import { ORDERS_LIMIT } from "@/app/_lib/constants";
 
 // Loading animation
-const shimmer =
+export const shimmer =
   "before:absolute before:inset-0 before:-translate-x-full rounded before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-zinc-500/20 dark:before:via-black/30 before:to-transparent";
 
 export function CartLinkSkeleton() {
@@ -516,27 +516,31 @@ export function ProductFiltersSkeleton() {
       {Array.from({ length: 2 }).map((_, i) => (
         <div key={i} className="flex flex-col">
           {/* Header Placeholder */}
-          <div
-            className={`${shimmer} relative mb-2 h-8 w-full overflow-hidden rounded bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
-          />
+          <div className="flex items-center justify-between">
+            <div
+              className={`${shimmer} relative mb-2 h-6 w-30 overflow-hidden rounded bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
+            />
+            <div
+              className={`${shimmer} relative mb-2 h-5 w-5 overflow-hidden rounded bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
+            />
+          </div>
 
           {/* Items Placeholder */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
             {Array.from({ length: 3 }).map((_, idx) => (
               <div key={idx} className="flex items-center gap-2">
                 {/* Fake checkbox */}
                 <div
-                  className={`${shimmer} relative h-4 w-4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-                />
-                {/* Label line */}
-                <div
-                  className={`${shimmer} relative h-4 w-20 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                  className={`${shimmer} relative mb-2 h-8 w-23 overflow-hidden rounded-2xl bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
                 />
               </div>
             ))}
           </div>
         </div>
       ))}
+      <div
+        className={`${shimmer} relative mb-2 h-8 w-23 overflow-hidden rounded-2xl bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
+      />
     </div>
   );
 }

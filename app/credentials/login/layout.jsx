@@ -5,7 +5,7 @@ function Layout({ children }) {
   const sizes = "(min-width: 80rem) 66.6vw, (min-width: 48rem) 54.5vw, 100vw";
 
   return (
-    <div className="grid h-screen grid-cols-1 grid-rows-[20rem_auto] gap-3 lg:h-screen lg:grid-cols-[1.2fr_1fr] lg:grid-rows-1 xl:grid-cols-[1.5fr_1fr]">
+    <div className="grid min-h-screen grid-cols-1 grid-rows-[20rem_auto] gap-3 lg:h-screen lg:grid-cols-[1.2fr_1fr] lg:grid-rows-1 xl:grid-cols-[1.5fr_1fr]">
       <section
         aria-labelledby="auth-page-heading"
         className="relative row-start-2 flex justify-center px-4 lg:row-start-1"

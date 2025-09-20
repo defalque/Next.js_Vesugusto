@@ -14,8 +14,8 @@ async function UserAvatar() {
 
   if (!session?.user) {
     return (
-      <NavLink href="/login" name="Login">
-        <span className="hidden md:inline">Account</span>
+      <NavLink href="/credentials/login" name="Login">
+        <span className="hidden md:inline">Accedi</span>
         <UserIcon className="dark:text-primary-50 inline size-6 text-black md:hidden" />
       </NavLink>
     );

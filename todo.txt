@@ -1,4 +1,5 @@
 homepage
+resend email (createOrder e simulateOrder) e comprare dominio
 stripe dashboard
 seo
 stripe webhook maybe?

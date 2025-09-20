@@ -5,6 +5,37 @@ import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { updateProfileSchema } from "./schemas/updateProfileSchema";
 import { redirect } from "next/navigation";
+import { resend } from "./resend";
+import { WelcomeEmail } from "../_components/ui/EmailTemplate";
+
+export async function createUser(email, name, image) {
+  const { error: createError } = await supabase.rpc(
+    "create_user_and_cart_atomic",
+    {
+      p_email: email,
+      p_name: name,
+      p_image: image,
+    },
+  );
+
+  // if (createError) {
+  //   console.error("Errore nella creazione dell'utente:", createError);
+  //   throw new Error("Impossibile creare l'utente.");
+  // }
+
+  const { emailError } = await resend.emails.send({
+    from: "Vesugusto <noreply@resend.dev>",
+    to: ["marcodefalco2017@libero.it"],
+    // to: [email],
+    subject: "Benvenuto su Vesugusto",
+    react: WelcomeEmail({ username: name }),
+  });
+
+  // if (emailError) {
+  //   console.error("Errore nell'invio dell'email di benvenuto:", emailError);
+  //   throw new Error("Impossibile inviare email di benvenuto.");
+  // }
+}
 
 //----------------------------------------------------------- ✅
 export async function googleSignInAction() {
@@ -382,6 +413,25 @@ export async function simulateOrder(userId, cartId, name, email, totalCost) {
     console.error("Errore nella creazione ordine atomica", error);
     throw new Error("Errore nella creazione ordine atomica");
   }
+
+  // ✅ Invio email al cliente dopo conferma ordine
+  // await resend.emails.send({
+  //   from: "Vesugusto <noreply@resend.dev>",
+  //   // to: [session.user.email],
+  //   to: ["marcodefalco2017@libero.it"],
+  //   subject: "Conferma del tuo ordine su Vesugusto",
+  //   react: ConfirmedOrderEmail({
+  //     username: session.user.name,
+  //     items: data.map((item) => ({
+  //       id: item.id,
+  //       name: item.product.name,
+  //       quantity: item.quantity,
+  //       price: formatCurrency(item.orderItemPrice),
+  //       image: item.product.image,
+  //     })),
+  //     total: formatCurrency(amount),
+  //   }),
+  // });
 }
 
 //----------------------------------------------------------- ✅

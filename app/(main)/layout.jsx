@@ -1,0 +1,35 @@
+import Header from "../_components/ui/header/Header";
+// import DemoTag from "./_components/ui/DemoTag";
+import { Toaster } from "react-hot-toast";
+import { toastStyle } from "../_lib/constants";
+import Footer from "../_components/ui/footer/Footer";
+
+function Layout({ children }) {
+  return (
+    <>
+      <Header></Header>
+
+      <div className="grid flex-1">
+        <main className="mx-auto w-full">{children}</main>
+      </div>
+
+      <Footer />
+
+      <Toaster
+        position="top-center"
+        gutter={12}
+        toastOptions={{
+          success: {
+            duration: 5000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: toastStyle,
+        }}
+      />
+    </>
+  );
+}
+
+export default Layout;

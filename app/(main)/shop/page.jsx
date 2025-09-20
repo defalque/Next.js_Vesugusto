@@ -1,11 +1,11 @@
 import { Suspense } from "react";
-import { getFilteredProductsCount } from "../_lib/data-service";
-import { ProductListSkeleton } from "../_components/ui/skeleton/Skeletons";
-import Pagination from "../_components/ui/Pagination";
-import ProductsList from "../_components/shop/ProductsList";
-import ProductHeading from "../_components/shop/ProductHeading";
-import { PRODUCTS_LIMIT } from "../_lib/constants";
-import ProductsClients from "../_components/shop/ProductsClients";
+import { getFilteredProductsCount } from "../../_lib/data-service";
+import { ProductListSkeleton } from "../../_components/ui/skeleton/Skeletons";
+import Pagination from "../../_components/ui/Pagination";
+import ProductsList from "../../_components/shop/ProductsList";
+import ProductHeading from "../../_components/shop/ProductHeading";
+import { PRODUCTS_LIMIT } from "../../_lib/constants";
+import ProductsClients from "../../_components/shop/ProductsClients";
 
 export const metadata = {
   title: "Shop",

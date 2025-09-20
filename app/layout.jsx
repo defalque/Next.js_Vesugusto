@@ -1,11 +1,6 @@
 import "@/app/_styles/globals.css";
 
 import { Nunito } from "next/font/google";
-import Header from "./_components/ui/header/Header";
-// import DemoTag from "./_components/ui/DemoTag";
-import { Toaster } from "react-hot-toast";
-import Footer from "./_components/ui/footer/Footer";
-import { toastStyle } from "./_lib/constants";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -31,31 +26,7 @@ function RootLayout({ children }) {
       <body
         className={`${nunito.className} bg-primary-50 text-primary-dark-900 dark:bg-primary-dark-950 flex min-h-screen flex-col antialiased dark:text-gray-200`}
       >
-        <Header></Header>
-
-        <div className="grid flex-1">
-          <main className="mx-auto w-full">{children}</main>
-        </div>
-
-        <Footer />
-
-        <div id="headlessui-portal-root">
-          {/* <!-- Rendered `Dialog` --> */}
-        </div>
-
-        <Toaster
-          position="top-center"
-          gutter={12}
-          toastOptions={{
-            success: {
-              duration: 5000,
-            },
-            error: {
-              duration: 5000,
-            },
-            style: toastStyle,
-          }}
-        />
+        {children}
       </body>
     </html>
   );

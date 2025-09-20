@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import { createUserAndCart, getCart, getUser } from "./app/_lib/data-service";
+import { createUser } from "./app/_lib/actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
@@ -14,11 +15,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       try {
         const existingUser = await getUser(user.email);
 
-        if (!existingUser)
-          await createUserAndCart(user.email, user.name, user.image);
+        if (!existingUser) await createUser(user.email, user.name, user.image);
 
         return true;
-      } catch {
+      } catch (err) {
+        console.error("Errore durante la creazione dell'utente:", err);
         return false;
       }
     },
@@ -59,6 +60,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   pages: {
-    signIn: "/login",
+    signIn: "credentials/login",
   },
 });

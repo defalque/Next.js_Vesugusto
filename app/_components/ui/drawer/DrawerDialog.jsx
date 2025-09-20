@@ -15,13 +15,15 @@ function DrawerDialog({ className, open, setOpen, children }) {
           <div className="pointer-events-none fixed inset-y-0 left-0 flex max-w-full">
             <DialogPanel
               transition
-              className="pointer-events-auto relative grid w-screen max-w-sm transform grid-cols-1 transition duration-500 ease-in-out data-closed:-translate-x-full sm:duration-700"
+              className="pointer-events-auto relative grid w-screen max-w-xs transform grid-cols-1 transition duration-500 ease-in-out data-closed:-translate-x-full sm:max-w-sm sm:duration-700"
             >
-              <div className={`relative flex h-full flex-col ${className}`}>
+              <div
+                className={`relative flex h-full flex-col gap-3 ${className}`}
+              >
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="focus cursor-pointer self-end rounded-full px-1 py-1 hover:bg-gray-100 dark:hover:bg-zinc-900"
+                  className="focus mr-2.5 cursor-pointer self-end rounded-full px-1 py-1 hover:bg-gray-100 dark:hover:bg-zinc-900"
                 >
                   <span className="sr-only">Chiudi filtri</span>
                   <XMarkIcon aria-hidden="true" className="size-8" />

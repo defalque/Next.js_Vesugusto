@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { CartProductsListSkeleton } from "../_components/ui/skeleton/Skeletons";
-import CartWrapper from "../_components/cart/CartWrapper";
+import { CartProductsListSkeleton } from "../../_components/ui/skeleton/Skeletons";
+import CartWrapper from "../../_components/cart/CartWrapper";
 
 export const metadata = {
   title: "Carrello",

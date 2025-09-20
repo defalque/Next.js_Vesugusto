@@ -1,11 +1,17 @@
 import { Suspense } from "react";
-import UserName from "../_components/account/UserName";
-import UpdateProfileFormWrapper from "../_components/account/UpdateProfileFormWrapper";
-import AccountHeading from "../_components/account/AccountHeading";
+// import UserName from "../_components/account/UserName";
+// import UpdateProfileFormWrapper from "../_components/account/UpdateProfileFormWrapper";
+// import {
+//   UpdateProfileFormSkeleton,
+//   UserNameSkeleton,
+// } from "../_components/ui/skeleton/Skeletons";
+import AccountHeading from "@/app/_components/account/AccountHeading";
+import UpdateProfileFormWrapper from "@/app/_components/account/UpdateProfileFormWrapper";
+import UserName from "@/app/_components/account/UserName";
 import {
   UpdateProfileFormSkeleton,
   UserNameSkeleton,
-} from "../_components/ui/skeleton/Skeletons";
+} from "@/app/_components/ui/skeleton/Skeletons";
 
 export const metadata = {
   title: "Account",

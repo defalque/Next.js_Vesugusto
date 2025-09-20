@@ -1,4 +1,8 @@
-import WelcomeEmail from "@/app/_components/ui/EmailTemplate";
+import {
+  ConfirmedOrderEmail,
+  OrderReceiptEmail,
+  WelcomeEmail,
+} from "@/app/_components/ui/EmailTemplate";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -6,10 +10,12 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST() {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Vesugusto <vesugustoteam@resend.dev>",
+      from: "Vesugusto <noreply@resend.dev>",
       to: ["marcodefalco2017@libero.it"],
       subject: "Benvenuto su Vesugusto",
-      react: WelcomeEmail({ username: "Marco" }),
+      // react: WelcomeEmail({ username: "Marco" }),
+      // react: OrderReceiptEmail({ username: "Marco De Falco" }),
+      react: ConfirmedOrderEmail({ username: "Marco" }),
     });
 
     if (error) {

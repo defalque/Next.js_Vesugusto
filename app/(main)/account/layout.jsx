@@ -1,5 +1,7 @@
-import ToggleMenu from "../_components/account/ToggleMenu";
-import SideNav from "../_components/account/SideNav";
+import SideNav from "@/app/_components/account/SideNav";
+import ToggleMenu from "@/app/_components/account/ToggleMenu";
+// import ToggleMenu from "../_components/account/ToggleMenu";
+// import SideNav from "../_components/account/SideNav";
 
 function Layout({ children }) {
   return (

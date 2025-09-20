@@ -1,10 +1,12 @@
 import { auth } from "@/auth";
-import { formatCurrency } from "../_lib/formatCurrency";
+import { formatCurrency } from "../../_lib/formatCurrency";
 import { redirect } from "next/navigation";
-import { getUserOrder } from "../_lib/data-service";
+import { getUserOrder } from "../../_lib/data-service";
 import Image from "next/image";
-import Button from "../_components/ui/Button";
-import { invalidateOrderToken } from "../_lib/actions";
+import Button from "../../_components/ui/Button";
+import { invalidateOrderToken } from "../../_lib/actions";
+import { resend } from "../../_lib/resend";
+import { ConfirmedOrderEmail } from "../../_components/ui/EmailTemplate";
 
 // http://localhost:3000/payment-success?amount=3500&payment_intent=pi_3S8IdZLSaUlqfQsn1h8FlkDH&payment_intent_client_secret=pi_3S8IdZLSaUlqfQsn1h8FlkDH_secret_6SKwHhIKMXeR3Zhy2VNhWS3L9&redirect_status=succeeded
 
@@ -41,6 +43,25 @@ async function Page({ searchParams }) {
   if (!ok) {
     redirect("/shop");
   }
+
+  // Invio email al cliente dopo conferma ordine
+  await resend.emails.send({
+    from: "Vesugusto <noreply@resend.dev>",
+    // to: [session.user.email], // in produzione
+    to: ["marcodefalco2017@libero.it"], // in sviluppo
+    subject: "Conferma del tuo ordine su Vesugusto",
+    react: ConfirmedOrderEmail({
+      username: session.user.name,
+      items: data.map((item) => ({
+        id: item.id,
+        name: item.product.name,
+        quantity: item.quantity,
+        price: formatCurrency(item.orderItemPrice),
+        image: item.product.image,
+      })),
+      total: formatCurrency(amount),
+    }),
+  });
 
   return (
     <div className="flex min-h-screen items-start justify-center px-5 py-10 md:px-30">

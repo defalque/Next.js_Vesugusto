@@ -2,7 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useTransition } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import Button from "./Button";
 
 function Pagination({ count, limit }) {
   const searchParams = useSearchParams();
@@ -82,31 +83,33 @@ function Pagination({ count, limit }) {
       {pageCount > 1 && (
         <div className="flex gap-2">
           {currentPage !== 1 && (
-            <PaginationButton
-              ariaLabel="Indietro"
+            <Button
+              aria-label="Indietro"
               onClick={() => {
                 startTransition(() => {
                   prevPage();
                 });
               }}
               disabled={isPending}
+              className="rounded-full p-3"
             >
-              <ChevronLeftIcon className="size-8 md:size-5" />
-            </PaginationButton>
+              <ArrowLeftIcon className="size-8 md:size-6" />
+            </Button>
           )}
 
           {currentPage !== pageCount && (
-            <PaginationButton
-              ariaLabel="Avanti"
+            <Button
+              aria-label="Avanti"
               onClick={() => {
                 startTransition(() => {
                   nextPage();
                 });
               }}
               disabled={isPending}
+              className="rounded-full p-3"
             >
-              <ChevronRightIcon className="size-8 md:size-5" />
-            </PaginationButton>
+              <ArrowRightIcon className="size-8 md:size-6" />
+            </Button>
           )}
         </div>
       )}
@@ -115,16 +118,3 @@ function Pagination({ count, limit }) {
 }
 
 export default Pagination;
-
-function PaginationButton({ onClick, ariaLabel, disabled, children }) {
-  return (
-    <button
-      className="dark:border-primary-dark-300 inset-shadow-primary-50/60 dark:hover:border-primary-dark-100 bg-primary-950 hover:bg-primary-800 dark:hover:bg-primary-950/40 dark:bg-primary-950/25 disabled:dark:text-primary-50 focus-visible:outline-primary-950 outline-primary-dark-100 dark:disabled:border-primary-dark-300 inline-flex cursor-pointer items-center rounded-lg px-4 py-1 font-semibold text-white inset-shadow-sm transition-colors duration-300 text-shadow-md/10 focus:outline focus-visible:outline-2 disabled:animate-pulse disabled:cursor-not-allowed disabled:text-white disabled:text-shadow-none md:py-2 dark:border dark:inset-shadow-none"
-      aria-label={ariaLabel}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-}

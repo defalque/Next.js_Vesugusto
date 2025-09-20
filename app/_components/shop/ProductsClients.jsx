@@ -26,7 +26,7 @@ function ProductsClients() {
 
         <section
           aria-label="Opzioni di ordinamento e azioni filtri"
-          className="sticky top-6 z-10 col-span-full col-start-2 row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 bg-transparent px-4 py-8 sm:flex-row md:top-11 lg:top-14 xl:px-20"
+          className="sticky top-10 z-10 col-span-full col-start-2 row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 bg-transparent px-4 py-6 sm:top-12 sm:flex-row sm:bg-white md:top-17 lg:top-17 xl:px-20 dark:sm:bg-black"
         >
           <Search placeholder="Cerca prodotto per nome..." />
 

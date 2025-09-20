@@ -6,7 +6,7 @@ function Header() {
   return (
     <header
       role="banner"
-      className="bg-primary-50 dark:bg-primary-dark-950 dark:border-b-dark-400 sticky top-0 left-0 z-50 flex items-center border-b border-gray-100 px-4 dark:border-zinc-900"
+      className="bg-primary-50 dark:bg-primary-dark-950 sticky top-0 left-0 z-50 flex items-center px-4"
     >
       {/* <NavbarMobile /> */}
       <nav aria-label="Menu principale (mobile)">

@@ -1,6 +1,8 @@
 "use client";
 
-import Button from "../_components/ui/Button";
+import Button from "@/app/_components/ui/Button";
+
+// import Button from "../_components/ui/Button";
 
 export default function Error({ error, reset }) {
   return (

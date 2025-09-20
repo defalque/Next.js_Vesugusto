@@ -12,7 +12,11 @@ function NavLink({
   children,
 }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  // const isActive = pathname === href;
+  const isActive =
+    href === "/shop" || href === "/account"
+      ? pathname === href
+      : pathname.startsWith(href);
 
   if (onClick) {
     return (

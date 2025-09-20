@@ -16,27 +16,34 @@ function ProductFilter({ name, items, filterField }) {
     <LazyMotion features={loadFeatures}>
       <m.div className="flex flex-col">
         <button
-          className="focus flex w-full cursor-pointer items-center rounded px-1 py-2 hover:bg-gray-100 dark:hover:bg-zinc-600/20"
+          className="focus flex w-full cursor-pointer items-center rounded px-1 py-2 text-zinc-400 transition-all duration-200 hover:text-black dark:text-zinc-300 dark:hover:text-white"
           onClick={() => setIsOpen((isOpen) => !isOpen)}
           aria-expanded={isOpen}
         >
-          <span className="text-xl lg:text-base">{name}</span>
+          <span className="text-xl font-bold uppercase lg:text-sm">{name}</span>
           {!isOpen ? (
-            <ChevronRightIcon className="ml-auto size-5" aria-hidden="true" />
+            <ChevronRightIcon
+              className="ml-auto size-5 text-black dark:text-white"
+              aria-hidden="true"
+            />
           ) : (
-            <ChevronDownIcon className="ml-auto size-5" aria-hidden="true" />
+            <ChevronDownIcon
+              className="ml-auto size-5 text-black dark:text-white"
+              aria-hidden="true"
+            />
           )}
         </button>
 
         <AnimatePresence initial={false}>
           {isOpen && (
             <m.div
+              style={{ overflow: "hidden" }}
               animate={{ height: "auto", opacity: 1 }}
-              initial={{ height: 0, opacity: 0 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ height: 0, opacity: 1 }}
+              exit={{ height: 0, opacity: 1 }}
               transition={{ duration: 0.3, type: "tween", ease: "easeOut" }}
             >
-              <div className="pb-3">
+              <div className="flex flex-wrap gap-x-4 gap-y-2 px-1 py-3">
                 {items.map((item) => (
                   <FilterInput
                     key={item.value}

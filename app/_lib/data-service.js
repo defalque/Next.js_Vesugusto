@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
-//----------------------------------------------------------- ✅
+//----------------------------------------------------------- ❌
 export async function createUserAndCart(email, name, image) {
   const { error } = await supabase.rpc("create_user_and_cart_atomic", {
     p_email: email,
