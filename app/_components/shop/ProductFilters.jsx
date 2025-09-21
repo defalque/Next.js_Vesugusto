@@ -2,6 +2,7 @@
 
 import { useFilterContext } from "@/app/_contexts/FiltersContext";
 import ProductFilter from "./ProductFilter";
+import Button from "../ui/Button";
 
 const category = [
   { value: "food", label: "Food" },
@@ -16,10 +17,12 @@ const price = [
 ];
 
 function ProductFilters() {
-  const { router, pathname, searchParams } = useFilterContext();
+  const { router, pathname, searchParams, query, setQuery } =
+    useFilterContext();
 
   const handleReset = () => {
     router.push(pathname);
+    setQuery("");
   };
 
   const hasFilters = Array.from(searchParams.entries()).length > 0;
@@ -29,13 +32,15 @@ function ProductFilters() {
       <ProductFilter name="Categoria" items={category} filterField="category" />
       <ProductFilter name="Prezzo" items={price} filterField="price" />
 
-      <button
+      <Button
         onClick={handleReset}
         disabled={!hasFilters}
-        className="focus-visible:ring-primary-950 bg-primary-950 border-primary-950 mt-3 ml-2 cursor-pointer self-start rounded-2xl border px-6 py-1 text-lg font-semibold text-gray-100 transition-colors duration-200 hover:border-gray-200 hover:bg-transparent hover:text-black focus:ring-offset-2 focus:outline-none focus-visible:ring-3 disabled:cursor-not-allowed dark:border-gray-100 dark:bg-gray-100 dark:text-black dark:hover:text-gray-100"
+        className="mt-3 ml-2 self-start rounded-2xl px-4 py-1"
+        //   className="focus-visible:ring-primary-950 bg-primary-950 border-primary-950 mt-3 ml-2 cursor-pointer self-start rounded-2xl border px-6 py-1 text-base font-semibold text-gray-100 transition-colors duration-200 hover:border-gray-200 hover:bg-transparent hover:text-black focus:ring-offset-2 focus:outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:border-zinc-800 disabled:bg-white disabled:text-black dark:border-gray-100 dark:bg-gray-100 dark:text-black dark:hover:text-gray-100 dark:disabled:bg-black dark:disabled:text-white"
+        // >
       >
         Reset
-      </button>
+      </Button>
     </div>
   );
 }

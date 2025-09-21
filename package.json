@@ -19,7 +19,7 @@
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.3.0",
     "@supabase/supabase-js": "^2.49.4",
-    "motion": "^12.16.0",
+    "motion": "^12.23.16",
     "next": "15.3.2",
     "next-auth": "^5.0.0-beta.28",
     "react": "^19.0.0",

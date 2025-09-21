@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 const FilterContext = createContext();
@@ -9,11 +15,16 @@ export function FiltersProvider({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const initialQuery = searchParams.get("query") || "";
+    setQuery(initialQuery);
+  }, [searchParams]);
 
   const createQueryString = useCallback(
     (filterField, value) => {
       const params = new URLSearchParams(searchParams.toString());
-      const currentValues = params.get(filterField)?.split(",") ?? [];
 
       params.set("page", "1");
 
@@ -67,6 +78,8 @@ export function FiltersProvider({ children }) {
         pathname,
         searchParams,
         createQueryString,
+        query,
+        setQuery,
       }}
     >
       {children}

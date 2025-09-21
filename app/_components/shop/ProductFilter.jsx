@@ -16,19 +16,21 @@ function ProductFilter({ name, items, filterField }) {
     <LazyMotion features={loadFeatures}>
       <m.div className="flex flex-col">
         <button
-          className="focus flex w-full cursor-pointer items-center rounded px-1 py-2 text-zinc-400 transition-all duration-200 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+          className="focus flex w-full cursor-pointer items-center rounded px-2 py-2 text-zinc-600 transition-all duration-200 hover:text-black dark:text-zinc-300 dark:hover:text-white"
           onClick={() => setIsOpen((isOpen) => !isOpen)}
           aria-expanded={isOpen}
         >
-          <span className="text-xl font-bold uppercase lg:text-sm">{name}</span>
+          <span className="_font-bold text-lg font-semibold lg:text-sm">
+            {name}
+          </span>
           {!isOpen ? (
             <ChevronRightIcon
-              className="ml-auto size-5 text-black dark:text-white"
+              className="ml-auto size-4 text-black dark:text-white"
               aria-hidden="true"
             />
           ) : (
             <ChevronDownIcon
-              className="ml-auto size-5 text-black dark:text-white"
+              className="ml-auto size-4 text-black dark:text-white"
               aria-hidden="true"
             />
           )}

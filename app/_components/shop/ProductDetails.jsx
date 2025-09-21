@@ -36,7 +36,7 @@ async function ProductDetails({ product }) {
         {formatCurrency(product.regularPrice)}
       </span>
 
-      <p className="_lg:text-lg/7.5 text-base/7.5 text-zinc-500 dark:text-gray-300">
+      <p className="_md:text-base/7.5 text-sm/6 font-medium tracking-wide text-zinc-500 dark:text-gray-300">
         {product.description}
       </p>
 

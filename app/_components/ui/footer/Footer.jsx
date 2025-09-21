@@ -70,7 +70,7 @@ function Footer() {
   return (
     <footer
       aria-label="Informazioni sul sito"
-      className="flex flex-col items-center gap-10 border-t border-gray-100 px-4 py-10 dark:border-zinc-900"
+      className="flex flex-col items-center gap-8 border-t border-gray-100 px-4 py-10 dark:border-zinc-900"
     >
       <div>
         <Logo complete isFooter />
@@ -107,7 +107,7 @@ function Footer() {
         ))}
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-1 text-center text-sm md:flex-row md:gap-2">
+      <div className="flex flex-col items-center justify-center gap-1 text-center text-xs md:flex-row md:gap-2">
         <span>
           © {new Date().getFullYear()} Vesugusto, Inc. Tutti i diritti
           riservati.

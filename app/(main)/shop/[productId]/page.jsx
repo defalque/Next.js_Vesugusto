@@ -38,7 +38,7 @@ export default async function Page({ params }) {
   }
 
   const breadcrumbs = [
-    { label: "Prodotti", href: "/shop" },
+    { label: "Shop", href: "/shop" },
     { label: product.name, href: `/shop/${product.id}`, active: true },
   ];
 

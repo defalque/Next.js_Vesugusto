@@ -25,14 +25,14 @@ async function UserAvatar() {
   const userName = session?.user?.name || "User";
 
   return (
-    <NavLink href="/account" name="Account">
+    <NavLink href="/account" name="Account" isAvatar>
       <Image
         src={userImage}
-        className="_hover:brightness-95 size-7 cursor-pointer rounded-full md:size-6"
+        className="_size-6 cursor-pointer rounded-full hover:brightness-95"
         alt={`Immagine del profilo di ${userName}`}
         referrerPolicy="no-referrer"
-        width={32}
-        height={32}
+        width={26}
+        height={26}
       />
     </NavLink>
   );

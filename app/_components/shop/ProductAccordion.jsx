@@ -18,7 +18,7 @@ function ProductAccordion({ productAttribute, label }) {
           className="focus my-1 flex cursor-pointer items-center rounded py-3"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span className="text-base font-medium lg:text-lg">{label}</span>
+          <span className="text-lg font-medium">{label}</span>
 
           {/* Icon */}
           <span className="relative mr-2 ml-auto h-3.5 w-3.5 lg:h-5 lg:w-5">
@@ -43,7 +43,7 @@ function ProductAccordion({ productAttribute, label }) {
               className="overflow-hidden"
             >
               <div className="pb-4">
-                <p className="rounded-lg bg-zinc-200/40 p-2 text-left text-sm/7 whitespace-pre-line text-zinc-800 lg:text-base/8 dark:bg-zinc-900/80 dark:text-gray-50">
+                <p className="_bg-zinc-200/40 _dark:bg-zinc-900/80 _lg:text-base/8 rounded-lg py-2 text-left text-sm/6 tracking-wide whitespace-pre-line text-zinc-800 dark:text-gray-50">
                   {productAttribute}
                 </p>
               </div>

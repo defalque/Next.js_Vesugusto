@@ -16,7 +16,7 @@ function ProductImages({ product }) {
   return (
     <section
       aria-label={`Immagini prodotto ${product.name}`}
-      className="flex items-start gap-x-5"
+      className="sticky top-17 flex items-start gap-x-5"
     >
       <SelectedImageContextProvider
         key={product.image.length}

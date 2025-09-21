@@ -7,7 +7,7 @@ function AccountHeading({ children, title, text, accessibleLabel }) {
     >
       <h1
         id={accessibleLabel}
-        className="text-primary-dark-900 inline-flex flex-wrap items-center gap-2 text-3xl font-medium md:text-5xl dark:text-gray-200"
+        className="text-primary-dark-900 inline-flex max-w-fit min-w-fit flex-wrap items-center gap-2 text-3xl font-medium md:text-5xl dark:text-gray-200"
       >
         {children || title}
       </h1>

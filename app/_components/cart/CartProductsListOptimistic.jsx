@@ -54,7 +54,7 @@ function CartProductsListOptimistic({
           <h2 className="xs:text-3xl text-2xl sm:text-4xl">
             Ops! Il carrello è vuoto.
           </h2>
-          <p className="xs:text-base max-w-2xl text-sm text-zinc-700 sm:text-lg dark:text-gray-200">
+          <p className="max-w-xl text-sm text-zinc-700 dark:text-gray-300">
             Sembra che tu non abbia ancora scelto nulla. Hai bisogno di
             ispirazione? Dai un’occhiata ai nostri prodotti più amati.
           </p>

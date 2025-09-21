@@ -13,7 +13,7 @@ const links = [
 
 function Navbar() {
   return (
-    <ul className="flex items-center justify-center gap-5 md:gap-10">
+    <ul className="_gap-5 _md:gap-5 flex items-center justify-center space-x-2">
       {links.map((link) => (
         <NavLink key={link.href} name={link.name} href={link.href} />
       ))}

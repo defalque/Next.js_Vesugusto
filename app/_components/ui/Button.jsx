@@ -22,7 +22,7 @@ function Button({
             e.preventDefault();
           }
         }}
-        className={`${className} dark:border-primary-dark-300 dark:hover:border-primary-dark-100 bg-primary-950 hover:bg-primary-800 dark:hover:bg-primary-950/40 dark:bg-primary-950/25 disabled:dark:text-primary-50 focus-visible:outline-primary-950 outline-primary-dark-100 disabled:bg-primary-800 dark:disabled:bg-primary-950/40 inset-shadow-primary-50/60 inline-flex items-center text-white inset-shadow-sm outline-offset-2 transition-colors duration-300 focus:ring-offset-2 focus:outline focus-visible:ring-offset-transparent focus-visible:outline-2 dark:inset-shadow-none ${disabled ? "dark:disabled:border-primary-dark-500 animate-pulse cursor-not-allowed text-shadow-none" : "cursor-pointer"} dark:border dark:text-shadow-md/10`}
+        className={`${className} dark:border-primary-dark-300 dark:hover:border-primary-dark-100 bg-primary-950 hover:bg-primary-800 dark:hover:bg-primary-950/40 dark:bg-primary-950/25 disabled:dark:text-primary-50 focus-visible:outline-primary-950 outline-primary-dark-100 disabled:bg-primary-800 dark:disabled:bg-primary-950/40 inset-shadow-primary-50/60 inline-flex items-center text-white inset-shadow-sm ring-offset-transparent outline-offset-2 transition-colors duration-300 focus:ring-offset-2 focus:outline focus-visible:outline-2 dark:inset-shadow-none ${disabled ? "dark:disabled:border-primary-dark-500 animate-pulse cursor-not-allowed text-shadow-none" : "cursor-pointer"} dark:border dark:text-shadow-md/10`}
       >
         {children}
       </Link>

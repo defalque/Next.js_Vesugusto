@@ -30,10 +30,10 @@ export default async function Page({ searchParams }) {
   const isPageOutOfBounds = Number(filters.page) > totalPages;
 
   return (
-    <div className="my-5 grid min-h-screen grid-cols-1 grid-rows-[auto_auto_1fr] overflow-visible lg:grid-cols-[auto_1fr]">
+    <div className="my-2 grid min-h-screen grid-cols-1 grid-rows-[auto_auto_1fr] overflow-visible [--page-padding-x:--spacing(8)] [--sm-page-padding-x:--spacing(4)] lg:grid-cols-[auto_1fr]">
       <section
         aria-labelledby="heading-ecommerce"
-        className="col-span-full col-start-2 row-start-1 bg-white px-4 xl:px-20 dark:bg-black"
+        className="col-span-full col-start-2 row-start-1 bg-white px-(--sm-page-padding-x) xl:px-(--page-padding-x) dark:bg-black"
       >
         <ProductHeading />
       </section>
@@ -46,7 +46,7 @@ export default async function Page({ searchParams }) {
         aria-labelledby="product-results-heading"
         className="col-span-full col-start-2 row-start-3"
       >
-        <div className="flex flex-col gap-10 px-4 pt-5 pb-15 xl:px-20">
+        <div className="flex flex-col gap-10 px-(--sm-page-padding-x) pt-5 pb-15 xl:px-(--page-padding-x)">
           <h2 id="product-results-heading" className="sr-only">
             Risultati prodotti
           </h2>

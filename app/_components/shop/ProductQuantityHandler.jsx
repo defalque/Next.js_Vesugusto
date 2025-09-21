@@ -20,7 +20,7 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
 
   return (
     <div className="flex items-center gap-3">
-      <label htmlFor="quantity" className="font-semibold">
+      <label htmlFor="quantity" className="sr-only font-semibold">
         Seleziona quantità:
       </label>
       <div className="flex items-center gap-2">

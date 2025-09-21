@@ -6,23 +6,22 @@ function Header() {
   return (
     <header
       role="banner"
-      className="bg-primary-50 dark:bg-primary-dark-950 sticky top-0 left-0 z-50 flex items-center px-4"
+      className="bg-primary-50 dark:bg-primary-dark-950 sticky top-0 left-0 z-150 flex items-center px-4 py-2 md:py-0"
     >
       {/* <NavbarMobile /> */}
-      <nav aria-label="Menu principale (mobile)">
-        <ToggleNavbarMobile />
-      </nav>
 
       <Logo complete />
 
-      <div className="ml-auto flex gap-4 sm:gap-8 md:gap-16">
+      <div className="ml-auto">
         <nav
           aria-label="Menu principale (desktop)"
-          className="z-10 mx-auto w-full text-lg font-normal"
+          className="z-150 mx-auto w-full text-lg font-normal"
         >
           <Navbar />
         </nav>
       </div>
+
+      <ToggleNavbarMobile />
     </header>
   );
 }

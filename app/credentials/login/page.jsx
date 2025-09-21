@@ -1,7 +1,7 @@
-import Logo from "@/app/_components/ui/Logo";
+// import Logo from "@/app/_components/ui/Logo";
 import SignIn from "../../_components/ui/SignIn";
 import Link from "next/link";
-import LogoImage from "@/app/_components/ui/LogoImage";
+// import LogoImage from "@/app/_components/ui/LogoImage";
 
 export const metadata = {
   title: "Login",
@@ -13,9 +13,9 @@ export default function Page() {
   return (
     <section
       aria-labelledby="auth-page-form"
-      className="flex flex-col items-center gap-8 px-4 py-5 md:px-1 lg:gap-12 lg:py-0"
+      className="flex flex-col items-center justify-center gap-8 px-4 py-5 md:px-1 lg:gap-12 lg:py-0"
     >
-      <LogoImage width={150} height={150} />
+      {/* <LogoImage width={150} height={150} /> */}
       <h2
         id="auth-page-form"
         className="text-center text-3xl font-semibold text-wrap sm:text-4xl md:text-3xl xl:text-4xl"

@@ -5,7 +5,7 @@ import {
 
 function AccountHeader({ isOpen, setIsOpen }) {
   return (
-    <section className="sticky top-12 z-10 col-start-2 row-start-1 bg-transparent text-right md:top-17">
+    <section className="fixed top-14 right-0 z-10 col-start-2 row-start-1 bg-transparent text-right md:top-17 md:right-0">
       <div className="px-4 py-2 xl:px-20">
         <button
           className="focus dark:bg-primary-dark-950/20 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-2 py-1 text-sm backdrop-blur-sm hover:bg-gray-100 sm:text-base dark:hover:bg-zinc-900"

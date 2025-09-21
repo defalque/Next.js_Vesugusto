@@ -27,7 +27,7 @@ export default function Page() {
         text="Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
           tue informazioni personali."
       >
-        Benvenuto{" "}
+        Ciao{" "}
         <Suspense fallback={<UserNameSkeleton />}>
           <UserName />
         </Suspense>

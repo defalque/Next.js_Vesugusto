@@ -1,6 +1,6 @@
 # Applicazione web full stack in Next.js
 
-[Vesugusto](https://nextjs-vesugusto.vercel.app) è un progetto full stack, sviluppato con [Next.js](https://nextjs.org)(`React framework`), e concepito come e-commerce per la vendita di prodotti tipici vesuviani. Integra sistema di autenticazione, una sezione shop moderna e tutte le funzionalità tipiche di una e-commerce professionale.
+[Vesugusto](https://nextjs-vesugusto.vercel.app) è un progetto full stack, sviluppato con [Next.js](https://nextjs.org)(`React framework`), e concepito come e-commerce per la vendita di prodotti tipici vesuviani. Integra sistema di autenticazione, una sezione shop moderna e tutte le funzionalità tipiche di un e-commerce professionale.
 
 ## Funzionalità principali
 

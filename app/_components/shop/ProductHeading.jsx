@@ -1,6 +1,6 @@
 function ProductHeading() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="mt-3 flex flex-col gap-5 sm:mt-0">
       <h1
         id="heading-ecommerce"
         className="xs:text-4xl text-3xl font-medium tracking-wide lg:text-5xl"

@@ -26,8 +26,8 @@ const navLinks = [
 
 function SideNav() {
   return (
-    <nav className="sticky top-14.5 h-[calc(100vh-5.6rem)] md:top-22 md:h-[calc(100vh-6.6rem)]">
-      <ul className="flex h-full flex-col gap-2 text-lg">
+    <nav className="sticky top-18 h-[calc(100vh-5.6rem)] md:top-22 md:h-[calc(100vh-6.6rem)]">
+      <ul className="mt-3 flex h-full flex-col gap-2 py-1 text-lg md:py-0">
         <NavLinks navLinks={navLinks} />
 
         <li className="mt-auto">

@@ -37,7 +37,7 @@ export default async function Page({ searchParams }) {
           prodotti simili."
       />
 
-      <section className="sticky top-26 z-10 flex w-full justify-end gap-5 bg-transparent md:top-30">
+      <section className="flex w-full justify-end gap-5">
         <FiltersProvider>
           <Search placeholder="Cerca ordine per numero..." />
         </FiltersProvider>

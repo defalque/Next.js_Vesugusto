@@ -2,10 +2,16 @@
 
 import { useFilterContext } from "@/app/_contexts/FiltersContext";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function Search({ placeholder }) {
-  const { router, pathname, searchParams } = useFilterContext();
+  const { router, pathname, searchParams, query, setQuery } =
+    useFilterContext();
+
+  // useEffect(() => {
+  //   handleSearch(query);
+  // }, [query]);
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
@@ -29,8 +35,9 @@ export default function Search({ placeholder }) {
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);
+          setQuery(e.target.value);
         }}
-        defaultValue={searchParams.get("query")?.toString()}
+        value={query}
       />
       <MagnifyingGlassIcon
         aria-hidden="true"

@@ -10,7 +10,7 @@ function Layout({ children }) {
         <SideNav />
       </ToggleMenu>
 
-      <div className="row-start2 col-start-2 flex-1 px-4 py-2 xl:px-20">
+      <div className="row-start2 col-start-2 mt-4 flex-1 px-4 py-2 xl:px-10">
         {children}
       </div>
     </div>

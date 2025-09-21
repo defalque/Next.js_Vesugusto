@@ -32,7 +32,7 @@ export async function ProductsList({ filters }) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-x-14 gap-y-20 transition-all duration-3000 ease-in-out sm:grid-cols-3 lg:gap-y-30">
+    <div className="grid grid-cols-2 gap-x-14 gap-y-15 transition-all duration-3000 ease-in-out sm:grid-cols-3 lg:gap-y-25">
       {products.map((product, index) => (
         <ProductCard key={product.id} product={product} priority={index <= 2}>
           <FavoriteButton
