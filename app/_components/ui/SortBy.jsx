@@ -27,7 +27,7 @@ function SortBy() {
           router.push(pathname + "?" + createQueryString("sort", value));
         }}
         className={
-          "data-focus:outline-primary-950 focus block h-full w-full appearance-none rounded-xl border border-gray-200 px-3 py-1.5 text-base/6 text-black *:text-black dark:border-zinc-700 dark:text-white"
+          "data-focus:ring-primary-950 data-focus:outline-primary-950 focus-visible:outline-primary-950 darak:data-active:border-zinc-600 block h-full w-full cursor-pointer appearance-none rounded-xl border border-gray-200 px-3 py-1.5 text-base/6 text-black transition-all duration-200 *:text-black data-active:shadow data-hover:shadow dark:border-zinc-700 dark:text-white dark:data-hover:border-zinc-600"
         }
       >
         <option value="default">Ordina</option>

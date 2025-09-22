@@ -12,10 +12,10 @@ function ToggleNavbar({ children }) {
   const { isOpen, setIsOpen } = useMobileNavbarContext();
 
   return (
-    <nav className="relative md:hidden">
+    <nav className="relative flex items-baseline md:hidden">
       <button
         aria-label={`Apri menu di navigazione mobile`}
-        className="focus:outline-primary-950 inline-flex cursor-pointer rounded-xl px-2 py-1.5 hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+        className="focus-visible:ring-primary-950 inline-flex cursor-pointer rounded-xl px-2 py-1.5 hover:bg-gray-200/80 focus-visible:ring-2 focus-visible:outline-none active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
         onClick={() => setIsOpen(!isOpen)}
         aria-pressed={isOpen}
       >

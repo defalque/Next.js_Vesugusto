@@ -11,7 +11,7 @@ export const metadata = {
 export default function Page() {
   return (
     <div className="my-5 flex min-h-screen flex-col gap-8 px-4 xl:px-20">
-      <h1 className="xs:text-4xl col-span-full text-3xl font-medium tracking-wide lg:text-5xl">
+      <h1 className="xs:text-4xl col-span-full text-3xl font-semibold tracking-wide sm:font-medium lg:text-5xl">
         Il mio carrello
       </h1>
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function SignIn() {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-4 sm:gap-x-6">
       <form action={githubSignInAction}>
         <button
           aria-label="Accedi con GitHub"

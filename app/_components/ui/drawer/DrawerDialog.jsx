@@ -31,7 +31,7 @@ function DrawerDialog({
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="focus mr-2.5 cursor-pointer self-end rounded-xl px-2 py-1.5 hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+                  className="focus-visible:ring-primary-950 mr-2.5 cursor-pointer self-end rounded-xl px-2 py-1.5 hover:bg-gray-200/80 focus-visible:ring-2 focus-visible:outline-none active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
                 >
                   <span className="sr-only">
                     {direction === "left"

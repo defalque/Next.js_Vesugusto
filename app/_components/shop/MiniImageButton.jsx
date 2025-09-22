@@ -9,7 +9,7 @@ function MiniImageButton({ index, name, children }) {
 
   return (
     <button
-      className="focus relative h-17 w-11"
+      className="focus relative h-17 w-11 outline-offset-2"
       aria-label={`Seleziona immagine ${index + 1} di ${name}`}
       disabled={isSelected}
       aria-pressed={isSelected}

@@ -26,7 +26,7 @@ function FilterInput({ label, value, filterField }) {
   // };
 
   const baseClasses =
-    "cursor-pointer rounded-xl _border px-4 py-1 text-base transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-950";
+    "cursor-pointer rounded-xl px-4 py-1 text-base transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-950";
   const lightThemeClasses = isChecked
     ? "bg-gray-200/80  _text-black"
     : "border-gray-200 hover:bg-gray-200/80 active:bg-gray-200/80";

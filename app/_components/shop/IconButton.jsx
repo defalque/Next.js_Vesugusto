@@ -7,7 +7,7 @@ function IconButton({ length, children, ...props }) {
 
   return (
     <button
-      className="focus cursor-pointer rounded"
+      className="focus focus-visible:ring-primary-950 focus-visibile:ring-offset-2 cursor-pointer rounded-full bg-white/50 p-2 focus-visible:ring-4"
       onClick={() => setSelectedIndex((selectedIndex - 1 + length) % length)}
       {...props}
     >
