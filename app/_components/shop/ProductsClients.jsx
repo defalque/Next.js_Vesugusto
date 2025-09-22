@@ -30,7 +30,7 @@ function ProductsClients() {
         >
           <Search placeholder="Cerca prodotto per nome..." />
 
-          <div className="flex items-center justify-end gap-5 self-end">
+          <div className="_self-end flex items-center justify-end gap-5 self-stretch">
             <SortBy />
 
             <ToggleFilters>

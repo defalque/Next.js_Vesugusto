@@ -4,37 +4,44 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { SignOut } from "../ui/SignOut";
-import NavLinks from "./NavLinks";
+import AccountNavLinks from "./AccountNavLinks";
 
 const navLinks = [
   {
     name: "Il mio profilo",
     href: "/account",
-    icon: <UserIcon className="size-6 lg:size-5" />,
+    icon: <UserIcon aria-hidden className="size-4.5 sm:size-6 lg:size-5" />,
   },
   {
     name: "I miei ordini",
     href: "/account/orders",
-    icon: <ClipboardDocumentIcon className="size-6 lg:size-5" />,
+    icon: (
+      <ClipboardDocumentIcon
+        aria-hidden
+        className="size-4.5 sm:size-6 lg:size-5"
+      />
+    ),
   },
   {
     name: "I miei preferiti",
     href: "/account/favorites",
-    icon: <HeartIcon className="size-6 lg:size-5" />,
+    icon: <HeartIcon aria-hidden className="size-4.5 sm:size-6 lg:size-5" />,
   },
 ];
 
 function SideNav() {
   return (
-    <nav className="sticky top-18 h-[calc(100vh-5.6rem)] md:top-22 md:h-[calc(100vh-6.6rem)]">
-      <ul className="mt-3 flex h-full flex-col gap-2 py-1 text-lg md:py-0">
-        <NavLinks navLinks={navLinks} />
+    <aside className="no-scrollbar sticky top-13 z-150 flex h-fit overflow-x-auto bg-white px-1 py-4 sm:top-16 sm:h-[calc(100vh-4rem)] sm:w-fit sm:px-5 sm:py-2 dark:bg-black">
+      <nav className="grow">
+        <ul className="_sm:text-sm flex h-full min-w-full snap-x scroll-pl-1 flex-row justify-center gap-1 text-base sm:flex-col sm:gap-1">
+          <AccountNavLinks navLinks={navLinks} />
 
-        <li className="mt-auto">
-          <SignOut />
-        </li>
-      </ul>
-    </nav>
+          <li className="mt-0 mb-0 snap-start sm:mt-auto sm:mb-4">
+            <SignOut />
+          </li>
+        </ul>
+      </nav>
+    </aside>
   );
 }
 

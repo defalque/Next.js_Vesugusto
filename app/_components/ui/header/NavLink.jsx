@@ -26,7 +26,7 @@ function NavLink({
           aria-current={isActive ? "page" : undefined}
           aria-label={name}
           href={href}
-          className="focus w-full rounded py-3 text-center transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-zinc-900"
+          className="focus w-full rounded py-3 text-center transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
           onClick={onClick}
         >
           {name}
@@ -46,9 +46,9 @@ function NavLink({
             isAvatar
               ? ""
               : isActive
-                ? "bg-gray-100 text-black dark:bg-zinc-900 dark:text-white"
-                : "hover:bg-gray-100 dark:hover:bg-zinc-900"
-          } ${isAside ? "_text-base inline-flex w-full items-center lg:space-x-3" : ""} rounded-xl px-2 py-1.5 text-sm font-semibold transition-colors duration-300 md:px-3 dark:cursor-pointer dark:hover:text-white`}
+                ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white"
+                : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+          } ${isAside ? "_text-base inline-flex w-full items-center justify-center md:justify-start lg:space-x-3" : ""} rounded-xl px-2 py-1.5 text-sm font-semibold transition-colors duration-300 active:text-white md:px-3 dark:cursor-pointer dark:hover:text-white`}
         >
           {children}
         </Link>
@@ -59,13 +59,13 @@ function NavLink({
   return (
     <>
       <li
-        className={`${isFooter ? "" : "_text-sm hidden py-5 font-semibold"} text-sm md:inline`}
+        className={`${isFooter ? "" : "_text-sm _font-semibold hidden py-5"} text-base md:inline`}
       >
         <Link
           aria-current={isActive ? "page" : undefined}
           aria-label={name}
           href={href}
-          className={`focus relative ${isActive && !isFooter ? "bg-gray-100 text-black dark:bg-zinc-900 dark:text-white" : "hover:bg-gray-100 dark:hover:bg-zinc-900"} rounded-xl px-3 py-1.5 transition-colors duration-300 dark:cursor-pointer dark:hover:text-white`}
+          className={`focus relative ${isActive && !isFooter ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white" : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"} rounded-xl px-3 py-1.5 transition-colors duration-300 dark:cursor-pointer dark:hover:text-white`}
         >
           {name}
         </Link>

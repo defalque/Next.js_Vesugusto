@@ -31,11 +31,16 @@ export function DynamicLinksSkeleton() {
 
 function ProductCardSkeleton() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       {/* Image Placeholder */}
+      {/* <div
+        className={`${shimmer} _-mx-(--sm-page-padding-x) relative aspect-2/3 w-full overflow-hidden rounded-none bg-gray-200 sm:-mx-0 sm:rounded-lg dark:bg-zinc-700`}
+      /> */}
       <div
-        className={`${shimmer} relative mb-2 aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
-      />
+        className={`${shimmer} focus relative -mx-(--sm-page-padding-x) overflow-hidden rounded-none sm:mx-0`}
+      >
+        <div className="aspect-2/3 w-full rounded-none bg-gray-200 sm:rounded-lg dark:bg-zinc-700" />
+      </div>
 
       {/* Title and Button Row */}
       <div className="mb-1 flex items-center py-0.5">
@@ -52,9 +57,9 @@ function ProductCardSkeleton() {
         <div
           className={`${shimmer} relative h-4 w-20 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
         />
-        <div
+        {/* <div
           className={`${shimmer} relative ml-auto h-3 w-16 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-        />
+        /> */}
       </div>
     </div>
   );
@@ -62,7 +67,7 @@ function ProductCardSkeleton() {
 
 export function ProductListSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-x-14 gap-y-20 transition-all duration-3000 ease-in-out sm:grid-cols-3 lg:gap-y-30">
+    <div className="grid grid-cols-2 gap-x-14 gap-y-15 transition-all duration-3000 ease-in-out sm:grid-cols-3 lg:gap-y-25">
       <ProductCardSkeleton />
       <ProductCardSkeleton />
       <ProductCardSkeleton />

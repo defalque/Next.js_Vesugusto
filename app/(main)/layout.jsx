@@ -9,7 +9,7 @@ function Layout({ children }) {
     <>
       <Header></Header>
 
-      <div className="grid flex-1">
+      <div className="_grid flex-1">
         <main className="mx-auto w-full">{children}</main>
       </div>
 

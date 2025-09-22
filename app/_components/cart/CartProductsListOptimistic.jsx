@@ -121,7 +121,7 @@ function CartProductsListOptimistic({
 
                     <div className="-col-start-1 row-start-1">
                       <DeleteCartItem
-                        className="focus ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-100 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-800"
+                        className="focus ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
                         handleDeleteCartItem={() => {
                           startTransition(async () => {
                             try {

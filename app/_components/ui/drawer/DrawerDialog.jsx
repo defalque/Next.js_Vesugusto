@@ -3,7 +3,13 @@
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-function DrawerDialog({ className, open, setOpen, children }) {
+function DrawerDialog({
+  className,
+  open,
+  setOpen,
+  direction = "left",
+  children,
+}) {
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-1000 lg:hidden">
       <DialogBackdrop
@@ -12,10 +18,12 @@ function DrawerDialog({ className, open, setOpen, children }) {
       />
       <div className="fixed inset-0 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="pointer-events-none fixed inset-y-0 left-0 flex max-w-full">
+          <div
+            className={`${direction === "left" ? "left-0" : "right-0"} pointer-events-none fixed inset-y-0 flex max-w-full`}
+          >
             <DialogPanel
               transition
-              className="pointer-events-auto relative grid w-screen max-w-xs transform grid-cols-1 transition duration-500 ease-in-out data-closed:-translate-x-full sm:max-w-sm sm:duration-700"
+              className={`pointer-events-auto relative grid w-screen max-w-xs transform grid-cols-1 transition duration-500 ease-in-out ${direction === "left" ? "data-closed:-translate-x-full" : "data-closed:translate-x-full"} sm:max-w-sm sm:duration-700`}
             >
               <div
                 className={`relative flex h-full flex-col gap-3 ${className}`}
@@ -23,10 +31,14 @@ function DrawerDialog({ className, open, setOpen, children }) {
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="focus mr-2.5 cursor-pointer self-end rounded-full px-1 py-1 hover:bg-gray-100 dark:hover:bg-zinc-900"
+                  className="focus mr-2.5 cursor-pointer self-end rounded-xl px-2 py-1.5 hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
                 >
-                  <span className="sr-only">Chiudi filtri</span>
-                  <XMarkIcon aria-hidden="true" className="size-8" />
+                  <span className="sr-only">
+                    {direction === "left"
+                      ? "Chiudi filtri"
+                      : "Chiudi menu di navigazione mobile"}
+                  </span>
+                  <XMarkIcon aria-hidden="true" className="size-6" />
                 </button>
                 {children}
               </div>

@@ -7,7 +7,10 @@ function ProductCardImages({ id, name, images, priority = false }) {
   const sizes = "(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw";
 
   return (
-    <Link href={`/shop/${id}`} className="focus rounded-lg focus:outline-4">
+    <Link
+      href={`/shop/${id}`}
+      className="focus -mx-(--sm-page-padding-x) focus:outline-4 sm:-mx-0 sm:rounded-lg"
+    >
       <div className="group relative aspect-2/3 w-full">
         <Image
           src={images[0]}
@@ -18,8 +21,10 @@ function ProductCardImages({ id, name, images, priority = false }) {
           sizes={sizes}
           priority={priority}
           quality={70}
-          className={`rounded-lg object-cover transition duration-300 ease-in-out dark:brightness-80 ${
-            hasHoverImage ? "group-hover:opacity-0" : "group-hover:opacity-85"
+          className={`object-cover transition duration-300 ease-in-out sm:rounded-lg dark:brightness-80 ${
+            hasHoverImage
+              ? "group-active::opacity-0 group-hover:opacity-0"
+              : "group-active::opacity-85 group-hover:opacity-85"
           }`}
         />
 
@@ -31,7 +36,7 @@ function ProductCardImages({ id, name, images, priority = false }) {
             sizes={sizes}
             priority={priority}
             quality={70}
-            className="absolute top-0 left-0 rounded-lg object-cover opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 dark:brightness-80"
+            className="absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 active:opacity-100 sm:rounded-lg dark:brightness-80"
           />
         )}
       </div>
