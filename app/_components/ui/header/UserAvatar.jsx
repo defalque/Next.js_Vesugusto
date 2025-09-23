@@ -16,7 +16,7 @@ async function UserAvatar() {
     return (
       <NavLink href="/credentials/login" name="Login">
         <span className="hidden text-base md:inline">Accedi</span>
-        <UserIcon className="dark:text-primary-50 inline size-5 text-black md:hidden" />
+        <UserIcon className="dark:text-primary-50 inline size-6 text-black md:hidden md:size-5" />
       </NavLink>
     );
   }

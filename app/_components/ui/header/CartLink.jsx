@@ -18,7 +18,7 @@ async function CartLink() {
     <NavLink href="/cart" name="Carrello">
       <ShoppingCartIcon
         aria-hidden="true"
-        className="text-primary-dark-900 dark:text-primary-50 relative size-5 transition-colors duration-300"
+        className="text-primary-dark-900 dark:text-primary-50 relative size-6 transition-colors duration-300 md:size-5"
       />
       {cartItems > 0 && (
         <span

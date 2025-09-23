@@ -3,14 +3,23 @@
 import { FiltersProvider } from "@/app/_contexts/FiltersContext";
 import { ShowFiltersProvider } from "@/app/_contexts/ShowFiltersContext";
 import ProductsAside from "./ProductsAside";
-import SortBy from "../ui/SortBy";
 import ToggleFilters from "./ToggleFilters";
 import ToggleFiltersMobile from "./ToggleFiltersMobile";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 
 import dynamic from "next/dynamic";
-import ProductFiltersSkeleton from "../ui/skeleton/Skeletons";
+import ProductFiltersSkeleton, { shimmer } from "../ui/skeleton/Skeletons";
 import Search from "../ui/Search";
+
+const SortBy = dynamic(() => import("../ui/SortBy"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className={`${shimmer} relative w-50 animate-pulse self-stretch overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+    />
+  ),
+});
+
 const ProductFilters = dynamic(() => import("./ProductFilters"), {
   ssr: false,
   loading: () => <ProductFiltersSkeleton />,
