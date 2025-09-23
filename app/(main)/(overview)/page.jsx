@@ -1,3 +1,9 @@
+import MainCarousel from "@/app/_components/home/MainCarousel";
+
 export default function Page() {
-  return <div>Homepage di Vesugusto</div>;
+  return (
+    <div>
+      <MainCarousel />
+    </div>
+  );
 }

@@ -34,6 +34,17 @@
   --color-primary-dark-800: #321010;
   --color-primary-dark-900: #190808;
   --color-primary-dark-950: #000000;
+
+  --animate-progress: progress linear forwards;
+
+  @keyframes progress {
+    0% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
 }
 
 @layer base {
@@ -219,5 +230,14 @@ input:-webkit-autofill:focus {
 
   input:-webkit-autofill:focus {
     -webkit-text-fill-color: #ffffff !important;
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }

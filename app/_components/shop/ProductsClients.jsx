@@ -15,10 +15,18 @@ const SortBy = dynamic(() => import("../ui/SortBy"), {
   ssr: false,
   loading: () => (
     <div
-      className={`${shimmer} relative w-50 animate-pulse self-stretch overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+      className={`${shimmer} relative h-10 w-50 animate-pulse self-stretch overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
     />
   ),
 });
+// const ToggleFiltersMobile = dynamic(() => import("./ToggleFiltersMobile"), {
+//   ssr: false,
+//   loading: () => (
+//     <div
+//       className={`${shimmer} relative h-10 w-20 animate-pulse overflow-hidden rounded-md bg-gray-200 dark:bg-zinc-700`}
+//     />
+//   ),
+// });
 
 const ProductFilters = dynamic(() => import("./ProductFilters"), {
   ssr: false,

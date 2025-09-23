@@ -22,20 +22,20 @@ export default function FavoriteCard({ favorite, children }) {
           {/* {deleteFavoriteSlot} */}
 
           {favorite.quantity === 0 && (
-            <span className="text-primary-dark-950 xs:py-1 absolute right-0 bottom-4 rounded-l-full bg-white px-3 py-0 text-sm font-bold uppercase sm:text-base">
+            <span className="text-primary-dark-950 xs:py-1 absolute right-0 bottom-4 rounded-l-full bg-white px-3 py-0 text-base font-bold uppercase">
               Esaurito
             </span>
           )}
 
           {favorite.quantity > 0 && favorite.quantity <= 10 && (
-            <span className="text-primary-dark-950 xs:py-1 absolute right-0 bottom-4 rounded-l-full bg-white px-3 py-0 text-sm font-bold">
+            <span className="text-primary-dark-950 xs:py-1 absolute right-0 bottom-4 rounded-l-full bg-white px-3 py-0 text-base font-bold">
               Solo {favorite.quantity}!
             </span>
           )}
         </div>
       </Link>
 
-      <div className="flex flex-col gap-1 text-sm text-gray-800 sm:text-base dark:text-gray-300">
+      <div className="flex flex-col gap-1 text-base text-gray-800 sm:text-base dark:text-gray-300">
         <span>{favorite.name}</span>
         <span className="font-semibold">
           {formatCurrency(favorite.regularPrice - favorite.discount)}

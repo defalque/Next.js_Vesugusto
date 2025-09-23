@@ -41,7 +41,7 @@ function UpdateProfileForm({ user, name, email }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="my-8 flex flex-col gap-4 text-xs sm:text-sm md:text-base"
+      className="my-8 flex flex-col gap-4 text-base sm:text-sm md:text-base"
     >
       {/* Nome ed Email */}
       <div className="flex flex-col items-center gap-5 md:flex-row">

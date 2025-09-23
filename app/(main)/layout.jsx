@@ -1,5 +1,4 @@
 import Header from "../_components/ui/header/Header";
-// import DemoTag from "./_components/ui/DemoTag";
 import { Toaster } from "react-hot-toast";
 import { toastStyle } from "../_lib/constants";
 import Footer from "../_components/ui/footer/Footer";
@@ -7,7 +6,7 @@ import Footer from "../_components/ui/footer/Footer";
 function Layout({ children }) {
   return (
     <>
-      <Header></Header>
+      <Header />
 
       <div className="_grid flex-1">
         <main className="mx-auto w-full">{children}</main>

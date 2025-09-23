@@ -43,7 +43,7 @@ function ProductFilter({ name, items, filterField }) {
               exit={{ height: 0, opacity: 1 }}
               transition={{ duration: 0.3, type: "tween", ease: "easeOut" }}
             >
-              <div className="flex flex-wrap gap-x-4 gap-y-2 px-1 py-3">
+              <div className="flex flex-wrap gap-x-4 gap-y-2 px-1 py-2">
                 {items.map((item) => (
                   <FilterInput
                     key={item.value}

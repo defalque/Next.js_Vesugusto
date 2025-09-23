@@ -1,11 +1,5 @@
 import "@/app/_styles/globals.css";
-
-import { Nunito } from "next/font/google";
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  display: "swap",
-});
+import { roboto } from "./_lib/font";
 
 export const metadata = {
   title: {
@@ -24,7 +18,7 @@ function RootLayout({ children }) {
   return (
     <html lang="it">
       <body
-        className={`${nunito.className} bg-primary-50 text-primary-dark-900 dark:bg-primary-dark-950 flex min-h-screen flex-col antialiased dark:text-gray-200`}
+        className={`${roboto.className} flex min-h-screen flex-col bg-linear-10 from-gray-100 to-white text-black antialiased dark:from-zinc-900 dark:to-zinc-950 dark:text-white/85`}
       >
         {children}
       </body>
