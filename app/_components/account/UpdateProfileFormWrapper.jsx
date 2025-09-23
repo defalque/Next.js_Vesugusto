@@ -4,6 +4,7 @@ import UpdateProfileForm from "./UpdateProfileForm";
 
 async function UpdateProfileFormWrapper() {
   const session = await auth();
+  console.log(session);
   const user = await getUserInfo(session.user.userId);
 
   return (

@@ -14,7 +14,7 @@ function DrawerDialog({
     <Dialog open={open} onClose={setOpen} className="relative z-1000 lg:hidden">
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-white/70 backdrop-blur-xs transition-opacity duration-500 ease-in-out data-closed:opacity-0 dark:bg-zinc-800/70"
+        className="fixed inset-0 bg-white/70 backdrop-blur-xs transition-opacity duration-500 ease-in-out data-closed:opacity-0 dark:bg-black/60"
       />
       <div className="fixed inset-0 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -23,7 +23,7 @@ function DrawerDialog({
           >
             <DialogPanel
               transition
-              className={`pointer-events-auto relative grid w-screen max-w-xs transform grid-cols-1 transition duration-500 ease-in-out ${direction === "left" ? "data-closed:-translate-x-full" : "data-closed:translate-x-full"} sm:max-w-sm sm:duration-700`}
+              className={`pointer-events-auto relative grid w-screen max-w-xs transform grid-cols-1 transition duration-500 ease-in-out ${direction === "left" ? "border-r border-r-gray-200 data-closed:-translate-x-full dark:border-r-zinc-900" : "border-l border-l-gray-200 data-closed:translate-x-full dark:border-l-zinc-900"} sm:max-w-sm sm:duration-700`}
             >
               <div
                 className={`relative flex h-full flex-col gap-3 ${className}`}
@@ -38,7 +38,7 @@ function DrawerDialog({
                       ? "Chiudi filtri"
                       : "Chiudi menu di navigazione mobile"}
                   </span>
-                  <XMarkIcon aria-hidden="true" className="size-6" />
+                  <XMarkIcon aria-hidden="true" className="size-5" />
                 </button>
                 {children}
               </div>

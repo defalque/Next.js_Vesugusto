@@ -11,9 +11,9 @@ function SortBy() {
   const selectedValue = searchParams.get("sort") ?? "default";
 
   return (
-    <div className="relative w-40 self-stretch rounded-xl bg-white/80 backdrop-blur-xs dark:bg-black/80">
+    <div className="relative w-max self-stretch rounded-xl bg-white/80 backdrop-blur-xs sm:w-fit dark:bg-black/80">
       <label htmlFor="ordina" className="sr-only">
-        Ordina
+        Ordina per
       </label>
 
       <Select
@@ -27,19 +27,46 @@ function SortBy() {
           router.push(pathname + "?" + createQueryString("sort", value));
         }}
         className={
-          "data-focus:ring-primary-950 data-focus:outline-primary-950 focus-visible:outline-primary-950 darak:data-active:border-zinc-600 block h-full w-full cursor-pointer appearance-none rounded-xl border border-gray-200 px-3 py-1.5 text-base/6 text-black transition-all duration-200 *:text-black data-active:shadow data-hover:shadow dark:border-zinc-700 dark:text-white dark:data-hover:border-zinc-600"
+          "data-focus:outline-primary-950 focus peer block h-full w-full cursor-pointer appearance-none rounded-xl border border-gray-200 px-3 py-1.5 pr-10 text-base/6 text-black transition-all duration-200 *:text-black focus:not-data-focus:outline-none data-active:shadow data-focus:outline-2 data-focus:-outline-offset-2 data-hover:shadow dark:border-zinc-700 dark:text-white dark:data-active:border-zinc-600 dark:data-hover:border-zinc-600"
         }
       >
         <option value="default">Ordina</option>
         <option value="price-asc">Prezzo: dal più basso</option>
         <option value="price-desc">Prezzo: dal più alto</option>
       </Select>
-      {/* <ChevronDownIcon
-        className="group pointer-events-none absolute top-1/16 right-2.5 size-4 h-full text-black dark:text-white"
+      <ChevronDownIcon
+        className="pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 text-zinc-400 transition-colors duration-200 peer-hover:text-zinc-600 peer-active:text-zinc-600 dark:text-zinc-600 dark:peer-hover:text-gray-400 dark:peer-active:text-gray-400"
         aria-hidden="true"
-      /> */}
+      />
     </div>
   );
 }
 
 export default SortBy;
+
+// Dropdown
+// return (
+//   <Menu>
+//     <MenuButton className="w-40 self-stretch rounded-xl">Ordina</MenuButton>
+//     <MenuItems modal={false} anchor="bottom-end" className="z-250">
+//       <MenuItem>
+//         <button
+//           className="block text-left data-focus:bg-blue-100"
+//           href="/settings"
+//         >
+//           Ordina
+//         </button>
+//       </MenuItem>
+//       <MenuItem>
+//         <button className="block data-focus:bg-blue-100" href="/support">
+//           Prezzo: dal più basso
+//         </button>
+//       </MenuItem>
+//       <MenuItem>
+//         <button className="block data-focus:bg-blue-100" href="/license">
+//           Prezzo: dal più alto
+//         </button>
+//       </MenuItem>
+//     </MenuItems>
+//   </Menu>
+// );

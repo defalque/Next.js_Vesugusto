@@ -35,10 +35,11 @@ function FavoriteButton({
     <button
       onClick={async () => {
         if (!userId) {
-          const toast = (await import("react-hot-toast")).default;
-          return toast(
-            "Accedi o registrati per aggiungere questo prodotto tra i preferiti.",
-          );
+          // const toast = (await import("react-hot-toast")).default;
+          // return toast(
+          //   "Accedi o registrati per aggiungere questo prodotto tra i preferiti.",
+          // );
+          return;
         }
         startTransition(action);
       }}

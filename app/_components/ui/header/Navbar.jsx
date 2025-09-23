@@ -13,7 +13,7 @@ const links = [
 
 function Navbar() {
   return (
-    <ul className="flex items-center justify-center space-x-2 text-base">
+    <ul className="flex items-center justify-center gap-2 text-base">
       {links.map((link) => (
         <NavLink key={link.href} name={link.name} href={link.href} />
       ))}

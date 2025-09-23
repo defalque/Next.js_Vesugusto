@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
-import { createUserAndCart, getCart, getUser } from "./app/_lib/data-service";
+import { getCart, getUser } from "./app/_lib/data-service";
 import { createUser } from "./app/_lib/actions";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -13,8 +13,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async signIn({ user, account, profile }) {
       try {
-        const existingUser = await getUser(user.email);
+        console.log(user, "signIn");
 
+        const existingUser = await getUser(user.email);
         if (!existingUser) await createUser(user.email, user.name, user.image);
 
         return true;
@@ -41,8 +42,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // },
     async jwt({ token, user }) {
       if (user) {
+        console.log(user);
+
         const existingUser = await getUser(user.email);
         const cart = await getCart(existingUser.id);
+        console.log(existingUser.id);
 
         token.userId = existingUser.id;
         token.cartId = cart?.id || null;

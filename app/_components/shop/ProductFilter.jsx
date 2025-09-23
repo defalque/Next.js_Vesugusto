@@ -20,7 +20,7 @@ function ProductFilter({ name, items, filterField }) {
           onClick={() => setIsOpen((isOpen) => !isOpen)}
           aria-expanded={isOpen}
         >
-          <span className="text-base font-semibold">{name}</span>
+          <span className="text-lg font-semibold md:text-base">{name}</span>
           {!isOpen ? (
             <ChevronRightIcon
               className="ml-auto size-4 text-black dark:text-white"

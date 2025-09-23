@@ -15,7 +15,7 @@ const links = [
     href: "/",
   },
   {
-    name: "Prodotti",
+    name: "Shop",
     href: "/shop",
   },
   {
@@ -33,35 +33,35 @@ const socialLinks = [
     href: "https://facebook.com",
     label: "Facebook",
     icon: (
-      <FaFacebook className="transition-colors duration-300 hover:opacity-75" />
+      <FaFacebook className="transition-colors duration-300 hover:opacity-90" />
     ),
   },
   {
     href: "https://instagram.com",
     label: "Instagram",
     icon: (
-      <FaInstagram className="transition-colors duration-300 hover:opacity-75" />
+      <FaInstagram className="transition-colors duration-300 hover:opacity-90" />
     ),
   },
   {
     href: "https://x.com",
     label: "X",
     icon: (
-      <FaXTwitter className="transition-colors duration-300 hover:opacity-75" />
+      <FaXTwitter className="transition-colors duration-300 hover:opacity-90" />
     ),
   },
   {
     href: "https://github.com",
     label: "GitHub",
     icon: (
-      <FaGithub className="transition-colors duration-300 hover:opacity-75" />
+      <FaGithub className="transition-colors duration-300 hover:opacity-90" />
     ),
   },
   {
     href: "https://linkedin.com",
     label: "LinkedIn",
     icon: (
-      <FaLinkedin className="transition-colors duration-300 hover:opacity-75" />
+      <FaLinkedin className="transition-colors duration-300 hover:opacity-90" />
     ),
   },
 ];

@@ -1,13 +1,15 @@
 import { auth } from "@/auth";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
 import { getFavoriteProductIds } from "@/app/_lib/data-service";
-import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, MinusIcon, HeartIcon } from "@heroicons/react/24/outline";
 
 import { ProductQuantityProvider } from "@/app/_contexts/ProductQuantityContext";
 import AddToCartButton from "./AddToCartButton";
 import ProductQuantityHandler from "./ProductQuantityHandler";
 import FavoriteButton from "./FavoriteButton";
 import ProductAccordion from "./ProductAccordion";
+import Link from "next/link";
+import Button from "../ui/Button";
 
 // import dynamic from "next/dynamic";
 // const AddToCartButton = dynamic(() => import("./AddToCartButton"));
@@ -50,23 +52,45 @@ async function ProductDetails({ product }) {
             />
           </div>
           <div className="self-stretch">
-            <AddToCartButton
-              userId={userId}
-              productId={product.id}
-              cartId={cartId}
-              productQuantity={product.quantity}
-            />
+            {userId ? (
+              <AddToCartButton
+                userId={userId}
+                productId={product.id}
+                cartId={cartId}
+                productQuantity={product.quantity}
+              />
+            ) : (
+              <Button
+                href="/credentials/login"
+                className="rounded px-3 py-4 font-bold uppercase md:py-3"
+              >
+                Accedi per aggiungere
+              </Button>
+            )}
           </div>
         </ProductQuantityProvider>
 
         <div className="dark:bg-primary-950/30 bg-primary-100/70 inline-flex items-center rounded-full p-3">
-          <FavoriteButton
-            iconSizes="size-8 md:size-6"
-            productId={product.id}
-            userId={userId}
-            isFavorite={isFavorite}
-            productQuantity={product.quantity}
-          />
+          {userId ? (
+            <FavoriteButton
+              iconSizes="size-8 md:size-6"
+              productId={product.id}
+              userId={userId}
+              isFavorite={isFavorite}
+              productQuantity={product.quantity}
+            />
+          ) : (
+            <Link
+              href="/credentials/login"
+              className="focus cursor-pointer rounded-md"
+              aria-label="Accedi per aggiungere il prodotto ai preferiti"
+            >
+              <HeartIcon
+                className={`hover:fill-primary-950 dark:text-primary-50 dark:hover:fill-primary-50 text-primary-950 size-8 md:size-6`}
+                aria-hidden
+              />
+            </Link>
+          )}
         </div>
       </div>
 

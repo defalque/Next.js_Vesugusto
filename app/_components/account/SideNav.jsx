@@ -33,10 +33,10 @@ function SideNav() {
   return (
     <aside className="no-scrollbar sticky top-13 z-150 flex h-fit overflow-x-auto bg-white px-1 py-4 sm:top-16 sm:h-[calc(100vh-12vh)] sm:w-fit sm:px-5 sm:py-2 dark:bg-black">
       <nav className="grow">
-        <ul className="_sm:text-sm flex h-full min-w-full snap-x scroll-pl-1 flex-row justify-center gap-2.5 text-base sm:flex-col sm:gap-1">
+        <ul className="flex h-full min-w-full snap-x scroll-pl-1 flex-row justify-center gap-2.5 text-base sm:flex-col sm:gap-1">
           <AccountNavLinks navLinks={navLinks} />
 
-          <li className="mt-0 mb-0 snap-start sm:mt-auto sm:mb-4">
+          <li className="_snap-start mt-0 mb-0 sm:mt-auto sm:mb-4">
             <SignOut />
           </li>
         </ul>

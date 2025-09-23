@@ -44,7 +44,7 @@ function ProductAccordion({ productAttribute, label }) {
               className="overflow-hidden"
             >
               <div className="pb-4">
-                <p className="_bg-zinc-200/40 _dark:bg-zinc-900/80 _lg:text-base/8 rounded-lg py-2 text-left text-sm/6 tracking-wide whitespace-pre-line text-zinc-800 dark:text-gray-50">
+                <p className="_bg-zinc-200/40 _dark:bg-zinc-900/80 _lg:text-base/8 rounded-lg py-2 text-left text-sm/6 tracking-wide whitespace-pre-line text-zinc-800 dark:text-gray-300">
                   {productAttribute}
                 </p>
               </div>

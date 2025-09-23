@@ -17,7 +17,7 @@ export default function Page() {
     >
       <Link
         href="/"
-        className="text-primary-950 dark:text-primary-dark-100 dark:hover:text-primary-900 dark:active:text-primary-900 hover:text-primary-dark-200 active:text-primary-dark-200 self-start text-base font-semibold underline underline-offset-2 transition-colors duration-200"
+        className="focus _underline _underline-offset-2 self-start rounded text-sm text-black transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 sm:text-base dark:text-white dark:hover:text-gray-200 dark:active:text-gray-200"
       >
         <span>&larr;</span>
         <span>Torna alla Home</span>

@@ -26,11 +26,11 @@ function ProductsClients() {
 
         <section
           aria-label="Opzioni di ordinamento e azioni filtri"
-          className="_bg-transparent sticky top-12 z-10 col-span-full col-start-2 row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 bg-white px-(--sm-page-padding-x) py-3 sm:top-12 sm:flex-row md:top-14 lg:top-14 xl:px-(--page-padding-x) dark:bg-black"
+          className="sticky top-12 z-10 col-span-full col-start-2 row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 bg-white px-(--sm-page-padding-x) py-3 sm:top-12 sm:flex-row md:top-14 lg:top-14 xl:px-(--page-padding-x) dark:bg-black"
         >
           <Search placeholder="Cerca prodotto per nome..." />
 
-          <div className="_self-end flex items-center justify-end gap-5 self-stretch">
+          <div className="flex items-center justify-end gap-5 self-stretch">
             <SortBy />
 
             <ToggleFilters>

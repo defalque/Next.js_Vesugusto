@@ -19,14 +19,14 @@ function Logo({ complete = false, isFooter = false }) {
       ></Image> */}
 
       <span
-        className={`${isFooter ? "" : "_hidden"} text-4xl font-bold text-shadow-2xs md:inline dark:opacity-90`}
+        className={`${isFooter ? "" : "_hidden"} text-3xl font-bold text-shadow-2xs sm:text-4xl md:inline dark:opacity-90`}
         aria-hidden="true"
       >
         V
       </span>
       {complete && (
         <span
-          className={`${isFooter ? "" : "_hidden"} text-3xl font-bold tracking-wider text-shadow-2xs md:inline dark:opacity-90`}
+          className={`${isFooter ? "" : "_hidden"} text-2xl font-bold tracking-wider text-shadow-2xs sm:text-3xl md:inline dark:opacity-90`}
           aria-hidden="true"
         >
           esugusto

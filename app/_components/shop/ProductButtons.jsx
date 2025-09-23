@@ -18,6 +18,8 @@ const FavoriteButton = dynamic(() => import("./FavoriteButton"), {
 });
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 function ProductButtons({
   userId,
@@ -26,6 +28,7 @@ function ProductButtons({
   isFavorite,
   productQuantity,
 }) {
+  console.log(userId);
   return (
     <div className="grid w-fit grid-cols-[auto_auto] items-center gap-6">
       <ProductQuantityProvider>

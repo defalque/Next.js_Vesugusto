@@ -5,8 +5,8 @@ import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { updateProfileSchema } from "./schemas/updateProfileSchema";
 import { redirect } from "next/navigation";
-import { resend } from "./resend";
-import { WelcomeEmail } from "../_components/ui/EmailTemplate";
+// import { resend } from "./resend";
+// import { WelcomeEmail } from "../_components/ui/EmailTemplate";
 
 export async function createUser(email, name, image) {
   const { error: createError } = await supabase.rpc(
@@ -23,13 +23,14 @@ export async function createUser(email, name, image) {
   //   throw new Error("Impossibile creare l'utente.");
   // }
 
-  const { emailError } = await resend.emails.send({
-    from: "Vesugusto <noreply@resend.dev>",
-    to: ["marcodefalco2017@libero.it"],
-    // to: [email],
-    subject: "Benvenuto su Vesugusto",
-    react: WelcomeEmail({ username: name }),
-  });
+  // Sposta in account
+  // const { emailError } = await resend.emails.send({
+  //   from: "Vesugusto <noreply@resend.dev>",
+  //   to: ["marcodefalco2017@libero.it"],
+  //   // to: [email],
+  //   subject: "Benvenuto su Vesugusto",
+  //   react: WelcomeEmail({ username: name }),
+  // });
 
   // if (emailError) {
   //   console.error("Errore nell'invio dell'email di benvenuto:", emailError);

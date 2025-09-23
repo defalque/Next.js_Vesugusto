@@ -26,12 +26,12 @@ function FilterInput({ label, value, filterField }) {
   // };
 
   const baseClasses =
-    "cursor-pointer rounded-xl px-4 py-1 text-base transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-950";
+    "cursor-pointer rounded-xl px-4 py-1 text-lg md:text-base transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-950";
   const lightThemeClasses = isChecked
-    ? "bg-gray-200/80  _text-black"
+    ? "bg-gray-200/80"
     : "border-gray-200 hover:bg-gray-200/80 active:bg-gray-200/80";
   const darkThemeClasses = isChecked
-    ? "dark:bg-zinc-700/50 _dark:text-white"
+    ? "dark:bg-zinc-700/50"
     : "dark:border-zinc-800 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50";
 
   const combinedClasses = `${baseClasses} ${lightThemeClasses} ${darkThemeClasses}`;

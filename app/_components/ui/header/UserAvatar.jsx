@@ -16,7 +16,7 @@ async function UserAvatar() {
     return (
       <NavLink href="/credentials/login" name="Login">
         <span className="hidden text-base md:inline">Accedi</span>
-        <UserIcon className="dark:text-primary-50 inline size-6 text-black md:hidden" />
+        <UserIcon className="dark:text-primary-50 inline size-5 text-black md:hidden" />
       </NavLink>
     );
   }
@@ -28,11 +28,11 @@ async function UserAvatar() {
     <NavLink href="/account" name="Account" isAvatar>
       <Image
         src={userImage}
-        className="_size-6 cursor-pointer rounded-full hover:brightness-95"
+        className="size-6 cursor-pointer rounded-full hover:brightness-95"
         alt={`Immagine del profilo di ${userName}`}
         referrerPolicy="no-referrer"
-        width={26}
-        height={26}
+        width={30}
+        height={30}
       />
     </NavLink>
   );
