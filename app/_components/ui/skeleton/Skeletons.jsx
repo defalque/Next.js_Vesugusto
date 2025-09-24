@@ -613,4 +613,31 @@ export function ThankYouPageSkeleton() {
   );
 }
 
+export function BestSellerProductsSkeleton() {
+  return (
+    <div className="grid w-full grid-cols-2 gap-10 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      {[0, 1, 2].map((bestSeller, index) => (
+        <div key={index} className="">
+          <div className="flex flex-col gap-2">
+            <div
+              className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-3xl bg-gray-200 dark:bg-zinc-700`}
+            >
+              <div className="overflow-hidden" />
+            </div>
+
+            <div className="space-y-1">
+              <div
+                className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              />
+              <div
+                className={`${shimmer} relative h-5 w-13 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default ProductFiltersSkeleton;

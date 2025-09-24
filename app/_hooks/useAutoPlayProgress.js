@@ -115,5 +115,6 @@ export const useAutoplayProgress = (emblaApi, progressNode) => {
 
   return {
     showAutoplayProgress,
+    startProgress,
   };
 };

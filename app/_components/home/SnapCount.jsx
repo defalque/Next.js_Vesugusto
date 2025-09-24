@@ -27,7 +27,7 @@ export const SelectedSnapDisplay = (props) => {
   const { selectedSnap, snapCount } = props;
 
   return (
-    <div className="font-medium text-white">
+    <div className="text-sm font-medium text-white sm:text-base">
       {selectedSnap + 1} / {snapCount}
     </div>
   );

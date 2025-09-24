@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useDotButton = (emblaApi) => {
+export const useDotButton = (emblaApi, onClickCallback) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
@@ -8,6 +8,8 @@ export const useDotButton = (emblaApi) => {
     (index) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
+
+      if (onClickCallback) onClickCallback();
     },
     [emblaApi],
   );

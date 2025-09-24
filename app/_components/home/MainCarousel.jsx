@@ -7,83 +7,87 @@ import { useAutoplayProgress } from "@/app/_hooks/useAutoPlayProgress";
 import { useAutoplay } from "@/app/_hooks/useAutoPlay";
 import { PlayIcon, PauseIcon } from "@heroicons/react/24/outline";
 
-import slide1 from "../../../public/hero.jpg";
-import slide2 from "../../../public/s.jpg";
-import slide3 from "../../../public/drinkslide.jpg";
-
 import { SelectedSnapDisplay, useSelectedSnapDisplay } from "./SnapCount";
 import { DotButton, useDotButton } from "./DotButton";
-import MainCarouselSlide from "./MainCarouselSlide";
+// import { useDotButton } from "@/app/_hooks/useDotButton";
 
-const slides = [
-  {
-    src: slide1,
-    alt: "Slide 1",
-    heroHeading: "Ogni stagione ha il suo sapore",
-    heroSubHeading:
-      "Esplora le novità stagionali dei nostri prodotti, prima che finiscano!",
-    link: "/shop",
-  },
-  {
-    src: slide2,
-    alt: "Slide 2",
-    heroHeading: "Porta a tavola l’anima vesuviana",
-    heroSubHeading:
-      "Un viaggio gastronomico caratterizzato da sapori intensi, tradizionali e sorprendenti.",
-    link: "/shop",
-  },
-  {
-    src: slide3,
-    alt: "Slide 3",
-    heroHeading: "Dal cratere al calice",
-    heroSubHeading:
-      "Esplora la nostra selezione di drink unici e territoriali, un'autenticità da sorseggiare.",
-    link: "/shop",
-  },
-];
-
-function MainCarousel() {
+function MainCarousel({ children }) {
+  const autoplayPlugin = Autoplay({ delay: 4000 });
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 4000 }),
+    autoplayPlugin,
   ]);
   const progressNode = useRef(null);
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
+  const handleDotClick = () => {
+    const autoplay = emblaApi?.plugins()?.autoplay;
+    if (!autoplay) return;
+    console.log("yes");
+
+    if (autoplay.isPlaying()) {
+      console.log("is playing");
+      autoplay.reset(); // 🔁 Reset completo del delay
+      const delay = autoplay.timeUntilNext?.() ?? 4000;
+      startProgress(delay); // 🔁 Riavvia la progress bar
+    }
+  };
+
+  // const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
+    emblaApi,
+    handleDotClick,
+  );
+
   const { autoplayIsPlaying, toggleAutoplay } = useAutoplay(emblaApi);
-  const { showAutoplayProgress } = useAutoplayProgress(emblaApi, progressNode);
+  const { showAutoplayProgress, startProgress } = useAutoplayProgress(
+    emblaApi,
+    progressNode,
+  );
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi);
 
   return (
-    <div className="relative min-h-120 overflow-hidden" ref={emblaRef}>
-      <div className="relative flex min-h-160">
-        {slides.map((slide, index) => (
-          <MainCarouselSlide
-            key={index}
-            src={slide.src}
-            alt={slide.alt}
-            heroHeading={slide.heroHeading}
-            heroSubHeading={slide.heroSubHeading}
-            link={slide.link}
-          />
-        ))}
+    <section
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Immagini principali della homepage"
+      className="relative min-h-120 overflow-hidden"
+    >
+      <div ref={emblaRef}>
+        <div
+          className="flex min-h-160"
+          aria-roledescription="slide"
+          aria-live="polite"
+        >
+          {children}
+        </div>
       </div>
 
-      <div className="absolute bottom-3 left-5 flex h-10 items-center gap-2 p-1.5 sm:left-10">
+      <div
+        className="absolute bottom-3 left-5 flex h-10 items-center gap-2 p-1.5 sm:left-10"
+        role="tablist"
+        aria-label="Navigazione tra le slide"
+      >
         {scrollSnaps.map((_, index) => (
           <DotButton
             key={index}
             onClick={() => onDotButtonClick(index)}
-            className={`size-3 cursor-pointer rounded-full border ${index === selectedIndex ? "border-white bg-white" : "border-white/50"}`}
+            role="tab"
+            aria-selected={selectedIndex === index}
+            aria-label={`Vai alla slide ${index + 1}`}
+            aria-controls={`carousel-slide-${index}`}
+            className={`size-3 cursor-pointer rounded-full border transition-colors duration-200 ${index === selectedIndex ? "border-white bg-white" : "border-white/50 hover:border-white active:border-white"}`}
           />
         ))}
       </div>
 
-      <div className="absolute right-3 bottom-3 flex items-center gap-3">
+      <div
+        className="absolute right-3 bottom-3 flex items-center gap-3"
+        aria-label="Controlli autoplay"
+      >
         <div
-          className={`pointer-events-none relative z-20 h-1 w-20 overflow-hidden rounded-full bg-white/50 transition-opacity duration-200 ${
+          className={`pointer-events-none relative z-20 h-1 w-17 overflow-hidden rounded-full bg-white/50 transition-opacity duration-200 sm:w-20 ${
             showAutoplayProgress ? "opacity-100" : "opacity-0"
           } transition-opacity duration-300`}
+          aria-hidden
         >
           <div
             ref={progressNode}
@@ -97,18 +101,20 @@ function MainCarousel() {
         />
 
         <button
-          className="_active:border-white cursor-pointer rounded-xl border border-white/50 p-1.5 backdrop-blur-xs transition-colors duration-200 hover:border-white"
+          disabled={!emblaApi}
+          className="cursor-pointer touch-manipulation appearance-none rounded-xl border border-white/50 p-1.5 backdrop-blur-xs transition-colors duration-200 hover:border-white active:border-white"
           onClick={toggleAutoplay}
           type="button"
+          aria-label={autoplayIsPlaying ? "Ferma autoplay" : "Attiva autoplay"}
         >
           {autoplayIsPlaying ? (
-            <PauseIcon className="size-5 text-white" />
+            <PauseIcon aria-hidden className="size-5 text-white" />
           ) : (
-            <PlayIcon className="size-5 text-white" />
+            <PlayIcon aria-hidden className="size-5 text-white" />
           )}
         </button>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -530,3 +530,29 @@ export async function getUserOrder(userId, paymentIntent) {
 
   return { data: normalizedData, orderId, success: true };
 }
+
+export async function getBestSellers() {
+  const { data, error } = await supabase.rpc("get_best_sellers");
+
+  if (error) {
+    console.error("Error fetching best sellers:", error);
+    throw new Error("Non è stato possibile caricare i prodotti più venduti.");
+  }
+
+  return data;
+}
+
+export async function getNewArrivals() {
+  const { data: products, error } = await supabase
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(8);
+
+  if (error) {
+    console.error("Errore nel recupero dei nuovi prodotti: ", orderError);
+    throw new Error("Errore nel recupero dei nuovi prodotti dell'utente");
+  }
+
+  return products;
+}

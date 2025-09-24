@@ -21,7 +21,7 @@ function ProductCardImages({ id, name, images, priority = false }) {
           sizes={sizes}
           priority={priority}
           quality={70}
-          className={`pointer-events-nonetransition object-cover duration-300 ease-in-out sm:rounded-lg dark:brightness-80 ${
+          className={`pointer-events-none object-cover transition duration-300 ease-in-out sm:rounded-lg dark:brightness-80 ${
             hasHoverImage
               ? "group-active::opacity-0 group-hover:opacity-0"
               : "group-active::opacity-85 group-hover:opacity-85"

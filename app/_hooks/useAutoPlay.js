@@ -3,23 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 export const useAutoplay = (emblaApi) => {
   const [autoplayIsPlaying, setAutoplayIsPlaying] = useState(false);
 
-  // const onAutoplayButtonClick = useCallback(
-  //   (callback) => {
-  //     const autoplay = emblaApi?.plugins()?.autoplay;
-  //     if (!autoplay) return;
-
-  //     const resetOrStop =
-  //       autoplay.options.stopOnInteraction === false
-  //         ? autoplay.reset
-  //         : autoplay.stop;
-
-  //     resetOrStop();
-  //     callback();
-  //   },
-  //   [emblaApi],
-  // );
-
   const toggleAutoplay = useCallback(() => {
+    console.log(emblaApi);
     const autoplay = emblaApi?.plugins()?.autoplay;
     if (!autoplay) return;
 
@@ -41,6 +26,5 @@ export const useAutoplay = (emblaApi) => {
   return {
     autoplayIsPlaying,
     toggleAutoplay,
-    // onAutoplayButtonClick,
   };
 };
