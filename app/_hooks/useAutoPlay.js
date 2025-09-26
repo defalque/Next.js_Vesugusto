@@ -4,7 +4,6 @@ export const useAutoplay = (emblaApi) => {
   const [autoplayIsPlaying, setAutoplayIsPlaying] = useState(false);
 
   const toggleAutoplay = useCallback(() => {
-    console.log(emblaApi);
     const autoplay = emblaApi?.plugins()?.autoplay;
     if (!autoplay) return;
 

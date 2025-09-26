@@ -28,19 +28,17 @@ function ProductFilters() {
   const hasFilters = Array.from(searchParams.entries()).length > 0;
 
   return (
-    <div className="flex w-full flex-col px-4 lg:w-60">
+    <div className="flex max-h-fit w-full flex-col overflow-y-auto pr-2 pb-3 pl-1 lg:w-60 lg:overflow-hidden lg:pr-1">
       <ProductFilter name="Categoria" items={category} filterField="category" />
       <ProductFilter name="Prezzo" items={price} filterField="price" />
 
-      <Button
+      <button
         onClick={handleReset}
         disabled={!hasFilters}
-        className="mt-3 ml-2 self-start rounded-2xl px-4 py-1"
-        //   className="focus-visible:ring-primary-950 bg-primary-950 border-primary-950 mt-3 ml-2 cursor-pointer self-start rounded-2xl border px-6 py-1 text-base font-semibold text-gray-100 transition-colors duration-200 hover:border-gray-200 hover:bg-transparent hover:text-black focus:ring-offset-2 focus:outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:border-zinc-800 disabled:bg-white disabled:text-black dark:border-gray-100 dark:bg-gray-100 dark:text-black dark:hover:text-gray-100 dark:disabled:bg-black dark:disabled:text-white"
-        // >
+        className="custom-focus mt-3 ml-2 cursor-pointer self-start rounded-full bg-black px-4 py-2.5 text-lg font-semibold text-white transition-colors duration-300 hover:bg-black/60 active:bg-black/70 disabled:cursor-not-allowed disabled:hover:bg-black md:text-base dark:bg-white dark:text-black dark:hover:bg-zinc-500 dark:hover:text-white dark:active:bg-zinc-500 dark:active:text-white dark:disabled:text-black dark:disabled:hover:bg-white"
       >
         Reset
-      </Button>
+      </button>
     </div>
   );
 }

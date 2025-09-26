@@ -30,7 +30,15 @@ const SortBy = dynamic(() => import("../ui/SortBy"), {
 
 const ProductFilters = dynamic(() => import("./ProductFilters"), {
   ssr: false,
-  loading: () => <ProductFiltersSkeleton />,
+  // loading: () => <ProductFiltersSkeleton />,
+  loading: () => (
+    <div className="flex h-full w-60 flex-col items-center justify-center">
+      <div className="spinner" />
+      <p className="animate-pulse text-black/65 dark:text-white/85">
+        Caricamento filtri...
+      </p>
+    </div>
+  ),
 });
 
 function ProductsClients() {
@@ -43,7 +51,7 @@ function ProductsClients() {
 
         <section
           aria-label="Opzioni di ordinamento e azioni filtri"
-          className="sticky top-12 z-10 col-span-full col-start-2 row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 bg-white px-(--sm-page-padding-x) py-3 sm:top-12 sm:flex-row md:top-14 lg:top-14 xl:px-(--page-padding-x) dark:bg-black"
+          className="bgColor sticky top-12 z-10 col-span-full row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 py-3 sm:top-12 sm:flex-row md:top-13 lg:top-13 lg:col-start-2"
         >
           <Search placeholder="Cerca prodotto per nome..." />
 

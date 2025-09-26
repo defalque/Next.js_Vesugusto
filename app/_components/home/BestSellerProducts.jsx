@@ -9,12 +9,12 @@ async function BestSellerProducts() {
   return (
     <ul
       role="list"
-      className="grid w-full grid-cols-2 gap-10 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
+      className="grid w-full grid-cols-2 gap-5 md:grid-cols-1 md:gap-6 lg:grid-cols-2 xl:grid-cols-3"
     >
       {bestSellers.map((bestSeller, index) => (
         <li key={index} className="group relative list-none">
           <article
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-2 p-0.5 sm:p-1"
             aria-label={`Vai alla pagina di ${bestSeller.product_name}`}
           >
             <div className="relative aspect-2/3 w-full overflow-hidden rounded-3xl">
@@ -30,7 +30,7 @@ async function BestSellerProducts() {
               />
             </div>
 
-            <div className="text-base font-semibold sm:text-lg">
+            <div className="px-2 text-base font-semibold sm:px-1 sm:text-lg">
               <h3>{bestSeller.product_name}</h3>
               <p>
                 {formatCurrency(
@@ -41,7 +41,7 @@ async function BestSellerProducts() {
           </article>
           <Link
             href={`/shop/${bestSeller.product_id}`}
-            className="absolute inset-0"
+            className="custom-focus absolute inset-0 rounded-3xl"
             aria-label={`Scopri ${bestSeller.product_name}`}
           />
         </li>

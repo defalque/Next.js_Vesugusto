@@ -8,9 +8,9 @@ function Layout({ children }) {
     <>
       <Header />
 
-      <div className="_grid flex-1">
-        <main className="mx-auto w-full">{children}</main>
-      </div>
+      {/* <div className="flex-1 bg-inherit"> */}
+      <main className="mx-auto w-full flex-1 bg-inherit">{children}</main>
+      {/* </div> */}
 
       <Footer />
 

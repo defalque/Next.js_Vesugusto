@@ -1,6 +1,9 @@
 import {
+  BellIcon,
   ClipboardDocumentIcon,
+  GiftIcon,
   HeartIcon,
+  InformationCircleIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { SignOut } from "../ui/SignOut";
@@ -10,7 +13,7 @@ const navLinks = [
   {
     name: "Il mio profilo",
     href: "/account",
-    icon: <UserIcon aria-hidden className="size-4.5 sm:size-6 lg:size-5" />,
+    icon: <UserIcon aria-hidden className="size-9 md:size-6 lg:size-5" />,
   },
   {
     name: "I miei ordini",
@@ -18,35 +21,48 @@ const navLinks = [
     icon: (
       <ClipboardDocumentIcon
         aria-hidden
-        className="size-4.5 sm:size-6 lg:size-5"
+        className="size-9 md:size-6 lg:size-5"
       />
     ),
   },
   {
     name: "I miei preferiti",
     href: "/account/favorites",
-    icon: <HeartIcon aria-hidden className="size-4.5 sm:size-6 lg:size-5" />,
+    icon: <HeartIcon aria-hidden className="size-9 md:size-6 lg:size-5" />,
   },
   {
-    name: "I mie preferiti",
-    href: "/account/favorites",
-    icon: <HeartIcon aria-hidden className="size-4.5 sm:size-6 lg:size-5" />,
+    name: "Carte regalo e buoni",
+    href: "/account/gift-cards",
+    icon: <GiftIcon aria-hidden className="size-9 md:size-6 lg:size-5" />,
   },
   {
-    name: "I miei referiti",
-    href: "/account/favorites",
-    icon: <HeartIcon aria-hidden className="size-4.5 sm:size-6 lg:size-5" />,
+    name: "Preferenze",
+    href: "/account/preferences",
+    icon: <BellIcon aria-hidden className="size-9 md:size-6 lg:size-5" />,
+  },
+  {
+    name: "Supporto clienti",
+    href: "/account/info",
+    icon: (
+      <InformationCircleIcon
+        aria-hidden
+        className="size-9 md:size-6 lg:size-5"
+      />
+    ),
   },
 ];
 
 function SideNav() {
   return (
-    <aside className="no-scrollbar sticky top-12.5 z-150 flex h-fit overflow-x-auto bg-white mask-x-from-97% px-4 py-2 sm:top-16 sm:h-[calc(100vh-12vh)] sm:w-fit sm:px-5 sm:py-2 dark:bg-black">
-      <nav className="grow">
-        <ul className="flex h-full min-w-full snap-x scroll-pl-1 flex-row justify-center gap-4 text-lg sm:flex-col sm:gap-1 sm:text-base">
+    <aside
+      aria-label="Barra di navigazione account"
+      className="no-scrollbar account-padding _top-12 z-150 flex h-fit overflow-x-auto bg-white mask-x-from-97% py-1 md:sticky md:top-18 md:min-h-[calc(100vh-24vh)] md:w-fit md:mask-none dark:bg-black"
+    >
+      <nav aria-label="Navigazione account" className="grow">
+        <ul className="_min-w-full flex h-full w-full snap-x scroll-pl-1 flex-row justify-center gap-4 px-0.5 py-1 text-lg sm:text-base md:flex-col md:gap-2 md:py-0">
           <AccountNavLinks navLinks={navLinks} />
 
-          <li className="_snap-start mt-0 mb-0 sm:mt-auto sm:mb-4">
+          <li className="_min-w-full mt-0 mb-0 snap-start md:mt-auto md:mb-4">
             <SignOut />
           </li>
         </ul>

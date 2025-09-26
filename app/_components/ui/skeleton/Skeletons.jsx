@@ -36,14 +36,12 @@ function ProductCardSkeleton() {
       {/* <div
         className={`${shimmer} _-mx-(--sm-page-padding-x) relative aspect-2/3 w-full overflow-hidden rounded-none bg-gray-200 sm:-mx-0 sm:rounded-lg dark:bg-zinc-700`}
       /> */}
-      <div
-        className={`${shimmer} focus relative -mx-(--sm-page-padding-x) overflow-hidden rounded-none sm:mx-0`}
-      >
-        <div className="aspect-2/3 w-full rounded-none bg-gray-200 sm:rounded-lg dark:bg-zinc-700" />
+      <div className={`${shimmer} focus relative overflow-hidden rounded-3xl`}>
+        <div className="aspect-2/3 w-full rounded-none bg-gray-200 sm:rounded-3xl dark:bg-zinc-700" />
       </div>
 
       {/* Title and Button Row */}
-      <div className="mb-1 flex items-center py-0.5">
+      <div className="mb-1 flex items-center px-2 py-0.5 sm:px-1">
         <div
           className={`${shimmer} relative h-4 w-2/3 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
         />
@@ -53,7 +51,7 @@ function ProductCardSkeleton() {
       </div>
 
       {/* Price and Link */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 px-2 sm:px-1">
         <div
           className={`${shimmer} relative h-4 w-20 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
         />
@@ -67,7 +65,7 @@ function ProductCardSkeleton() {
 
 export function ProductListSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-x-14 gap-y-15 transition-all duration-3000 ease-in-out sm:grid-cols-3 lg:gap-y-25">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-15 transition-all duration-3000 ease-in-out md:grid-cols-3 lg:gap-y-18 xl:grid-cols-4">
       <ProductCardSkeleton />
       <ProductCardSkeleton />
       <ProductCardSkeleton />
@@ -517,13 +515,13 @@ export function FavoritesListSkeleton() {
 
 export function ProductFiltersSkeleton() {
   return (
-    <div className="flex w-full flex-col gap-4 px-4 lg:w-60">
+    <div className="flex w-full flex-col gap-4 lg:w-60">
       {Array.from({ length: 2 }).map((_, i) => (
         <div key={i} className="flex flex-col">
           {/* Header Placeholder */}
           <div className="flex items-center justify-between">
             <div
-              className={`${shimmer} relative mb-2 h-6 w-30 overflow-hidden rounded bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
+              className={`${shimmer} relative mb-2 h-8 w-30 self-center overflow-hidden rounded bg-gray-200 px-1 py-2 dark:bg-zinc-700`}
             />
             <div
               className={`${shimmer} relative mb-2 h-5 w-5 overflow-hidden rounded bg-gray-200 px-1 py-2 dark:bg-zinc-700`}

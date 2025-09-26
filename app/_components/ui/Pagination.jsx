@@ -40,6 +40,8 @@ function Pagination({ count, limit }) {
     router.push(pathname + "?" + createQueryString("page", String(prev)));
   }
 
+  const srOnlyText = `Pagina ${currentPage} di ${pageCount}`;
+
   return (
     <div
       role="navigation"
@@ -47,7 +49,7 @@ function Pagination({ count, limit }) {
       className="flex w-full items-center justify-between py-3 text-base"
     >
       <span className="sr-only" aria-live="polite">
-        Pagina {currentPage} di {pageCount}
+        {srOnlyText}
       </span>
 
       {pageCount > 1 && (
@@ -83,33 +85,31 @@ function Pagination({ count, limit }) {
       {pageCount > 1 && (
         <div className="flex gap-2">
           {currentPage !== 1 && (
-            <Button
-              aria-label="Indietro"
+            <PaginationButton
+              aria-label="Pagina precednte"
               onClick={() => {
                 startTransition(() => {
                   prevPage();
                 });
               }}
               disabled={isPending}
-              className="rounded-full p-3"
             >
-              <ArrowLeftIcon className="size-8 md:size-6" />
-            </Button>
+              <ArrowLeftIcon aria-hidden className="size-7" />
+            </PaginationButton>
           )}
 
           {currentPage !== pageCount && (
-            <Button
-              aria-label="Avanti"
+            <PaginationButton
+              aria-label="Prossima pagina"
               onClick={() => {
                 startTransition(() => {
                   nextPage();
                 });
               }}
               disabled={isPending}
-              className="rounded-full p-3"
             >
-              <ArrowRightIcon className="size-8 md:size-6" />
-            </Button>
+              <ArrowRightIcon aria-hidden className="size-7" />
+            </PaginationButton>
           )}
         </div>
       )}
@@ -118,3 +118,16 @@ function Pagination({ count, limit }) {
 }
 
 export default Pagination;
+
+function PaginationButton({ ...props }) {
+  const { children, ...restProps } = props;
+
+  return (
+    <button
+      {...restProps}
+      className="custom-focus cursor-pointer self-start rounded-full bg-black p-3 text-lg font-semibold text-white transition-colors duration-300 hover:bg-black/60 active:bg-black/70 disabled:animate-pulse disabled:cursor-not-allowed disabled:bg-black/60 sm:p-3.5 md:text-base lg:p-3 dark:bg-white dark:text-black dark:hover:bg-zinc-300 dark:hover:text-black dark:active:bg-zinc-300 dark:active:text-black dark:disabled:bg-zinc-300 dark:disabled:text-black dark:disabled:hover:bg-zinc-300"
+    >
+      {children}
+    </button>
+  );
+}

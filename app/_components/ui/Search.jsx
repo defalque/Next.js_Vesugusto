@@ -26,7 +26,7 @@ export default function Search({ placeholder }) {
       </label>
       <input
         id="search"
-        className="peer focus:border-primary-950 focus:ring-primary-950/20 block w-full rounded-xl border border-gray-200 bg-white/80 py-2 pr-10 pl-10 text-base shadow-xs backdrop-blur-xs transition-colors duration-200 placeholder:text-zinc-500 focus:ring-2 focus:outline-none sm:py-2 dark:border-zinc-700 dark:bg-black/80 dark:placeholder:text-zinc-500"
+        className="peer focus block h-full w-full rounded-xl border border-gray-200 bg-white/80 py-2 pr-10 pl-10 text-sm shadow-xs backdrop-blur-xs transition-colors duration-200 placeholder:text-zinc-500 sm:py-2 sm:text-base dark:border-zinc-700 dark:bg-black/80 dark:placeholder:text-zinc-500"
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);
@@ -36,7 +36,7 @@ export default function Search({ placeholder }) {
       />
       <MagnifyingGlassIcon
         aria-hidden="true"
-        className="_peer-focus:text-primary-950 _dark:peer-focus:text-primary-dark-100 absolute top-1/2 left-3 size-5 -translate-y-1/2 text-gray-500"
+        className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-gray-500"
       />
       {query && (
         <button

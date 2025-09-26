@@ -1,15 +1,20 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
+
 import useEmblaCarousel from "embla-carousel-react";
+
 import Autoplay from "embla-carousel-autoplay";
 import { useAutoplayProgress } from "@/app/_hooks/useAutoPlayProgress";
 import { useAutoplay } from "@/app/_hooks/useAutoPlay";
-import { PlayIcon, PauseIcon } from "@heroicons/react/24/outline";
 
-import { SelectedSnapDisplay, useSelectedSnapDisplay } from "./SnapCount";
-import { DotButton, useDotButton } from "./DotButton";
-// import { useDotButton } from "@/app/_hooks/useDotButton";
+import { DotButton } from "./DotButton";
+import { useDotButton } from "@/app/_hooks/useDotButton";
+
+import { SelectedSnapDisplay } from "./SnapCount";
+import { useSelectedSnapDisplay } from "@/app/_hooks/useSelectedSnapDisplay";
+
+import { PlayIcon, PauseIcon } from "@heroicons/react/24/outline";
 
 function MainCarousel({ children }) {
   const autoplayPlugin = Autoplay({ delay: 4000 });
@@ -21,27 +26,26 @@ function MainCarousel({ children }) {
   const handleDotClick = () => {
     const autoplay = emblaApi?.plugins()?.autoplay;
     if (!autoplay) return;
-    console.log("yes");
 
     if (autoplay.isPlaying()) {
-      console.log("is playing");
       autoplay.reset(); // 🔁 Reset completo del delay
       const delay = autoplay.timeUntilNext?.() ?? 4000;
       startProgress(delay); // 🔁 Riavvia la progress bar
     }
   };
 
-  // const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
     emblaApi,
     handleDotClick,
   );
 
   const { autoplayIsPlaying, toggleAutoplay } = useAutoplay(emblaApi);
+
   const { showAutoplayProgress, startProgress } = useAutoplayProgress(
     emblaApi,
     progressNode,
   );
+
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi);
 
   return (
@@ -49,11 +53,11 @@ function MainCarousel({ children }) {
       role="region"
       aria-roledescription="carousel"
       aria-label="Immagini principali della homepage"
-      className="relative min-h-120 overflow-hidden"
+      className="relative min-h-120 w-full"
     >
-      <div ref={emblaRef}>
+      <div className="overflow-hidden" ref={emblaRef}>
         <div
-          className="flex min-h-160"
+          className="flex min-h-155 w-full md:min-h-160"
           aria-roledescription="slide"
           aria-live="polite"
         >
@@ -74,7 +78,7 @@ function MainCarousel({ children }) {
             aria-selected={selectedIndex === index}
             aria-label={`Vai alla slide ${index + 1}`}
             aria-controls={`carousel-slide-${index}`}
-            className={`size-3 cursor-pointer rounded-full border transition-colors duration-200 ${index === selectedIndex ? "border-white bg-white" : "border-white/50 hover:border-white active:border-white"}`}
+            className={`custom-control-focus size-3 cursor-pointer rounded-full border transition-colors duration-200 ${index === selectedIndex ? "border-white bg-white" : "border-white/50 hover:border-white active:border-white"}`}
           />
         ))}
       </div>
@@ -102,7 +106,7 @@ function MainCarousel({ children }) {
 
         <button
           disabled={!emblaApi}
-          className="cursor-pointer touch-manipulation appearance-none rounded-xl border border-white/50 p-1.5 backdrop-blur-xs transition-colors duration-200 hover:border-white active:border-white"
+          className="custom-control-focus cursor-pointer touch-manipulation appearance-none rounded-xl border border-white/50 p-1.5 backdrop-blur-xs transition-colors duration-200 hover:border-white active:border-white"
           onClick={toggleAutoplay}
           type="button"
           aria-label={autoplayIsPlaying ? "Ferma autoplay" : "Attiva autoplay"}

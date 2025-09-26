@@ -1,5 +1,5 @@
 import "@/app/_styles/globals.css";
-import { noto, roboto } from "./_lib/font";
+import { noto } from "./_lib/font";
 
 export const metadata = {
   title: {
@@ -18,7 +18,7 @@ function RootLayout({ children }) {
   return (
     <html lang="it">
       <body
-        className={`${noto.className} flex min-h-screen flex-col bg-linear-10 from-gray-100 to-white text-black antialiased dark:from-zinc-900 dark:to-zinc-950 dark:text-white`}
+        className={`${noto.className} flex min-h-screen flex-col bg-white text-black antialiased dark:bg-black dark:text-white`}
       >
         {children}
       </body>

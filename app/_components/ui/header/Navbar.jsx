@@ -13,9 +13,11 @@ const links = [
 
 function Navbar() {
   return (
-    <ul className="flex items-center justify-center gap-2 text-base">
+    <ul className="flex items-center justify-center gap-1 text-base md:gap-2">
       {links.map((link) => (
-        <NavLink key={link.href} name={link.name} href={link.href} />
+        <NavLink key={link.href} href={link.href} type="section">
+          {link.name}
+        </NavLink>
       ))}
 
       <Suspense fallback={<CartLinkSkeleton />}>
@@ -25,10 +27,6 @@ function Navbar() {
       <Suspense fallback={<CartLinkSkeleton />}>
         <UserAvatar />
       </Suspense>
-
-      {/* <Suspense fallback={<DynamicLinksSkeleton />}>
-        <DynamicLinks />
-      </Suspense> */}
     </ul>
   );
 }

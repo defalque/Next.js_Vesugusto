@@ -1,4 +1,4 @@
-import { playfair } from "@/app/_lib/font";
+import { notoSerif } from "@/app/_lib/font";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ function MainCarouselSlide({
       role="group"
       aria-roledescription="slide"
       aria-label={`Slide ${index + 1} di ${totalSlides}`}
-      className="relative min-w-0 shrink-0 grow-0 basis-full"
+      className="translate-3d-none _h-full relative w-full min-w-0 shrink-0 grow-0 basis-full"
       id={`carousel-slide-${index}`}
     >
       <Image
@@ -28,10 +28,10 @@ function MainCarouselSlide({
         placeholder="blur"
         className="object-cover brightness-70"
       />
-      <div className={`absolute inset-0 flex justify-start px-5 sm:px-10`}>
+      <div className={`page-padding absolute inset-0 flex justify-start`}>
         <div className="flex h-full flex-col items-start justify-end gap-3 py-20">
           <h2
-            className={`max-w-xl text-4xl font-semibold tracking-tight text-white text-shadow-lg sm:text-6xl ${playfair.className}`}
+            className={`max-w-xl text-4xl font-semibold tracking-tight text-white text-shadow-lg sm:text-6xl ${notoSerif.className}`}
           >
             {heroHeading}
           </h2>
@@ -40,7 +40,7 @@ function MainCarouselSlide({
           </p>
           <Link
             href={link}
-            className="mt-4 rounded-full bg-white px-5 py-3 text-base font-bold text-black transition-colors duration-200 hover:bg-white/80 active:bg-white/80 sm:text-lg"
+            className="custom-focus mt-4 rounded-full bg-white px-5 py-3 text-base font-bold text-black transition-colors duration-200 hover:bg-white/80 active:bg-white/80 sm:text-lg"
           >
             Scopri ora
           </Link>

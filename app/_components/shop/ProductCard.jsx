@@ -12,9 +12,9 @@ function ProductCard({ product, priority, children }) {
         priority={priority}
       />
 
-      <div>
-        <div className="mb-0 flex items-center py-0.5 sm:mb-1">
-          <h1 className="text-md font-normal text-gray-700 dark:text-gray-300">
+      <div className="px-2 sm:px-1">
+        <div className="flex items-center">
+          <h1 className="text-base font-semibold sm:text-base">
             {product.name}
           </h1>
 
@@ -22,17 +22,16 @@ function ProductCard({ product, priority, children }) {
         </div>
 
         <div className="flex items-center">
-          <span className="text-lg font-medium sm:text-base lg:text-xl">
+          <p className="text-base font-semibold sm:text-lg">
             {formatCurrency(product.regularPrice)}
-          </span>
+          </p>
 
-          <Link
+          {/* <Link
             href={`/shop/${product.id}`}
-            className="text-primary-950 hover:text-primary-800 focus ml-auto hidden rounded px-0.5 text-base sm:block sm:text-xs md:text-sm"
+            className="custom-control-focus text-primary-dark-200 ml-auto hidden rounded px-0.5 text-base font-semibold sm:block sm:text-sm 2xl:text-sm"
           >
-            {/* <span className="block sm:hidden">Vedi </span> */}
-            <span className="">Vai ai dettagli</span>
-          </Link>
+            Vedi dettagli
+          </Link> */}
         </div>
       </div>
     </article>

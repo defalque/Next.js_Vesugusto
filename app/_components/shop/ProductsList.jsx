@@ -8,12 +8,12 @@ import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
 import { HeartIcon } from "@heroicons/react/24/outline";
 
-export async function ProductsList({ filters }) {
+export async function ProductsList({ filters, limit }) {
   const session = await auth();
   const userId = session?.user?.userId;
 
   const [products, favorites] = await Promise.all([
-    getPaginatedProducts(6, filters),
+    getPaginatedProducts(limit, filters),
     userId ? getFavoriteProductIds(userId) : Promise.resolve([]),
   ]);
 
@@ -34,13 +34,13 @@ export async function ProductsList({ filters }) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-x-14 gap-y-15 transition-all duration-3000 ease-in-out sm:grid-cols-3 lg:gap-y-25">
+    <div className="grid w-full grid-cols-2 gap-x-6 gap-y-15 transition-all duration-3000 ease-in-out md:grid-cols-3 lg:gap-y-18 xl:grid-cols-4">
       {products.map((product, index) => (
         <ProductCard key={product.id} product={product} priority={index <= 2}>
           {userId ? (
             <FavoriteButton
               className="ml-auto"
-              iconSizes="size-7 sm:size-5 lg:size-6"
+              iconSizes="size-7 sm:size-6.5"
               productId={product.id}
               userId={userId}
               isFavorite={favorites?.some(
@@ -54,7 +54,7 @@ export async function ProductsList({ filters }) {
               aria-label="Accedi per aggiungere il prodotto ai preferiti"
             >
               <HeartIcon
-                className={`hover:fill-primary-950 dark:text-primary-50 dark:hover:fill-primary-50 text-primary-950 size-7 sm:size-5 lg:size-6`}
+                className={`hover:fill-primary-dark-200 dark:text-primary-50 dark:hover:fill-primary-50 text-primary-dark-200 size-7 sm:size-6.5`}
                 aria-hidden
               />
             </Link>

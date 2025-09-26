@@ -26,17 +26,17 @@ export default async function Page({ searchParams }) {
 
   const count = await getFilteredProductsCount(filters);
 
-  const totalPages = Math.ceil(count / 6);
+  const totalPages = Math.ceil(count / PRODUCTS_LIMIT);
   const isPageOutOfBounds = Number(filters.page) > totalPages;
 
   return (
-    <div className="my-2 grid min-h-screen grid-cols-1 grid-rows-[auto_auto_1fr] overflow-visible [--page-padding-x:--spacing(8)] [--sm-page-padding-x:--spacing(4)] lg:grid-cols-[auto_1fr]">
-      <section
+    <div className="mx-auto mt-10 grid min-h-screen max-w-[95rem] grid-cols-1 grid-rows-[auto_auto_1fr] overflow-visible px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-10">
+      <div
         aria-labelledby="heading-ecommerce"
-        className="col-span-full col-start-2 row-start-1 bg-white px-(--sm-page-padding-x) xl:px-(--page-padding-x) dark:bg-black"
+        className="col-span-full row-start-1 lg:col-start-2"
       >
         <ProductHeading />
-      </section>
+      </div>
 
       {/* Filtri prodotti e Ordinamento prodotti */}
       <ProductsClients />
@@ -44,24 +44,26 @@ export default async function Page({ searchParams }) {
       {/* Lista prodotti */}
       <section
         aria-labelledby="product-results-heading"
-        className="col-span-full col-start-2 row-start-3"
+        className="col-span-full row-start-3 lg:col-start-2"
       >
-        <div className="flex flex-col gap-10 px-(--sm-page-padding-x) pt-5 pb-15 xl:px-(--page-padding-x)">
+        <div className="flex flex-col gap-10 pt-8 pb-15">
           <h2 id="product-results-heading" className="sr-only">
             Risultati prodotti
           </h2>
 
-          <div
+          <p
             aria-live="polite"
             role="status"
             aria-atomic="true"
             className="sr-only"
           >
-            {`Sono stati trovati ${count ?? 0} prodotti`}
-          </div>
+            {count === 0 && "Nessun prodotto trovato"}
+            {count === 1 && "È stato trovato 1 prodotto"}
+            {count > 1 && `Sono stati trovati ${count} prodotti`}
+          </p>
 
           <Suspense key={filtersKey} fallback={<ProductListSkeleton />}>
-            <ProductsList filters={filters} />
+            <ProductsList filters={filters} limit={PRODUCTS_LIMIT} />
           </Suspense>
 
           {!isPageOutOfBounds && (
