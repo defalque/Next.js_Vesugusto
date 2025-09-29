@@ -10,6 +10,7 @@ import { formatCurrency } from "@/app/_lib/formatCurrency";
 import Button from "../../ui/Button";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { confirmOrder, createOrder } from "@/app/_lib/actions";
+import { showCustomSuccessToast } from "../../ui/CustomToast";
 
 export default function StripePaymentForm({
   amount,
@@ -97,7 +98,9 @@ export default function StripePaymentForm({
       // 4. Se pagamento andato a buon fine, conferma ordine nel backend
       if (paymentIntent) {
         const toast = (await import("react-hot-toast")).default;
-        toast.success("Pagamento avvenuto con successo!");
+        // toast.success("Pagamento avvenuto con successo!");
+        // toast.error(err.message);
+        showCustomSuccessToast(toast, err);
 
         await confirmOrder(
           orderId,

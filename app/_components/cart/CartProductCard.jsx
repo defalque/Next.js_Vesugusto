@@ -11,7 +11,7 @@ function CartProductCard({ product, children }) {
       <Link
         href={`/shop/${product.id}`}
         aria-label={`Visita la pagina del prodotto ${product.name}`}
-        className="xs:h-50 focus relative row-span-full aspect-2/3 h-full rounded-md transition-opacity duration-200 hover:opacity-85 focus:outline-4"
+        className="xs:h-50 focus relative row-span-full aspect-2/3 h-full rounded-md transition-opacity duration-300 hover:opacity-85 focus:outline-4 active:opacity-85"
       >
         <Image
           src={product.image}
@@ -24,7 +24,7 @@ function CartProductCard({ product, children }) {
         />
       </Link>
 
-      <h1 className="self-baseline text-lg text-zinc-500 dark:text-gray-300">
+      <h1 className="self-baseline text-lg text-black/65 dark:text-white/85">
         {product.name}
       </h1>
 
@@ -32,7 +32,7 @@ function CartProductCard({ product, children }) {
         {formatCurrency(product.regularPrice - product.discount)}
       </span>
 
-      <p className="xs:block col-start-2 row-start-3 mt-1 hidden text-xs font-light text-zinc-500 sm:text-sm dark:text-gray-300">
+      <p className="xs:block col-start-2 row-start-3 mt-1 hidden text-xs font-light text-black/65 sm:text-sm dark:text-white/85">
         {product.details}
       </p>
 

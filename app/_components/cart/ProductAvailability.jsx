@@ -21,7 +21,10 @@ function ProductAvailability({ quantity }) {
       )}
 
       {quantity <= 10 && quantity > 0 && (
-        <span className="hidden md:inline">{formattedQuantity}</span>
+        <>
+          <span className="hidden md:inline">{formattedQuantity}</span>
+          <span className="inline md:hidden">Solo {quantity}</span>
+        </>
       )}
 
       {quantity > 10 && "Disponibile"}

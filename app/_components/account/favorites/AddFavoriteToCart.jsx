@@ -2,6 +2,7 @@
 
 import { addFavoriteToCartAndDeleteFavorite } from "@/app/_lib/actions";
 import Button from "../../ui/Button";
+import { showCustomErrorToast } from "../../ui/CustomToast";
 
 function AddFavoriteToCart({
   userId,
@@ -19,7 +20,9 @@ function AddFavoriteToCart({
           await addFavoriteToCartAndDeleteFavorite(userId, cartId, productId);
         } catch (err) {
           const toast = (await import("react-hot-toast")).default;
-          toast.error(err.message);
+
+          // toast.error(err.message);
+          showCustomErrorToast(toast, err);
         } finally {
           setIsPending(false);
         }

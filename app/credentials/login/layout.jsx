@@ -24,9 +24,9 @@ function Layout({ children }) {
 
         <div className="relative z-10 flex items-center justify-center">
           <h2
-            className={`${notoSerif.className} text-primary-50 mb-0 text-center text-4xl font-bold tracking-tight text-wrap text-shadow-lg/30 md:mb-20 md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-6xl`}
+            className={`${notoSerif.className} text-primary-50 xs:text-4xl mb-0 text-center text-3xl font-bold tracking-tight text-wrap text-shadow-lg/30 md:mb-20 md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-6xl`}
           >
-            Gustati i nostri prodotti
+            Gustati i nostri prodotti.
             <br />
             Inizia ora.
           </h2>

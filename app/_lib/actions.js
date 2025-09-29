@@ -119,7 +119,10 @@ export async function updateAddressInfo(data) {
     .update(validatedFields.data)
     .eq("id", session.user.userId);
 
-  if (error) throw new Error("User could not be updated");
+  if (error) {
+    console.error("Errore Supabase:", error);
+    throw new Error("Errore nel salvataggio dei dati. Riprova più tardi.");
+  }
 
   revalidatePath("/cart/checkout");
 

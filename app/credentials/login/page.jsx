@@ -16,7 +16,7 @@ export default function Page() {
     >
       <Link
         href="/"
-        className="focus self-start rounded text-sm text-black transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 dark:text-white dark:hover:text-gray-200 dark:active:text-gray-200"
+        className="focus xs:text-sm self-start rounded text-xs text-black transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 dark:text-white dark:hover:text-gray-200 dark:active:text-gray-200"
       >
         <span>&larr;</span>
         <span>Torna alla Home</span>
@@ -26,7 +26,7 @@ export default function Page() {
         <div className="space-y-10 self-center">
           <h2
             id="auth-page-form"
-            className={`${notoSerif.className} justify-items-center text-center text-3xl font-semibold text-wrap sm:text-4xl md:text-3xl xl:text-4xl`}
+            className={`${notoSerif.className} xs:text-3xl justify-items-center text-center text-2xl font-semibold text-wrap sm:text-4xl md:text-3xl xl:text-4xl`}
           >
             Crea un account o accedi!
           </h2>

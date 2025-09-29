@@ -15,6 +15,7 @@ import {
 import FavoriteCard from "./FavoriteCard";
 import DeleteCartItem from "../../cart/DeleteCartItem";
 import Button from "../../ui/Button";
+import { showCustomErrorToast } from "../../ui/CustomToast";
 
 function FavoritesListOptimistic({ favorites, userId, cartId }) {
   const [optimisticFavorites, optimisticDelete] = useOptimistic(
@@ -71,7 +72,9 @@ function FavoritesListOptimistic({ favorites, userId, cartId }) {
                           } catch (err) {
                             const toast = (await import("react-hot-toast"))
                               .default;
-                            toast.error(err.message);
+
+                            // toast.error(err.message);
+                            showCustomErrorToast(toast, err);
                           }
                         });
                       }}
@@ -93,7 +96,9 @@ function FavoritesListOptimistic({ favorites, userId, cartId }) {
                           } catch (err) {
                             const toast = (await import("react-hot-toast"))
                               .default;
-                            toast.error(err.message);
+
+                            // toast.error(err.message);
+                            showCustomErrorToast(toast, err);
                           }
                         })
                       }

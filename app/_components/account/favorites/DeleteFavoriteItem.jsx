@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteFavorite } from "@/app/_lib/actions";
+import { showCustomErrorToast } from "../../ui/CustomToast";
 
 function DeleteFavoriteItem({
   userId,
@@ -21,7 +22,9 @@ function DeleteFavoriteItem({
           await deleteFavorite(userId, productId);
         } catch (err) {
           const toast = (await import("react-hot-toast")).default;
-          toast.error(err.message);
+
+          // toast.error(err.message);
+          showCustomErrorToast(toast, err);
         } finally {
           setIsPending(false);
         }

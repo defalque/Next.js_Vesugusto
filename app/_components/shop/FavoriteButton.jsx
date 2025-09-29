@@ -3,6 +3,7 @@
 import { addFavorite, deleteFavorite } from "@/app/_lib/actions";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { startTransition, useActionState } from "react";
+import { showCustomErrorToast } from "../ui/CustomToast";
 
 function FavoriteButton({
   className = "",
@@ -18,14 +19,18 @@ function FavoriteButton({
         await deleteFavorite(userId, productId);
       } catch (err) {
         const toast = (await import("react-hot-toast")).default;
-        toast.error(err.message);
+
+        // toast.error(err.message);
+        showCustomErrorToast(toast, err);
       }
     } else {
       try {
         await addFavorite(userId, productId);
       } catch (err) {
         const toast = (await import("react-hot-toast")).default;
-        toast.error(err.message);
+
+        // toast.error(err.message);
+        showCustomErrorToast(toast, err);
       }
     }
   };

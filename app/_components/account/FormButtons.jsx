@@ -21,7 +21,7 @@ function FormButtons({
 
       <button
         type="button"
-        className="inline-flex cursor-pointer items-center justify-center self-baseline rounded-md bg-gray-50 px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-white dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700 dark:disabled:bg-zinc-900"
+        className="inline-flex cursor-pointer items-center justify-center self-baseline rounded-md bg-gray-100 px-4 py-2 font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 active:bg-gray-200 disabled:cursor-not-allowed disabled:bg-gray-50 dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700 dark:active:bg-zinc-700 dark:disabled:bg-zinc-900"
         disabled={isSubmitting || !isFormChanged}
         onClick={onClick}
         aria-label="Cancella modifiche e ripristina il form"

@@ -352,6 +352,10 @@ input:-webkit-autofill:focus {
   @apply focus-visible:outline-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2;
 }
 
+.accountFormFocus {
+  @apply focus:ring-primary-950 focus-visible:ring-primary-950 focus:ring-2 focus:outline-none focus-visible:ring-2 focus-visible:outline-none;
+}
+
 .accountLinksFocus {
   @apply focus-visible:ring-primary-950 focus-visible:ring-2 focus-visible:outline-none;
 }
@@ -363,26 +367,3 @@ input:-webkit-autofill:focus {
 .account-padding {
   @apply -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-0 md:px-0;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar {
-    width: 12px;
-    background: #18181b;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #27272a;
-    border-radius: 8px;
-    border: 2px solid #18181b;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f46;
-  }
-  ::-webkit-scrollbar-corner {
-    background: #18181b;
-  }
-
-  * {
-    scrollbar-width: inherit;
-    scrollbar-color: #27272a #18181b;
-  }
-} */

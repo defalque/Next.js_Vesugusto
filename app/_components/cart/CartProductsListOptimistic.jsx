@@ -18,7 +18,8 @@ import dynamic from "next/dynamic";
 import { CartProductCardSkeleton } from "../ui/skeleton/Skeletons";
 import { SHIPPING_COST } from "@/app/_lib/constants";
 import { redirect } from "next/navigation";
-import { notoSerif } from "@/app/_lib/font";
+import { showCustomErrorToast } from "../ui/CustomToast";
+
 const CartItemQuantity = dynamic(() => import("./CartItemQuantity"), {
   ssr: false,
 });
@@ -54,10 +55,14 @@ function CartProductsListOptimistic({
 
   if (optimisticProducts.length === 0) {
     return (
-      <section className="flex flex-col items-center justify-center gap-8 py-30">
+      <section
+        role="region"
+        aria-labelledby="empty-cart"
+        className="flex flex-col items-center justify-center gap-8 py-30"
+      >
         <div className="space-y-5 text-center">
-          <h2 className="xs:text-3xl text-2xl sm:text-4xl">
-            Ops! Il carrello è vuoto.
+          <h2 id="empty-cart" className="xs:text-3xl text-2xl sm:text-4xl">
+            Ops! Il tuo carrello è vuoto.
           </h2>
           <p className="max-w-xl text-sm text-zinc-700 dark:text-gray-300">
             Sembra che tu non abbia ancora scelto nulla. Hai bisogno di
@@ -80,7 +85,7 @@ function CartProductsListOptimistic({
   );
 
   return (
-    <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-x-10 gap-y-8 lg:grid-cols-[1.5fr_1fr] lg:grid-rows-[auto] lg:pb-50">
+    <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-x-10 gap-y-8 lg:grid-cols-[1.5fr_1fr] lg:grid-rows-[auto] lg:pb-10">
       <LazyMotion features={loadFeatures}>
         <section aria-labelledby="cart-items-heading">
           <h2 id="cart-items-heading" className="sr-only">
@@ -127,7 +132,9 @@ function CartProductsListOptimistic({
                           } catch (err) {
                             const toast = (await import("react-hot-toast"))
                               .default;
-                            toast.error(err.message);
+
+                            // toast.error(err.message);
+                            showCustomErrorToast(toast, err);
                           }
                         });
                       }}
@@ -148,7 +155,9 @@ function CartProductsListOptimistic({
                             } catch (err) {
                               const toast = (await import("react-hot-toast"))
                                 .default;
-                              toast.error(err.message);
+
+                              // toast.error(err.message);
+                              showCustomErrorToast(toast, err);
                             }
                           });
                         }}
@@ -204,7 +213,9 @@ function CartProductsListOptimistic({
                       redirect("/account/orders");
                     } catch (err) {
                       const toast = (await import("react-hot-toast")).default;
-                      toast.error(err.message);
+
+                      // toast.error(err.message);
+                      showCustomErrorToast(toast, err);
                     }
                   });
                 }}

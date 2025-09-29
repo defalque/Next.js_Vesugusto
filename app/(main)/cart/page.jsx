@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="page-padding mx-auto mt-10 flex min-h-screen max-w-[95rem] flex-col gap-8">
+    <div className="page-padding mx-auto mt-10 flex min-h-fit max-w-[95rem] flex-col gap-8">
       {/* <h1
         className={`${notoSerif.className} xs:text-4xl col-span-full text-3xl font-semibold sm:font-medium lg:text-5xl`}
       > */}

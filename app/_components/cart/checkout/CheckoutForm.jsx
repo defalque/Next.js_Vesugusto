@@ -5,6 +5,7 @@ import FormRow from "../../account/FormRow";
 import FormError from "../../account/FormError";
 import FormButtons from "../../account/FormButtons";
 import { updateAddressInfo } from "@/app/_lib/actions";
+import { showCustomPromiseToast } from "../../ui/CustomToast";
 
 function CheckoutForm({ via, numeroCivico, cap, comune }) {
   const {
@@ -24,11 +25,18 @@ function CheckoutForm({ via, numeroCivico, cap, comune }) {
   const onSubmit = async (data) => {
     try {
       const toast = (await import("react-hot-toast")).default;
-      await toast.promise(updateAddressInfo(data), {
-        loading: "Aggiornamento in corso...",
+
+      await showCustomPromiseToast(toast, updateAddressInfo(data), {
+        loading: "Aggiornamento delle informazioni in corso...",
         success: "Informazioni aggiornate con successo!",
-        error: (err) => `Errore: ${err.message}`,
+        error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
       });
+      // await toast.promise(updateAddressInfo(data), {
+      //   loading: "Aggiornamento in corso...",
+      //   success: "Informazioni aggiornate con successo!",
+      //   error: (err) => `Errore: ${err.message}`,
+      // });
+
       reset(data);
     } catch (err) {
       console.error("Operation failed:", err);

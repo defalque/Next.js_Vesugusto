@@ -15,9 +15,12 @@ function Layout({ children }) {
       <Footer />
 
       <Toaster
-        position="top-center"
+        position="top-right"
         gutter={12}
         toastOptions={{
+          custom: {
+            duration: 10000,
+          },
           success: {
             duration: 5000,
           },

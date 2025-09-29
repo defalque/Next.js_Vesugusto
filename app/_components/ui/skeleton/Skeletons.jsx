@@ -91,113 +91,136 @@ export function ProductListSkeleton() {
 
 export function ProductPageSkeleton() {
   return (
-    <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-5 py-5 xl:px-38 xl:py-12">
-      <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 md:grid-rows-[auto_1fr] md:gap-y-0">
-        {/* Breadcrumb */}
-        <div className="col-start-1 mb-0 md:col-start-2 md:mb-8">
-          <div
-            className={`${shimmer} relative h-12 w-1/2 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
-          />
-        </div>
+    <>
+      <p
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        Caricamento della pagina del prodotto in corso...
+      </p>
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-5 sm:px-6 lg:px-10 xl:px-38 xl:py-12">
+        <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 md:grid-rows-[auto_1fr] md:gap-y-0">
+          {/* Breadcrumb */}
+          <div className="col-start-1 mb-0 md:col-start-2 md:mb-8">
+            <div
+              className={`${shimmer} relative h-12 w-1/2 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+            />
+          </div>
 
-        {/* Image Skeleton */}
-        <div className="md:row-span-full">
-          <div className="flex w-full items-start gap-x-5">
-            {/* Miniature */}
-            <div className="hidden flex-col gap-4 lg:flex">
-              {Array.from({ length: 2 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`${shimmer} relative h-16 w-11 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-                ></div>
-              ))}
+          {/* Image Skeleton */}
+          <div className="md:row-span-full">
+            <div className="flex w-full items-start gap-x-5">
+              {/* Miniature */}
+              <div className="hidden flex-col gap-4 lg:flex">
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`${shimmer} relative h-16 w-11 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                  ></div>
+                ))}
+              </div>
+
+              {/* Main Image */}
+              <div
+                className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+              ></div>
+            </div>
+          </div>
+
+          {/* Product Details Skeleton */}
+          <div className="flex flex-col gap-8">
+            {/* Price */}
+            <div
+              className={`${shimmer} relative h-6 w-32 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            />
+
+            {/* Description */}
+            <div className="space-y-2">
+              <div
+                className={`${shimmer} relative h-4 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              />
+              <div
+                className={`${shimmer} relative h-4 w-4/5 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              />
+              <div
+                className={`${shimmer} relative h-4 w-3/5 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              />
             </div>
 
-            {/* Main Image */}
+            {/* Quantity Selector */}
             <div
-              className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
-            ></div>
-          </div>
-        </div>
-
-        {/* Product Details Skeleton */}
-        <div className="flex flex-col gap-8">
-          {/* Price */}
-          <div
-            className={`${shimmer} relative h-6 w-32 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-          />
-
-          {/* Description */}
-          <div className="space-y-2">
-            <div
-              className={`${shimmer} relative h-4 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              className={`${shimmer} relative h-10 w-35 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
             />
-            <div
-              className={`${shimmer} relative h-4 w-4/5 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-            />
-            <div
-              className={`${shimmer} relative h-4 w-3/5 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-            />
-          </div>
 
-          {/* Quantity Selector */}
-          <div
-            className={`${shimmer} relative h-10 w-48 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-          />
+            {/* Buttons */}
+            <div className="flex items-center gap-4">
+              <div
+                className={`${shimmer} relative h-12 w-42 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              />
+              <div
+                className={`${shimmer} relative h-12 w-12 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+              />
+            </div>
 
-          {/* Buttons */}
-          <div className="flex items-center gap-4">
-            <div
-              className={`${shimmer} relative h-12 w-42 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-            />
-            <div
-              className={`${shimmer} relative h-12 w-12 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
-            />
-          </div>
-
-          {/* Accordions */}
-          <div className="space-y-2">
-            {["Dettagli", "Ingredienti", "Informazioni nutrizionali"].map(
-              (label, index) => (
-                <div
-                  key={index}
-                  className={`${shimmer} relative h-14 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-                />
-              ),
-            )}
+            {/* Accordions */}
+            <div className="space-y-2">
+              {["Dettagli", "Ingredienti", "Informazioni nutrizionali"].map(
+                (label, index) => (
+                  <div
+                    key={index}
+                    className={`${shimmer} relative h-14 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                  />
+                ),
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export function CartProductCardSkeleton() {
   return (
-    <article className="xs:gap-x-5 grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-start gap-x-4">
-      <div
-        className={`${shimmer} relative aspect-2/3 h-40 overflow-hidden rounded-lg bg-gray-200 sm:h-50 dark:bg-zinc-700`}
-      />
+    <>
+      <p
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        Caricamento prodotti del carrello in corso...
+      </p>
+      <article
+        aria-hidden
+        className="xs:gap-x-5 grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-start gap-x-4"
+      >
+        <div
+          className={`${shimmer} relative aspect-2/3 h-40 overflow-hidden rounded-lg bg-gray-200 sm:h-50 dark:bg-zinc-700`}
+        />
 
-      <div className="flex h-full w-full flex-col gap-2">
-        <div
-          className={`${shimmer} relative h-5 w-3/4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-        />
-        <div
-          className={`${shimmer} relative h-4 w-1/4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-        />
-        <div
-          className={`${shimmer} xs:block relative hidden h-4 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-        />
-        <div
-          className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-        />
-      </div>
+        <div className="flex h-full w-full flex-col gap-2">
+          <div
+            className={`${shimmer} relative h-5 w-3/4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          />
+          <div
+            className={`${shimmer} relative h-4 w-1/4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          />
+          <div
+            className={`${shimmer} xs:block relative hidden h-4 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          />
+          <div
+            className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          />
+        </div>
 
-      <div
-        className={`${shimmer} relative ml-auto h-5 w-5 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
-      />
-    </article>
+        <div
+          className={`${shimmer} relative ml-auto h-5 w-5 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+      </article>
+    </>
   );
 }
 
@@ -608,54 +631,70 @@ export function AccountNavLink() {
 
 export function ThankYouPageSkeleton() {
   return (
-    <div className="flex min-h-screen items-start justify-center px-5 py-10 md:px-30">
-      <section
-        className={`${shimmer} text-primary-dark-950 xs:px-5 relative flex w-full max-w-4xl min-w-fit flex-col gap-10 overflow-hidden rounded-lg bg-gray-50 px-3 py-5 dark:bg-zinc-900/80`}
+    <>
+      <p
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
       >
-        {/* Title & Description */}
-        <div className="space-y-5">
-          <div className="mx-auto h-10 w-40 rounded bg-gray-200 sm:h-16 sm:w-64 dark:bg-zinc-700" />
-          <div className="mx-auto h-4 w-full rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
-          <div className="mx-auto h-4 w-4/5 rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
-          <div className="mx-auto mt-2 h-10 w-48 rounded-full bg-gray-200 dark:bg-zinc-700" />
-        </div>
-
-        {/* Order Info Card */}
-        <div className="text-primary-dark-950 dark:bg-primary-dark-950 bg-primary-50 rounded-lg px-5 py-5 dark:text-gray-200">
-          {/* Order ID and Total */}
-          <div className="flex flex-wrap justify-between gap-4 text-xl font-semibold">
-            <div className="h-6 w-40 rounded bg-gray-200 dark:bg-zinc-700" />
-            <div className="h-6 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
+        Caricamento pagina di conferma dell'ordine in corso...
+      </p>
+      <div
+        aria-hidden
+        className="flex min-h-screen items-start justify-center px-5 py-10 md:px-30"
+      >
+        <section
+          className={`_${shimmer} text-primary-dark-950 xs:px-5 _relative _overflow-hidden flex w-full max-w-4xl min-w-fit flex-col gap-10 rounded-lg bg-gray-50 px-3 py-5 dark:bg-zinc-900/80`}
+        >
+          {/* Title & Description */}
+          <div className="animate-pulse space-y-5">
+            <div className="mx-auto h-10 w-40 rounded bg-gray-200 sm:h-16 sm:w-64 dark:bg-zinc-700" />
+            <div className="mx-auto h-4 w-full rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
+            <div className="mx-auto h-4 w-4/5 rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="mt-2 h-10 w-48 rounded-full bg-gray-200 dark:bg-zinc-700" />
+              <div className="mt-2 h-10 w-48 rounded-full bg-gray-200 dark:bg-zinc-700" />
+            </div>
           </div>
 
-          {/* Product List */}
-          <div className="flex h-max flex-col divide-y divide-gray-200 dark:divide-zinc-800">
-            {[1, 2].map((_, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6 py-8"
-              >
-                {/* Product Image */}
-                <div className="relative aspect-2/3 h-30 rounded bg-gray-200 dark:bg-zinc-700">
-                  <div className="h-full w-full rounded-lg" />
-                </div>
+          {/* Order Info Card */}
+          <div className="text-primary-dark-950 dark:bg-primary-dark-950 bg-primary-50 rounded-lg px-5 py-5 dark:text-gray-200">
+            {/* Order ID and Total */}
+            <div className="flex animate-pulse flex-wrap justify-between gap-4 text-xl font-semibold">
+              <div className="h-6 w-40 rounded bg-gray-200 dark:bg-zinc-700" />
+              <div className="h-6 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
+            </div>
 
-                {/* Product Info */}
-                <div className="flex h-full flex-col gap-2">
-                  <div className="h-5 w-3/4 rounded bg-gray-200 dark:bg-zinc-700" />
-                  <div className="xs:block hidden h-4 w-full rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
-                  <div className="mt-auto h-4 w-1/3 rounded bg-gray-200 dark:bg-zinc-700" />
-                  <div className="mt-auto h-4 w-1/4 rounded bg-gray-200 dark:bg-zinc-700" />
-                </div>
+            {/* Product List */}
+            <div className="flex h-max animate-pulse flex-col divide-y divide-gray-200 dark:divide-zinc-800">
+              {[1, 2].map((_, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6 py-8"
+                >
+                  {/* Product Image */}
+                  <div className="relative aspect-2/3 h-30 rounded bg-gray-200 dark:bg-zinc-700">
+                    <div className="h-full w-full rounded-lg" />
+                  </div>
 
-                {/* Product Total */}
-                <div className="h-5 w-16 rounded bg-gray-200 dark:bg-zinc-700" />
-              </div>
-            ))}
+                  {/* Product Info */}
+                  <div className="flex h-full flex-col gap-2">
+                    <div className="h-5 w-3/4 rounded bg-gray-200 dark:bg-zinc-700" />
+                    <div className="xs:block hidden h-4 w-full rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
+                    <div className="mt-auto h-4 w-1/3 rounded bg-gray-200 dark:bg-zinc-700" />
+                    <div className="mt-auto h-4 w-1/4 rounded bg-gray-200 dark:bg-zinc-700" />
+                  </div>
+
+                  {/* Product Total */}
+                  <div className="h-5 w-16 rounded bg-gray-200 dark:bg-zinc-700" />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }
 
