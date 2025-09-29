@@ -31,18 +31,22 @@ async function ProductDetails({ product }) {
 
   return (
     <section
-      aria-label={`Informazioni prodotto ${product.name}`}
+      aria-label={`Informazioni e azioni prodotto ${product.name}`}
       className="flex flex-col gap-8"
     >
       <span className="text-2xl font-semibold">
         {formatCurrency(product.regularPrice)}
       </span>
 
-      <p className="_md:text-base/7.5 text-sm/6 font-medium tracking-wide text-zinc-500 dark:text-gray-300">
+      <p className="text-sm/relaxed text-black/65 sm:text-base/6 dark:text-white/85">
         {product.description}
       </p>
 
-      <div className="grid w-fit grid-cols-[auto_auto] items-center gap-6">
+      <div
+        role="group"
+        aria-label="Gestione quantità del prodotto, aggiunta al carrello e ai preferiti"
+        className="grid w-fit grid-cols-[auto_auto] items-center gap-6"
+      >
         <ProductQuantityProvider>
           <div className="col-span-full">
             <ProductQuantityHandler
@@ -94,7 +98,11 @@ async function ProductDetails({ product }) {
         </div>
       </div>
 
-      <div className="flex flex-col divide-y divide-gray-200 dark:divide-zinc-800">
+      <div
+        role="group"
+        aria-label="Informazioni sul prodotto"
+        className="flex flex-col divide-y divide-gray-200 dark:divide-zinc-800"
+      >
         <ProductAccordion productAttribute={product.details} label="Dettagli" />
         <ProductAccordion
           productAttribute={product.ingredients}

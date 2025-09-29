@@ -3,6 +3,10 @@ import { formatCurrency } from "@/app/_lib/formatCurrency";
 import { shimmer } from "../ui/skeleton/Skeletons";
 
 function CartSummary({ products, totalPrice, isPending, children }) {
+  const formattedPrice = formatCurrency(totalPrice);
+  const formattedShippingCost = formatCurrency(SHIPPING_COST);
+  const formattedTotalPrice = formatCurrency(totalPrice + SHIPPING_COST);
+
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-zinc-800">
@@ -11,18 +15,21 @@ function CartSummary({ products, totalPrice, isPending, children }) {
             <li key={product.id} className="flex items-start justify-between">
               {isPending ? (
                 <span
+                  aria-hidden
                   className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-700`}
                 />
               ) : (
-                <span>{product.product.name}</span>
+                <h2>{product.product.name}</h2>
               )}
               <div className="flex items-center space-x-2">
                 {isPending ? (
                   <>
                     <span
+                      aria-hidden
                       className={`${shimmer} relative h-3.5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-700`}
                     />
                     <span
+                      aria-hidden
                       className={`${shimmer} relative h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
                     />
                   </>
@@ -39,35 +46,51 @@ function CartSummary({ products, totalPrice, isPending, children }) {
 
         <div className="space-y-4 pt-4">
           <div className="flex items-center">
-            <span>Subtotale</span>
+            <h2>Subtotale</h2>
+
             {isPending ? (
               <span
+                aria-hidden
                 className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
               />
             ) : (
-              <span className="ml-auto">{formatCurrency(totalPrice)}</span>
+              <span className="ml-auto">{formattedPrice}</span>
             )}
           </div>
 
           <div className="flex items-center">
-            <span className="mr-2">Spese di spedizione</span>
+            <h2 className="mr-2">Spese di spedizione</h2>
+
             {isPending ? (
               <span
+                aria-hidden
                 className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
               />
             ) : (
-              <span className="ml-auto">{formatCurrency(SHIPPING_COST)}</span>
+              <span className="ml-auto" aria-hidden>
+                {formattedShippingCost}
+              </span>
             )}
           </div>
 
           <div className="text-primary-dark-950 flex items-center text-lg font-semibold sm:text-xl dark:text-white">
-            <span>Totale ordine</span>
+            <h2>Totale ordine</h2>
+
             {isPending ? (
               <span
+                aria-hidden
                 className={`${shimmer} relative ml-auto h-6 w-16 overflow-hidden rounded bg-gray-200 py-2 sm:h-8 dark:bg-zinc-700`}
               />
             ) : (
-              <span className="ml-auto">{formatCurrency(totalPrice)}</span>
+              <span
+                className="ml-auto"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                aria-label={`Totale ordine: ${formattedTotalPrice}`}
+              >
+                <span>{formattedTotalPrice}</span>
+              </span>
             )}
           </div>
         </div>

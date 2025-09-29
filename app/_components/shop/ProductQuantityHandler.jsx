@@ -24,8 +24,25 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
         Seleziona quantità:
       </label>
       <div className="flex items-center gap-2">
+        <input
+          id="quantity"
+          type="text"
+          role="spinbutton"
+          className="pointer-events-none order-2 h-8 w-10 rounded text-center text-lg leading-8"
+          value={quantity}
+          readOnly
+          min={1}
+          max={productQuantity}
+          aria-label="Quantità selezionata"
+          aria-valuemin={1}
+          aria-valuemax={productQuantity}
+          aria-valuenow={quantity}
+          aria-live="polite"
+          aria-atomic="true"
+        />
+
         <Button
-          className="rounded-lg p-2"
+          className="order-1 rounded-lg p-2"
           disabled={quantity === 1}
           onClick={handleLessClick}
           ariaLabel="Diminuisci quantità di 1"
@@ -33,21 +50,8 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
           {minusIcon}
         </Button>
 
-        <input
-          id="quantity"
-          type="text"
-          className="pointer-events-none h-8 w-10 rounded text-center text-lg leading-8"
-          value={quantity}
-          readOnly
-          tabIndex={-1}
-          min={1}
-          max={productQuantity}
-          aria-live="polite"
-          aria-atomic="true"
-        />
-
         <Button
-          className="rounded-lg p-2"
+          className="order-3 rounded-lg p-2"
           disabled={quantity === productQuantity}
           onClick={handleMoreClick}
           ariaLabel="Aumenta quantità di 1"

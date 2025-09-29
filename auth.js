@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async signIn({ user, account, profile }) {
       try {
-        console.log(user, "signIn");
+        // console.log(user, "signIn");
 
         const existingUser = await getUser(user.email);
         if (!existingUser) await createUser(user.email, user.name, user.image);
@@ -42,11 +42,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // },
     async jwt({ token, user }) {
       if (user) {
-        console.log(user);
+        // console.log(user);
 
         const existingUser = await getUser(user.email);
         const cart = await getCart(existingUser.id);
-        console.log(existingUser.id);
+        // console.log(existingUser.id);
 
         token.userId = existingUser.id;
         token.cartId = cart?.id || null;

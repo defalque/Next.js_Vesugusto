@@ -10,19 +10,19 @@ function ProductCardImages({ id, name, images, priority = false }) {
     <Link
       href={`/shop/${id}`}
       aria-label={`Visita il prodotto ${name}`}
-      className="focus-visible:ring-primary-950 rounded-3xl focus-visible:ring-4 focus-visible:outline-none sm:-mx-0"
+      className="focus-visible:ring-primary-950 order-1 rounded-3xl focus-visible:ring-4 focus-visible:outline-none sm:-mx-0"
     >
-      <div className="group relative aspect-2/3 w-full">
+      <div role="presentation" className="group relative aspect-2/3 w-full">
         <Image
           src={images[0]}
-          alt={`Immagine 1 di ${name}`}
+          alt=""
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
           fill
           sizes={sizes}
           priority={priority}
           quality={70}
-          className={`pointer-events-none rounded-3xl object-cover transition duration-300 ease-in-out dark:brightness-80 ${
+          className={`pointer-events-none rounded-3xl object-cover transition-opacity duration-700 ease-in-out dark:brightness-80 ${
             hasHoverImage
               ? "group-active::opacity-0 group-hover:opacity-0"
               : "group-active::opacity-85 group-hover:opacity-85"
@@ -32,12 +32,12 @@ function ProductCardImages({ id, name, images, priority = false }) {
         {hasHoverImage && (
           <Image
             src={images[1]}
-            alt={`Immagine 2 di ${name}`}
+            alt=""
             fill
             sizes={sizes}
             priority={priority}
             quality={70}
-            className="pointer-events-none absolute top-0 left-0 rounded-3xl object-cover opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 group-active:opacity-100 dark:brightness-80"
+            className="pointer-events-none absolute top-0 left-0 rounded-3xl object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 group-active:opacity-100 dark:brightness-80"
           />
         )}
       </div>

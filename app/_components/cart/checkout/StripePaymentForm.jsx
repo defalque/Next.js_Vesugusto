@@ -131,7 +131,12 @@ export default function StripePaymentForm({
   return (
     <div className="flex flex-col gap-4">
       {clientSecret && (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form
+          aria-describedby={error ? "payment-error" : undefined}
+          aria-live="polite"
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4"
+        >
           <fieldset className="space-y-4">
             <legend className="sr-only">Dettagli pagamento con carta</legend>
             <PaymentElement options={{ layout: "auto" }} />
@@ -139,6 +144,7 @@ export default function StripePaymentForm({
 
           {error && (
             <div
+              id="payment-error"
               role="alert"
               aria-live="assertive"
               className="bg-primary-950/10 text-primary-950 flex max-w-full items-start gap-2 rounded-lg p-2 text-xs sm:text-sm"
@@ -161,9 +167,9 @@ export default function StripePaymentForm({
                 aria-hidden="true"
                 className="size-5 shrink-0"
               />
-              <span className="self-center hyphens-auto">
+              <p className="self-center hyphens-auto">
                 Inserisci le informazioni sulla spedizione per poter continuare.
-              </span>
+              </p>
             </div>
           )}
 

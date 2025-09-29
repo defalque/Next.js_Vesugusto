@@ -8,14 +8,14 @@ import ToggleFiltersMobile from "./ToggleFiltersMobile";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 
 import dynamic from "next/dynamic";
-import ProductFiltersSkeleton, { shimmer } from "../ui/skeleton/Skeletons";
 import Search from "../ui/Search";
+import { shimmer } from "../ui/skeleton/Skeletons";
 
 const SortBy = dynamic(() => import("../ui/SortBy"), {
   ssr: false,
   loading: () => (
     <div
-      className={`${shimmer} relative h-10 w-50 animate-pulse self-stretch overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+      className={`${shimmer} relative h-10 w-50 animate-pulse self-stretch overflow-hidden rounded-lg bg-gray-200 md:h-full dark:bg-zinc-700`}
     />
   ),
 });
@@ -51,7 +51,7 @@ function ProductsClients() {
 
         <section
           aria-label="Opzioni di ordinamento e azioni filtri"
-          className="bgColor sticky top-12 z-10 col-span-full row-start-2 flex w-full flex-col justify-end gap-x-5 gap-y-2 py-3 sm:top-12 sm:flex-row md:top-13 lg:top-13 lg:col-start-2"
+          className="bgColor _top-12 z-10 col-span-full row-start-2 flex w-full flex-col flex-wrap justify-end gap-x-5 gap-y-2 py-3 sm:sticky sm:top-12 sm:flex-row md:top-13 lg:top-13 lg:col-start-2"
         >
           <Search placeholder="Cerca prodotto per nome..." />
 

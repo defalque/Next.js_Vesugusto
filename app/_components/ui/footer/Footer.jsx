@@ -85,7 +85,7 @@ function Footer() {
   return (
     <footer
       aria-label="Informazioni sul sito"
-      className="flex flex-col items-center gap-8 border-t border-gray-100 px-4 py-10 dark:border-zinc-900"
+      className="flex flex-col items-center gap-8 px-4 py-10 dark:border-zinc-900"
     >
       <Logo complete isFooter />
 
@@ -98,14 +98,16 @@ function Footer() {
             key={link.name}
             name={link.name}
             href={link.href}
-            isFooter={true}
-          />
+            type="footer"
+          >
+            {link.name}
+          </NavLink>
         ))}
       </ul>
 
       <ul
         aria-label="Social media links"
-        className="text-primary-dark-200 dark:text-primary-950/90 flex items-center justify-center gap-8 dark:opacity-70"
+        className="text-primary-dark-200 _dark:opacity-70 flex items-center justify-center gap-8"
       >
         {socialLinks.map((social) => (
           <li key={social.label} className="flex items-center justify-center">

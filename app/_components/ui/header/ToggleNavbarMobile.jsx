@@ -8,7 +8,7 @@ const DrawerDialog = dynamic(() => import("../drawer/DrawerDialog"), {
   ssr: false,
   loading: () => (
     <span
-      className={`${shimmer} relative size-6 animate-pulse overflow-hidden rounded-md bg-gray-200 dark:bg-zinc-700`}
+      className={`${shimmer} relative size-8 animate-pulse overflow-hidden rounded-md bg-gray-200 dark:bg-zinc-700`}
     />
   ),
 });
@@ -19,7 +19,6 @@ function ToggleNavbarMobile({ children }) {
   return (
     <div className="flex items-center md:hidden">
       <DrawerDialog
-        ariaLabel="Esplora altre sezioni"
         className="bgColor px-4.5 py-3 text-sm"
         open={isOpen}
         setOpen={setIsOpen}

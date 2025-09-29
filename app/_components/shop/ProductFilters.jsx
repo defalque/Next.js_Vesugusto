@@ -2,7 +2,6 @@
 
 import { useFilterContext } from "@/app/_contexts/FiltersContext";
 import ProductFilter from "./ProductFilter";
-import Button from "../ui/Button";
 
 const category = [
   { value: "food", label: "Food" },
@@ -35,7 +34,7 @@ function ProductFilters() {
       <button
         onClick={handleReset}
         disabled={!hasFilters}
-        className="custom-focus mt-3 ml-2 cursor-pointer self-start rounded-full bg-black px-4 py-2.5 text-lg font-semibold text-white transition-colors duration-300 hover:bg-black/60 active:bg-black/70 disabled:cursor-not-allowed disabled:hover:bg-black md:text-base dark:bg-white dark:text-black dark:hover:bg-zinc-500 dark:hover:text-white dark:active:bg-zinc-500 dark:active:text-white dark:disabled:text-black dark:disabled:hover:bg-white"
+        className="custom-focus _dark:hover:bg-zinc-500 _dark:active:bg-zinc-500 mt-3 ml-2 cursor-pointer self-start rounded-full bg-black px-4 py-2.5 text-lg font-semibold text-white transition-colors duration-300 hover:bg-black/75 active:bg-black/75 disabled:cursor-not-allowed disabled:hover:bg-black md:text-base dark:bg-white dark:text-black dark:hover:bg-white/70 dark:active:bg-white/70 dark:disabled:text-black dark:disabled:hover:bg-white"
       >
         Reset
       </button>

@@ -14,12 +14,16 @@ function ProductFilter({ name, items, filterField }) {
 
   return (
     <LazyMotion features={loadFeatures}>
-      <m.div role="region" className="flex w-full flex-col py-1">
+      <m.div
+        role="region"
+        aria-label={`Sezione filtri ${name}`}
+        className="flex w-full flex-col py-1"
+      >
         <button
-          role="heading"
           className="category-focus group flex w-full cursor-pointer items-center rounded py-2 text-zinc-500 transition-all duration-200 hover:text-black active:text-black dark:text-white/80 dark:hover:text-white dark:active:text-white"
           onClick={() => setIsOpen((isOpen) => !isOpen)}
           aria-expanded={isOpen}
+          aria-controls={`filter-panel-${filterField}`}
         >
           <p className="text-lg font-semibold uppercase md:text-sm">{name}</p>
           {!isOpen ? (
@@ -38,6 +42,7 @@ function ProductFilter({ name, items, filterField }) {
         <AnimatePresence initial={false}>
           {isOpen && (
             <m.div
+              id={`filter-panel-${filterField}`}
               role="group"
               aria-label={`Filtri ${name}`}
               style={{ overflow: "hidden" }}

@@ -46,10 +46,13 @@ function OrderCardStatus({ orderStatus }) {
   const { label, icon, bgColor, color } = status[orderStatus];
 
   return (
-    <div className={`flex items-center gap-1 rounded-lg p-1 ${bgColor}`}>
+    <dl
+      className={`flex items-center gap-1 self-start rounded-lg p-1 ${bgColor}`}
+    >
       {icon}
-      <span className={`text-xs font-bold uppercase ${color}`}>{label}</span>
-    </div>
+      <dt className="sr-only">Stato ordine</dt>
+      <dd className={`text-xs font-bold uppercase ${color}`}>{label}</dd>
+    </dl>
   );
 }
 

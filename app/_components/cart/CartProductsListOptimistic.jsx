@@ -18,6 +18,7 @@ import dynamic from "next/dynamic";
 import { CartProductCardSkeleton } from "../ui/skeleton/Skeletons";
 import { SHIPPING_COST } from "@/app/_lib/constants";
 import { redirect } from "next/navigation";
+import { notoSerif } from "@/app/_lib/font";
 const CartItemQuantity = dynamic(() => import("./CartItemQuantity"), {
   ssr: false,
 });
@@ -44,7 +45,11 @@ function CartProductsListOptimistic({
   const [isPending, startTransition] = useTransition();
 
   if (!Array.isArray(optimisticProducts)) {
-    return <span>Errore: dati prodotti del carrello non validi.</span>;
+    return (
+      <p role="alert" className="text-red-600">
+        Errore: dati prodotti del carrello non validi.
+      </p>
+    );
   }
 
   if (optimisticProducts.length === 0) {
@@ -82,6 +87,15 @@ function CartProductsListOptimistic({
             Prodotti nel carrello
           </h2>
 
+          <p
+            aria-live="polite"
+            role="status"
+            aria-atomic="true"
+            className="sr-only"
+          >
+            {`Prodotti attualmente nel carrello: ${optimisticProducts.length}`}
+          </p>
+
           <ul className="divide-y divide-gray-200 dark:divide-zinc-800">
             <AnimatePresence mode="popLayout">
               {optimisticProducts.map((cartItemProduct) => (
@@ -99,6 +113,7 @@ function CartProductsListOptimistic({
                   >
                     <CartItemQuantity
                       productId={cartItemProduct.product.id}
+                      productName={cartItemProduct.product.name}
                       cartItemQuantity={cartItemProduct.quantity}
                       productQuantity={cartItemProduct.product.quantity}
                       handleUpdateCartItemQuantity={(newQuantity) => {
@@ -155,7 +170,7 @@ function CartProductsListOptimistic({
           >
             <h2
               id="cart-summary-heading"
-              className="mb-4 text-sm font-medium uppercase sm:text-xl"
+              className={`mb-4 text-lg font-semibold sm:text-xl`}
             >
               Riepilogo carrello
             </h2>
@@ -168,7 +183,7 @@ function CartProductsListOptimistic({
               <Button
                 href="/cart/checkout"
                 className="justify-center rounded py-3 text-sm font-bold uppercase sm:text-base"
-                aria-label="Procedi al checkout"
+                ariaLabel="Vai alla pagina di finalizzazione dell'acquisto"
                 disabled={isPending}
               >
                 Vai al checkout

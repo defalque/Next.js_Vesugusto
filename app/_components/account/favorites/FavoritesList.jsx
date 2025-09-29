@@ -7,11 +7,19 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 
 function FavoritesList({ favorites, userId, cartId }) {
   if (!Array.isArray(favorites)) {
-    return <span>Errore: dati prodotti non validi.</span>;
+    return (
+      <p role="alert" className="text-red-600">
+        Errore: dati prodotti non validi.
+      </p>
+    );
   }
 
   if (favorites.length === 0) {
-    return <span>Non hai nessun prodotto tra i preferiti.</span>;
+    return (
+      <p role="status" aria-live="polite">
+        Non hai nessun prodotto tra i preferiti.
+      </p>
+    );
   }
 
   return (

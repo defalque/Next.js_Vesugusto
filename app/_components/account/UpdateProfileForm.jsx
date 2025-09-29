@@ -44,7 +44,7 @@ function UpdateProfileForm({ user, name, email }) {
       className="my-8 flex flex-col gap-4 text-base sm:text-sm md:text-base"
     >
       {/* Nome ed Email */}
-      <div className="flex flex-col items-center gap-5 md:flex-row">
+      <div className="flex flex-col items-center gap-5 lg:flex-row">
         <div className="flex w-full flex-col space-y-2">
           <FormRow
             id="name"
@@ -68,7 +68,7 @@ function UpdateProfileForm({ user, name, email }) {
 
       {/* Via, Numero civico, CAP, Comune e Numero */}
       <div className="grid w-full grid-cols-4 grid-rows-2 gap-5">
-        <div className="col-span-full flex w-full flex-col space-y-2 sm:col-span-2">
+        <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
           <FormRow
             id="via"
             label="Via"
@@ -91,7 +91,7 @@ function UpdateProfileForm({ user, name, email }) {
           <FormError message={errors.via?.message} id="error-via" />
         </div>
 
-        <div className="col-span-2 flex w-full flex-col space-y-2 sm:col-span-1">
+        <div className="col-span-2 flex w-full flex-col space-y-2 lg:col-span-1">
           <FormRow
             id="numeroCivico"
             label="Civico"
@@ -117,7 +117,7 @@ function UpdateProfileForm({ user, name, email }) {
           />
         </div>
 
-        <div className="col-span-2 flex w-full flex-col space-y-2 sm:col-span-1">
+        <div className="col-span-2 flex w-full flex-col space-y-2 lg:col-span-1">
           <FormRow
             id="cap"
             label="CAP"
@@ -136,7 +136,7 @@ function UpdateProfileForm({ user, name, email }) {
           <FormError message={errors.cap?.message} id="error-cap" />
         </div>
 
-        <div className="col-span-2 flex w-full flex-col space-y-2">
+        <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
           <FormRow
             id="comune"
             label="Comune"
@@ -159,7 +159,7 @@ function UpdateProfileForm({ user, name, email }) {
           <FormError message={errors.comune?.message} id="error-comune" />
         </div>
 
-        <div className="col-span-2 flex w-full flex-col space-y-2">
+        <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
           <FormRow
             id="phoneNumber"
             label="Numero"
@@ -195,8 +195,8 @@ function UpdateProfileForm({ user, name, email }) {
         isSubmitting={isSubmitting}
         onClick={() => reset()}
         isDirty={isDirty}
-        defaultText="Modifica informazioni"
-        pendingText="Modifica in corso..."
+        defaultText="Aggiorna profilo"
+        pendingText="Aggiornamento in corso..."
       />
     </form>
   );

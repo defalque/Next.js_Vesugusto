@@ -12,7 +12,6 @@ export default function Page() {
   return (
     <div className="mb-10 flex flex-col gap-8">
       <AccountHeading
-        accessibleLabel="favorites-heading"
         title="Prodotti preferiti"
         text="Qui puoi trovare e rivedere rapidamente tutti i prodotti che hai
           aggiunto alla tua lista dei preferiti e inserirli subito nel carrello."

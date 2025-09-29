@@ -49,11 +49,21 @@ function NavLink({ type, ...props }) {
           href={href}
           aria-current={pathname === href ? "page" : undefined}
           {...restProps}
-          className={`accountLinksFocus _w-full flex min-w-full items-center gap-2 font-medium ${
+          className={`accountLinksFocus flex min-w-full items-center gap-2 font-medium ${
             pathname === href
               ? "bg-black text-white dark:bg-white dark:text-black"
               : "hover:bg-black hover:text-white active:bg-black active:text-white dark:hover:bg-white dark:hover:text-black dark:active:bg-white dark:active:text-black"
           } rounded-xl px-4 py-3 md:px-2 md:py-1`}
+        >
+          {children}
+        </Link>
+      )}
+
+      {type === "footer" && (
+        <Link
+          href={href}
+          {...restProps}
+          className={`focus rounded-xl px-2 py-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 active:text-white dark:cursor-pointer dark:hover:bg-zinc-700/50 dark:hover:text-white dark:active:bg-zinc-700/50`}
         >
           {children}
         </Link>

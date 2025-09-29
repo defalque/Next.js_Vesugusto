@@ -12,7 +12,7 @@ function AddFavoriteToCart({
 }) {
   return (
     <Button
-      className="truncate rounded px-2 py-1 text-xs font-semibold uppercase"
+      className="order-4 truncate rounded px-2 py-1.5 text-xs font-semibold uppercase"
       onClick={async () => {
         try {
           setIsPending(true);

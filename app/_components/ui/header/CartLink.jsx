@@ -23,7 +23,7 @@ async function CartLink() {
       />
       {cartItems > 0 && (
         <span
-          className="bg-primary-950 dark:bg-primary-dark-500 dark:border-primary-dark-100 absolute top-0 left-1/2 inline-flex size-4.5 items-center justify-center rounded-full text-xs font-semibold text-gray-50 dark:border dark:text-gray-50"
+          className="bg-primary-dark-200 dark:bg-primary-dark-500 dark:border-primary-dark-100 absolute top-0 left-1/2 inline-flex size-4.5 items-center justify-center rounded-full text-xs font-semibold text-gray-50 dark:border dark:text-gray-50"
           aria-label={`Prodotti nel carrello: ${cartItems}`}
         >
           <span aria-hidden>{cartItems}</span>

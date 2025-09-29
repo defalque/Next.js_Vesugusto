@@ -52,7 +52,6 @@ function MainCarousel({ children }) {
     <section
       role="region"
       aria-roledescription="carousel"
-      aria-label="Immagini principali della homepage"
       className="relative min-h-120 w-full"
     >
       <div className="overflow-hidden" ref={emblaRef}>

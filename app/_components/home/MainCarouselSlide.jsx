@@ -10,25 +10,15 @@ function MainCarouselSlide({
   link,
   priority,
   index,
-  totalSlides,
 }) {
   return (
     <div
-      role="group"
-      aria-roledescription="slide"
-      aria-label={`Slide ${index + 1} di ${totalSlides}`}
       className="translate-3d-none _h-full relative w-full min-w-0 shrink-0 grow-0 basis-full"
       id={`carousel-slide-${index}`}
     >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority={priority}
-        placeholder="blur"
-        className="object-cover brightness-70"
-      />
-      <div className={`page-padding absolute inset-0 flex justify-start`}>
+      <div
+        className={`page-padding absolute inset-0 z-1000 flex justify-start`}
+      >
         <div className="flex h-full flex-col items-start justify-end gap-3 py-20">
           <h2
             className={`max-w-xl text-4xl font-semibold tracking-tight text-white text-shadow-lg sm:text-6xl ${notoSerif.className}`}
@@ -46,6 +36,15 @@ function MainCarouselSlide({
           </Link>
         </div>
       </div>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        placeholder="blur"
+        className="object-cover brightness-70"
+        sizes="(max-width: 48rem) 100vw, (max-width: 75rem) 50vw, 33vw"
+      />
     </div>
   );
 }

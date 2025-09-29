@@ -1,7 +1,7 @@
 function FormRow({ id, label, type, disabled = false, ...props }) {
   return (
     <>
-      <label htmlFor={id} className="w-fit">
+      <label htmlFor={id} className={`w-fit`}>
         {label}
       </label>
       <input

@@ -22,11 +22,11 @@ export default function Search({ placeholder }) {
   return (
     <div className="relative flex flex-1">
       <label htmlFor="search" className="sr-only">
-        Cerca
+        {placeholder}
       </label>
       <input
         id="search"
-        className="peer focus block h-full w-full rounded-xl border border-gray-200 bg-white/80 py-2 pr-10 pl-10 text-sm shadow-xs backdrop-blur-xs transition-colors duration-200 placeholder:text-zinc-500 sm:py-2 sm:text-base dark:border-zinc-700 dark:bg-black/80 dark:placeholder:text-zinc-500"
+        className="peer focus block h-full w-full min-w-70 rounded-xl border border-gray-200 bg-white/80 py-2 pr-10 pl-10 text-base shadow-xs backdrop-blur-xs transition-colors duration-200 placeholder:text-zinc-500 dark:border-zinc-700 dark:bg-black/80 dark:placeholder:text-zinc-500"
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);

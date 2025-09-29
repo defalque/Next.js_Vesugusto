@@ -1,8 +1,8 @@
 import { notoSerif } from "@/app/_lib/font";
 
-import slide1 from "../../../public/hero.jpg";
-import slide2 from "../../../public/slide2.jpg";
-import slide3 from "../../../public/drinkslide.jpg";
+import slide1 from "../../../public/hero1.jpg";
+import slide2 from "../../../public/hero2.jpg";
+import slide3 from "../../../public/hero3.jpg";
 
 import MainCarousel from "@/app/_components/home/MainCarousel";
 import MainCarouselSlide from "@/app/_components/home/MainCarouselSlide";
@@ -19,7 +19,7 @@ export const metadata = {
 const slides = [
   {
     src: slide1,
-    alt: "Slide 1",
+    alt: "Varietà di ciambelle glassate e farcite disposte su sfondo bianco, con diverse decorazioni tra cui cioccolato, granella, zuccherini colorati e glasse rosa.",
     heroHeading: "Ogni stagione ha il suo sapore",
     heroSubHeading:
       "Esplora le novità stagionali dei nostri prodotti prima che finiscano!",
@@ -27,7 +27,7 @@ const slides = [
   },
   {
     src: slide2,
-    alt: "Slide 2",
+    alt: "Tre biscotti artigianali su un piatto bianco: uno con noci pecan e gocce di cioccolato, uno con cioccolato bianco e frutta secca, e uno rosso tipo red velvet con decorazioni di glassa. Accanto, una tazza di tè e una piantina su tavolo in legno chiaro.",
     heroHeading: "Porta a tavola l’anima vesuviana",
     heroSubHeading:
       "Un viaggio gastronomico caratterizzato da sapori intensi, tradizionali e sorprendenti.",
@@ -35,7 +35,7 @@ const slides = [
   },
   {
     src: slide3,
-    alt: "Slide 3",
+    alt: "Cocktail ambrato servito in un bicchiere basso con grandi cubetti di ghiaccio, guarnito con scorza d’arancia tenuta da una mini molletta, mentre viene versato con un colino da barista su un bancone dorato.",
     heroHeading: "Dal cratere al calice",
     heroSubHeading:
       "Esplora la nostra selezione di drink unici e territoriali, un'autenticità da sorseggiare.",
@@ -45,7 +45,7 @@ const slides = [
 
 export default function Page() {
   return (
-    <>
+    <div className="mx-auto max-w-[95rem]">
       <MainCarousel>
         {slides.map((slide, index) => (
           <MainCarouselSlide
@@ -55,7 +55,6 @@ export default function Page() {
             heroHeading={slide.heroHeading}
             heroSubHeading={slide.heroSubHeading}
             link={slide.link}
-            priority={index === 0}
             index={index}
             totalSlides={slides.length}
           />
@@ -67,6 +66,6 @@ export default function Page() {
       <NewArrivals font={notoSerif} />
 
       <Newsletter font={notoSerif} />
-    </>
+    </div>
   );
 }

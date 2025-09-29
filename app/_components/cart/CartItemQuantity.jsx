@@ -2,6 +2,7 @@
 
 function CartItemQuantity({
   productId,
+  productName,
   cartItemQuantity,
   productQuantity,
   handleUpdateCartItemQuantity,
@@ -28,7 +29,7 @@ function CartItemQuantity({
           { length: Math.min(productQuantity + cartItemQuantity, 10) },
           (_, i) => i + 1,
         ).map((x) => (
-          <option value={x} key={x}>
+          <option value={x} key={x} aria-selected={x === cartItemQuantity}>
             {x}
           </option>
         ))}

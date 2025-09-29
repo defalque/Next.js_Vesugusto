@@ -31,7 +31,6 @@ export default async function Page({ searchParams }) {
   return (
     <div className="mb-10 flex flex-col gap-8">
       <AccountHeading
-        accessibleLabel="orders-heading"
         title="Storico degli ordini"
         text="Visualizza lo stato degli ordini recenti, gestisci i resi e scopri
           prodotti simili."
@@ -51,17 +50,8 @@ export default async function Page({ searchParams }) {
           Risultati ordini
         </h2>
 
-        <div
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-          role="status"
-        >
-          {`Sono stati trovati ${count ?? 0} ordini`}
-        </div>
-
         <Suspense key={filtersKey} fallback={<OrdersListSkeleton />}>
-          <OrdersList filters={filters} />
+          <OrdersList count={count} filters={filters} />
         </Suspense>
 
         {!isPageOutOfBounds && (

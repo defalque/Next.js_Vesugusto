@@ -42,7 +42,7 @@ const navLinks = [
   },
   {
     name: "Supporto clienti",
-    href: "/account/info",
+    href: "/account/customer-service",
     icon: (
       <InformationCircleIcon
         aria-hidden
@@ -56,9 +56,9 @@ function SideNav() {
   return (
     <aside
       aria-label="Barra di navigazione account"
-      className="no-scrollbar account-padding _top-12 z-150 flex h-fit overflow-x-auto bg-white mask-x-from-97% py-1 md:sticky md:top-18 md:min-h-[calc(100vh-24vh)] md:w-fit md:mask-none dark:bg-black"
+      className="no-scrollbar account-padding _top-12 z-150 flex h-fit overflow-x-auto bg-white mask-x-from-97% py-2 md:sticky md:top-18 md:min-h-[calc(100vh-24vh)] md:w-fit md:mask-none md:py-1 dark:bg-black"
     >
-      <nav aria-label="Navigazione account" className="grow">
+      <nav className="grow">
         <ul className="_min-w-full flex h-full w-full snap-x scroll-pl-1 flex-row justify-center gap-4 px-0.5 py-1 text-lg sm:text-base md:flex-col md:gap-2 md:py-0">
           <AccountNavLinks navLinks={navLinks} />
 

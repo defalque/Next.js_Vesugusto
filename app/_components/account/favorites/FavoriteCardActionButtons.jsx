@@ -4,12 +4,22 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 const AddFavoriteToCart = dynamic(() => import("./AddFavoriteToCart"), {
   ssr: false,
+  loading: () => (
+    <div
+      aria-hidden
+      className="order-4 h-7 w-full animate-pulse rounded bg-gray-200 dark:bg-zinc-700"
+    />
+  ),
 });
 const DeleteFavoriteItem = dynamic(() => import("./DeleteFavoriteItem"), {
   ssr: false,
+  loading: () => (
+    <div
+      aria-hidden
+      className="absolute top-1 right-1 z-100 order-1 h-7 w-7 animate-pulse rounded-full bg-gray-200 dark:bg-zinc-700"
+    />
+  ),
 });
-// import AddFavoriteToCart from "./AddFavoriteToCart";
-// import DeleteFavoriteItem from "./DeleteFavoriteItem";
 
 function FavoriteCardActionButtons({
   userId,

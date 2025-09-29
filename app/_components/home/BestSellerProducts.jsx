@@ -13,14 +13,12 @@ async function BestSellerProducts() {
     >
       {bestSellers.map((bestSeller, index) => (
         <li key={index} className="group relative list-none">
-          <article
-            className="flex flex-col gap-2 p-0.5 sm:p-1"
-            aria-label={`Vai alla pagina di ${bestSeller.product_name}`}
-          >
+          <article className="flex flex-col gap-2 p-0.5 sm:p-1">
             <div className="relative aspect-2/3 w-full overflow-hidden rounded-3xl">
               <SafeImage
                 src={bestSeller.product_image.at(0)}
-                alt={`Prodotto: ${bestSeller.product_name}`}
+                alt=""
+                role="presentation"
                 fill
                 sizes="(max-width: 48rem) 50vw, (max-width: 80rem) 33vw, 18.75rem"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
@@ -29,7 +27,6 @@ async function BestSellerProducts() {
                 className="overflow-hidden object-cover transition-transform duration-300 group-hover:scale-110 group-active:scale-110"
               />
             </div>
-
             <div className="px-2 text-base font-semibold sm:px-1 sm:text-lg">
               <h3>{bestSeller.product_name}</h3>
               <p>
@@ -38,12 +35,12 @@ async function BestSellerProducts() {
                 )}
               </p>
             </div>
+            <Link
+              href={`/shop/${bestSeller.product_id}`}
+              className="custom-focus absolute inset-0 rounded-3xl"
+              aria-label={`Vai alla pagina del prodotto ${bestSeller.product_name}`}
+            />
           </article>
-          <Link
-            href={`/shop/${bestSeller.product_id}`}
-            className="custom-focus absolute inset-0 rounded-3xl"
-            aria-label={`Scopri ${bestSeller.product_name}`}
-          />
         </li>
       ))}
     </ul>

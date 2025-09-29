@@ -12,25 +12,27 @@ function DrawerDialog({
   direction = "left",
   children,
   buttonStyles,
-  ariaLabel,
 }) {
+  const headingId =
+    direction === "left" ? "filters-heading" : "sections-heading";
+
   return (
     <>
       <Button
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-pressed={open}
         aria-label={
           direction === "left"
             ? "Mostra filtri"
             : "Apri per esplorare altre sezioni del sito"
         }
+        aria-pressed={open}
+        aria-expanded={open}
+        aria-haspopup="dialog"
         onClick={() => setOpen(true)}
         className={buttonStyles}
       >
         {direction === "left" ? (
           <>
-            <p className="text-sm sm:text-base">Filtri</p>
+            <p>Filtri</p>
             <AdjustmentsHorizontalIcon aria-hidden className="size-5" />
           </>
         ) : (
@@ -42,7 +44,7 @@ function DrawerDialog({
         open={open}
         onClose={setOpen}
         className="_relative _z-1000 fixed inset-0 z-1000 lg:hidden"
-        aria-label={ariaLabel}
+        aria-labelledby={headingId}
       >
         <DialogBackdrop
           transition
@@ -55,36 +57,40 @@ function DrawerDialog({
         >
           <DialogPanel
             transition
-            className={`bgColor _px-3 pointer-events-auto relative flex w-screen max-w-xs transform flex-col gap-y-8 pt-4 transition duration-500 ease-in-out ${direction === "left" ? "border-r border-r-gray-200 data-closed:-translate-x-full dark:border-r-zinc-900" : "border-l border-l-gray-200 data-closed:translate-x-full dark:border-l-zinc-900"} sm:max-w-sm sm:duration-700`}
+            className={`bgColor _max-w-xs pointer-events-auto relative flex w-screen max-w-xs transform flex-col gap-y-8 pt-4 transition duration-500 ease-in-out ${direction === "left" ? "border-r border-r-gray-200 data-closed:-translate-x-full dark:border-r-zinc-900" : "border-l border-l-gray-200 data-closed:translate-x-full dark:border-l-zinc-900"} sm:max-w-sm sm:duration-700`}
           >
             <div className="flex items-center justify-between px-5">
               {direction === "left" && (
-                <span
+                <h2
+                  id={headingId}
                   className={`${notoSerif.className} text-3xl font-semibold`}
                 >
                   Filtri
-                </span>
+                </h2>
               )}
               {direction === "right" && (
-                <span
+                <h2
+                  id={headingId}
                   className={`${notoSerif.className} text-3xl font-semibold`}
                 >
-                  Sezioni
-                </span>
+                  Sezioni del sito
+                </h2>
               )}
+
               <button
+                data-autofocus
                 type="button"
+                aria-label={
+                  direction === "left" ? "Chiudi filtri" : "Chiudi sezioni"
+                }
                 onClick={() => setOpen(false)}
                 className="focus-visible:ring-primary-950 _mr-2.5 cursor-pointer rounded-xl border border-gray-200 px-2 py-1.5 transition-colors duration-200 hover:bg-gray-200/80 focus-visible:ring-2 focus-visible:outline-none active:bg-gray-200/80 dark:border-zinc-800 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
               >
-                <span className="sr-only">
-                  {direction === "left" ? "Chiudi filtri" : "Chiudi sezioni"}
-                </span>
-                <X aria-hidden="true" className="size-6 md:size-6" />
+                <X aria-hidden className="size-6 md:size-6" />
               </button>
             </div>
             <div
-              className={`relative h-full flex-1 flex-col gap-5 overflow-y-auto px-4 ${className}`}
+              className={`scrollbar relative h-full flex-1 flex-col gap-5 overflow-y-auto px-4 ${className}`}
             >
               {children}
             </div>

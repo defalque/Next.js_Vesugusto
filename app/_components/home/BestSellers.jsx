@@ -6,7 +6,6 @@ import { BestSellerProductsSkeleton } from "../ui/skeleton/Skeletons";
 function BestSellers({ font }) {
   return (
     <section
-      role="region"
       aria-labelledby="most-loved"
       className="page-padding flex w-full flex-col gap-x-10 gap-y-13 py-20 md:flex-row"
     >

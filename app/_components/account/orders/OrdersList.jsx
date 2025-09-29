@@ -3,7 +3,7 @@ import { getPaginatedUserOrders } from "@/app/_lib/data-service";
 import { auth } from "@/auth";
 import OrderCard from "./OrderCard";
 
-async function OrdersList({ filters }) {
+async function OrdersList({ count, filters }) {
   const session = await auth();
 
   const orders = await getPaginatedUserOrders(
@@ -13,15 +13,32 @@ async function OrdersList({ filters }) {
   );
 
   if (!Array.isArray(orders)) {
-    return <span>Errore: dati ordini non validi.</span>;
+    return (
+      <p role="alert" className="text-red-600">
+        Errore: dati ordini non validi.
+      </p>
+    );
   }
 
   if (orders.length === 0) {
-    return <span>Nessun ordine trovato.</span>;
+    return (
+      <p role="status" aria-live="polite">
+        Nessun ordine trovato.
+      </p>
+    );
   }
 
   return (
     <div className="relative flex flex-col gap-20">
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        {`Ordini trovati: ${count ?? 0}`}
+      </div>
+
       {orders.map((order) => (
         <article
           key={order.id}

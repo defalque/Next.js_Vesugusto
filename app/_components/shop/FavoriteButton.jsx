@@ -45,13 +45,14 @@ function FavoriteButton({
       }}
       className={`${className} focus rounded`}
       aria-label="Aggiungi ai preferiti"
+      aria-pressed={isFavorite}
       disabled={pending || productQuantity === 0}
     >
       <HeartIcon
         className={`inline-flex ${iconSizes} ${productQuantity === 0 ? "cursor-not-allowed" : "cursor-pointer"} items-center transition-colors duration-300 ${pending ? "animate-pulse cursor-not-allowed" : ""} ${
           isFavorite
-            ? "fill-primary-950 text-primary-950 dark:fill-primary-50 dark:text-primary-50"
-            : "hover:fill-primary-950 dark:text-primary-50 dark:hover:fill-primary-50 text-primary-950"
+            ? "fill-primary-dark-200 text-primary-dark-200 dark:fill-primary-dark-100 dark:text-primary-dark-100"
+            : "hover:fill-primary-dark-200 dark:hover:fill-primary-dark-100 dark:text-primary-dark-100 text-primary-dark-200"
         }`}
       />
     </button>

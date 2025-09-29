@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { CartProductsListSkeleton } from "../../_components/ui/skeleton/Skeletons";
 import CartWrapper from "../../_components/cart/CartWrapper";
+import { notoSerif } from "@/app/_lib/font";
 
 export const metadata = {
   title: "Carrello",
@@ -10,8 +11,13 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="my-5 flex min-h-screen flex-col gap-8 px-4 xl:px-20">
-      <h1 className="xs:text-4xl col-span-full text-3xl font-semibold tracking-wide sm:font-medium lg:text-5xl">
+    <div className="page-padding mx-auto mt-10 flex min-h-screen max-w-[95rem] flex-col gap-8">
+      {/* <h1
+        className={`${notoSerif.className} xs:text-4xl col-span-full text-3xl font-semibold sm:font-medium lg:text-5xl`}
+      > */}
+      <h1
+        className={`${notoSerif.className} xs:text-4xl my-3 text-3xl font-semibold tracking-wide sm:font-medium lg:text-5xl`}
+      >
         Il mio carrello
       </h1>
 

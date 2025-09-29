@@ -21,12 +21,12 @@ function PaymentForm({ amount, userId, cartId, name, email, disabled }) {
       fontWeightNormal: "500",
       borderRadius: "8px",
       colorBackground: isDarkMode ? "#212529" : "#FFFFFF",
-      colorPrimary: "#fa5252",
+      colorPrimary: "#c84242",
       accessibleColorOnColorPrimary: isDarkMode ? "#1A1B25" : "#FFFFFF",
       colorText: isDarkMode ? "white" : "#1A1B25",
       colorTextSecondary: isDarkMode ? "white" : "#4B5563",
       colorTextPlaceholder: isDarkMode ? "#ABB2BF" : "#6B7280",
-      colorDanger: isDarkMode ? "#fa5252" : "#ff6b6b",
+      colorDanger: isDarkMode ? "#fa5252" : "#c84242",
     },
     rules: {
       ".Input": {

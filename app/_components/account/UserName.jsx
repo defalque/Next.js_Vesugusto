@@ -8,7 +8,12 @@ async function UserName() {
   // await delay(2000);
   const session = await auth();
 
-  return <span className="">{session.user.name}!</span>;
+  return (
+    <p className="">
+      {session.user.name}
+      <span aria-hidden>!</span>
+    </p>
+  );
 }
 
 export default UserName;

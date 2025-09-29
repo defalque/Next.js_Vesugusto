@@ -41,6 +41,7 @@ function FilterInput({ label, value, filterField }) {
       onClick={handleChange}
       className={combinedClasses}
       aria-pressed={isChecked}
+      aria-selected={isChecked}
     >
       {label}
     </button>

@@ -11,14 +11,19 @@ export const metadata = {
 
 const breadcrumbs = [
   { label: "Il mio carrello", href: "/cart" },
-  { label: "Checkout", href: `/cart/checkout`, active: true },
+  {
+    label: "Checkout",
+    href: `/cart/checkout`,
+    ariaLabel: "Finalizzazione dell'acquisto",
+    active: true,
+  },
 ];
 
 export default async function Page() {
   const session = await auth();
 
   return (
-    <div className="my-5 flex flex-col gap-8 px-4 xl:px-20">
+    <div className="page-padding mx-auto mt-10 flex max-w-[95rem] flex-col gap-8">
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
       <Suspense fallback={<CheckoutWrapperSkeleton />}>

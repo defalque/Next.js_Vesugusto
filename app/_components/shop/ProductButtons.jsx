@@ -28,7 +28,6 @@ function ProductButtons({
   isFavorite,
   productQuantity,
 }) {
-  console.log(userId);
   return (
     <div className="grid w-fit grid-cols-[auto_auto] items-center gap-6">
       <ProductQuantityProvider>

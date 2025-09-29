@@ -23,7 +23,7 @@ export default function Page() {
   return (
     <>
       <AccountHeading
-        accessibleLabel="account-heading"
+        accessibleLabel="Messagio di benvenuto"
         text="Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
           tue informazioni personali."
       >

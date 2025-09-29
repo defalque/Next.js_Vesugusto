@@ -43,7 +43,7 @@ export default async function Page({ params }) {
   ];
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-5 py-5 xl:px-38 xl:py-12">
+    <div className="_max-w-[95rem] mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-5 sm:px-6 lg:px-10 xl:px-38 xl:py-12">
       <div className="grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 md:grid-rows-[auto_1fr] md:gap-y-0">
         <div className="col-start-1 mb-0 md:col-start-2 md:mb-8">
           <Breadcrumbs breadcrumbs={breadcrumbs} />

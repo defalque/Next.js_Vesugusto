@@ -1,12 +1,10 @@
-// "use client";
 import SelectedImageContextProvider from "@/app/_contexts/SelectedImageContext";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import IconButton from "./IconButton";
 import MiniImageButton from "./MiniImageButton";
 import ImageBox from "./ImageBox";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation, Pagination } from "swiper/modules";
+import SelectedImagePolite from "./SelectedImagePolite";
 
 function ProductImages({ product }) {
   const images = product.image || [];
@@ -16,43 +14,9 @@ function ProductImages({ product }) {
 
   const sizes = "(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw";
 
-  // return (
-  //   <section
-  //     aria-label={`Immagini prodotto ${product.name}`}
-  //     className="w-full"
-  //   >
-  //     <Swiper
-  //       modules={[Navigation, Pagination]}
-  //       spaceBetween={0}
-  //       slidesPerView={1}
-  //       navigation
-  //       pagination={{ clickable: true }}
-  //       className="rounded-lg"
-  //     >
-  //       {images.map((img, index) => (
-  //         <SwiperSlide key={index}>
-  //           <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg">
-  //             <Image
-  //               src={img}
-  //               alt={`${product.name}: immagine ${index + 1}`}
-  //               fill
-  //               placeholder="blur"
-  //               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
-  //               quality={80}
-  //               priority={index === 0}
-  //               sizes={sizes}
-  //               className="object-cover dark:shadow-sm dark:brightness-80"
-  //             />
-  //           </div>
-  //         </SwiperSlide>
-  //       ))}
-  //     </Swiper>
-  //   </section>
-  // );
-
   return (
     <section
-      aria-label={`Immagini prodotto ${product.name}`}
+      aria-label={`Immagini del prodotto ${product.name}`}
       className="sticky top-17 flex items-start gap-x-5"
     >
       <SelectedImageContextProvider
@@ -60,7 +24,11 @@ function ProductImages({ product }) {
         images={product.image}
       >
         {hasMultipleImages && (
-          <div className="hidden flex-col items-center gap-4 lg:flex">
+          <div
+            role="listbox"
+            aria-label="Azioni immagini"
+            className="hidden flex-col items-center gap-4 lg:flex"
+          >
             {images.map((img, index) => (
               <MiniImageButton
                 key={index + 1}
@@ -68,8 +36,9 @@ function ProductImages({ product }) {
                 name={product.name}
               >
                 <Image
+                  role="presentation"
                   src={img}
-                  alt={`Miniatura ${index + 1} di ${product.name}`}
+                  alt=""
                   fill
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
@@ -82,26 +51,33 @@ function ProductImages({ product }) {
           </div>
         )}
 
-        <div className="relative aspect-2/3 w-full overflow-hidden rounded-lg">
-          {product.image.length === 0 && (
-            <span>Nessuna immagine presente.</span>
+        <div
+          aria-label="Descrizione e azioni immagini del prodotto"
+          className="relative aspect-2/3 w-full overflow-hidden rounded-lg"
+        >
+          {product.image.length === 0 ? (
+            <p>Nessuna immagine presente.</p>
+          ) : (
+            <>
+              <SelectedImagePolite />
+              {product.image.map((img, index) => (
+                <ImageBox key={index + 1} index={index}>
+                  <Image
+                    src={img}
+                    //sarebbe da aggiungere un campo altText nel database
+                    alt={`${product.name}: immagine ${index + 1}`}
+                    fill
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
+                    quality={80}
+                    priority={index === 0}
+                    sizes={sizes}
+                    className="object-cover transition-opacity duration-500 dark:shadow-sm dark:brightness-80"
+                  />
+                </ImageBox>
+              ))}
+            </>
           )}
-          {product.image.length > 0 &&
-            product.image.map((img, index) => (
-              <ImageBox key={index + 1} index={index}>
-                <Image
-                  src={img}
-                  alt={`${product.name}: immagine ${index + 1}`}
-                  fill
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
-                  quality={80}
-                  priority={index === 0 ? true : false}
-                  sizes={sizes}
-                  className="object-cover transition-opacity duration-500 dark:shadow-sm dark:brightness-80"
-                />
-              </ImageBox>
-            ))}
 
           {hasMultipleImages && (
             <div className="absolute top-1/2 right-0 left-0 z-10 flex -translate-y-1/2 justify-between px-2">

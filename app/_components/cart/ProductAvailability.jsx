@@ -1,10 +1,12 @@
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 function ProductAvailability({ quantity }) {
+  const formattedQuantity = ` Disponibilità limitata - Solo ${quantity}`;
+
   return (
     <span className="xs:row-start-4 col-start-2 row-start-5 mt-auto mb-0.5 flex items-center gap-1 text-xs font-light lg:text-sm">
       <CheckIcon
-        aria-hidden={true}
+        aria-hidden
         className={`size-5 ${
           quantity > 10
             ? "font-bold text-lime-500"
@@ -13,16 +15,13 @@ function ProductAvailability({ quantity }) {
       />
       {quantity === 0 && (
         <span className="mt-auto mb-0.5 flex items-center gap-1 text-sm font-light">
-          <XMarkIcon className="size-5 text-red-600" />
+          <XMarkIcon aria-hidden className="size-5 text-red-600" />
           Esaurito
         </span>
       )}
 
       {quantity <= 10 && quantity > 0 && (
-        <>
-          <span className="hidden md:inline">Disponibilità limitata - </span>
-          Solo {quantity}
-        </>
+        <span className="hidden md:inline">{formattedQuantity}</span>
       )}
 
       {quantity > 10 && "Disponibile"}

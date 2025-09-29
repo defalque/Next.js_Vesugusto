@@ -52,7 +52,7 @@ export async function getPaginatedProducts(limit, filters) {
 
   let query = supabase
     .from("products")
-    .select("id, name, regularPrice, image")
+    .select("id, name, regularPrice, image, description")
     .gt("quantity", 0)
     .range(from, to);
 
@@ -237,7 +237,7 @@ export async function getCartProd(cartId) {
   const { data, error } = await supabase
     .from("cart_items")
     .select(
-      "id, created_at, productId(id, name, regularPrice, discount, quantity, details, image), quantity",
+      "id, created_at, productId(id, name, regularPrice, discount, quantity, details, description, image), quantity",
     )
     .eq("cartId", cartId)
     .order("created_at", { ascending: true });
@@ -526,7 +526,7 @@ export async function getUserOrder(userId, paymentIntent) {
     },
   }));
 
-  console.log(orderId);
+  // console.log(orderId);
 
   return { data: normalizedData, orderId, success: true };
 }

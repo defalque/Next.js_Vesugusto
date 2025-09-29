@@ -6,7 +6,7 @@ const DrawerDialog = dynamic(() => import("../ui/drawer/DrawerDialog"), {
   ssr: false,
   loading: () => (
     <div
-      className={`${shimmer} relative h-full w-20 animate-pulse overflow-hidden rounded-md bg-gray-200 dark:bg-zinc-700`}
+      className={`${shimmer} relative h-10 w-23 animate-pulse overflow-hidden rounded-full bg-gray-200 md:h-full dark:bg-zinc-700`}
     />
   ),
 });
@@ -19,11 +19,10 @@ function ToggleFiltersMobile({ children }) {
   return (
     <div className="relative self-stretch lg:hidden">
       <DrawerDialog
-        ariaLabel="Filtri"
         className="bgColor"
         open={isOpenMobile}
         setOpen={setIsOpenMobile}
-        buttonStyles="data-focus:outline-primary-950 inline-flex h-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-white/80 px-2 py-1 backdrop-blur-sm hover:bg-gray-200/80 focus:not-data-focus:outline-none active:bg-gray-200/80 data-focus:outline-2 data-focus:-outline-offset-2 sm:text-base dark:bg-black/80 dark:hover:dark:bg-zinc-700/50 dark:active:dark:bg-zinc-700/50"
+        buttonStyles="data-focus:outline-primary-950 transition-colors duration-200 inline-flex h-full font-semibold cursor-pointer items-center justify-center gap-2 rounded-full px-4 py-2.5 bg-black text-white dark:text-black hover:bg-black/75 active:bg-black/75 dark:bg-white dark:hover:bg-white/70 dark:active:bg-white/70 focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 sm:text-base"
       >
         {children}
       </DrawerDialog>
