@@ -12,6 +12,7 @@ export async function POST() {
 
     const userSession = await auth();
     const products = await getCartProd(userSession.user.cartId);
+    console.log("sono in checkout sessions");
 
     if (!products || products.length === 0) {
       return NextResponse.json(

@@ -10,10 +10,12 @@
 - E-commerce completo con:
   - Possibilità di **ricercare**, **filtrare** e **ordinare** i prodotti.
   - **Paginazione** integrata per una navigazione ottimale.
+
   - Schede prodotto dettagliate.
   - Carrello.
   - Checkout con integrazione ai **pagamenti** tramite [Stripe](https://stripe.com) webhook.
   - Area utente.
+
 - Versione **light** e **dark** basata sulle preferenze del dispositivo.
 - **Invio automatico di email** di benvenuto e di conferma degli ordini tramite [Resend](https://resend.com/).
 - **Animazioni** fluide grazie a [Motion](https://motion.dev/) ed [Embla](https://www.embla-carousel.com/).

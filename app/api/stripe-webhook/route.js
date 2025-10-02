@@ -6,6 +6,8 @@ export async function POST(req) {
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
 
+  console.log("Sono in webhook");
+
   let event;
 
   try {
