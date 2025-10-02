@@ -64,6 +64,9 @@ export async function POST() {
       },
     });
 
+    console.log("Session creata:", session.id);
+    console.log("Metadata:", session.metadata);
+
     return NextResponse.redirect(session.url, 303);
   } catch (err) {
     return NextResponse.json(

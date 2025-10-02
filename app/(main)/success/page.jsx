@@ -36,7 +36,7 @@ export default async function Success({ searchParams }) {
           Payment successful
         </h1>
         <p class="text-black dark:text-white">
-          Il pagamento è avvenuto con sucesso!
+          Il pagamento di {amount_total} è avvenuto con sucesso!
         </p>
       </div>
     );
