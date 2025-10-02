@@ -531,6 +531,121 @@ export async function getUserOrder(userId, paymentIntent) {
   return { data: normalizedData, orderId, success: true };
 }
 
+//----------------------------------------------------------- ✅
+export async function getCompletedUserOrder(userId, sessionId) {
+  const { data: order, error: orderError } = await supabase
+    .from("orders")
+    .select("id, isTokenUsed")
+    .eq("userId", userId)
+    .eq("sessionId", sessionId)
+    .single();
+
+  if (orderError) {
+    console.error("Errore nel recupero dell'ordine dell'utente: ", orderError);
+    throw new Error("Errore nel recupero dell'ordine dell'utente");
+  }
+
+  const { id: orderId, isTokenUsed } = order;
+
+  if (isTokenUsed) {
+    return { success: false };
+  }
+
+  const { data: order_items, error: orderItemsError } = await supabase
+    .from("order_items")
+    .select(
+      "id, productId(id, name, regularPrice, discount, quantity, details, image), quantity",
+    )
+    .eq("orderId", orderId);
+
+  if (orderItemsError) {
+    console.error(
+      "Errore nel recupero dei prodotti dell'ordine dell'utente: ",
+      orderItemsError,
+    );
+    throw new Error("Errore nel recupero dei prodotti dell'ordine dell'utente");
+  }
+
+  // Normalizza i dati
+  const normalizedData = order_items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    orderItemPrice:
+      item.quantity * (item.productId?.regularPrice - item.productId?.discount),
+    product: {
+      ...item.productId,
+      image: item.productId?.image?.[0] || null,
+    },
+  }));
+
+  return { data: normalizedData, orderId, success: true };
+}
+
+//----------------------------------------------------------- ✅
+export async function getOrderItems(orderId) {
+  const { data: order_items, error: orderItemsError } = await supabase
+    .from("order_items")
+    .select(
+      "id, productId(id, name, regularPrice, discount, quantity, details, image), quantity",
+    )
+    .eq("orderId", orderId);
+
+  if (orderItemsError) {
+    console.error(
+      "Errore nel recupero dei prodotti dell'ordine dell'utente: ",
+      orderItemsError,
+    );
+    throw new Error(
+      "Errore nel recupero dei prodotti dell'ordine dell'utente.",
+    );
+  }
+
+  const normalizedData = order_items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    orderItemPrice:
+      item.quantity * (item.productId?.regularPrice - item.productId?.discount),
+    product: {
+      ...item.productId,
+      image: item.productId?.image?.[0] || null,
+    },
+  }));
+
+  return normalizedData;
+}
+
+//----------------------------------------------------------- ✅
+export async function getSimulatedUserOrderItems(orderId) {
+  const { data: order_items, error: orderItemsError } = await supabase
+    .from("order_items")
+    .select(
+      "id, productId(id, name, regularPrice, discount, quantity, details, image), quantity",
+    )
+    .eq("orderId", orderId);
+
+  if (orderItemsError) {
+    console.error(
+      "Errore nel recupero dei prodotti dell'ordine dell'utente: ",
+      orderItemsError,
+    );
+    throw new Error("Errore nel recupero dei prodotti dell'ordine dell'utente");
+  }
+
+  // Normalizza i dati
+  const normalizedData = order_items.map((item) => ({
+    id: item.id,
+    quantity: item.quantity,
+    orderItemPrice:
+      item.quantity * (item.productId?.regularPrice - item.productId?.discount),
+    product: {
+      ...item.productId,
+      image: item.productId?.image?.[0] || null,
+    },
+  }));
+
+  return { data: normalizedData };
+}
+
 export async function getBestSellers() {
   const { data, error } = await supabase.rpc("get_best_sellers");
 

@@ -17,8 +17,11 @@ const loadFeatures = () =>
 import dynamic from "next/dynamic";
 import { CartProductCardSkeleton } from "../ui/skeleton/Skeletons";
 import { SHIPPING_COST } from "@/app/_lib/constants";
-import { redirect } from "next/navigation";
-import { showCustomErrorToast } from "../ui/CustomToast";
+import {
+  showCustomErrorToast,
+  showCustomPromiseToast,
+} from "../ui/CustomToast";
+import { useRouter } from "next/navigation";
 
 const CartItemQuantity = dynamic(() => import("./CartItemQuantity"), {
   ssr: false,
@@ -37,6 +40,8 @@ function CartProductsListOptimistic({
   userEmail,
   cartId,
 }) {
+  const router = useRouter();
+
   const [optimisticProducts, optimisticDelete] = useOptimistic(
     products,
     (curProducts, productId) => {
@@ -197,26 +202,33 @@ function CartProductsListOptimistic({
               >
                 Vai al checkout
               </Button>
+
               <Button
                 className="justify-center rounded py-3 text-sm font-bold uppercase sm:text-base"
                 aria-label="Simula ordine"
                 onClick={() => {
                   startTransition(async () => {
-                    try {
-                      await simulateOrder(
+                    const toast = (await import("react-hot-toast")).default;
+
+                    await showCustomPromiseToast(
+                      toast,
+                      simulateOrder(
                         userId,
                         cartId,
                         userName,
                         userEmail,
                         totalPrice + SHIPPING_COST,
-                      );
-                      redirect("/account/orders");
-                    } catch (err) {
-                      const toast = (await import("react-hot-toast")).default;
+                      ),
+                      {
+                        loading:
+                          "Simulazione del pagamento e creazione dell'ordine in corso...",
+                        success: "Ordine creato con successo!",
+                        error: (err) =>
+                          `Errore: ${err?.message || "Errore imprevisto"}`,
+                      },
+                    );
 
-                      // toast.error(err.message);
-                      showCustomErrorToast(toast, err);
-                    }
+                    router.push("/account/orders");
                   });
                 }}
                 disabled={isPending}

@@ -19,7 +19,8 @@ const breadcrumbs = [
   },
 ];
 
-export default async function Page() {
+export default async function Page({ searchParams }) {
+  const { canceled } = (await searchParams) || {};
   const session = await auth();
 
   return (
@@ -32,6 +33,7 @@ export default async function Page() {
           cartId={session.user.cartId}
           name={session.user.name}
           email={session.user.email}
+          canceled={canceled}
         />
       </Suspense>
     </div>

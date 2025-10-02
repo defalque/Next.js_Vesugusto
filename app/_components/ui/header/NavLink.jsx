@@ -24,6 +24,7 @@ function NavLink({ type, ...props }) {
               ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white"
               : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
           } rounded-xl px-2 py-1 transition-colors duration-300 active:text-white dark:cursor-pointer dark:hover:text-white`}
+          {...props}
         >
           {children}
         </Link>
@@ -39,6 +40,7 @@ function NavLink({ type, ...props }) {
               ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white"
               : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
           } rounded-xl px-2 py-1 transition-colors duration-300 active:text-white dark:cursor-pointer dark:hover:text-white`}
+          {...props}
         >
           {children}
         </Link>
@@ -54,6 +56,7 @@ function NavLink({ type, ...props }) {
               ? "bg-black text-white dark:bg-white dark:text-black"
               : "hover:bg-black hover:text-white active:bg-black active:text-white dark:hover:bg-white dark:hover:text-black dark:active:bg-white dark:active:text-black"
           } rounded-xl px-4 py-3 md:px-2 md:py-1`}
+          {...props}
         >
           {children}
         </Link>
@@ -64,6 +67,7 @@ function NavLink({ type, ...props }) {
           href={href}
           {...restProps}
           className={`focus rounded-xl px-2 py-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 active:text-white dark:cursor-pointer dark:hover:bg-zinc-700/50 dark:hover:text-white dark:active:bg-zinc-700/50`}
+          {...props}
         >
           {children}
         </Link>

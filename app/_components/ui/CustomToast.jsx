@@ -49,7 +49,7 @@ export async function showCustomPromiseToast(toast, promise, messages) {
   }
 }
 
-export async function showCustomSuccessToast(toast) {
+export async function showCustomSuccessToast(toast, message) {
   return toast.custom((t) => (
     <ToastTemplate
       t={t}
@@ -111,7 +111,7 @@ export function ToastTemplate({ t, type, message, onClose }) {
         {type === "error" && (
           <CircleX
             aria-hidden
-            className="size-6 fill-red-500 text-white dark:fill-red-400 dark:text-zinc-900"
+            className="size-6 fill-red-500 text-white dark:text-zinc-900"
           />
         )}
 
@@ -120,10 +120,11 @@ export function ToastTemplate({ t, type, message, onClose }) {
 
       {type !== "loading" && (
         <button
+          aria-label="Chiudi notifica"
           onClick={() => {
             onClose?.();
           }}
-          className="cursor-pointer text-sm font-semibold underline hover:opacity-70 active:opacity-70 dark:hover:brightness-110 dark:active:brightness-110"
+          className="cursor-pointer text-sm font-semibold underline hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 active:opacity-70 dark:hover:brightness-110 dark:focus-visible:ring-white dark:active:brightness-110"
         >
           Chiudi
         </button>

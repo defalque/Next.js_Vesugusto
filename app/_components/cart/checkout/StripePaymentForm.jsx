@@ -10,7 +10,11 @@ import { formatCurrency } from "@/app/_lib/formatCurrency";
 import Button from "../../ui/Button";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { confirmOrder, createOrder } from "@/app/_lib/actions";
-import { showCustomSuccessToast } from "../../ui/CustomToast";
+import {
+  showCustomPromiseToast,
+  showCustomSuccessToast,
+} from "../../ui/CustomToast";
+import { useRouter } from "next/navigation";
 
 export default function StripePaymentForm({
   amount,
@@ -20,6 +24,7 @@ export default function StripePaymentForm({
   email,
   disabled,
 }) {
+  const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
 
@@ -96,23 +101,47 @@ export default function StripePaymentForm({
       }
 
       // 4. Se pagamento andato a buon fine, conferma ordine nel backend
-      if (paymentIntent) {
+      if (paymentIntent.status === "succeeded") {
+        console.log(paymentIntent);
         const toast = (await import("react-hot-toast")).default;
         // toast.success("Pagamento avvenuto con successo!");
         // toast.error(err.message);
-        showCustomSuccessToast(toast, err);
+        showCustomSuccessToast(toast, "Pagamento avvenuto con successo!");
 
-        await confirmOrder(
-          orderId,
-          amount,
-          paymentIntent.id,
-          paymentIntent.client_secret,
-          paymentIntent.status,
+        await showCustomPromiseToast(
+          toast,
+          confirmOrder(
+            orderId,
+            amount,
+            paymentIntent.id,
+            paymentIntent.client_secret,
+            paymentIntent.status,
+          ),
+          {
+            loading: "Elaborazione ordine in corso...",
+            success: "Ordine creato con successo!",
+            error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
+          },
+        );
+
+        // await confirmOrder(
+        //   orderId,
+        //   amount,
+        //   paymentIntent.id,
+        //   paymentIntent.client_secret,
+        //   paymentIntent.status,
+        // );
+
+        router.push(
+          `/payment-success?amount=${amount}&payment_intent=${paymentIntent.id}&payment_intent_client_secret=${paymentIntent.client_secret}&redirect_status=${paymentIntent.status}`,
         );
       }
     } catch (err) {
       console.error("Errore nella gestione del pagamento:", err);
       setError(err.message || "Errore imprevisto durante il pagamento.");
+
+      // const toast = (await import("react-hot-toast")).default;
+      // showCustomErrorToast(toast, err);
     } finally {
       setLoading(false);
     }
@@ -150,7 +179,7 @@ export default function StripePaymentForm({
               id="payment-error"
               role="alert"
               aria-live="assertive"
-              className="bg-primary-950/10 text-primary-950 flex max-w-full items-start gap-2 rounded-lg p-2 text-xs sm:text-sm"
+              className="bg-primary-950/10 text-primary-dark-200 flex max-w-full items-start gap-2 rounded-lg p-2 text-xs sm:text-sm"
             >
               <HiOutlineExclamationCircle
                 aria-hidden="true"
@@ -164,7 +193,7 @@ export default function StripePaymentForm({
             <div
               role="alert"
               aria-live="polite"
-              className="bg-primary-950/10 text-primary-950 flex max-w-full items-start gap-2 rounded-lg p-2 text-sm sm:text-base"
+              className="bg-primary-950/10 text-primary-dark-200 flex max-w-full items-start gap-2 rounded-lg p-2 text-sm sm:text-base"
             >
               <HiOutlineExclamationCircle
                 aria-hidden="true"

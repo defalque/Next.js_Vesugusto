@@ -41,8 +41,8 @@ export async function GET(request) {
             <Image
               alt="Vesugusto"
               height={250}
-              src="http://localhost:3000/vesugusto.png"
-              //   src="https://nextjs-vesugusto.vercel.app/vesugusto.png"
+              // src="http://localhost:3000/vesugusto.png"
+              src="https://www.vesugusto.dev/vesugusto.png"
               style={{ margin: "0 10px" }}
               width={232}
             />

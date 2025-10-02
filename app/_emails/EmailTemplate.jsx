@@ -24,7 +24,7 @@ export const WelcomeEmail = ({ username }) => (
       <Preview>Grazie per esserti unito a noi!</Preview>
       <Container style={container}>
         <Img
-          src={`${baseUrl}/vesugusto.png`}
+          src={`${process.env.NEXT_PUBLIC_PROD_URL}/vesugusto.png`}
           width="170"
           height="170"
           alt="Vesugusto"
@@ -37,7 +37,10 @@ export const WelcomeEmail = ({ username }) => (
           consigli personalizzati.
         </Text>
         <Section style={btnContainer}>
-          <Button style={button} href="http://localhost:3000/shop">
+          <Button
+            style={button}
+            href={`${process.env.NEXT_PUBLIC_PROD_URL}/shop`}
+          >
             Vai allo shop
           </Button>
         </Section>

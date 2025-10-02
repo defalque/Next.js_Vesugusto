@@ -37,9 +37,16 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
           aria-valuemin={1}
           aria-valuemax={productQuantity}
           aria-valuenow={quantity}
+        />
+
+        <span
+          role="status"
           aria-live="polite"
           aria-atomic="true"
-        />
+          className="sr-only"
+        >
+          Quantità selezionata: {quantity}
+        </span>
 
         <Button
           className="order-1 rounded-lg p-2"

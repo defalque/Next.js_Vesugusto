@@ -351,7 +351,15 @@ export function CheckoutWrapperSkeleton() {
         <div className="flex flex-col divide-y divide-gray-200 dark:divide-zinc-800">
           <AddressInfoSkeleton />
 
-          <PaymentFormLoader />
+          {/* <PaymentFormLoader /> */}
+          <div className="flex flex-col gap-7 pt-8">
+            <div
+              className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            />
+            <div
+              className={`${shimmer} relative h-12 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            />
+          </div>
         </div>
 
         {/* Right Side – Riepilogo prodotti */}

@@ -298,27 +298,6 @@
   }
 }
 
-input:-webkit-autofill {
-  -webkit-text-fill-color: #18181b !important; /* equivalente a text-zinc-900 */
-  -webkit-box-shadow: inset 0 0 0px 1000px #ffffff !important; /* bg-primary-50 */
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #18181b !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  input:-webkit-autofill {
-    -webkit-text-fill-color: #ffffff !important;
-    -webkit-box-shadow: inset 0 0 0px 1000px #18181b !important; /* dark:bg-zinc-900 */
-  }
-
-  input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #ffffff !important;
-  }
-}
-
 @keyframes progress {
   from {
     transform: scaleX(0);

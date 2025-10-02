@@ -19,7 +19,7 @@ export const metadata = {
     "Aggiorna le tue informazioni personali per garantirti un servizio sempre migliore. Gestisci i tuoi dati direttamente dal tuo profilo account.",
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <AccountHeading

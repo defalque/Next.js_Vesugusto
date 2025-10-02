@@ -5,9 +5,14 @@ import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { updateProfileSchema } from "./schemas/updateProfileSchema";
 import { redirect } from "next/navigation";
-// import { resend } from "./resend";
-// import { WelcomeEmail } from "../_components/ui/EmailTemplate";
+import { resend } from "./resend";
+import WelcomeEmail from "../_emails/WelcomeEmail";
+import ConfirmedOrderEmail from "../_emails/ConfirmedOrderEmail";
+import { getOrderItems, getSimulatedUserOrderItems } from "./data-service";
+import { formatCurrency } from "./formatCurrency";
+import { stripe } from "./stripe";
 
+//----------------------------------------------------------- ✅
 export async function createUser(email, name, image) {
   const { error: createError } = await supabase.rpc(
     "create_user_and_cart_atomic",
@@ -18,24 +23,23 @@ export async function createUser(email, name, image) {
     },
   );
 
-  // if (createError) {
-  //   console.error("Errore nella creazione dell'utente:", createError);
-  //   throw new Error("Impossibile creare l'utente.");
-  // }
+  if (createError) {
+    console.error("Errore nella creazione dell'utente:", createError);
+    throw new Error("Impossibile creare l'utente.");
+  }
 
-  // Sposta in account
-  // const { emailError } = await resend.emails.send({
-  //   from: "Vesugusto <noreply@resend.dev>",
-  //   to: ["marcodefalco2017@libero.it"],
-  //   // to: [email],
-  //   subject: "Benvenuto su Vesugusto",
-  //   react: WelcomeEmail({ username: name }),
-  // });
+  const { emailError } = await resend.emails.send({
+    from: "Vesugusto <noreply@vesugusto.dev>",
+    // to: ["marcodefalco2017@libero.it"],
+    to: [email],
+    subject: "Benvenuto su Vesugusto",
+    react: WelcomeEmail({ username: name }),
+  });
 
-  // if (emailError) {
-  //   console.error("Errore nell'invio dell'email di benvenuto:", emailError);
-  //   throw new Error("Impossibile inviare email di benvenuto.");
-  // }
+  if (emailError) {
+    console.error("Errore nell'invio dell'email di benvenuto:", emailError);
+    throw new Error("Impossibile inviare email di benvenuto.");
+  }
 }
 
 //----------------------------------------------------------- ✅
@@ -394,10 +398,10 @@ export async function confirmOrder(
     throw new Error("Errore nell'aggiornamento dell'ordine");
   }
 
-  redirect(
-    `/payment-success?amount=${totalCost}&payment_intent=${paymentIntentId}&payment_intent_client_secret=${paymentIntentClientSecret}&redirect_status=${paymentIntentStatus}`,
-    // `/payment-success/amount?=${totalCost}&payment_intent=${paymentIntentId}&payment_intent_client_secret=${paymentIntentClientSecret}&redirect_status=${paymentIntentStatus}`,
-  );
+  // redirect(
+  //   `/payment-success?amount=${totalCost}&payment_intent=${paymentIntentId}&payment_intent_client_secret=${paymentIntentClientSecret}&redirect_status=${paymentIntentStatus}`,
+  //   // `/payment-success/amount?=${totalCost}&payment_intent=${paymentIntentId}&payment_intent_client_secret=${paymentIntentClientSecret}&redirect_status=${paymentIntentStatus}`,
+  // );
 }
 
 //----------------------------------------------------------- ✅
@@ -405,7 +409,7 @@ export async function simulateOrder(userId, cartId, name, email, totalCost) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const { error } = await supabase.rpc("simulate_full_order", {
+  const { data: id, error } = await supabase.rpc("simulate_full_order", {
     user_id: userId,
     cart_id: cartId,
     name: name,
@@ -418,24 +422,40 @@ export async function simulateOrder(userId, cartId, name, email, totalCost) {
     throw new Error("Errore nella creazione ordine atomica");
   }
 
+  if (!id) {
+    throw new Error(
+      "Nessun ID ordine restituito dalla funzione simulate_full_order",
+    );
+  }
+
+  const { data } = await getSimulatedUserOrderItems(id);
+
   // ✅ Invio email al cliente dopo conferma ordine
-  // await resend.emails.send({
-  //   from: "Vesugusto <noreply@resend.dev>",
-  //   // to: [session.user.email],
-  //   to: ["marcodefalco2017@libero.it"],
-  //   subject: "Conferma del tuo ordine su Vesugusto",
-  //   react: ConfirmedOrderEmail({
-  //     username: session.user.name,
-  //     items: data.map((item) => ({
-  //       id: item.id,
-  //       name: item.product.name,
-  //       quantity: item.quantity,
-  //       price: formatCurrency(item.orderItemPrice),
-  //       image: item.product.image,
-  //     })),
-  //     total: formatCurrency(amount),
-  //   }),
-  // });
+  const { emailError } = await resend.emails.send({
+    from: "Vesugusto <noreply@vesugusto.dev>",
+    to: [email],
+    // to: ["marcodefalco2017@libero.it"],
+    subject: "Conferma del tuo ordine su Vesugusto",
+    react: ConfirmedOrderEmail({
+      id: id,
+      username: session.user.name,
+      items: data.map((item) => ({
+        id: item.id,
+        name: item.product.name,
+        quantity: item.quantity,
+        price: formatCurrency(item.orderItemPrice),
+        image: item.product.image,
+      })),
+      total: formatCurrency(totalCost),
+    }),
+  });
+
+  if (emailError) {
+    console.error("Errore nell'invio dell'email di benvenuto:", emailError);
+    throw new Error("Impossibile inviare email di benvenuto.");
+  }
+
+  revalidatePath("/cart");
 }
 
 //----------------------------------------------------------- ✅
@@ -456,4 +476,81 @@ export async function invalidateOrderToken(orderId) {
   }
 
   return true;
+}
+
+export async function fulfillCheckout(sessionId) {
+  console.log("Fulfilling Checkout Session " + sessionId);
+
+  // TODO: Make this function safe to run multiple times,
+  // even concurrently, with the same session ID
+
+  // TODO: Make sure fulfillment hasn't already been
+  // performed for this Checkout Session
+
+  // Retrieve the Checkout Session from the API with line_items expanded
+  const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId, {
+    expand: ["line_items"],
+  });
+
+  // Check the Checkout Session's payment_status property
+  // to determine if fulfillment should be performed
+  if (checkoutSession.payment_status !== "unpaid") {
+    // TODO: Perform fulfillment of the line items
+    // TODO: Record/save fulfillment status for this
+    // Checkout Session
+
+    const userId = checkoutSession.metadata.userId;
+    const cartId = checkoutSession.metadata.cartId;
+    const name = checkoutSession.metadata.name;
+    const email = checkoutSession.metadata.email;
+    const totalCost = checkoutSession.amount_total;
+
+    const { data: orderId, error } = await supabase.rpc(
+      "check_sessionid_create_order",
+      {
+        user_id: userId,
+        cart_id: cartId,
+        name: name,
+        email: email,
+        total_cost: totalCost,
+        session_id: checkoutSession.id,
+      },
+    );
+
+    if (error) {
+      console.error("Errore nella creazione ordine atomica: ", error);
+      throw new Error("Errore nella creazione ordine atomica.");
+    }
+
+    console.log("Ordine creato con successo con ID: ", orderId);
+
+    const orderItems = await getOrderItems(orderId);
+
+    // Invia email di conferma ordine
+    const { error: emailError } = await resend.emails.send({
+      from: "Vesugusto <noreply@vesugusto.dev>",
+      to: [email], // in produzione
+      // to: ["marcodefalco2017@libero.it"], // in sviluppo
+      subject: "Conferma del tuo ordine su Vesugusto",
+      react: ConfirmedOrderEmail({
+        id: orderId,
+        username: name,
+        items: orderItems.map((item) => ({
+          id: item.id,
+          name: item.product.name,
+          quantity: item.quantity,
+          price: formatCurrency(item.orderItemPrice),
+          image: item.product.image,
+        })),
+        total: formatCurrency(totalCost),
+      }),
+    });
+
+    if (emailError) {
+      console.error("Errore nell'invio email conferma ordine:", emailError);
+      // puoi decidere se rilanciare o continuare
+    }
+
+    return orderId;
+  }
 }

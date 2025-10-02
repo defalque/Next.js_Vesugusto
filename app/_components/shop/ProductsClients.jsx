@@ -32,8 +32,9 @@ const ProductFilters = dynamic(() => import("./ProductFilters"), {
   ssr: false,
   // loading: () => <ProductFiltersSkeleton />,
   loading: () => (
-    <div className="flex h-full w-60 flex-col items-center justify-center">
-      <div className="spinner" />
+    <div className="flex h-full w-60 flex-col items-center justify-center gap-3">
+      {/* <div className="spinner" /> */}
+      <div className="h-23 w-23 animate-spin rounded-full border-8 border-t-8 border-zinc-100 border-t-zinc-700 dark:border-zinc-800 dark:border-t-white/85" />
       <p className="animate-pulse text-black/65 dark:text-white/85">
         Caricamento filtri...
       </p>
