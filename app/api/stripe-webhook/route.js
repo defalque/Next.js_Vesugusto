@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { fulfillCheckout } from "@/app/_lib/actions";
 import { stripe } from "@/app/_lib/stripe";
 
+// ✅ Serve per disabilitare il parsing automatico del body
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export async function POST(req) {
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
