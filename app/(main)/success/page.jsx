@@ -30,12 +30,16 @@ export default async function Success({ searchParams }) {
   }
 
   if (status === "complete") {
-    <div class="flex h-50 w-full flex-col items-center justify-center gap-5 bg-white dark:bg-black">
-      <h1 class="text-3xl font-semibold text-green-500">Payment successful</h1>
-      <p class="text-black dark:text-white">
-        Il pagamento è avvenuto con sucesso!
-      </p>
-    </div>;
+    return (
+      <div class="flex h-50 w-full flex-col items-center justify-center gap-5 bg-white dark:bg-black">
+        <h1 class="text-3xl font-semibold text-green-500">
+          Payment successful
+        </h1>
+        <p class="text-black dark:text-white">
+          Il pagamento è avvenuto con sucesso!
+        </p>
+      </div>
+    );
     // const session = await auth();
     // const { data, orderId, success } = await getCompletedUserOrder(
     //   session.user.userId,
