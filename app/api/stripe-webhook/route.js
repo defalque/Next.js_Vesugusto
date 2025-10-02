@@ -10,10 +10,13 @@ export const config = {
 };
 
 export async function POST(req) {
+  console.log("Sono in webhook");
   const body = await req.text();
   const sig = req.headers.get("stripe-signature");
 
-  console.log("Sono in webhook");
+  if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    throw new Error("STRIPE_WEBHOOK_SECRET is missing!");
+  }
 
   let event;
 
