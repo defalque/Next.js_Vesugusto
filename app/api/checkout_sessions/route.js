@@ -47,14 +47,15 @@ export async function POST() {
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: "required",
+      payment_method_types: ["card"],
       customer_email: userSession.user.email,
       line_items: lineItems,
       mode: "payment",
       invoice_creation: {
         enabled: true,
       },
-      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/cart/checkout?canceled=true`,
+      success_url: `${process.env.NEXT_PUBLIC_PROD_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_PROD_URL}/cart/checkout?canceled=true`,
       metadata: {
         userId: userSession.user.userId,
         cartId: userSession.user.cartId,
