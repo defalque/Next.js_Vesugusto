@@ -41,7 +41,7 @@ function MainCarouselSlide({
         alt={alt}
         fill
         priority={priority}
-        placeholder="blur"
+        // placeholder="blur"
         className="object-cover brightness-70"
         sizes="(max-width: 48rem) 100vw, (max-width: 75rem) 50vw, 33vw"
       />
