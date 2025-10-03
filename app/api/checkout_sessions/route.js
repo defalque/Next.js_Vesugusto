@@ -54,8 +54,10 @@ export async function POST() {
       invoice_creation: {
         enabled: true,
       },
-      success_url: `${process.env.NEXT_PUBLIC_PROD_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_PROD_URL}/cart/checkout?canceled=true`,
+      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/cart/checkout?canceled=true`,
+      // success_url: `${process.env.NEXT_PUBLIC_PROD_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      // cancel_url: `${process.env.NEXT_PUBLIC_PROD_URL}/cart/checkout?canceled=true`,
       metadata: {
         userId: userSession.user.userId,
         cartId: userSession.user.cartId,

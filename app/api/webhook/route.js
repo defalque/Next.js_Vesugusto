@@ -55,89 +55,61 @@
 import { NextResponse } from "next/server";
 import { fulfillCheckout } from "@/app/_lib/actions";
 import { stripe } from "@/app/_lib/stripe";
-
-// Configurazione importante per Next.js
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+import { headers } from "next/headers";
 
 export async function POST(req) {
-  console.log("🔔 Webhook ricevuto");
-
-  let body;
-  let sig;
-
-  try {
-    // Leggi il body raw
-    body = await req.text();
-    sig = req.headers.get("stripe-signature");
-
-    if (!sig) {
-      console.error("❌ Firma Stripe mancante");
-      return NextResponse.json(
-        { error: "Firma Stripe mancante" },
-        { status: 400 },
-      );
-    }
-
-    if (!process.env.STRIPE_WEBHOOK_SECRET) {
-      console.error("❌ STRIPE_WEBHOOK_SECRET non configurato");
-      throw new Error("STRIPE_WEBHOOK_SECRET is missing!");
-    }
-
-    console.log("🔍 Verifica firma Stripe...");
-  } catch (err) {
-    console.error("❌ Errore nel processamento richiesta:", err);
-    return NextResponse.json(
-      { error: `Errore richiesta: ${err.message}` },
-      { status: 400 },
-    );
-  }
-
   let event;
 
   try {
     event = stripe.webhooks.constructEvent(
-      body,
-      sig,
+      await req.text(),
+      (await headers()).get("stripe-signature"),
       process.env.STRIPE_WEBHOOK_SECRET,
     );
-    console.log("✅ Evento verificato:", event.type);
   } catch (err) {
-    console.error("❌ Webhook signature verification failed:", err.message);
+    const errorMessage = err.message;
+    // On error, log and return the error message.
+    if (err) console.log(err);
+    console.log(`Error message: ${errorMessage}`);
     return NextResponse.json(
-      { error: `Webhook Error: ${err.message}` },
+      { message: `Webhook Error: ${errorMessage}` },
       { status: 400 },
     );
   }
 
-  // Gestisci eventi di pagamento completato
-  if (
-    event.type === "checkout.session.completed" ||
-    event.type === "checkout.session.async_payment_succeeded"
-  ) {
-    console.log("💳 Pagamento completato, session ID:", event.data.object.id);
+  const permittedEvents = [
+    "checkout.session.completed",
+    "checkout.session.async_payment_succeeded",
+  ];
+
+  if (permittedEvents.includes(event.type)) {
+    let data;
 
     try {
-      const orderId = await fulfillCheckout(event.data.object.id);
-      console.log("✅ Ordine creato con successo! ID:", orderId);
-
-      return NextResponse.json({
-        received: true,
-        orderId,
-      });
+      switch (event.type) {
+        case "checkout.session.completed":
+          data = event.data.object;
+          console.log(
+            `CheckoutSessionCompleted status: ${data.payment_status}`,
+          );
+          break;
+        case "checkout.session.async_payment_succeeded":
+          data = event.data.object;
+          console.log(
+            `CheckoutSessionAsyncPaymentSucceeded status: ${data.payment_status}`,
+          );
+          break;
+        default:
+          throw new Error(`Unhandled event: ${event.type}`);
+      }
     } catch (error) {
-      console.error("❌ Errore nella creazione ordine:", error);
-      // Ritorna 200 per non far riprovare Stripe continuamente
+      console.log(error);
       return NextResponse.json(
-        {
-          received: true,
-          error: `Errore nel salvataggio dell'ordine: ${error.message}`,
-        },
-        { status: 200 },
+        { message: "Webhook handler failed" },
+        { status: 500 },
       );
     }
   }
-
-  console.log(`ℹ️ Evento ${event.type} ricevuto ma non gestito`);
-  return NextResponse.json({ received: true });
+  // Return a response to acknowledge receipt of the event.
+  return NextResponse.json({ message: "Received" }, { status: 200 });
 }

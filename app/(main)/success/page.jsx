@@ -31,12 +31,12 @@ export default async function Success({ searchParams }) {
 
   if (status === "complete") {
     return (
-      <div class="flex h-50 w-full flex-col items-center justify-center gap-5 bg-white dark:bg-black">
-        <h1 class="text-3xl font-semibold text-green-500">
+      <div className="flex h-50 w-full flex-col items-center justify-center gap-5 bg-white dark:bg-black">
+        <h1 className="text-3xl font-semibold text-green-500">
           Payment successful
         </h1>
-        <p class="text-black dark:text-white">
-          Il pagamento di {amount_total} è avvenuto con sucesso!
+        <p className="text-black dark:text-white">
+          Il pagamento di {formatCurrency(amount_total)} è avvenuto con sucesso!
         </p>
       </div>
     );
