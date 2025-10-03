@@ -32,11 +32,6 @@ export async function POST(req) {
   ) {
     try {
       const id = await fulfillCheckout(event.data.object.id);
-
-      console.log(
-        "✅ Ordine creato con successo dopo pagamento! Il suo ID è: ",
-        id,
-      );
     } catch (error) {
       console.error("❌ Errore nella creazione ordine dal webhook: ", error);
       return NextResponse.json(

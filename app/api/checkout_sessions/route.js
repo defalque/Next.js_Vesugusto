@@ -12,7 +12,6 @@ export async function POST() {
 
     const userSession = await auth();
     const products = await getCartProd(userSession.user.cartId);
-    console.log("sono in checkout sessions");
 
     if (!products || products.length === 0) {
       return NextResponse.json(
@@ -65,9 +64,6 @@ export async function POST() {
         email: userSession.user.email,
       },
     });
-
-    console.log("Session creata:", session.id);
-    console.log("Metadata:", session.metadata);
 
     return NextResponse.redirect(session.url, 303);
   } catch (err) {

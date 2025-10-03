@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { showCustomErrorToast } from "../../ui/CustomToast";
 import toast from "react-hot-toast";
-import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { CircleAlert } from "lucide-react";
+import CheckoutInstructions from "./CheckoutInstructions";
 
 function PaymentWrapper({ amount, canceled, disabled }) {
   useEffect(() => {
@@ -27,6 +27,8 @@ function PaymentWrapper({ amount, canceled, disabled }) {
           </p>
         </div>
       )}
+
+      <CheckoutInstructions />
 
       <form action="/api/checkout_sessions" method="POST">
         <button

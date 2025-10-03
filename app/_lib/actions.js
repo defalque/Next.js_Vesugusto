@@ -479,8 +479,6 @@ export async function invalidateOrderToken(orderId) {
 }
 
 export async function fulfillCheckout(sessionId) {
-  console.log("Fulfilling Checkout Session " + sessionId);
-
   // TODO: Make this function safe to run multiple times,
   // even concurrently, with the same session ID
 
@@ -521,8 +519,6 @@ export async function fulfillCheckout(sessionId) {
       console.error("Errore nella creazione ordine atomica: ", error);
       throw new Error("Errore nella creazione ordine atomica.");
     }
-
-    console.log("Ordine creato con successo con ID: ", orderId);
 
     let invoicePdfUrl = null;
 
