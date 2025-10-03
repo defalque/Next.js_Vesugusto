@@ -115,7 +115,7 @@ function UpdateProfileForm({ user, name, email }) {
                   message: "Numero civico troppo lungo!",
                 },
                 pattern: {
-                  value: /^[a-zA-Z0-9/-]+$/,
+                  value: /^[0-9]+[a-zA-Z]?\/?[0-9a-zA-Z]*$/,
                   message: "Numero civico non valido!",
                 },
               })}

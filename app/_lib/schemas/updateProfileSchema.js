@@ -29,7 +29,7 @@ export const updateProfileSchema = z.object({
       z.trim(),
       z.minLength(1, "Obbligatorio!"),
       z.maxLength(10, "Numero civico troppo lungo!"),
-      z.regex(/^[a-zA-Z0-9/-]+$/, "Numero civico non valido!"),
+      z.regex(/^[0-9]+[a-zA-Z]?\/?[0-9a-zA-Z]*$/, "Numero civico non valido!"),
     ),
 
   phoneNumber: z.optional(
