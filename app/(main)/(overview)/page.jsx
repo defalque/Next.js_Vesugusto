@@ -1,8 +1,8 @@
 import { notoSerif } from "@/app/_lib/font";
 
-// import slide1 from "../../../public/hero1.jpg";
-// import slide2 from "../../../public/hero2.jpg";
-// import slide3 from "../../../public/hero3.jpg";
+import slide1 from "../../../public/hero1.jpg";
+import slide2 from "../../../public/hero2.jpg";
+import slide3 from "../../../public/hero3.jpg";
 
 import MainCarousel from "@/app/_components/home/MainCarousel";
 import MainCarouselSlide from "@/app/_components/home/MainCarouselSlide";
@@ -18,7 +18,7 @@ export const metadata = {
 
 const slides = [
   {
-    src: "/hero1.jpg",
+    src: slide1,
     alt: "Varietà di ciambelle glassate e farcite disposte su sfondo bianco, con diverse decorazioni tra cui cioccolato, granella, zuccherini colorati e glasse rosa.",
     heroHeading: "Ogni stagione ha il suo sapore",
     heroSubHeading:
@@ -26,7 +26,7 @@ const slides = [
     link: "/shop",
   },
   {
-    src: "/hero2.jpg",
+    src: slide2,
     alt: "Tre biscotti artigianali su un piatto bianco: uno con noci pecan e gocce di cioccolato, uno con cioccolato bianco e frutta secca, e uno rosso tipo red velvet con decorazioni di glassa. Accanto, una tazza di tè e una piantina su tavolo in legno chiaro.",
     heroHeading: "Porta a tavola l’anima vesuviana",
     heroSubHeading:
@@ -34,7 +34,7 @@ const slides = [
     link: "/shop?page=1&category=food",
   },
   {
-    src: "/hero3.jpg",
+    src: slide3,
     alt: "Cocktail ambrato servito in un bicchiere basso con grandi cubetti di ghiaccio, guarnito con scorza d’arancia tenuta da una mini molletta, mentre viene versato con un colino da barista su un bancone dorato.",
     heroHeading: "Dal cratere al calice",
     heroSubHeading:

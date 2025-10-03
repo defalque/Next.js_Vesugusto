@@ -1,6 +1,6 @@
 import "@/app/_styles/globals.css";
 import { noto } from "./_lib/font";
-import { Analytics } from "@vercel/analytics/next";
+// import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: {
@@ -22,7 +22,7 @@ function RootLayout({ children }) {
         className={`${noto.className} flex min-h-screen flex-col bg-white text-black antialiased dark:bg-black dark:text-white`}
       >
         {children}
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </html>
   );
