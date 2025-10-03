@@ -20,10 +20,7 @@ export default function WelcomeEmail({ username = "Marco" }) {
     <Html>
       <Head />
       <Body style={main}>
-        <Preview>
-          Vedi il riepilogo del tuo ordine, la data di consegna stimata e altro
-          ancora
-        </Preview>
+        <Preview>Siamo felici di averti a bordo!</Preview>
         <Container style={container}>
           <Img
             src={`${process.env.NEXT_PUBLIC_PROD_URL}/vesugusto.png`}

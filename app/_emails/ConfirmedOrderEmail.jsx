@@ -101,11 +101,20 @@ const styles = {
   },
 };
 
-export default function ConfirmedOrderEmail({ id, username, items, total }) {
+export default function ConfirmedOrderEmail({
+  id,
+  username,
+  items,
+  total,
+  invoiceUrl,
+}) {
   return (
     <Html>
       <Head />
-      <Preview>Il tuo ordine Vesugusto è stato confermato!</Preview>
+      <Preview>
+        Abbiamo ricevuto il tuo ordine. Ti invieremo una notifica appena sarà
+        spedito.
+      </Preview>
       <Body style={styles.main}>
         <Img
           src={`${process.env.NEXT_PUBLIC_PROD_URL}/vesugusto.png`}
@@ -122,7 +131,9 @@ export default function ConfirmedOrderEmail({ id, username, items, total }) {
         <Text style={styles.paragraph}>
           Il tuo acquisto è stato confermato con successo e arriverà presto a
           destinazione. L’importo è stato addebitato sul metodo di pagamento
-          selezionato. Di seguito trovi il riepilogo del tuo ordine:
+          selezionato e la fattura del tuo ordine è disponibile qui:{" "}
+          <Link href={invoiceUrl}>Scarica la fattura in PDF</Link>. Di seguito
+          trovi il riepilogo del tuo ordine:
         </Text>
 
         <Section style={styles.tableWrapper}>

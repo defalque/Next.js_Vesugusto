@@ -524,6 +524,13 @@ export async function fulfillCheckout(sessionId) {
 
     console.log("Ordine creato con successo con ID: ", orderId);
 
+    let invoicePdfUrl = null;
+
+    if (checkoutSession.invoice) {
+      const invoice = await stripe.invoices.retrieve(checkoutSession.invoice);
+      invoicePdfUrl = invoice.invoice_pdf;
+    }
+
     const orderItems = await getOrderItems(orderId);
 
     // Invia email di conferma ordine
@@ -543,6 +550,7 @@ export async function fulfillCheckout(sessionId) {
           image: item.product.image,
         })),
         total: formatCurrency(totalCost),
+        invoiceUrl: invoicePdfUrl,
       }),
     });
 
