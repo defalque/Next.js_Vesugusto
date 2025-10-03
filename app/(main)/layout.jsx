@@ -19,7 +19,7 @@ function Layout({ children }) {
         gutter={12}
         toastOptions={{
           custom: {
-            duration: 10000,
+            duration: 5000,
           },
           success: {
             duration: 5000,

@@ -80,7 +80,9 @@ async function CheckoutWrapper({ userId, cartId, name, email, canceled }) {
                 </div>
 
                 <span className="font-semibold dark:text-gray-200">
-                  {formatCurrency(product.cartItemPrice)}
+                  {formatCurrency(
+                    product.product.regularPrice - product.product.discount,
+                  )}
                 </span>
               </article>
             </li>

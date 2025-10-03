@@ -2,7 +2,10 @@
 
 import { addFavoriteToCartAndDeleteFavorite } from "@/app/_lib/actions";
 import Button from "../../ui/Button";
-import { showCustomErrorToast } from "../../ui/CustomToast";
+import {
+  showCustomErrorToast,
+  showCustomPromiseToast,
+} from "../../ui/CustomToast";
 
 function AddFavoriteToCart({
   userId,
@@ -15,17 +18,29 @@ function AddFavoriteToCart({
     <Button
       className="order-4 truncate rounded px-2 py-1.5 text-xs font-semibold uppercase"
       onClick={async () => {
-        try {
-          setIsPending(true);
-          await addFavoriteToCartAndDeleteFavorite(userId, cartId, productId);
-        } catch (err) {
-          const toast = (await import("react-hot-toast")).default;
+        setIsPending(true);
+        const toast = (await import("react-hot-toast")).default;
+        await showCustomPromiseToast(
+          toast,
+          addFavoriteToCartAndDeleteFavorite(userId, cartId, productId),
+          {
+            loading: "Aggiunta del prodotto nel carrello...",
+            success: "Prodotto aggiunto nel carrello!",
+            error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
+          },
+        );
+        setIsPending(false);
+        // try {
+        //   setIsPending(true);
+        //   await addFavoriteToCartAndDeleteFavorite(userId, cartId, productId);
+        // } catch (err) {
+        //   const toast = (await import("react-hot-toast")).default;
 
-          // toast.error(err.message);
-          showCustomErrorToast(toast, err);
-        } finally {
-          setIsPending(false);
-        }
+        //   // toast.error(err.message);
+        //   showCustomErrorToast(toast, err);
+        // } finally {
+        //   setIsPending(false);
+        // }
       }}
       aria-label="Aggiungi al carrello"
       disabled={disabled}
