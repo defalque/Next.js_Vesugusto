@@ -15,7 +15,7 @@ import {
 
 const baseUrl = "https://nextjs-vesugusto.vercel.app/";
 
-export default function WelcomeEmail({ username = "Marco" }) {
+export default function WelcomeEmail({ username = "nuovo cliente" }) {
   return (
     <Html>
       <Head />

@@ -8,6 +8,8 @@ import {
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa6";
+import { Suspense } from "react";
+import Copyright from "./Copyright";
 
 const links = [
   {
@@ -93,16 +95,18 @@ function Footer() {
         aria-label="Link principali del sito"
         className="inline-flex flex-wrap items-center justify-center gap-2"
       >
-        {links.map((link) => (
-          <NavLink
-            key={link.name}
-            name={link.name}
-            href={link.href}
-            type="footer"
-          >
-            {link.name}
-          </NavLink>
-        ))}
+        <Suspense fallback={<div>Caricamento...</div>}>
+          {links.map((link) => (
+            <NavLink
+              key={link.name}
+              name={link.name}
+              href={link.href}
+              type="footer"
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </Suspense>
       </ul>
 
       <ul
@@ -129,10 +133,9 @@ function Footer() {
         role=""
         className="flex flex-col items-center justify-center gap-1 text-center text-xs md:flex-row md:gap-2"
       >
-        <p>
-          © {new Date().getFullYear()} Vesugusto, Inc. Tutti i diritti
-          riservati.
-        </p>
+        <Suspense>
+          <Copyright />
+        </Suspense>
         <span aria-hidden="true" className="hidden md:inline">
           •
         </span>

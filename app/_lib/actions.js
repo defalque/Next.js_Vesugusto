@@ -1,25 +1,28 @@
 "use server";
 
-import { auth, signIn, signOut } from "@/auth";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { supabase } from "./supabase";
-import { revalidatePath } from "next/cache";
+import { revalidateTag, updateTag } from "next/cache";
 import { updateProfileSchema } from "./schemas/updateProfileSchema";
-import { redirect } from "next/navigation";
 import { resend } from "./resend";
 import WelcomeEmail from "../_emails/WelcomeEmail";
 import ConfirmedOrderEmail from "../_emails/ConfirmedOrderEmail";
-import { getOrderItems, getSimulatedUserOrderItems } from "./data-service";
+import { getOrderItems } from "./data-service";
 import { formatCurrency } from "./formatCurrency";
 import { stripe } from "./stripe";
+import { clerkClient } from "@clerk/nextjs/server";
 
-//----------------------------------------------------------- ✅
-export async function createUser(email, name, image) {
-  const { error: createError } = await supabase.rpc(
-    "create_user_and_cart_atomic",
+export async function createSupabaseUser(user) {
+  const { email, firstName, lastName, image, userId } = user;
+
+  const { data, error: createError } = await supabase.rpc(
+    "create_get_user_and_cart",
     {
       p_email: email,
-      p_name: name,
+      p_firstname: firstName,
+      p_lastname: lastName,
       p_image: image,
+      p_userid: userId,
     },
   );
 
@@ -27,42 +30,49 @@ export async function createUser(email, name, image) {
     console.error("Errore nella creazione dell'utente:", createError);
     throw new Error("Impossibile creare l'utente.");
   }
+  const { user_id, cart_id } = data[0];
+
+  const client = await clerkClient();
+
+  await client.users.updateUserMetadata(userId, {
+    privateMetadata: {
+      databaseId: user_id,
+      cartId: cart_id,
+    },
+  });
 
   const { emailError } = await resend.emails.send({
     from: "Vesugusto <noreply@vesugusto.dev>",
     // to: ["marcodefalco2017@libero.it"],
     to: [email],
     subject: "Benvenuto su Vesugusto",
-    react: WelcomeEmail({ username: name }),
+    react: WelcomeEmail({ username: firstName }),
   });
 
   if (emailError) {
     console.error("Errore nell'invio dell'email di benvenuto:", emailError);
     throw new Error("Impossibile inviare email di benvenuto.");
   }
+
+  return { user_id, cart_id };
 }
 
 //----------------------------------------------------------- ✅
-export async function googleSignInAction() {
-  await signIn("google", { redirectTo: "/account" });
-}
+export async function deleteSupabaseUser(id) {
+  const { error } = await supabase.from("users").delete().eq("clerkUserId", id);
 
-//----------------------------------------------------------- ✅
-export async function githubSignInAction() {
-  await signIn("github", { redirectTo: "/account" });
-}
-
-//----------------------------------------------------------- ✅
-export async function signOutAction() {
-  await signOut({ redirectTo: "/" });
+  if (error) {
+    console.error("Impossibile eliminare utente: ", error);
+    throw new Error("Impossibile eliminare utente al momento.");
+  }
 }
 
 //----------------------------------------------------------- ✅
 export async function updateUserProfile(data) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
-
-  // console.log(data);
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const validationData = {
     via: data.via.slice(0, 1000),
@@ -81,83 +91,33 @@ export async function updateUserProfile(data) {
         validatedFields.error.issues.map((i) => i.message).join(", "),
     );
   }
-  // console.log(validatedFields);
 
   const { error } = await supabase
     .from("users")
     .update(validatedFields.data)
-    .eq("id", session.user.userId);
-
-  if (error) throw new Error("User could not be updated");
-
-  revalidatePath("/account");
-
-  return true;
-}
-
-//----------------------------------------------------------- ✅
-export async function updateAddressInfo(data) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
-
-  const validationData = {
-    via: data.via.slice(0, 1000),
-    numeroCivico: data.numeroCivico.slice(0, 1000),
-    comune: data.comune.slice(0, 1000),
-    cap: data.cap.slice(0, 1000),
-  };
-
-  const validatedFields = updateProfileSchema.safeParse(validationData);
-
-  if (!validatedFields.success) {
-    console.error("Validation failed:", validatedFields.error.issues);
-    throw new Error(
-      "Dati non validi: " +
-        validatedFields.error.issues.map((i) => i.message).join(", "),
-    );
-  }
-  // console.log(validatedFields);
-
-  const { error } = await supabase
-    .from("users")
-    .update(validatedFields.data)
-    .eq("id", session.user.userId);
+    .eq("clerkUserId", userId);
 
   if (error) {
-    console.error("Errore Supabase:", error);
-    throw new Error("Errore nel salvataggio dei dati. Riprova più tardi.");
+    console.error("Non è stato possibile modificare info utente: ", error);
+    throw new Error("Non è stato possibile modificare info utente.");
   }
 
-  revalidatePath("/cart/checkout");
-
-  return true;
+  updateTag(`${userId}-info`);
 }
 
 //----------------------------------------------------------- ✅
-export async function addFavorite(userId, productId) {
-  const session = await auth();
-  if (!session)
-    throw new Error("You must be logged in to perform this action!");
+export async function addFavoriteProduct(productId) {
+  const { isAuthenticated, userId: clerkUserId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
-  // const { data: existing, error: checkError } = await supabase
-  //   .from("favorites")
-  //   .select("*")
-  //   .eq("userId", userId)
-  //   .eq("productId", productId);
-
-  // if (checkError) {
-  //   console.error("Errore durante il controllo:", checkError);
-  //   throw new Error("Errore durante il fetching dei preferiti.");
-  // }
-
-  // if (existing.length > 0) {
-  //   console.log("Già nei preferiti");
-  //   return false;
-  // }
+  const user = await currentUser();
+  const userId = user.privateMetadata.databaseId;
 
   const { error: insertError } = await supabase
     .from("favorites")
-    .insert([{ userId, productId }])
+    .insert([{ userId, productId, clerkUserId }])
     .select();
 
   if (insertError) {
@@ -167,19 +127,20 @@ export async function addFavorite(userId, productId) {
     );
   }
 
-  revalidatePath("/shop");
+  updateTag(`favorites-${clerkUserId}`);
 }
 
 //----------------------------------------------------------- ✅
-export async function deleteFavorite(userId, productId) {
-  const session = await auth();
-  if (!session)
-    throw new Error("You must be logged in to perform this action!");
+export async function deleteFavoriteProduct(productId) {
+  const { isAuthenticated, userId: clerkUserId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { error } = await supabase
     .from("favorites")
     .delete()
-    .eq("userId", userId)
+    .eq("clerkUserId", clerkUserId)
     .eq("productId", productId);
 
   if (error) {
@@ -189,64 +150,42 @@ export async function deleteFavorite(userId, productId) {
     );
   }
 
-  revalidatePath("/account/favorites");
-  revalidatePath("/shop");
+  updateTag(`favorites-${clerkUserId}`);
 }
 
 //----------------------------------------------------------- ✅
-export async function addCartItem(cartId, productId, quantity) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
-
-  // const { data: availability, error: availabilityError } = await supabase
-  //   .from("products")
-  //   .select("quantity")
-  //   .eq("id", productId)
-  //   .single();
-
-  // if (availabilityError) {
-  //   console.error(
-  //     "Errore durante il fetching della disponibilità del prodotto:",
-  //     availabilityError
-  //   );
-  //   throw new Error(
-  //     "Errore durante il fetching della disponibilità del prodotto."
-  //   );
-  // }
-
-  // if (!availability || availability.quantity < quantity) {
-  //   throw new Error("Quantità richiesta non disponibile");
-  // }
-
-  // ------------------------ ATOMICA ----------------------------------
+export async function addCartItem(productId, quantity) {
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { error } = await supabase.rpc("increment_cart_and_decrement_stock", {
-    p_cart_id: cartId,
+    p_user_id: userId,
     p_product_id: productId,
     p_amount: quantity,
   });
 
   if (error) {
-    console.error("Errore RPC:", error);
+    console.error("Errore addCartItem RPC:", error);
     throw new Error("Errore durante l'aggiunta del prodotto al carrello.");
   }
 
-  revalidatePath(`/`);
+  updateTag(`cart-${userId}`);
+  updateTag(`${userId}-cart-count`);
 }
 
-export async function addFavoriteToCartAndDeleteFavorite(
-  userId,
-  cartId,
-  productId,
-) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+//----------------------------------------------------------- ✅
+export async function addFavoriteToCartAndDeleteFavorite(productId) {
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { error } = await supabase.rpc(
     "increment_cart_decrement_stock_delete_favorite",
     {
       p_user_id: userId,
-      p_cart_id: cartId,
       p_product_id: productId,
       p_amount: 1,
     },
@@ -257,13 +196,17 @@ export async function addFavoriteToCartAndDeleteFavorite(
     throw new Error("Errore durante l'aggiunta del prodotto al carrello.");
   }
 
-  revalidatePath(`/`);
+  updateTag(`favorites-${userId}`);
+  updateTag(`cart-${userId}`);
+  updateTag(`${userId}-cart-count`);
 }
 
-//----------------------------------------------------------- 🤔 forse si può migliorare
+//----------------------------------------------------------- ✅
 export async function updateCartItem(cartId, productId, newCartItemQuantity) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   if (
     isNaN(Number(newCartItemQuantity)) ||
@@ -274,50 +217,10 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
     throw new Error("Quantità non valida.");
   }
 
-  const { data: cartItem, error: cartItemError } = await supabase
-    .from("cart_items")
-    .select("quantity")
-    .eq("cartId", cartId)
-    .eq("productId", productId)
-    .single();
-
-  if (cartItemError) {
-    console.error(
-      "Errore durante il fetching della quantità del prodotto nel carrello:",
-      checkError,
-    );
-    throw new Error(
-      "Errore durante il fetching della quantità del prodotto nel carrello.",
-    );
-  }
-
-  const { data: product, error: productError } = await supabase
-    .from("products")
-    .select("quantity")
-    .eq("id", productId)
-    .single();
-
-  if (productError) {
-    console.error(
-      "Errore durante il fetching della quantità del prodotto:",
-      productError,
-    );
-    throw new Error("Errore durante il fetching della quantità del prodotto.");
-  }
-
-  if (newCartItemQuantity > product.quantity + cartItem.quantity) {
-    console.error("Scorte insufficienti");
-    throw new Error("Scorte insufficienti.");
-  }
-
-  // ------------------------ ATOMICA ----------------------------------
-
-  const delta = newCartItemQuantity - cartItem.quantity;
   const { error } = await supabase.rpc("update_cart_and_decrement_stock", {
     p_cart_id: cartId,
     p_product_id: productId,
     p_new_quantity: newCartItemQuantity,
-    p_delta: delta,
   });
 
   if (error) {
@@ -325,16 +228,16 @@ export async function updateCartItem(cartId, productId, newCartItemQuantity) {
     throw new Error("Errore durante l'aggiornamento atomico.");
   }
 
-  revalidatePath("/cart");
-  revalidatePath(`/shop/${productId}`);
+  updateTag(`cart-${userId}`);
+  // updateTag(`${userId}-cart-count`);
 }
 
 //----------------------------------------------------------- ✅
 export async function deleteCartItem(cartId, productId) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
-
-  // ------------------------ ATOMICA ----------------------------------
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { error } = await supabase.rpc(
     "delete_cart_item_and_increment_quantity",
@@ -349,13 +252,15 @@ export async function deleteCartItem(cartId, productId) {
     throw new Error(error.message);
   }
 
-  revalidatePath(`/`);
+  updateTag(`cart-${userId}`);
+  updateTag(`${userId}-cart-count`);
 }
 
-//----------------------------------------------------------- ✅
-export async function createOrder(userId, cartId, name, email, totalCost) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+export async function createOrder(cartId, name, email, totalCost) {
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { data, error } = await supabase.rpc("create_order", {
     user_id: userId,
@@ -373,7 +278,6 @@ export async function createOrder(userId, cartId, name, email, totalCost) {
   return data;
 }
 
-//----------------------------------------------------------- ✅
 export async function confirmOrder(
   orderId,
   totalCost,
@@ -381,8 +285,10 @@ export async function confirmOrder(
   paymentIntentClientSecret,
   paymentIntentStatus,
 ) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  const { isAuthenticated } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { error } = await supabase
     .from("orders")
@@ -405,15 +311,15 @@ export async function confirmOrder(
 }
 
 //----------------------------------------------------------- ✅
-export async function simulateOrder(userId, cartId, name, email, totalCost) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+export async function simulateOrder(cartId, totalCost) {
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { data: id, error } = await supabase.rpc("simulate_full_order", {
     user_id: userId,
     cart_id: cartId,
-    name: name,
-    email: email,
     total_cost: totalCost,
   });
 
@@ -428,17 +334,18 @@ export async function simulateOrder(userId, cartId, name, email, totalCost) {
     );
   }
 
-  const { data } = await getSimulatedUserOrderItems(id);
+  const user = await currentUser();
+  const data = await getOrderItems(id);
 
   // ✅ Invio email al cliente dopo conferma ordine
   const { emailError } = await resend.emails.send({
     from: "Vesugusto <noreply@vesugusto.dev>",
-    to: [email],
+    to: [user.emailAddresses.at(0).emailAddress],
     // to: ["marcodefalco2017@libero.it"],
     subject: "Conferma del tuo ordine su Vesugusto",
     react: ConfirmedOrderEmail({
       id: id,
-      username: session.user.name,
+      username: user.firstName + " " + user.lastName,
       items: data.map((item) => ({
         id: item.id,
         name: item.product.name,
@@ -455,13 +362,18 @@ export async function simulateOrder(userId, cartId, name, email, totalCost) {
     throw new Error("Impossibile inviare email di benvenuto.");
   }
 
-  revalidatePath("/cart");
+  updateTag(`cart-${userId}`);
+  updateTag(`${userId}-cart-count`);
+  updateTag(`${userId}-orders-count`);
+  updateTag(`orders-${userId}`);
 }
 
 //----------------------------------------------------------- ✅
 export async function invalidateOrderToken(orderId) {
-  const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  const { isAuthenticated } = await auth();
+  if (!isAuthenticated) {
+    throw new Error("Devi essere loggato per effettuare questa azione!");
+  }
 
   const { error } = await supabase
     .from("orders")
@@ -478,6 +390,7 @@ export async function invalidateOrderToken(orderId) {
   return true;
 }
 
+//----------------------------------------------------------- ✅
 export async function fulfillCheckout(sessionId) {
   // TODO: Make this function safe to run multiple times,
   // even concurrently, with the same session ID
@@ -506,12 +419,12 @@ export async function fulfillCheckout(sessionId) {
     const { data: orderId, error } = await supabase.rpc(
       "check_sessionid_create_order",
       {
-        user_id: userId,
         cart_id: cartId,
-        name: name,
         email: email,
-        total_cost: totalCost,
+        name: name,
         session_id: checkoutSession.id,
+        total_cost: totalCost,
+        user_id: userId,
       },
     );
 
@@ -554,6 +467,11 @@ export async function fulfillCheckout(sessionId) {
       console.error("Errore nell'invio email conferma ordine:", emailError);
       // puoi decidere se rilanciare o continuare
     }
+
+    revalidateTag(`cart-${userId}`, "max");
+    revalidateTag(`${userId}-cart-count`, "max");
+    revalidateTag(`${userId}-orders-count`, "max");
+    revalidateTag(`orders-${userId}`, "max");
 
     return orderId;
   }

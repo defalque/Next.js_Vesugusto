@@ -2,6 +2,12 @@ import Image from "next/image";
 import background from "@/public/login.jpg";
 import { notoSerif } from "@/app/_lib/font";
 
+export const metadata = {
+  title: "Login",
+  description:
+    "Accedi o crea un account per gustare i migliori prodotti di Vesugusto. Login rapido e sicuro.",
+};
+
 function Layout({ children }) {
   const sizes = "(min-width: 80rem) 66.6vw, (min-width: 48rem) 54.5vw, 100vw";
 
@@ -16,7 +22,7 @@ function Layout({ children }) {
           alt=""
           fill
           placeholder="blur"
-          quality={80}
+          quality={75}
           sizes={sizes}
           priority={true}
           className="object-cover brightness-40"
@@ -24,7 +30,7 @@ function Layout({ children }) {
 
         <div className="relative z-10 flex items-center justify-center">
           <h2
-            className={`${notoSerif.className} text-primary-50 xs:text-4xl mb-0 text-center text-3xl font-bold tracking-tight text-wrap text-shadow-lg/30 md:mb-20 md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-6xl`}
+            className={`${notoSerif.className} text-primary-50 xs:text-4xl text-center text-3xl font-bold tracking-tight text-wrap text-shadow-lg/30 md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-6xl`}
           >
             Gustati i nostri prodotti.
             <br />

@@ -4,22 +4,18 @@ import ProductDetails from "@/app/_components/shop/ProductDetails";
 //   () => import("../../_components/shop/ProductDetails"),
 // );
 
-import {
-  getAllProducts,
-  getProduct,
-  getProductNameAndDescription,
-} from "@/app/_lib/data-service";
+import { getAllProducts, getProduct } from "@/app/_lib/data-service";
 import ProductImages from "@/app/_components/shop/ProductImages";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/app/_components/ui/Breadcrumbs";
 
-export async function generateMetadata({ params }) {
-  const { productId } = await params;
-  const product = await getProduct(productId);
-  return { title: `${product.name}`, description: `${product.description}` };
-}
+// export async function generateMetadata({ params }) {
+//   const { productId } = await params;
+//   const product = await getProduct(productId);
+//   return { title: `${product.name}`, description: `${product.description}` };
+// }
 
-export async function generateStaticParams({ params }) {
+export async function generateStaticParams() {
   const products = await getAllProducts();
 
   const IDs = products.map((product) => ({

@@ -1,5 +1,4 @@
 import { getOrder } from "@/app/_lib/data-service";
-import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
@@ -12,8 +11,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { orderId } = await params;
-  const session = await auth();
-  const order = await getOrder(session.user.userId, orderId);
+  const order = await getOrder(orderId);
 
   if (!order) {
     notFound();

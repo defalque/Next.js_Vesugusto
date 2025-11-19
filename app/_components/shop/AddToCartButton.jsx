@@ -6,29 +6,18 @@ import { addCartItem } from "@/app/_lib/actions";
 import { useProductQuantity } from "@/app/_contexts/ProductQuantityContext";
 import { showCustomPromiseToast } from "../ui/CustomToast";
 
-function AddToCartButton({ userId, productId, cartId, productQuantity }) {
+function AddToCartButton({ userId, productId, productQuantity }) {
   const { quantity, setQuantity } = useProductQuantity();
 
   const handleAddToCart = async () => {
     const toast = (await import("react-hot-toast")).default;
-    await showCustomPromiseToast(
-      toast,
-      addCartItem(cartId, productId, quantity),
-      {
-        loading: "Inserimento del prodotto nel carrello...",
-        success: "Prodotto aggiunto nel carrello!",
-        error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
-      },
-    );
+    await showCustomPromiseToast(toast, addCartItem(productId, quantity), {
+      loading: "Inserimento del prodotto nel carrello...",
+      success: "Prodotto aggiunto nel carrello!",
+      error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
+    });
 
     setQuantity(1);
-    // try {
-    //   await addCartItem(cartId, productId, quantity);
-    //   setQuantity(1);
-    // } catch (err) {
-    //   const toast = (await import("react-hot-toast")).default;
-    //   toast.error(err.message);
-    // }
   };
 
   const [state, action, pending] = useActionState(handleAddToCart, false);

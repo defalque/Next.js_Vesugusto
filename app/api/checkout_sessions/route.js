@@ -3,15 +3,21 @@ import { headers } from "next/headers";
 
 import { getCartProd } from "@/app/_lib/data-service";
 import { stripe } from "@/app/_lib/stripe";
-import { auth } from "@/auth";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export async function POST() {
   try {
     const headersList = await headers();
     const origin = headersList.get("origin");
 
-    const userSession = await auth();
-    const products = await getCartProd(userSession.user.cartId);
+    const { isAuthenticated, userId } = await auth();
+    if (!isAuthenticated) {
+      return new NextResponse({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const user = await currentUser();
+
+    const { cartId, cartProducts: products } = await getCartProd();
 
     if (!products || products.length === 0) {
       return NextResponse.json(
@@ -47,7 +53,7 @@ export async function POST() {
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: "required",
       payment_method_types: ["card"],
-      customer_email: userSession.user.email,
+      customer_email: user.email,
       line_items: lineItems,
       mode: "payment",
       invoice_creation: {
@@ -58,10 +64,10 @@ export async function POST() {
       // success_url: `${process.env.NEXT_PUBLIC_PROD_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       // cancel_url: `${process.env.NEXT_PUBLIC_PROD_URL}/cart/checkout?canceled=true`,
       metadata: {
-        userId: userSession.user.userId,
-        cartId: userSession.user.cartId,
-        name: userSession.user.name,
-        email: userSession.user.email,
+        userId: userId,
+        cartId: cartId,
+        name: user.firstName + " " + user.lastName,
+        email: user.emailAddresses.at(0).emailAddress,
       },
     });
 

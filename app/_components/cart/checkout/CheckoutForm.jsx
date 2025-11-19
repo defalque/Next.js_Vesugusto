@@ -4,14 +4,16 @@ import { useForm } from "react-hook-form";
 import FormRow from "../../account/FormRow";
 import FormError from "../../account/FormError";
 import FormButtons from "../../account/FormButtons";
-import { updateAddressInfo } from "@/app/_lib/actions";
+import { updateUserProfile } from "@/app/_lib/actions";
 import { showCustomPromiseToast } from "../../ui/CustomToast";
+import { formatNumberForAria } from "@/app/_lib/utility";
 
-function CheckoutForm({ via, numeroCivico, cap, comune }) {
+function CheckoutForm({ via, numeroCivico, cap, comune, phoneNumber }) {
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isDirty, isSubmitting },
   } = useForm({
     defaultValues: {
@@ -19,6 +21,7 @@ function CheckoutForm({ via, numeroCivico, cap, comune }) {
       numeroCivico: numeroCivico || "",
       cap: cap || "",
       comune: comune || "",
+      phoneNumber: phoneNumber || "",
     },
   });
 
@@ -26,16 +29,11 @@ function CheckoutForm({ via, numeroCivico, cap, comune }) {
     try {
       const toast = (await import("react-hot-toast")).default;
 
-      await showCustomPromiseToast(toast, updateAddressInfo(data), {
+      await showCustomPromiseToast(toast, updateUserProfile(data), {
         loading: "Aggiornamento delle informazioni in corso...",
         success: "Informazioni aggiornate con successo!",
         error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
       });
-      // await toast.promise(updateAddressInfo(data), {
-      //   loading: "Aggiornamento in corso...",
-      //   success: "Informazioni aggiornate con successo!",
-      //   error: (err) => `Errore: ${err.message}`,
-      // });
 
       reset(data);
     } catch (err) {
@@ -137,6 +135,37 @@ function CheckoutForm({ via, numeroCivico, cap, comune }) {
           aria-describedby="error-cap"
         />
         <FormError message={errors.cap?.message} id="error-cap" />
+      </div>
+
+      <div className="col-span-full space-y-1">
+        <FormRow
+          id="phoneNumber"
+          label="Numero"
+          type="text"
+          inputMode="tel"
+          {...register("phoneNumber", {
+            minLength: {
+              value: 8,
+              message: "Numero di telefono deve contenere almeno 8 cifre!",
+            },
+            maxLength: {
+              value: 20,
+              message: "Numero di telefono troppo lungo!",
+            },
+            pattern: {
+              value:
+                /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/,
+              message: "Numero di telefono non valido",
+            },
+          })}
+          aria-invalid={errors.phoneNumber ? "true" : "false"}
+          aria-describedby="error-phoneNumber"
+          ariaLabel={`Numero di telefono: ${formatNumberForAria(watch("phoneNumber"))}`}
+        />
+        <FormError
+          message={errors.phoneNumber?.message}
+          id="error-phoneNumber"
+        />
       </div>
 
       {isDirty && (

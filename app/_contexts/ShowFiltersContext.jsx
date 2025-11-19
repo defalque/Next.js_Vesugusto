@@ -1,19 +1,19 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 const ShowFiltersContext = createContext();
 
 export function ShowFiltersProvider({ children }) {
   const [isOpen, setIsOpen] = useState(true);
 
+  const showFiltersContextValue = useMemo(
+    () => ({ isOpen, setIsOpen }),
+    [isOpen],
+  );
+
   return (
-    <ShowFiltersContext.Provider
-      value={{
-        isOpen,
-        setIsOpen,
-      }}
-    >
+    <ShowFiltersContext.Provider value={showFiltersContextValue}>
       {children}
     </ShowFiltersContext.Provider>
   );

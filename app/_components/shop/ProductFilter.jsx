@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import FilterInput from "./FilterInput";
 import { useState } from "react";
 
@@ -26,17 +26,11 @@ function ProductFilter({ name, items, filterField }) {
           aria-controls={`filter-panel-${filterField}`}
         >
           <p className="text-lg font-semibold uppercase md:text-sm">{name}</p>
-          {!isOpen ? (
-            <ChevronRightIcon
-              className="ml-auto size-4 text-zinc-500 group-hover:text-black dark:text-white dark:group-hover:text-white"
-              aria-hidden="true"
-            />
-          ) : (
-            <ChevronDownIcon
-              className="ml-auto size-4 text-zinc-500 group-hover:text-black dark:text-white dark:group-hover:text-white"
-              aria-hidden="true"
-            />
-          )}
+
+          <ChevronRightIcon
+            className={`${isOpen ? "" : "rotate-90"} ml-auto size-4 text-zinc-500 transition-discrete duration-300 group-hover:text-black dark:text-white dark:group-hover:text-white`}
+            aria-hidden="true"
+          />
         </button>
 
         <AnimatePresence initial={false}>

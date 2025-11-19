@@ -1,8 +1,8 @@
-import CheckoutWrapper from "@/app/_components/cart/checkout/CheckoutWrapper";
+import { Suspense } from "react";
+
 import Breadcrumbs from "@/app/_components/ui/Breadcrumbs";
 import { CheckoutWrapperSkeleton } from "@/app/_components/ui/skeleton/Skeletons";
-import { auth } from "@/auth";
-import { Suspense } from "react";
+import CheckoutResolver from "@/app/_components/cart/checkout/CheckoutResolver";
 
 export const metadata = {
   title: "Checkout",
@@ -20,21 +20,16 @@ const breadcrumbs = [
 ];
 
 export default async function Page({ searchParams }) {
-  const { canceled } = (await searchParams) || {};
-  const session = await auth();
+  const checkoutParams = searchParams.then((sp) => ({
+    canceled: sp.canceled,
+  }));
 
   return (
     <div className="page-padding mx-auto mt-10 flex max-w-[95rem] flex-col gap-8">
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
       <Suspense fallback={<CheckoutWrapperSkeleton />}>
-        <CheckoutWrapper
-          userId={session.user.userId}
-          cartId={session.user.cartId}
-          name={session.user.name}
-          email={session.user.email}
-          canceled={canceled}
-        />
+        <CheckoutResolver checkoutParams={checkoutParams} />
       </Suspense>
     </div>
   );

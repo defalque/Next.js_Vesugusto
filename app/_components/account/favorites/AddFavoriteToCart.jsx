@@ -7,22 +7,17 @@ import {
   showCustomPromiseToast,
 } from "../../ui/CustomToast";
 
-function AddFavoriteToCart({
-  userId,
-  cartId,
-  productId,
-  disabled,
-  setIsPending,
-}) {
+function AddFavoriteToCart({ productId, disabled, setIsPending }) {
   return (
-    <Button
-      className="order-4 truncate rounded px-2 py-1.5 text-xs font-semibold uppercase"
+    <button
+      type="button"
+      className="bg-primary-dark-200 hover:bg-primary-dark-100 order-4 w-full cursor-pointer truncate rounded-full px-2 py-1.5 text-xs font-bold text-white uppercase transition-colors duration-200 disabled:animate-pulse disabled:cursor-not-allowed"
       onClick={async () => {
         setIsPending(true);
         const toast = (await import("react-hot-toast")).default;
         await showCustomPromiseToast(
           toast,
-          addFavoriteToCartAndDeleteFavorite(userId, cartId, productId),
+          addFavoriteToCartAndDeleteFavorite(productId),
           {
             loading: "Aggiunta del prodotto nel carrello...",
             success: "Prodotto aggiunto nel carrello!",
@@ -30,24 +25,13 @@ function AddFavoriteToCart({
           },
         );
         setIsPending(false);
-        // try {
-        //   setIsPending(true);
-        //   await addFavoriteToCartAndDeleteFavorite(userId, cartId, productId);
-        // } catch (err) {
-        //   const toast = (await import("react-hot-toast")).default;
-
-        //   // toast.error(err.message);
-        //   showCustomErrorToast(toast, err);
-        // } finally {
-        //   setIsPending(false);
-        // }
       }}
       aria-label="Aggiungi al carrello"
       disabled={disabled}
     >
       <span className="hidden sm:inline">Sposta nel carrello</span>
       <span className="inline sm:hidden">Aggiungi</span>
-    </Button>
+    </button>
   );
 }
 

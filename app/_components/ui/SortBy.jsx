@@ -17,7 +17,7 @@ function SortBy() {
   const selectedValue = searchParams.get("sort") ?? "default";
 
   return (
-    <div className="relative w-max self-stretch rounded-xl bg-white/80 backdrop-blur-xs sm:w-fit dark:bg-black/80">
+    <div className="_hidden _md:flex relative w-max self-stretch rounded-xl bg-white/80 backdrop-blur-xs sm:w-fit dark:bg-black/80">
       <label htmlFor="ordina" className="sr-only">
         Ordina prodotti per prezzo o data creazione
       </label>
@@ -32,7 +32,7 @@ function SortBy() {
           router.push(pathname + "?" + createQueryString("sort", value));
         }}
         className={
-          "data-focus:outline-primary-950 focus peer block h-full w-full cursor-pointer appearance-none rounded-xl border border-gray-200 px-3 py-1.5 pr-10 text-base/6 text-black transition-all duration-200 *:text-black focus:not-data-focus:outline-none data-active:shadow data-focus:outline-2 data-focus:-outline-offset-2 data-hover:shadow dark:border-zinc-700 dark:text-white dark:data-active:border-zinc-600 dark:data-hover:border-zinc-600"
+          "data-focus:outline-primary-950 focus peer block h-full w-full cursor-pointer appearance-none rounded-xl border border-black/20 px-3 py-1.5 pr-10 text-base/6 text-black transition-all duration-200 *:text-black focus:not-data-focus:outline-none data-active:shadow data-focus:outline-2 data-focus:-outline-offset-2 dark:border-zinc-700 dark:text-white dark:data-active:border-zinc-600 dark:data-hover:border-zinc-600"
         }
       >
         {options.map((option) => (

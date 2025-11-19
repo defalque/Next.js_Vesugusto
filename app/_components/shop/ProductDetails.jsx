@@ -1,6 +1,5 @@
-import { auth } from "@/auth";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
-import { getFavoriteProductIds } from "@/app/_lib/data-service";
+import { getFavorites } from "@/app/_lib/data-service";
 import { PlusIcon, MinusIcon, HeartIcon } from "@heroicons/react/24/outline";
 
 import { ProductQuantityProvider } from "@/app/_contexts/ProductQuantityContext";
@@ -10,6 +9,7 @@ import FavoriteButton from "./FavoriteButton";
 import ProductAccordion from "./ProductAccordion";
 import Link from "next/link";
 import Button from "../ui/Button";
+import { auth } from "@clerk/nextjs/server";
 
 // import dynamic from "next/dynamic";
 // const AddToCartButton = dynamic(() => import("./AddToCartButton"));
@@ -22,12 +22,10 @@ import Button from "../ui/Button";
 // });
 
 async function ProductDetails({ product }) {
-  const session = await auth();
-  const userId = session?.user?.userId;
-  const cartId = session?.user?.cartId;
+  const { userId } = await auth();
 
-  const favorites = userId ? await getFavoriteProductIds(userId) : [];
-  const isFavorite = favorites?.some((fav) => fav.productId === product.id);
+  const favorites = userId ? await getFavorites() : [];
+  const isFavorite = favorites?.some((fav) => fav.productId.id === product.id);
 
   return (
     <section
@@ -60,12 +58,11 @@ async function ProductDetails({ product }) {
               <AddToCartButton
                 userId={userId}
                 productId={product.id}
-                cartId={cartId}
                 productQuantity={product.quantity}
               />
             ) : (
               <Button
-                href="/credentials/login"
+                href="/sign-in"
                 className="rounded px-3 py-4 font-bold uppercase md:py-3"
               >
                 Accedi per aggiungere
@@ -85,7 +82,7 @@ async function ProductDetails({ product }) {
             />
           ) : (
             <Link
-              href="/credentials/login"
+              href="/sign-in"
               className="focus cursor-pointer rounded-md"
               aria-label="Accedi per aggiungere il prodotto ai preferiti"
             >

@@ -8,9 +8,47 @@ export function CartLinkSkeleton() {
   return (
     <li>
       <div
+        className={`${shimmer} relative size-8 overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-800`}
+      />
+    </li>
+  );
+}
+
+export function UserAvatarSkeleton() {
+  return (
+    <li>
+      <div
         className={`${shimmer} relative size-8 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-800`}
       />
     </li>
+  );
+}
+
+export function SignedInSkeleton() {
+  return (
+    <>
+      <CartLinkSkeleton />
+      <UserAvatarSkeleton />
+    </>
+  );
+}
+
+export function SignInSkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-90 w-100 cursor-not-allowed divide-y divide-gray-200 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl`}
+    >
+      <div className="flex h-70 flex-col">
+        <div className="_dark:bg-zinc-800 mx-auto mt-8 size-10 rounded-full bg-gray-200" />
+        <div className="_dark:bg-zinc-800 mx-auto mt-10 h-6 w-65 rounded-lg bg-gray-200" />
+
+        <div className="mt-10 space-y-2">
+          <div className="_dark:bg-zinc-800 mx-auto h-7 w-85 rounded-lg bg-gray-200" />
+          <div className="_dark:bg-zinc-800 mx-auto h-7 w-85 rounded-lg bg-gray-200" />
+        </div>
+      </div>
+      <div className="h-20"></div>
+    </div>
   );
 }
 
@@ -76,8 +114,10 @@ export function ProductListSkeleton() {
       </p>
       <div
         aria-hidden
-        className="grid grid-cols-2 gap-x-6 gap-y-15 transition-all duration-3000 ease-in-out md:grid-cols-3 lg:gap-y-18 xl:grid-cols-4"
+        className="mt-3 grid grid-cols-2 gap-x-6 gap-y-15 pb-15 transition-all duration-3000 ease-in-out md:grid-cols-3 lg:gap-y-18 xl:grid-cols-4"
       >
+        <ProductCardSkeleton />
+        <ProductCardSkeleton />
         <ProductCardSkeleton />
         <ProductCardSkeleton />
         <ProductCardSkeleton />
@@ -319,6 +359,12 @@ export function AddressInfoSkeleton() {
             className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
           />
         </div>
+
+        <div className="col-span-full">
+          <div
+            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+          />
+        </div>
       </div>
     </div>
   );
@@ -408,7 +454,7 @@ export function UserNameSkeleton() {
       </p>
       <span
         aria-hidden
-        className={`${shimmer} xs:w-80 relative h-[1em] w-60 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-[1em] w-60 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
       />
     </>
   );
@@ -489,7 +535,7 @@ export function UpdateProfileFormSkeleton() {
 
 function OrderCardHeaderSkeleton() {
   return (
-    <div className="flex flex-col flex-wrap gap-x-10 gap-y-2 border-b border-b-gray-200 bg-gray-50 px-3 py-4 text-sm sm:flex-row sm:items-center md:px-5 md:text-base xl:px-10 dark:border-b-zinc-700/70 dark:bg-zinc-800/70">
+    <div className="flex cursor-not-allowed flex-col flex-wrap gap-x-10 gap-y-2 border-b border-b-gray-200 bg-gray-50 px-3 py-4 text-sm sm:flex-row sm:items-center md:px-5 md:text-base xl:px-10 dark:border-b-zinc-700/70 dark:bg-zinc-800/70">
       <div
         className={`${shimmer} relative h-4 w-24 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
       />
@@ -758,6 +804,170 @@ export function NewArrivalsProductsSkeleton() {
         Caricamento dei nuovi arrivi in corso...
       </p>
       <div aria-hidden className="spinner" />
+    </>
+  );
+}
+
+export function DisplaySkeleton() {
+  return (
+    <div className="z-50 mr-auto flex items-center">
+      <div
+        className={`${shimmer} relative mr-4 h-10 w-22 self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-10 dark:bg-zinc-700`}
+      />
+      <div className="h-10 w-[1px] bg-black dark:bg-white" />
+      <div
+        className={`${shimmer} relative mx-4 h-10 w-10 self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-10 dark:bg-zinc-700`}
+      />
+    </div>
+  );
+}
+
+export function SearchSkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-10 w-16 self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-full dark:bg-zinc-700`}
+    />
+  );
+}
+
+export function SortBySkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-10 w-50 self-stretch overflow-hidden rounded-lg bg-gray-200 md:h-full dark:bg-zinc-700`}
+    />
+  );
+}
+
+export function ToggleFilterMobileSkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-10 w-23 overflow-hidden rounded-full bg-gray-200 md:h-full dark:bg-zinc-700`}
+    />
+  );
+}
+
+export function ProductFiltersSkeleton() {
+  return (
+    <div className="flex max-h-fit w-full flex-col gap-y-5 overflow-y-auto pr-2 pb-3 pl-1 lg:mr-10 lg:w-60 lg:overflow-hidden lg:pr-1">
+      <div
+        className={`${shimmer} relative h-12 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+      />
+      <div className="flex flex-wrap justify-center gap-5">
+        <div
+          className={`${shimmer} relative h-10 w-20 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+        <div
+          className={`${shimmer} relative h-10 w-20 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+      </div>
+
+      <div
+        className={`${shimmer} relative h-12 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+      />
+      <div className="flex flex-wrap justify-center gap-5">
+        <div
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+        <div
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+        <div
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+        <div
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function ProductsResolverSkeleton() {
+  return (
+    <>
+      <section className="bgColor relative z-10 col-span-full col-start-1 row-start-1 mt-5 mb-2 sm:col-span-3 sm:mb-10 lg:col-span-2">
+        <DisplaySkeleton />
+      </section>
+      <section
+        className={`relative col-span-full row-start-3 overflow-hidden sm:row-start-2 lg:col-start-2`}
+      >
+        <ProductListSkeleton />
+      </section>
+    </>
+  );
+}
+
+export function ProductsControlsSkeleton() {
+  return (
+    <>
+      <aside
+        className={`sticky top-20 col-span-1 col-start-1 row-start-2 hidden h-fit overflow-y-auto lg:flex`}
+      >
+        <ProductFiltersSkeleton />
+      </aside>
+      <section
+        className={`bgColor relative z-10 row-start-2 mt-5 mb-10 flex h-11 w-full flex-wrap justify-end gap-x-5 gap-y-2 sm:col-span-2 sm:col-start-4 sm:row-start-1 sm:flex-row lg:col-span-3 lg:col-start-3 lg:h-12`}
+      >
+        <SearchSkeleton />
+        <div className="hidden lg:flex">
+          <SortBySkeleton />
+        </div>
+        <div className="flex lg:hidden">
+          <SortBySkeleton />
+        </div>
+      </section>
+    </>
+  );
+}
+
+export function NavLinkSkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-8 w-13.5 cursor-not-allowed overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-800`}
+    />
+  );
+}
+
+export function AccountNavLinksSkeleton() {
+  return (
+    <div className="w-10 cursor-not-allowed space-y-4 md:w-50">
+      {[0, 1, 2, 3, 4, 5].map((_, i) => (
+        <div
+          key={i}
+          className="flex w-full items-center justify-center gap-5 md:justify-start"
+        >
+          <div
+            className={`${shimmer} relative h-7 w-7 overflow-hidden rounded-full bg-gray-200 md:h-6 md:w-6 dark:bg-zinc-700`}
+          />
+          <div
+            className={`${shimmer} relative hidden h-6 w-30 overflow-hidden rounded-md bg-gray-200 md:inline dark:bg-zinc-700`}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function UserPageSkeleton({ font }) {
+  return (
+    <>
+      <div className="flex cursor-not-allowed flex-col gap-5 pb-4">
+        <h1
+          aria-label="Messaggio di benvenuto"
+          className={`${font.className} text-primary-dark-900 inline-flex max-w-fit min-w-fit flex-wrap items-center gap-2 text-4xl font-semibold sm:font-medium md:text-5xl dark:text-gray-200`}
+        >
+          Ciao <UserNameSkeleton />!
+        </h1>
+
+        <p className="text-sm tracking-wide text-black/65 sm:text-base dark:text-white/85">
+          Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
+          tue informazioni personali.
+        </p>
+      </div>
+
+      <section className="cursor-not-allowed">
+        <UpdateProfileFormSkeleton />
+      </section>
     </>
   );
 }

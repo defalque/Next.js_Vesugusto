@@ -42,7 +42,6 @@ function ProductImages({ product }) {
                   fill
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
-                  quality={70}
                   sizes="4rem"
                   className="object-cover dark:shadow-sm dark:brightness-80"
                 />
@@ -69,7 +68,6 @@ function ProductImages({ product }) {
                     fill
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
-                    quality={80}
                     priority={index === 0}
                     sizes={sizes}
                     className="object-cover transition-opacity duration-500 dark:shadow-sm dark:brightness-80"

@@ -11,10 +11,10 @@ const DrawerDialog = dynamic(() => import("../ui/drawer/DrawerDialog"), {
   ),
 });
 
-import { useState } from "react";
+import { useToggleFiltersMobileContext } from "@/app/_contexts/ToggleFiltersMobileContext";
 
 function ToggleFiltersMobile({ children }) {
-  const [isOpenMobile, setIsOpenMobile] = useState(false);
+  const { isOpenMobile, setIsOpenMobile } = useToggleFiltersMobileContext();
 
   return (
     <div className="relative self-stretch lg:hidden">

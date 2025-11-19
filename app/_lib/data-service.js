@@ -1,52 +1,14 @@
-import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
-
-//----------------------------------------------------------- ❌
-export async function createUserAndCart(email, name, image) {
-  const { error } = await supabase.rpc("create_user_and_cart_atomic", {
-    p_email: email,
-    p_name: name,
-    p_image: image,
-  });
-
-  if (error) {
-    console.error("Errore nella creazione di user e cart:", error);
-    throw new Error("Impossibile creare utente e carrello.");
-  }
-}
-
-//----------------------------------------------------------- ✅
-export async function getUser(email) {
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("email", email)
-    .single();
-
-  // No error here! We handle the possibility of no guest in the sign in callback
-  return data;
-}
-
-//----------------------------------------------------------- ✅
-export async function getCart(userId) {
-  let { data, error } = await supabase
-    .from("carts")
-    .select("id")
-    .eq("userId", userId)
-    .single();
-
-  if (error) {
-    console.error(error);
-    throw new Error(
-      "Non è stato possibile recuperare l'id del carrello dell'utente",
-    );
-  }
-
-  return data;
-}
+import { cache } from "react";
+import { cacheLife, cacheTag } from "next/cache";
+import { auth } from "@clerk/nextjs/server";
 
 //----------------------------------------------------------- ✅
 export async function getPaginatedProducts(limit, filters) {
+  "use cache";
+  cacheTag(`paginated-${{ ...filters }}`);
+  cacheLife("hours");
+
   const from = (filters.page - 1) * limit;
   const to = from + limit - 1;
 
@@ -90,13 +52,20 @@ export async function getPaginatedProducts(limit, filters) {
   }
 
   const { data, error } = await query;
-  if (error) throw error;
+  if (error) {
+    console.error(error);
+    throw new Error(error);
+  }
 
   return data;
 }
 
 //----------------------------------------------------------- ✅
 export async function getFilteredProductsCount(filters) {
+  "use cache";
+  cacheTag(`paginated-count-${{ ...filters }}`);
+  cacheLife("hours");
+
   let query = supabase
     .from("products")
     .select("id", { count: "exact" })
@@ -127,14 +96,6 @@ export async function getFilteredProductsCount(filters) {
     query = query.or(orFilter);
   }
 
-  // if (filters.sort === "price-asc") {
-  //   query = query.order("regularPrice", { ascending: true });
-  // } else if (filters.sort === "price-desc") {
-  //   query = query.order("regularPrice", { ascending: false });
-  // } else if (filters.sort === "default") {
-  //   query = query.order("created_at", { ascending: false });
-  // }
-
   const { count, error } = await query;
 
   if (error) throw error;
@@ -143,7 +104,7 @@ export async function getFilteredProductsCount(filters) {
 }
 
 //----------------------------------------------------------- ✅
-export async function getProduct(id) {
+export const getProduct = cache(async (id) => {
   const { data, error } = await supabase
     .from("products")
     .select("*")
@@ -156,33 +117,21 @@ export async function getProduct(id) {
   }
 
   return data;
-}
+});
 
 //----------------------------------------------------------- ✅
-export async function getProductNameAndDescription(id) {
-  const { data, error } = await supabase
-    .from("products")
-    .select("name, description")
-    .eq("id", id)
-    .maybeSingle();
+export async function getFavorites() {
+  "use cache: private";
+  const { userId: clerkUserId } = await auth();
+  cacheTag(`favorites-${clerkUserId}`);
 
-  if (error) {
-    console.error(error);
-    throw new Error("Non è stato possibile caricare il prodotto.");
-  }
-
-  return data;
-}
-
-//----------------------------------------------------------- ✅
-export async function getFavorites(userId) {
   const { data: favoriteProducts, error: favoriteProductsError } =
     await supabase
       .from("favorites")
       .select(
         "id, productId(id, name, image, quantity, regularPrice, discount)",
       )
-      .eq("userId", userId)
+      .eq("clerkUserId", clerkUserId)
       .order("created_at", { ascending: false });
 
   if (favoriteProductsError) {
@@ -206,22 +155,11 @@ export async function getFavorites(userId) {
 }
 
 //----------------------------------------------------------- ✅
-export async function getFavoriteProductIds(userId) {
-  const { data, error } = await supabase
-    .from("favorites")
-    .select("productId")
-    .eq("userId", userId);
-
-  if (error) {
-    console.error(error);
-    throw new Error(error.message);
-  }
-
-  return data;
-}
-
-//----------------------------------------------------------- ✅
 export async function getAllProducts() {
+  "use cache";
+  cacheTag("products");
+  cacheLife("hours");
+
   const { data, error } = await supabase.from("products").select("id");
 
   if (error) {
@@ -233,13 +171,32 @@ export async function getAllProducts() {
 }
 
 //----------------------------------------------------------- ✅
-export async function getCartProd(cartId) {
+export async function getCartProd() {
+  "use cache: private";
+  const { userId } = await auth();
+  cacheTag(`cart-${userId}`);
+  cacheLife("hours");
+
+  const {
+    data: { id },
+    cartsError,
+  } = await supabase
+    .from("carts")
+    .select("id")
+    .eq("clerkUserId", userId)
+    .single();
+
+  if (cartsError) {
+    console.error(cartsError);
+    throw new Error("Could not load products");
+  }
+
   const { data, error } = await supabase
     .from("cart_items")
     .select(
       "id, created_at, productId(id, name, regularPrice, discount, quantity, details, description, image), quantity",
     )
-    .eq("cartId", cartId)
+    .eq("cartId", id)
     .order("created_at", { ascending: true });
 
   if (error) {
@@ -260,76 +217,21 @@ export async function getCartProd(cartId) {
     },
   }));
 
-  return normalizedData;
-}
-
-//----------------------------------------------------------- ❌
-export async function getCartProducts(cartId) {
-  const { data: cartItems, error: cartError } = await supabase
-    .from("cart_items")
-    .select("created_at, productId, quantity")
-    .eq("cartId", cartId)
-    .order("created_at", { ascending: true });
-
-  if (cartError) {
-    console.error(cartError);
-    throw new Error("Cart products could not be loaded");
-  }
-
-  if (!cartItems || cartItems.length === 0) {
-    return [];
-  }
-
-  const productIds = cartItems.map((item) => item.productId);
-
-  const { data: products, error: productsError } = await supabase
-    .from("products")
-    .select("*")
-    .in("id", productIds);
-
-  if (productsError) {
-    console.error(productsError);
-    throw new Error("Could not load products");
-  }
-
-  // Ora combiniamo i dati delle quantità dai cartItems con i dettagli dei prodotti
-  const cartProducts = cartItems.map((item) => {
-    // Troviamo il prodotto corrispondente al productId in cartItems
-    const product = products.find((p) => p.id === item.productId);
-
-    if (product) {
-      return {
-        created_at: item.created_at,
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        details: product.details,
-        regularPrice: product.regularPrice,
-        productQuantity: product.quantity,
-        cartQuantity: item.quantity,
-      };
-    } else {
-      // Se il prodotto non è trovato, ritorniamo un oggetto con dei valori di fallback
-      return {
-        name: "Prodotto non trovato",
-        price: 0,
-        quantity: item.quantity,
-      };
-    }
-  });
-
-  return cartProducts;
+  return { cartId: id, cartProducts: normalizedData };
 }
 
 //----------------------------------------------------------- ✅
-export async function getCartProductsCount(cartId) {
-  const { count, error } = await supabase
-    .from("cart_items")
-    .select("productId", { count: "exact" })
-    .eq("cartId", cartId);
+export async function getCartProductsCount() {
+  "use cache: private";
+  const { userId } = await auth();
+  cacheTag(`${userId}-cart-count`);
+
+  const { data: count, error } = await supabase.rpc("get_cart_products_count", {
+    user_id: userId,
+  });
 
   if (error) {
-    console.error(error);
+    console.error("Errore nel conteggio dei prodotti nel carrello: ", error);
     throw new Error("Errore nel conteggio dei prodotti nel carrello");
   }
 
@@ -337,11 +239,17 @@ export async function getCartProductsCount(cartId) {
 }
 
 //----------------------------------------------------------- ✅
-export async function getUserInfo(userId) {
+export async function getUserInfo() {
+  "use cache: private";
+  const { userId } = await auth();
+  cacheTag(`${userId}-info`);
+
   const { data, error } = await supabase
     .from("users")
-    .select("via, numeroCivico, comune, cap, phoneNumber")
-    .eq("id", userId)
+    .select(
+      "firstName, lastName, email, phoneNumber, via, numeroCivico, comune, cap",
+    )
+    .eq("clerkUserId", userId)
     .single();
 
   if (error) {
@@ -355,11 +263,15 @@ export async function getUserInfo(userId) {
 }
 
 //----------------------------------------------------------- ✅
-export async function getUserOrdersCount(userId, filters) {
+export async function getUserOrdersCount(filters) {
+  "use cache: private";
+  const { userId } = await auth();
+  cacheTag(`${userId}-orders-count`);
+
   let query = supabase
     .from("orders")
     .select("id", { count: "exact" })
-    .eq("userId", userId)
+    .eq("clerkUserId", userId)
     .order("created_at", { ascending: false });
 
   if (filters.query) {
@@ -375,39 +287,23 @@ export async function getUserOrdersCount(userId, filters) {
     );
     throw new Error("Errore nel recupero degli ordini dell'utente");
   }
-  // const { count, error: ordersError } = await supabase
-  //   .from("orders")
-  //   .select("id", { count: "exact" })
-  //   .eq("userId", userId)
-  //   .order("created_at", { ascending: false });
-
-  // if (ordersError) {
-  //   console.error(
-  //     "Errore nel recupero degli ordini dell'utente: ",
-  //     ordersError,
-  //   );
-  //   throw new Error("Errore nel recupero degli ordini dell'utente.");
-  // }
 
   return count ?? 0;
 }
 
 //----------------------------------------------------------- ✅
-export async function getPaginatedUserOrders(limit, filters, userId) {
+export async function getPaginatedUserOrders(limit, filters) {
+  "use cache: private";
+  const { userId } = await auth();
+  cacheTag(`orders-${userId}`);
+
   const from = (filters.page - 1) * limit;
   const to = from + limit - 1;
-
-  // const { data: orders, error: ordersError } = await supabase
-  //   .from("orders")
-  //   .select("id, orderDate, status, totalCost")
-  //   .eq("userId", userId)
-  //   .range(from, to)
-  //   .order("created_at", { ascending: false });
 
   let query = supabase
     .from("orders")
     .select("id, orderDate, status, totalCost")
-    .eq("userId", userId)
+    .eq("clerkUserId", userId)
     .range(from, to)
     .order("created_at", { ascending: false });
 
@@ -463,12 +359,17 @@ export async function getPaginatedUserOrders(limit, filters, userId) {
   return normalizedData;
 }
 
-export async function getOrder(userId, orderId) {
+//----------------------------------------------------------- ✅
+export async function getOrder(orderId) {
+  "use cache: private";
+  const { userId } = await auth();
+  cacheTag(`order-${orderId}`);
+
   const { data: order, error: orderError } = await supabase
     .from("orders")
     .select("id")
     .eq("id", orderId)
-    .eq("userId", userId)
+    .eq("clerkUserId", userId)
     .maybeSingle();
 
   if (orderError) {
@@ -479,7 +380,7 @@ export async function getOrder(userId, orderId) {
   return order;
 }
 
-//----------------------------------------------------------- ✅
+//----------------------------------------------------------- ❌
 export async function getUserOrder(userId, paymentIntent) {
   const { data: order, error: orderError } = await supabase
     .from("orders")
@@ -532,11 +433,13 @@ export async function getUserOrder(userId, paymentIntent) {
 }
 
 //----------------------------------------------------------- ✅
-export async function getCompletedUserOrder(userId, sessionId) {
+export async function getCompletedUserOrder(sessionId) {
+  const { userId } = await auth();
+
   const { data: order, error: orderError } = await supabase
     .from("orders")
     .select("id, isTokenUsed")
-    .eq("userId", userId)
+    .eq("clerkUserId", userId)
     .eq("sessionId", sessionId)
     .single();
 
@@ -583,6 +486,9 @@ export async function getCompletedUserOrder(userId, sessionId) {
 
 //----------------------------------------------------------- ✅
 export async function getOrderItems(orderId) {
+  "use cache";
+  cacheTag(`order-items-${orderId}`);
+
   const { data: order_items, error: orderItemsError } = await supabase
     .from("order_items")
     .select(
@@ -646,17 +552,19 @@ export async function getSimulatedUserOrderItems(orderId) {
   return { data: normalizedData };
 }
 
+//----------------------------------------------------------- ✅
 export async function getBestSellers() {
   const { data, error } = await supabase.rpc("get_best_sellers");
 
   if (error) {
-    console.error("Error fetching best sellers:", error);
+    console.error("Errore nel recupero dei best sellers:", error);
     throw new Error("Non è stato possibile caricare i prodotti più venduti.");
   }
 
   return data;
 }
 
+//----------------------------------------------------------- ✅
 export async function getNewArrivals() {
   const { data: products, error } = await supabase
     .from("products")

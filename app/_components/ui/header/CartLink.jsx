@@ -1,18 +1,9 @@
 import { getCartProductsCount } from "@/app/_lib/data-service";
 import NavLink from "./NavLink";
-import { auth } from "@/auth";
 import { ShoppingCart } from "lucide-react";
 
 async function CartLink() {
-  const session = await auth();
-
-  if (!session?.user) {
-    return null;
-  }
-
-  const cartItems = session?.user?.cartId
-    ? await getCartProductsCount(session.user.cartId)
-    : 0;
+  const cartItems = await getCartProductsCount();
 
   const ariaLabel =
     cartItems > 0

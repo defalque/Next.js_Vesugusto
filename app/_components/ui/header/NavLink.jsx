@@ -1,9 +1,11 @@
 "use client";
 
+import * as m from "motion/react-m";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-function NavLink({ type, ...props }) {
+function NavLink({ type, shouldReduce = false, ...props }) {
   const { href, children, ...restProps } = props;
 
   const pathname = usePathname();
@@ -47,19 +49,29 @@ function NavLink({ type, ...props }) {
       )}
 
       {type === "account" && (
-        <Link
-          href={href}
-          aria-current={pathname === href ? "page" : undefined}
-          {...restProps}
-          className={`accountLinksFocus flex min-w-full items-center gap-2 font-medium ${
-            pathname === href
-              ? "bg-black text-white dark:bg-white dark:text-black"
-              : "hover:bg-black hover:text-white active:bg-black active:text-white dark:hover:bg-white dark:hover:text-black dark:active:bg-white dark:active:text-black"
-          } rounded-xl px-4 py-3 md:px-2 md:py-1`}
-          {...props}
-        >
-          {children}
-        </Link>
+        <>
+          {pathname === href &&
+            (shouldReduce === false ? (
+              <m.span
+                aria-hidden
+                layoutId="dot"
+                className="hidden aspect-square size-1.5 rounded-full bg-black md:mr-2 md:flex dark:bg-white"
+              />
+            ) : (
+              <span className="hidden aspect-square size-1.5 rounded-full bg-black md:mr-2 md:flex dark:bg-white" />
+            ))}
+          <m.div layout>
+            <Link
+              href={href}
+              aria-current={pathname === href ? "page" : undefined}
+              {...props}
+              {...restProps}
+              className={`accountLinksFocus relative z-100 flex min-w-full items-center gap-2 rounded-xl px-2 py-1 font-medium ${props.active === href ? "text-zinc-900 dark:text-zinc-50" : "text-zinc-600 dark:text-zinc-200"}`}
+            >
+              {children}
+            </Link>
+          </m.div>
+        </>
       )}
 
       {type === "footer" && (
@@ -74,61 +86,6 @@ function NavLink({ type, ...props }) {
       )}
     </li>
   );
-
-  // if (onClick) {
-  //   return (
-  //     <li className="flex w-full items-center" {...props}>
-  //       <Link
-  //         aria-current={isActive ? "page" : undefined}
-  //         aria-label={name}
-  //         href={href}
-  //         className="focus w-full rounded py-3 text-center transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
-  //         onClick={onClick}
-  //       >
-  //         {name}
-  //       </Link>
-  //     </li>
-  //   );
-  // }
-
-  // if (children) {
-  //   return (
-  //     <li className="flex items-center" {...props}>
-  //       <Link
-  //         aria-current={isActive ? "page" : undefined}
-  //         aria-label={name || undefined}
-  //         href={href}
-  //         className={`focus relative ${
-  //           isAvatar
-  //             ? ""
-  //             : isActive
-  //               ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white"
-  //               : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
-  //         } ${isAside ? "_text-base inline-flex w-full items-center justify-center md:justify-start lg:space-x-3" : ""} rounded-xl px-2 py-1.5 text-sm font-semibold transition-colors duration-300 active:text-white md:px-3 dark:cursor-pointer dark:hover:text-white`}
-  //       >
-  //         {children}
-  //       </Link>
-  //     </li>
-  //   );
-  // }
-
-  // return (
-  //   <>
-  //     <li
-  //       className={`${isFooter ? "" : "hidden py-5"} text-base md:inline`}
-  //       {...props}
-  //     >
-  //       <Link
-  //         aria-current={isActive ? "page" : undefined}
-  //         aria-label={name}
-  //         href={href}
-  //         className={`focus relative ${isActive && !isFooter ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white" : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"} rounded-xl px-3 py-1.5 transition-colors duration-300 dark:cursor-pointer dark:hover:text-white`}
-  //       >
-  //         {name}
-  //       </Link>
-  //     </li>
-  //   </>
-  // );
 }
 
 export default NavLink;

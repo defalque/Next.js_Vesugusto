@@ -1,66 +1,40 @@
 "use client";
 
-import { addFavorite, deleteFavorite } from "@/app/_lib/actions";
+import { addFavoriteProduct, deleteFavoriteProduct } from "@/app/_lib/actions";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { startTransition, useActionState } from "react";
-import {
-  showCustomErrorToast,
-  showCustomPromiseToast,
-} from "../ui/CustomToast";
+import { showCustomPromiseToast } from "../ui/CustomToast";
 
 function FavoriteButton({
   className = "",
   iconSizes = "size-5 lg:size-6",
   productId,
-  userId,
   isFavorite,
   productQuantity,
 }) {
   const handleFavorite = async () => {
     if (isFavorite) {
       const toast = (await import("react-hot-toast")).default;
-      await showCustomPromiseToast(toast, deleteFavorite(userId, productId), {
+      await showCustomPromiseToast(toast, deleteFavoriteProduct(productId), {
         loading: "Rimozione del prodotto dai tuoi preferiti...",
         success: "Il prodotto è stato rimosso dai tuoi preferiti.",
         error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
       });
-      // try {
-      //   await deleteFavorite(userId, productId);
-      // } catch (err) {
-      //   const toast = (await import("react-hot-toast")).default;
-
-      //   // toast.error(err.message);
-      //   showCustomErrorToast(toast, err);
-      // }
     } else {
       const toast = (await import("react-hot-toast")).default;
-      await showCustomPromiseToast(toast, addFavorite(userId, productId), {
+      await showCustomPromiseToast(toast, addFavoriteProduct(productId), {
         loading: "Aggiunta del prodotto ai tuoi preferiti...",
         success: "Il prodotto è stato aggiunto ai tuoi preferiti.",
         error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
       });
-      // try {
-      //   await addFavorite(userId, productId);
-      // } catch (err) {
-      //   const toast = (await import("react-hot-toast")).default;
-
-      //   // toast.error(err.message);
-      //   showCustomErrorToast(toast, err);
-      // }
     }
   };
+
   const [state, action, pending] = useActionState(handleFavorite, false);
 
   return (
     <button
       onClick={async () => {
-        if (!userId) {
-          // const toast = (await import("react-hot-toast")).default;
-          // return toast(
-          //   "Accedi o registrati per aggiungere questo prodotto tra i preferiti.",
-          // );
-          return;
-        }
         startTransition(action);
       }}
       className={`${className} focus rounded`}

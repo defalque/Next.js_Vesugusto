@@ -22,6 +22,7 @@ import {
   showCustomPromiseToast,
 } from "../ui/CustomToast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const CartItemQuantity = dynamic(() => import("./CartItemQuantity"), {
   ssr: false,
@@ -33,13 +34,7 @@ const CartProductCard = dynamic(() => import("./CartProductCard"), {
   loading: () => <CartProductCardSkeleton />,
 });
 
-function CartProductsListOptimistic({
-  products,
-  userId,
-  userName,
-  userEmail,
-  cartId,
-}) {
+function CartProductsListOptimistic({ products, cartId }) {
   const router = useRouter();
 
   const [optimisticProducts, optimisticDelete] = useOptimistic(
@@ -63,23 +58,23 @@ function CartProductsListOptimistic({
       <section
         role="region"
         aria-labelledby="empty-cart"
-        className="flex flex-col items-center justify-center gap-8 py-30"
+        className="flex flex-col items-center justify-center gap-8 pt-30 pb-90"
       >
         <div className="space-y-5 text-center">
           <h2 id="empty-cart" className="xs:text-3xl text-2xl sm:text-4xl">
-            Ops! Il tuo carrello è vuoto.
+            Il tuo carrello è vuoto
           </h2>
-          <p className="max-w-xl text-sm text-zinc-700 dark:text-gray-300">
-            Sembra che tu non abbia ancora scelto nulla. Hai bisogno di
-            ispirazione? Dai un’occhiata ai nostri prodotti più amati.
+          <p className="max-w-xl text-zinc-700 dark:text-gray-300">
+            Hai bisogno di ispirazione? Dai un’occhiata ai nostri prodotti più
+            amati.
           </p>
         </div>
-        <Button
+        <Link
           href="/shop"
-          className="mt-2 rounded-full px-4 py-1 text-base font-semibold sm:text-lg"
+          className="cursor-pointer rounded-full bg-black px-4 py-2 font-medium text-white text-shadow-2xs dark:bg-white dark:text-black"
         >
           Visita i nostri prodotti
-        </Button>
+        </Link>
       </section>
     );
   }
@@ -111,10 +106,19 @@ function CartProductsListOptimistic({
               {optimisticProducts.map((cartItemProduct) => (
                 <m.li
                   layout
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ type: "tween" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{
+                    x: "-100%",
+                    opacity: 0,
+                    filter: "blur(4px)",
+                    transition: {
+                      type: "spring",
+                      duration: 0.75,
+                      bounce: 0.25,
+                    },
+                  }}
+                  // transition={{ type: "spring", duration: 0.75, bounce: 0.25 }}
                   key={cartItemProduct.id}
                 >
                   <CartProductCard
@@ -137,8 +141,6 @@ function CartProductsListOptimistic({
                           } catch (err) {
                             const toast = (await import("react-hot-toast"))
                               .default;
-
-                            // toast.error(err.message);
                             showCustomErrorToast(toast, err);
                           }
                         });
@@ -160,8 +162,6 @@ function CartProductsListOptimistic({
                             } catch (err) {
                               const toast = (await import("react-hot-toast"))
                                 .default;
-
-                              // toast.error(err.message);
                               showCustomErrorToast(toast, err);
                             }
                           });
@@ -179,6 +179,8 @@ function CartProductsListOptimistic({
         <AnimatePresence mode="wait">
           <m.section
             layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             aria-labelledby="cart-summary-heading"
             className="sticky top-25 flex flex-col gap-5 self-baseline rounded-md bg-gray-50 px-5 py-5 text-sm sm:text-base dark:bg-zinc-900/80"
           >
@@ -212,13 +214,7 @@ function CartProductsListOptimistic({
 
                     await showCustomPromiseToast(
                       toast,
-                      simulateOrder(
-                        userId,
-                        cartId,
-                        userName,
-                        userEmail,
-                        totalPrice + SHIPPING_COST,
-                      ),
+                      simulateOrder(cartId, totalPrice + SHIPPING_COST),
                       {
                         loading:
                           "Simulazione del pagamento e creazione dell'ordine in corso...",

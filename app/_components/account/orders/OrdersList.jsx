@@ -1,17 +1,6 @@
-import { ORDERS_LIMIT } from "@/app/_lib/constants";
-import { getPaginatedUserOrders } from "@/app/_lib/data-service";
-import { auth } from "@/auth";
 import OrderCard from "./OrderCard";
 
-async function OrdersList({ count, filters }) {
-  const session = await auth();
-
-  const orders = await getPaginatedUserOrders(
-    ORDERS_LIMIT,
-    filters,
-    session.user.userId,
-  );
-
+function OrdersList({ count, orders }) {
   if (!Array.isArray(orders)) {
     return (
       <p role="alert" className="text-red-600">

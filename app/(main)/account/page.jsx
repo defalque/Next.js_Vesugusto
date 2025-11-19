@@ -1,17 +1,7 @@
 import { Suspense } from "react";
-// import UserName from "../_components/account/UserName";
-// import UpdateProfileFormWrapper from "../_components/account/UpdateProfileFormWrapper";
-// import {
-//   UpdateProfileFormSkeleton,
-//   UserNameSkeleton,
-// } from "../_components/ui/skeleton/Skeletons";
-import AccountHeading from "@/app/_components/account/AccountHeading";
-import UpdateProfileFormWrapper from "@/app/_components/account/UpdateProfileFormWrapper";
-import UserName from "@/app/_components/account/UserName";
-import {
-  UpdateProfileFormSkeleton,
-  UserNameSkeleton,
-} from "@/app/_components/ui/skeleton/Skeletons";
+import UserPage from "@/app/_components/account/UserPage";
+import { UserPageSkeleton } from "@/app/_components/ui/skeleton/Skeletons";
+import { notoSerif } from "@/app/_lib/font";
 
 export const metadata = {
   title: "Account",
@@ -21,27 +11,8 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <>
-      <AccountHeading
-        accessibleLabel="Messagio di benvenuto"
-        text="Per offrirti un servizio sempre migliore ti invitiamo ad aggiornare le
-          tue informazioni personali."
-      >
-        Ciao{" "}
-        <Suspense fallback={<UserNameSkeleton />}>
-          <UserName />
-        </Suspense>
-      </AccountHeading>
-
-      <section aria-labelledby="profile-form-title">
-        <h2 id="profile-form-title" className="sr-only">
-          Aggiorna profilo
-        </h2>
-
-        <Suspense fallback={<UpdateProfileFormSkeleton />}>
-          <UpdateProfileFormWrapper />
-        </Suspense>
-      </section>
-    </>
+    <Suspense fallback={<UserPageSkeleton font={notoSerif} />}>
+      <UserPage font={notoSerif} />
+    </Suspense>
   );
 }

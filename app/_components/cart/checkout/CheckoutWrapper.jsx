@@ -7,20 +7,21 @@ import CheckoutFormWrapper from "./CheckoutFormWrapper";
 import { redirect } from "next/navigation";
 import PaymentWrapper from "./PaymentWrapper";
 
-async function CheckoutWrapper({ userId, cartId, name, email, canceled }) {
-  const productsData = getCartProd(cartId);
-  const userData = getUserInfo(userId);
-
+async function CheckoutWrapper({ canceled }) {
   const [productsResult, userResult] = await Promise.allSettled([
-    productsData,
-    userData,
+    getCartProd(),
+    getUserInfo(),
   ]);
 
+  console.log(productsResult);
+
   const products =
-    productsResult.status === "fulfilled" ? productsResult.value : [];
+    productsResult.status === "fulfilled"
+      ? productsResult.value.cartProducts
+      : [];
   const user = userResult.status === "fulfilled" ? userResult.value : [];
 
-  const { via, numeroCivico, comune, cap } = user ?? {};
+  const { via, numeroCivico, comune, cap, phoneNumber } = user ?? {};
 
   if (products.length === 0) {
     redirect("/shop");
@@ -106,6 +107,7 @@ async function CheckoutWrapper({ userId, cartId, name, email, canceled }) {
             comune={comune}
             cap={cap}
             numeroCivico={numeroCivico}
+            phoneNumber={phoneNumber}
           />
         </section>
 

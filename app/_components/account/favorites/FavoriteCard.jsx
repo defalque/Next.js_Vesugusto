@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
+import SafeImage from "../../ui/SafeImage";
 
 export default function FavoriteCard({ favorite, children }) {
   return (
@@ -28,7 +29,7 @@ export default function FavoriteCard({ favorite, children }) {
         aria-label={`Vai alla pagina del prodotto ${favorite.name}`}
       >
         <div className="relative aspect-2/3 overflow-hidden rounded-lg shadow-sm">
-          <Image
+          <SafeImage
             src={favorite.image}
             fill
             placeholder="blur"

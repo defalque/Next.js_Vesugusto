@@ -16,7 +16,7 @@ export default function Error({ error, reset }) {
       className="flex min-h-screen flex-col items-center justify-center gap-3 pb-10"
     >
       <h2 id="error-heading" className="text-center text-2xl">
-        Qualcosa è andato storto! 😓
+        Qualcosa è andato storto!
       </h2>
       <p
         className="text-primary-dark-950 max-w-md text-center text-base dark:text-gray-50"

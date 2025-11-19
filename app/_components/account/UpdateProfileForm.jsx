@@ -8,7 +8,7 @@ import FormButtons from "./FormButtons";
 import { showCustomPromiseToast } from "../ui/CustomToast";
 import { formatNumberForAria } from "@/app/_lib/utility";
 
-function UpdateProfileForm({ user, name, email }) {
+function UpdateProfileForm({ user }) {
   const {
     watch,
     register,
@@ -17,8 +17,8 @@ function UpdateProfileForm({ user, name, email }) {
     formState: { errors, isDirty, isSubmitting },
   } = useForm({
     defaultValues: {
-      name,
-      email,
+      name: user.firstName + " " + user.lastName,
+      email: user.email,
       via: user.via || "",
       numeroCivico: user.numeroCivico || "",
       cap: user.cap || "",
@@ -36,12 +36,6 @@ function UpdateProfileForm({ user, name, email }) {
         success: "Profilo aggiornato con successo!",
         error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
       });
-
-      // await toast.promise(updateUserProfile(data), {
-      //   loading: "Aggiornamento in corso...",
-      //   success: "Informazioni aggiornate con successo!",
-      //   error: (err) => `Errore: ${err.message}`,
-      // });
 
       reset(data);
     } catch (err) {
@@ -194,7 +188,6 @@ function UpdateProfileForm({ user, name, email }) {
                   message: "Numero di telefono non valido",
                 },
               })}
-              // aria-required={true}
               aria-invalid={errors.phoneNumber ? "true" : "false"}
               aria-describedby="error-phoneNumber"
               ariaLabel={`Numero di telefono: ${formatNumberForAria(watch("phoneNumber"))}`}

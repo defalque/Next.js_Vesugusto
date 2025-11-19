@@ -7,7 +7,7 @@ const AddFavoriteToCart = dynamic(() => import("./AddFavoriteToCart"), {
   loading: () => (
     <div
       aria-hidden
-      className="order-4 h-7 w-full animate-pulse rounded bg-gray-200 dark:bg-zinc-700"
+      className="order-4 h-7 w-full animate-pulse rounded-full bg-gray-200 dark:bg-zinc-700"
     />
   ),
 });
@@ -16,38 +16,29 @@ const DeleteFavoriteItem = dynamic(() => import("./DeleteFavoriteItem"), {
   loading: () => (
     <div
       aria-hidden
-      className="absolute top-1 right-1 z-100 order-1 h-7 w-7 animate-pulse rounded-full bg-gray-200 dark:bg-zinc-700"
+      className="order-4 h-7 w-9 animate-pulse rounded-full bg-gray-200 dark:bg-zinc-700"
     />
   ),
 });
 
-function FavoriteCardActionButtons({
-  userId,
-  cartId,
-  productId,
-  productQuantity,
-  children,
-}) {
+function FavoriteCardActionButtons({ productId, productQuantity, children }) {
   const [isPending, setIsPending] = useState(false);
 
   return (
-    <>
-      <AddFavoriteToCart
-        userId={userId}
-        cartId={cartId}
-        productId={productId}
-        disabled={productQuantity === 0 || isPending}
-        setIsPending={setIsPending}
-      />
+    <div className="order-4 flex w-full justify-between gap-3">
       <DeleteFavoriteItem
-        userId={userId}
         productId={productId}
         disabled={isPending}
         setIsPending={setIsPending}
       >
         {children}
       </DeleteFavoriteItem>
-    </>
+      <AddFavoriteToCart
+        productId={productId}
+        disabled={productQuantity === 0 || isPending}
+        setIsPending={setIsPending}
+      />
+    </div>
   );
 }
 

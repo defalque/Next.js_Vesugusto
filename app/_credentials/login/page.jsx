@@ -1,12 +1,8 @@
 import { notoSerif } from "@/app/_lib/font";
 import SignIn from "../../_components/ui/SignIn";
 import Link from "next/link";
-
-export const metadata = {
-  title: "Login",
-  description:
-    "Accedi o crea un account per gustare i migliori prodotti di Vesugusto. Login rapido e sicuro.",
-};
+import Logo from "@/app/_components/ui/Logo";
+// import { SignIn } from "@clerk/nextjs";
 
 export default function Page() {
   return (
@@ -14,16 +10,10 @@ export default function Page() {
       aria-labelledby="auth-page-form"
       className="flex flex-col items-center justify-baseline gap-8 px-4 py-5 md:px-4 lg:gap-12 lg:py-10"
     >
-      <Link
-        href="/"
-        className="focus xs:text-sm self-start rounded text-xs text-black transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 dark:text-white dark:hover:text-gray-200 dark:active:text-gray-200"
-      >
-        <span>&larr;</span>
-        <span>Torna alla Home</span>
-      </Link>
+      <Logo />
 
-      <div className="mb-0 flex flex-grow flex-col items-center justify-center lg:mb-20">
-        <div className="space-y-10 self-center">
+      <div className="flex flex-grow flex-col items-center justify-center">
+        <div className="mb-0 space-y-10 self-center lg:mb-20">
           <h2
             id="auth-page-form"
             className={`${notoSerif.className} xs:text-3xl justify-items-center text-center text-2xl font-semibold text-wrap sm:text-4xl md:text-3xl xl:text-4xl`}
@@ -33,6 +23,8 @@ export default function Page() {
 
           <div className="flex flex-col items-center gap-5 sm:gap-4">
             <SignIn></SignIn>
+
+            {/* <SignIn /> */}
 
             <p className="inline-flex max-w-xs flex-wrap justify-center gap-1 self-center text-xs text-black/65 sm:max-w-full dark:text-white/85">
               Cliccando su continua, accetti i nostri{" "}

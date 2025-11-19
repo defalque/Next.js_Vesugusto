@@ -3,9 +3,10 @@ import { invalidateOrderToken } from "@/app/_lib/actions";
 import { getCompletedUserOrder } from "@/app/_lib/data-service";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
 import { stripe } from "@/app/_lib/stripe";
-import { auth } from "@/auth";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
+
+import { auth } from "@clerk/nextjs/server";
 
 // http://localhost:3000/success?session_id=cs_test_b1HoubQKpTGDKeIj41iF4UZJZ7XKzOIqDbnHbCnn5cdSjqewt1BS6co7e1
 
@@ -13,7 +14,6 @@ export default async function Success({ searchParams }) {
   const { session_id } = await searchParams;
 
   if (!session_id) {
-    // throw new Error("Please provide a valid session_id (`cs_test_...`)");
     notFound();
   }
 
@@ -30,29 +30,12 @@ export default async function Success({ searchParams }) {
   }
 
   if (status === "complete") {
-    // return (
-    //   <div className="flex h-50 w-full flex-col items-center justify-center gap-5 bg-white dark:bg-black">
-    //     <h1 className="text-3xl font-semibold text-green-500">
-    //       Payment successful
-    //     </h1>
-    //     <p className="text-black dark:text-white">
-    //       Il pagamento di {formatCurrency(amount_total)} è avvenuto con sucesso!
-    //     </p>
-    //   </div>
-    // );
-
-    const session = await auth();
-    const { data, orderId, success } = await getCompletedUserOrder(
-      session.user.userId,
-      session_id,
-    );
+    const { data, orderId, success } = await getCompletedUserOrder(session_id);
     if (!success || !data) {
-      // redirect("/shop");
       notFound();
     }
     const ok = await invalidateOrderToken(orderId);
     if (!ok) {
-      // redirect("/shop");
       notFound();
     }
 

@@ -1,13 +1,11 @@
-import AccountHeading from "@/app/_components/account/AccountHeading";
-import OrdersList from "@/app/_components/account/orders/OrdersList";
-import Pagination from "@/app/_components/ui/Pagination";
-import Search from "@/app/_components/ui/Search";
-import { OrdersListSkeleton } from "@/app/_components/ui/skeleton/Skeletons";
-import { FiltersProvider } from "@/app/_contexts/FiltersContext";
-import { ORDERS_LIMIT } from "@/app/_lib/constants";
-import { getUserOrdersCount } from "@/app/_lib/data-service";
-import { auth } from "@/auth";
 import { Suspense } from "react";
+
+import { FiltersProvider } from "@/app/_contexts/FiltersContext";
+
+import AccountHeading from "@/app/_components/account/AccountHeading";
+import OrderClients from "@/app/_components/account/orders/OrderClients";
+import OrdersResolver from "@/app/_components/account/orders/OrdersResolver";
+import { OrdersListSkeleton } from "@/app/_components/ui/skeleton/Skeletons";
 
 export const metadata = {
   title: "I miei ordini",
@@ -15,18 +13,10 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }) {
-  const session = await auth();
-
-  const params = await searchParams;
-  const filters = {
-    query: params?.query || "",
-    page: Number(params?.page) || 1,
-  };
-  const filtersKey = `${filters.page}-${filters.query}`;
-
-  const count = await getUserOrdersCount(session.user.userId, filters);
-  const totalPages = Math.ceil(count / ORDERS_LIMIT);
-  const isPageOutOfBounds = Number(filters.page) > totalPages;
+  const filterParams = searchParams.then((sp) => ({
+    query: sp.query,
+    page: sp.page,
+  }));
 
   return (
     <div className="mb-10 flex flex-col gap-8">
@@ -36,11 +26,11 @@ export default async function Page({ searchParams }) {
           prodotti simili."
       />
 
-      <section className="flex w-full justify-end gap-5">
+      <Suspense fallback={<div>Caricamento...</div>}>
         <FiltersProvider>
-          <Search placeholder="Cerca ordine per numero..." />
+          <OrderClients />
         </FiltersProvider>
-      </section>
+      </Suspense>
 
       <section
         aria-labelledby="orders-results-heading"
@@ -50,13 +40,9 @@ export default async function Page({ searchParams }) {
           Risultati ordini
         </h2>
 
-        <Suspense key={filtersKey} fallback={<OrdersListSkeleton />}>
-          <OrdersList count={count} filters={filters} />
+        <Suspense fallback={<OrdersListSkeleton />}>
+          <OrdersResolver filterParams={filterParams} />
         </Suspense>
-
-        {!isPageOutOfBounds && (
-          <Pagination count={count ?? 0} limit={ORDERS_LIMIT} />
-        )}
       </section>
     </div>
   );

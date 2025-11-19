@@ -1,7 +1,6 @@
 "use client";
 
 import { getCartProd } from "@/app/_lib/data-service";
-import { auth } from "@/auth";
 import CartProductCard from "./_CartProductCard";
 import CartSummary from "./CartSummary";
 import CartItems from "./CartItems";

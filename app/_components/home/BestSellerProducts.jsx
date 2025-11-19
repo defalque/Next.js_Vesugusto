@@ -1,9 +1,13 @@
+"use cache";
+
 import { getBestSellers } from "@/app/_lib/data-service";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
 import Link from "next/link";
 import SafeImage from "../ui/SafeImage";
+import { cacheLife } from "next/cache";
 
 async function BestSellerProducts() {
+  cacheLife("weeks");
   const bestSellers = await getBestSellers();
 
   return (

@@ -1,29 +1,21 @@
 "use client";
 
-import { deleteFavorite } from "@/app/_lib/actions";
+import { deleteFavoriteProduct } from "@/app/_lib/actions";
 import { showCustomErrorToast } from "../../ui/CustomToast";
 
-function DeleteFavoriteItem({
-  userId,
-  productId,
-  disabled,
-  setIsPending,
-  children,
-}) {
+function DeleteFavoriteItem({ productId, disabled, setIsPending, children }) {
   return (
     <button
       type="button"
-      className="bg-primary-50/60 dark:text-primary-dark-950 focus absolute top-1 right-1 z-100 order-1 w-max cursor-pointer rounded-full px-1 py-1 font-bold transition-colors duration-200 hover:bg-gray-50 disabled:animate-pulse disabled:cursor-not-allowed"
+      className="focus touch-hitbox order-4 w-max cursor-pointer rounded-full border border-red-600 px-1.5 py-1.5 font-bold transition-colors duration-200 hover:bg-red-500/10 disabled:animate-pulse disabled:cursor-not-allowed dark:border-red-500 dark:bg-red-400/10 dark:hover:bg-red-400/25 dark:disabled:bg-red-400/25"
       onClick={async (e) => {
         e.preventDefault();
         e.stopPropagation();
         try {
           setIsPending(true);
-          await deleteFavorite(userId, productId);
+          await deleteFavoriteProduct(productId);
         } catch (err) {
           const toast = (await import("react-hot-toast")).default;
-
-          // toast.error(err.message);
           showCustomErrorToast(toast, err);
         } finally {
           setIsPending(false);

@@ -8,13 +8,14 @@ const CheckoutForm = dynamic(() => import("./CheckoutForm"), {
   loading: () => <AddressInfoSkeleton />,
 });
 
-function CheckoutFormWrapper({ via, comune, cap, numeroCivico }) {
+function CheckoutFormWrapper({ via, comune, cap, numeroCivico, phoneNumber }) {
   return (
     <CheckoutForm
       via={via}
       comune={comune}
       cap={cap}
       numeroCivico={numeroCivico}
+      phoneNumber={phoneNumber}
     />
   );
 }

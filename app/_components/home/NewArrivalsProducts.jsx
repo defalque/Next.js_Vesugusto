@@ -1,11 +1,15 @@
+"use cache";
+
 import { getNewArrivals } from "@/app/_lib/data-service";
 import NewArrivalsProductsCarousel from "./NewArrivalsProductsCarousel";
 import SafeImage from "../ui/SafeImage";
 import Link from "next/link";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
+import { cacheLife } from "next/cache";
 // import Image from "next/image";
 
 async function NewArrivalsProducts() {
+  cacheLife("weeks");
   const newArrivals = await getNewArrivals();
 
   return (

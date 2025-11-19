@@ -3,9 +3,9 @@ import * as m from "motion/react-m";
 import FavoriteCard from "./FavoriteCard";
 import FavoriteCardActionButtons from "./FavoriteCardActionButtons";
 import FavoriteListMotionWrapper from "./FavoriteListMotionWrapper";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XIcon } from "lucide-react";
 
-function FavoritesList({ favorites, userId, cartId }) {
+function FavoritesList({ favorites }) {
   if (!Array.isArray(favorites)) {
     return (
       <p role="alert" className="text-red-600">
@@ -44,14 +44,12 @@ function FavoritesList({ favorites, userId, cartId }) {
           >
             <FavoriteCard favorite={favorite.productId}>
               <FavoriteCardActionButtons
-                userId={userId}
-                cartId={cartId}
                 productId={favorite.productId.id}
                 productQuantity={favorite.productId.quantity}
               >
-                <XMarkIcon
+                <XIcon
                   aria-hidden="true"
-                  className="size-5 transition-colors duration-200 hover:fill-zinc-500"
+                  className="size-5 text-red-600 transition-colors duration-200 dark:text-red-500"
                 />
               </FavoriteCardActionButtons>
             </FavoriteCard>

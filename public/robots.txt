@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://nextjs-vesugusto.vercel.app
+Host: https://www.vesugusto.dev
 
 # Sitemaps
-Sitemap: https://nextjs-vesugusto.vercel.app/sitemap.xml
+Sitemap: https://www.vesugusto.dev/sitemap.xml

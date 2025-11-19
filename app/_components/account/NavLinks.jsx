@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { AccountNavLink } from "../ui/skeleton/Skeletons";
+import { Suspense } from "react";
 const NavLink = dynamic(() => import("../ui/header/NavLink"), {
   ssr: false,
   loading: () => <AccountNavLink />,
@@ -9,7 +10,7 @@ const NavLink = dynamic(() => import("../ui/header/NavLink"), {
 
 function NavLinks({ navLinks }) {
   return (
-    <>
+    <Suspense fallback={<div>Caricamento...</div>}>
       {navLinks.map((link) => (
         <NavLink
           key={link.name}
@@ -21,7 +22,7 @@ function NavLinks({ navLinks }) {
           <span className="hidden lg:inline">{link.name}</span>
         </NavLink>
       ))}
-    </>
+    </Suspense>
   );
 }
 
