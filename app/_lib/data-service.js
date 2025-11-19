@@ -123,6 +123,9 @@ export const getProduct = cache(async (id) => {
 export async function getFavorites() {
   "use cache: private";
   const { userId: clerkUserId } = await auth();
+  if (!clerkUserId) {
+    return null;
+  }
   cacheTag(`favorites-${clerkUserId}`);
 
   const { data: favoriteProducts, error: favoriteProductsError } =

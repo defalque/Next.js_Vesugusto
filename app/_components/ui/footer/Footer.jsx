@@ -10,6 +10,10 @@ import {
 } from "react-icons/fa6";
 import { Suspense } from "react";
 import Copyright from "./Copyright";
+import {
+  CopyrightSkeleton,
+  FooterNavLinksSkeleton,
+} from "../skeleton/Skeletons";
 
 const links = [
   {
@@ -95,7 +99,7 @@ function Footer() {
         aria-label="Link principali del sito"
         className="inline-flex flex-wrap items-center justify-center gap-2"
       >
-        <Suspense fallback={<div>Caricamento...</div>}>
+        <Suspense fallback={<FooterNavLinksSkeleton />}>
           {links.map((link) => (
             <NavLink
               key={link.name}
@@ -131,9 +135,9 @@ function Footer() {
 
       <div
         role=""
-        className="flex flex-col items-center justify-center gap-1 text-center text-xs md:flex-row md:gap-2"
+        className="flex flex-col items-center justify-center gap-1 text-center text-sm md:flex-row md:gap-2"
       >
-        <Suspense>
+        <Suspense fallback={<CopyrightSkeleton />}>
           <Copyright />
         </Suspense>
         <span aria-hidden="true" className="hidden md:inline">

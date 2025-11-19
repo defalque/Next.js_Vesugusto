@@ -38,7 +38,13 @@ function Navbar() {
         </SignedIn>
       </Suspense>
 
-      <Suspense>
+      <Suspense
+        fallback={
+          <div className="bg-primary-dark-500 dark:bg-primary-dark-300 animate-pulse cursor-not-allowed rounded-full px-2.5 py-2 text-xs font-medium text-white sm:px-4 sm:text-base">
+            Accedi
+          </div>
+        }
+      >
         <SignedOut>
           <SignInButton>
             <button className="bg-primary-dark-500 dark:bg-primary-dark-300 cursor-pointer rounded-full px-2.5 py-2 text-xs font-medium text-white sm:px-4 sm:text-base">

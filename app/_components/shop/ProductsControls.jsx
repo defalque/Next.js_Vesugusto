@@ -12,7 +12,8 @@ import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 
 import {
   ProductFiltersSkeleton,
-  SearchSkeleton,
+  SearchInputSkeleton,
+  // SearchSkeleton,
   SortBySkeleton,
 } from "../ui/skeleton/Skeletons";
 
@@ -23,7 +24,7 @@ import { ToggleFiltersMobileProvider } from "@/app/_contexts/ToggleFiltersMobile
 
 const SearchInput = dynamic(() => import("../ui/SearchInput"), {
   ssr: false,
-  loading: () => <SearchSkeleton />,
+  loading: () => <SearchInputSkeleton />,
 });
 
 const SortBy = dynamic(() => import("../ui/SortBy"), {

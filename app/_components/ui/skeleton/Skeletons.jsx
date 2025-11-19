@@ -394,7 +394,7 @@ export function CheckoutWrapperSkeleton() {
       </p>
       <div aria-hidden className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Left Side – Indirizzo + children */}
-        <div className="flex flex-col divide-y divide-gray-200 dark:divide-zinc-800">
+        <div className="flex flex-col divide-y divide-gray-200 lg:order-1 dark:divide-zinc-800">
           <AddressInfoSkeleton />
 
           {/* <PaymentFormLoader /> */}
@@ -410,7 +410,7 @@ export function CheckoutWrapperSkeleton() {
 
         {/* Right Side – Riepilogo prodotti */}
         <section
-          className={`${shimmer} text-primary-dark-950 xxs:px-8 relative flex h-max flex-col gap-6 overflow-hidden bg-gray-50 px-3 py-5 dark:bg-zinc-900/80`}
+          className={`${shimmer} text-primary-dark-950 xxs:px-8 relative flex h-max flex-col gap-6 overflow-hidden bg-gray-50 px-3 py-5 lg:order-2 dark:bg-zinc-900/80`}
         >
           <div className="flex flex-col gap-1">
             <div className="h-4 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
@@ -830,6 +830,14 @@ export function SearchSkeleton() {
   );
 }
 
+export function SearchInputSkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-10 grow self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-full dark:bg-zinc-700`}
+    />
+  );
+}
+
 export function SortBySkeleton() {
   return (
     <div
@@ -889,7 +897,7 @@ export function ProductsResolverSkeleton() {
         <DisplaySkeleton />
       </section>
       <section
-        className={`relative col-span-full row-start-3 overflow-hidden sm:row-start-2 lg:col-start-2`}
+        className={`relative col-span-full row-start-3 mt-5 overflow-hidden lg:col-start-2 xl:row-start-2`}
       >
         <ProductListSkeleton />
       </section>
@@ -928,6 +936,14 @@ export function NavLinkSkeleton() {
   );
 }
 
+export function CopyrightSkeleton() {
+  return (
+    <div
+      className={`${shimmer} relative h-5 w-65 cursor-not-allowed overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-800`}
+    />
+  );
+}
+
 export function AccountNavLinksSkeleton() {
   return (
     <div className="w-10 cursor-not-allowed space-y-4 md:w-50">
@@ -945,6 +961,16 @@ export function AccountNavLinksSkeleton() {
         </div>
       ))}
     </div>
+  );
+}
+
+export function FooterNavLinksSkeleton() {
+  return (
+    <>
+      {[0, 1, 2, 3].map((_, i) => (
+        <NavLinkSkeleton key={i} />
+      ))}
+    </>
   );
 }
 

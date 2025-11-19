@@ -16,25 +16,23 @@ export default function Error({ error, reset }) {
       className="flex min-h-screen flex-col items-center justify-center gap-3 pb-10"
     >
       <h2 id="error-heading" className="text-center text-2xl">
-        Qualcosa è andato storto!
+        Qualcosa è andato storto.
       </h2>
       <p
         className="text-primary-dark-950 max-w-md text-center text-base dark:text-gray-50"
         role="status"
       >
-        Si è verificato un errore durante il caricamento della pagina. Puoi
-        riprovare cliccando il pulsante qui sotto.
+        Si è verificato un errore imprevisto.
       </p>
-      <Button
-        className="rounded px-4"
+      <button
+        className="cursor-pointer rounded-full bg-black px-4 py-2 font-medium text-white shadow-sm transition-all duration-300 text-shadow-2xs hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
         onClick={
           // Attempt to recover by trying to re-render the invoices route
           () => reset()
         }
-        ariaLabel="Riprova a caricare la pagina"
       >
         Riprova
-      </Button>
+      </button>
     </section>
   );
 }

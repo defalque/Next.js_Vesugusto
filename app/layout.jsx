@@ -4,6 +4,10 @@ import { Analytics } from "@vercel/analytics/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
 import { itIT } from "@clerk/localizations";
+import Header from "./_components/ui/header/Header";
+import Footer from "./_components/ui/footer/Footer";
+import { Toaster } from "react-hot-toast";
+import { toastStyle } from "./_lib/constants";
 
 export const metadata = {
   title: {
@@ -57,7 +61,28 @@ function RootLayout({ children }) {
               },
             }}
           >
-            {children}
+            <Header />
+
+            <main className="mx-auto w-full flex-1 bg-inherit">{children}</main>
+
+            <Footer />
+
+            <Toaster
+              position="top-right"
+              gutter={12}
+              toastOptions={{
+                custom: {
+                  duration: 5000,
+                },
+                success: {
+                  duration: 5000,
+                },
+                error: {
+                  duration: 5000,
+                },
+                style: toastStyle,
+              }}
+            />
           </ClerkProvider>
         </Suspense>
         <Analytics />
