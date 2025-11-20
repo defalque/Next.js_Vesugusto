@@ -10,7 +10,7 @@ import ConfirmedOrderEmail from "../_emails/ConfirmedOrderEmail";
 import { getOrderItems } from "./data-service";
 import { formatCurrency } from "./formatCurrency";
 import { stripe } from "./stripe";
-import { clerkClient } from "@clerk/nextjs/server";
+// import { clerkClient } from "@clerk/nextjs/server";
 
 export async function createSupabaseUser(user) {
   const { email, firstName, lastName, image, userId } = user;
@@ -32,14 +32,14 @@ export async function createSupabaseUser(user) {
   }
   const { user_id, cart_id } = data[0];
 
-  const client = await clerkClient();
+  // const client = await clerkClient();
 
-  await client.users.updateUserMetadata(userId, {
-    privateMetadata: {
-      databaseId: user_id,
-      cartId: cart_id,
-    },
-  });
+  // await client.users.updateUserMetadata(userId, {
+  //   privateMetadata: {
+  //     databaseId: user_id,
+  //     cartId: cart_id,
+  //   },
+  // });
 
   const { emailError } = await resend.emails.send({
     from: "Vesugusto <noreply@vesugusto.dev>",

@@ -7,7 +7,7 @@
 ## Funzionalità principali
 
 - **Interfaccia moderna, responsive e completamente accessibile** sviluppata con [React](https://react.dev/) e [Tailwind CSS](https://tailwindcss.com/), perfetta su qualsiasi dispositivo.
-- **Sistema di autenticazione** **`OAuth`** integrato tramite [Auth.js](https://authjs.dev/).
+- **Sistema di autenticazione** **`OAuth`** integrato tramite [Clerk](https://clerk.com/).
 - **Backend API** con [Supabase](https://supabase.com/) per contenuti dinamici e operazioni CRUD atomiche.
 - E-commerce completo con:
   - Possibilità di **ricercare**, **filtrare** e **ordinare** i prodotti.
@@ -21,4 +21,4 @@
 - **Notifiche** di interazione tramite toast personalizzati integrati con [react-hot-toast](https://react-hot-toast.com/).
 - **Animazioni** fluide grazie a [Motion](https://motion.dev/) ed [Embla](https://www.embla-carousel.com/).
 - **Sistema di routing e gestione delle pagine** dinamico e scalabile con Next.js.
-- **Ottimizzazione di immagini, SEO e performance** grazie alle funzionalità avanzate di Next.js.
+- **Ottimizzazione di immagini, SEO e performance** grazie alle funzionalità avanzate di Next.js 16!

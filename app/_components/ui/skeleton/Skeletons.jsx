@@ -392,9 +392,12 @@ export function CheckoutWrapperSkeleton() {
       >
         Caricamento pagina di finalizzazione dell'acquisto in corso...
       </p>
-      <div aria-hidden className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div
+        aria-hidden
+        className="grid cursor-not-allowed grid-cols-1 gap-8 lg:grid-cols-2"
+      >
         {/* Left Side – Indirizzo + children */}
-        <div className="flex flex-col divide-y divide-gray-200 lg:order-1 dark:divide-zinc-800">
+        <div className="order-2 flex flex-col divide-y divide-gray-200 lg:order-1 dark:divide-zinc-800">
           <AddressInfoSkeleton />
 
           {/* <PaymentFormLoader /> */}
@@ -410,7 +413,7 @@ export function CheckoutWrapperSkeleton() {
 
         {/* Right Side – Riepilogo prodotti */}
         <section
-          className={`${shimmer} text-primary-dark-950 xxs:px-8 relative flex h-max flex-col gap-6 overflow-hidden bg-gray-50 px-3 py-5 lg:order-2 dark:bg-zinc-900/80`}
+          className={`${shimmer} text-primary-dark-950 xxs:px-8 relative order-1 flex h-max flex-col gap-6 overflow-hidden bg-gray-50 px-3 py-5 lg:order-2 dark:bg-zinc-900/80`}
         >
           <div className="flex flex-col gap-1">
             <div className="h-4 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
@@ -830,18 +833,18 @@ export function SearchSkeleton() {
   );
 }
 
-export function SearchInputSkeleton() {
+export function SearchInputSkeleton({ height }) {
   return (
     <div
-      className={`${shimmer} relative h-10 grow self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-full dark:bg-zinc-700`}
+      className={`${shimmer} ${height ? "md:h-12" : "md:h-full"} relative h-11 grow self-stretch overflow-hidden rounded-xl bg-gray-200 sm:h-10 dark:bg-zinc-700`}
     />
   );
 }
 
-export function SortBySkeleton() {
+export function SortBySkeleton({ roundedLg }) {
   return (
     <div
-      className={`${shimmer} relative h-10 w-50 self-stretch overflow-hidden rounded-lg bg-gray-200 md:h-full dark:bg-zinc-700`}
+      className={`${shimmer} relative h-11 self-stretch overflow-hidden sm:h-10 ${roundedLg ? "w-50 rounded-lg" : "w-25 rounded-full"} bg-gray-200 md:h-full dark:bg-zinc-700`}
     />
   );
 }
@@ -909,16 +912,19 @@ export function ProductsControlsSkeleton() {
   return (
     <>
       <aside
-        className={`sticky top-20 col-span-1 col-start-1 row-start-2 hidden h-fit overflow-y-auto lg:flex`}
+        className={`sticky top-20 col-span-1 col-start-1 row-start-3 hidden h-fit overflow-y-auto lg:flex xl:row-start-2`}
       >
         <ProductFiltersSkeleton />
       </aside>
       <section
-        className={`bgColor relative z-10 row-start-2 mt-5 mb-10 flex h-11 w-full flex-wrap justify-end gap-x-5 gap-y-2 sm:col-span-2 sm:col-start-4 sm:row-start-1 sm:flex-row lg:col-span-3 lg:col-start-3 lg:h-12`}
+        className={`bgColor relative z-10 col-span-full row-start-2 mt-5 mb-5 flex h-11 w-full flex-wrap justify-end gap-x-5 gap-y-2 sm:col-start-1 sm:mb-10 sm:flex-row lg:h-12 xl:col-span-3 xl:col-start-3 xl:row-start-1`}
       >
-        <SearchSkeleton />
+        <div
+          className={`${shimmer} relative hidden h-full w-35 overflow-hidden rounded-lg bg-gray-200 lg:flex dark:bg-zinc-700`}
+        />
+        <SearchInputSkeleton />
         <div className="hidden lg:flex">
-          <SortBySkeleton />
+          <SortBySkeleton roundedLg />
         </div>
         <div className="flex lg:hidden">
           <SortBySkeleton />

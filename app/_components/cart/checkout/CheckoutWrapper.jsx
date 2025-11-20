@@ -13,8 +13,6 @@ async function CheckoutWrapper({ canceled }) {
     getUserInfo(),
   ]);
 
-  console.log(productsResult);
-
   const products =
     productsResult.status === "fulfilled"
       ? productsResult.value.cartProducts

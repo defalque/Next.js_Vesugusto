@@ -5,7 +5,10 @@ import { FiltersProvider } from "@/app/_contexts/FiltersContext";
 import AccountHeading from "@/app/_components/account/AccountHeading";
 import OrderClients from "@/app/_components/account/orders/OrderClients";
 import OrdersResolver from "@/app/_components/account/orders/OrdersResolver";
-import { OrdersListSkeleton } from "@/app/_components/ui/skeleton/Skeletons";
+import {
+  OrdersListSkeleton,
+  SearchInputSkeleton,
+} from "@/app/_components/ui/skeleton/Skeletons";
 
 export const metadata = {
   title: "I miei ordini",
@@ -26,7 +29,13 @@ export default async function Page({ searchParams }) {
           prodotti simili."
       />
 
-      <Suspense fallback={<div>Caricamento...</div>}>
+      <Suspense
+        fallback={
+          <div className="relative flex w-full justify-end gap-5">
+            <SearchInputSkeleton height />
+          </div>
+        }
+      >
         <FiltersProvider>
           <OrderClients />
         </FiltersProvider>
