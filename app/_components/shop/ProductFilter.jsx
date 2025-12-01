@@ -20,7 +20,7 @@ function ProductFilter({ name, items, filterField }) {
         className="flex w-full flex-col py-1"
       >
         <button
-          className="category-focus group flex w-full cursor-pointer items-center rounded py-2 text-zinc-500 transition-all duration-200 hover:text-black active:text-black dark:text-white/80 dark:hover:text-white dark:active:text-white"
+          className="_category-focus focus-style group flex w-full cursor-pointer items-center rounded py-2 text-zinc-500 transition-all duration-200 hover:text-black active:text-black dark:text-white/80 dark:hover:text-white dark:active:text-white"
           onClick={() => setIsOpen((isOpen) => !isOpen)}
           aria-expanded={isOpen}
           aria-controls={`filter-panel-${filterField}`}

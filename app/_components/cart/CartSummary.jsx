@@ -9,7 +9,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
 
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-zinc-800">
+      <div className="divide-primary-200/80 divide-y dark:divide-zinc-800">
         <ul className="flex flex-col gap-4 pb-4">
           {products.map((product) => (
             <li key={product.id} className="flex items-start justify-between">
@@ -19,7 +19,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
                   className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-700`}
                 />
               ) : (
-                <h2>{product.product.name}</h2>
+                <h2 className="font-medium">{product.product.name}</h2>
               )}
               <div className="flex items-center space-x-2">
                 {isPending ? (
@@ -35,8 +35,10 @@ function CartSummary({ products, totalPrice, isPending, children }) {
                   </>
                 ) : (
                   <>
-                    <span className="text-sm">{`(${formatCurrency(product.product.regularPrice - product.product.discount)} x ${product.quantity})`}</span>
-                    <span>{formatCurrency(product.cartItemPrice)}</span>
+                    <span className="text-[15px] text-black/65 dark:text-white/85">{`(${formatCurrency(product.product.regularPrice - product.product.discount)} x ${product.quantity})`}</span>
+                    <span className="font-medium">
+                      {formatCurrency(product.cartItemPrice)}
+                    </span>
                   </>
                 )}
               </div>
@@ -54,7 +56,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
                 className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
               />
             ) : (
-              <span className="ml-auto">{formattedPrice}</span>
+              <span className="ml-auto slashed-zero">{formattedPrice}</span>
             )}
           </div>
 
@@ -67,7 +69,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
                 className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
               />
             ) : (
-              <span className="ml-auto" aria-hidden>
+              <span className="ml-auto tabular-nums" aria-hidden>
                 {formattedShippingCost}
               </span>
             )}

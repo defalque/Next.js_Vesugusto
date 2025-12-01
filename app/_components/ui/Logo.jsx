@@ -5,7 +5,7 @@ function Logo() {
   return (
     <Link
       href="/"
-      className={`${notoSerif.className} focus`}
+      className={`${notoSerif.className} focus-style`}
       aria-label="Vai alla homepage di Vesugusto"
     >
       <span

@@ -11,7 +11,7 @@
 
 /* @custom-variant dark (&:where(.dark, .dark *)); */
 
-@layer clerk;
+@layer theme, base, clerk, components, utilities;
 
 @theme {
   --color-primary-50: #ffffff;
@@ -37,24 +37,16 @@
   --color-primary-dark-900: #190808;
   --color-primary-dark-950: #000000;
 
-  --animate-progress: progress linear forwards;
+  --animate-spin-fast: spinFast 0.45s linear infinite;
 
-  @keyframes progress {
-    0% {
-      transform: scaleX(0);
-    }
-    100% {
-      transform: scaleX(1);
+  @keyframes spinFast {
+    to {
+      transform: rotate(360deg);
     }
   }
 }
 
 @layer base {
-  /* ::selection {
-    background-color: var(--color-primary-950);
-    color: var(--color-primary-50);
-  } */
-
   :root {
     --toast-bg: var(--color-white);
     --toast-text: var(--color-black);
@@ -62,7 +54,11 @@
 
     --stripeBg: var(--color-gray-50);
 
-    /* --clerk-color-background: #f5f2f2; */
+    --clerk-color-background: #fff;
+    --clerk-color-ring: #c84242;
+    /* --clerk-color-primary: #c84242; */
+    /* --clerk-color-neutral: #e14a4a; */
+    --clerk-color-foreground: var(--color-zinc-950);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -73,7 +69,12 @@
 
       --stripeBg: var(--color-zinc-600);
 
-      /* --clerk-color-background: var(--color-zinc-900); */
+      --clerk-color-background: var(--color-zinc-950);
+      --clerk-color-ring: #e14a4a;
+      --clerk-color-muted: var(--color-zinc-900);
+      /* --clerk-color-primary: #e14a4a; */
+      /* --clerk-color-neutral: #c84242; */
+      --clerk-color-foreground: #f1f1f1;
     }
   }
 
@@ -334,6 +335,11 @@
   }
 }
 
+@utility backfaceHidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 @keyframes progress {
   from {
     transform: scaleX(0);
@@ -341,10 +347,6 @@
   to {
     transform: scaleX(1);
   }
-}
-
-.bg-color {
-  @apply bg-linear-10 from-gray-100 to-white dark:from-zinc-900 dark:to-zinc-950;
 }
 
 .bgColor {
@@ -356,7 +358,7 @@
 }
 
 .custom-focus {
-  @apply focus-visible:outline-primary-950 focus-visible:outline-4 focus-visible:outline-offset-3;
+  @apply focus-visible:ring-primary-dark-200 dark:focus-visible:ring-primary-dark-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-offset-3 focus-visible:outline-none;
 }
 
 .category-focus {
@@ -381,4 +383,21 @@
 
 .account-padding {
   @apply -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-0 md:px-0;
+}
+
+.focus-style {
+  @apply focus-visible:ring-primary-dark-200 dark:focus-visible:ring-primary-dark-100 focus-visible:ring-2 focus-visible:outline-none;
+}
+.focus-style-error {
+  @apply focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:outline-none;
+}
+.focus-style-button {
+  @apply focus-visible:ring-primary-dark-200/90 dark:focus-visible:ring-primary-950/80 focus-visible:ring-4 focus-visible:ring-offset-[3px] focus-visible:outline-none;
+}
+.focus-style-img {
+  @apply focus-visible:ring-primary-900/80 dark:focus-visible:ring-primary-900/80 focus-visible:ring-4 focus-visible:outline-none;
+}
+
+.cl-active {
+  @apply dark:bg-zinc-950;
 }

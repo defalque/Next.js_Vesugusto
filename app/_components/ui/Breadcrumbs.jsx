@@ -10,12 +10,12 @@ export default function Breadcrumbs({ breadcrumbs }) {
         {breadcrumbs.map((breadcrumb, index) => (
           <li
             key={breadcrumb.href}
-            className={`${breadcrumb.active ? "xs:text-4xl my-3 text-3xl font-semibold tracking-wide sm:font-medium lg:text-5xl" : "text-gray-500 transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 dark:text-zinc-400"} `}
+            className={`${breadcrumb.active ? "xs:text-4xl mb-3 text-3xl font-semibold tracking-wide sm:font-medium lg:text-5xl" : "text-gray-500 transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 dark:text-zinc-400"} `}
           >
             <Link
               href={breadcrumb.href}
               aria-current={breadcrumb.active ? "page" : undefined}
-              className="focus rounded"
+              className="focus-style rounded"
               {...(breadcrumb.ariaLabel && {
                 "aria-label": breadcrumb.ariaLabel,
               })}

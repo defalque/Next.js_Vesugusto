@@ -1,4 +1,8 @@
-import { createSupabaseUser, deleteSupabaseUser } from "@/app/_lib/actions";
+import {
+  createSupabaseUser,
+  deleteSupabaseUser,
+  updateSupabaseUser,
+} from "@/app/_lib/actions";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import { clerkClient } from "@clerk/nextjs/server";
 
@@ -9,14 +13,12 @@ export async function POST(req) {
     const { id } = evt.data;
 
     if (evt.type === "user.created") {
-      const { first_name, last_name, email_address, image_url } =
-        evt.data.external_accounts.at(0);
-
       const user = {
-        email: email_address,
-        firstName: first_name,
-        lastName: last_name,
-        image: image_url,
+        email: evt.data.email_addresses.at(0).email_address,
+        firstName: evt.data.first_name,
+        lastName: evt.data.last_name,
+        image:
+          evt.data.external_accounts.at(0)?.image_url ?? evt.data.image_url,
         userId: id,
       };
       const { user_id, cart_id } = await createSupabaseUser(user);
@@ -33,6 +35,18 @@ export async function POST(req) {
 
     if (evt.type === "user.deleted") {
       await deleteSupabaseUser(id);
+    }
+
+    if (evt.type === "user.updated") {
+      const updatedUser = {
+        email: evt.data.email_addresses.at(0).email_address,
+        firstName: evt.data.first_name,
+        lastName: evt.data.last_name,
+        image:
+          evt.data.external_accounts.at(0)?.image_url ?? evt.data.image_url,
+        userId: id,
+      };
+      await updateSupabaseUser(updatedUser);
     }
 
     return new Response("Webhook received", { status: 200 });

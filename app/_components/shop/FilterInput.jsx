@@ -26,7 +26,7 @@ function FilterInput({ label, value, filterField }) {
   // };
 
   const baseClasses =
-    "cursor-pointer rounded-full px-4 py-2.5 text-lg md:text-sm transition-all duration-300 border custom-focus active:scale-[0.96]";
+    "cursor-pointer rounded-full px-4 py-2.5 text-lg md:text-sm transition-all duration-300 border focus-style focus-visible:ring-4! active:scale-[0.96]";
   const lightThemeClasses = isChecked
     ? "bg-black text-white border-black"
     : "hover:bg-black/5 active:bg-black/10 hover:border-black/20 border-gray-300";

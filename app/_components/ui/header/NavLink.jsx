@@ -21,10 +21,10 @@ function NavLink({ type, shouldReduce = false, ...props }) {
           href={href}
           aria-current={isActive ? "page" : undefined}
           {...restProps}
-          className={`focus ${
+          className={`focus-style ${
             isActive
-              ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white"
-              : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+              ? "bg-primary-100/70 text-black dark:bg-white/10 dark:text-white"
+              : "hover:bg-primary-100/70 active:bg-primary-100/70 dark:hover:bg-white/10 dark:active:bg-white/10"
           } rounded-xl px-2 py-1 transition-colors duration-300 active:text-white dark:cursor-pointer dark:hover:text-white`}
           {...props}
         >
@@ -37,10 +37,10 @@ function NavLink({ type, shouldReduce = false, ...props }) {
           href={href}
           aria-current={isActive ? "page" : undefined}
           {...restProps}
-          className={`focus relative ${
+          className={`focus-style relative ${
             isActive
-              ? "bg-gray-200/80 text-black dark:bg-zinc-700/50 dark:text-white"
-              : "hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+              ? "bg-primary-100/70 text-black dark:bg-white/10 dark:text-white"
+              : "hover:bg-primary-100/70 active:bg-primary-100/70 dark:hover:bg-white/10 dark:active:bg-white/10"
           } rounded-xl px-2 py-1 transition-colors duration-300 active:text-white dark:cursor-pointer dark:hover:text-white`}
           {...props}
         >
@@ -55,7 +55,7 @@ function NavLink({ type, shouldReduce = false, ...props }) {
               <m.span
                 aria-hidden
                 layoutId="dot"
-                className="hidden aspect-square size-1.5 rounded-full bg-black md:mr-2 md:flex dark:bg-white"
+                className="hidden aspect-square size-1 rounded-full bg-black/80 md:mr-2 md:flex dark:bg-white"
               />
             ) : (
               <span className="hidden aspect-square size-1.5 rounded-full bg-black md:mr-2 md:flex dark:bg-white" />
@@ -66,9 +66,15 @@ function NavLink({ type, shouldReduce = false, ...props }) {
               aria-current={pathname === href ? "page" : undefined}
               {...props}
               {...restProps}
-              className={`accountLinksFocus relative z-100 flex min-w-full items-center gap-2 rounded-xl px-2 py-1 font-medium ${props.active === href ? "text-zinc-900 dark:text-zinc-50" : "text-zinc-600 dark:text-zinc-200"}`}
+              className={`accountLinksFocus group relative z-100 flex min-w-full items-center gap-2 rounded-xl font-medium ${props.active === href ? "_text-zinc-900 text-zinc-600 dark:text-white" : "text-zinc-600 dark:text-zinc-300"}`}
             >
-              {children}
+              <m.div
+                className="flex items-center gap-2 rounded-xl px-2 py-1"
+                initial="initial"
+                whileHover="animate"
+              >
+                {children}
+              </m.div>
             </Link>
           </m.div>
         </>
@@ -78,7 +84,7 @@ function NavLink({ type, shouldReduce = false, ...props }) {
         <Link
           href={href}
           {...restProps}
-          className={`focus rounded-xl px-2 py-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 active:text-white dark:cursor-pointer dark:hover:bg-zinc-700/50 dark:hover:text-white dark:active:bg-zinc-700/50`}
+          className={`focus-style hover:bg-primary-100/70 active:bg-primary-100/70 rounded-xl px-2 py-1 transition-colors duration-300 dark:cursor-pointer dark:hover:bg-white/10 dark:hover:text-white dark:active:bg-white/10`}
           {...props}
         >
           {children}

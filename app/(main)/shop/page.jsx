@@ -26,7 +26,7 @@ export default function Page({ searchParams }) {
   }));
 
   return (
-    <div className="mx-auto mt-10 grid min-h-screen max-w-[95rem] grid-cols-1 grid-rows-[auto_auto_1fr] overflow-clip px-4 sm:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] sm:px-6 lg:grid-cols-[auto_1fr_1fr_1fr_1fr] lg:px-10">
+    <div className="mx-auto mt-5 grid min-h-screen max-w-[95rem] grid-cols-1 grid-rows-[auto_auto_1fr] overflow-clip px-4 sm:mt-10 sm:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] sm:px-6 lg:grid-cols-[auto_1fr_1fr_1fr_1fr] lg:px-10">
       <ShowFiltersProvider>
         <Suspense fallback={<ProductsControlsSkeleton />}>
           <FiltersProvider>

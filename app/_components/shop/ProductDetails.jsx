@@ -63,7 +63,7 @@ async function ProductDetails({ product }) {
             ) : (
               <Button
                 href="/sign-in"
-                className="rounded px-3 py-4 font-bold uppercase md:py-3"
+                className="rounded-full px-5 py-4 font-bold uppercase md:py-3"
               >
                 Accedi per aggiungere
               </Button>

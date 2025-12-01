@@ -91,13 +91,13 @@ function Footer() {
   return (
     <footer
       aria-label="Informazioni sul sito"
-      className="flex flex-col items-center gap-8 px-4 py-10 dark:border-zinc-900"
+      className="flex flex-col items-center gap-5 px-4 py-10 dark:border-zinc-900"
     >
       <Logo complete isFooter />
 
       <ul
         aria-label="Link principali del sito"
-        className="inline-flex flex-wrap items-center justify-center gap-2"
+        className="mt-2 inline-flex flex-wrap items-center justify-center gap-2"
       >
         <Suspense fallback={<FooterNavLinksSkeleton />}>
           {links.map((link) => (
@@ -125,7 +125,7 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.label}
-              className="focus rounded-full p-1"
+              className="focus-style rounded-full p-1"
             >
               {social.icon}
             </Link>
@@ -140,9 +140,6 @@ function Footer() {
         <Suspense fallback={<CopyrightSkeleton />}>
           <Copyright />
         </Suspense>
-        <span aria-hidden="true" className="hidden md:inline">
-          •
-        </span>
         <span>
           Realizzato da{" "}
           <Link

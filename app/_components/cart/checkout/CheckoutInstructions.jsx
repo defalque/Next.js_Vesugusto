@@ -25,7 +25,7 @@ function CheckoutInstructions() {
         <li>Inserisci una data di scadenza futura per la carta.</li>
         <li>Inserisci un numero di 3 cifre per il CVV.</li>
       </ul>
-      <div className="flex w-fit items-center justify-between gap-5 rounded-xl border border-gray-200 px-3 py-1 dark:border-zinc-800">
+      <div className="_border bg-primary-100/70 flex w-fit items-center justify-between gap-5 rounded-md border-gray-200 px-3 py-1 dark:border-zinc-800 dark:bg-white/10">
         <span ref={textRef} aria-readonly>
           4242 4242 4242 4242
         </span>
@@ -33,14 +33,14 @@ function CheckoutInstructions() {
           type="button"
           title={isClicked ? "Numero carta copiato" : "Copia numero carta"}
           aria-label={isClicked ? "Numero carta copiato" : "Copia numero carta"}
-          className="cursor-pointer rounded bg-gray-100 p-1.5 transition-colors duration-200 hover:bg-gray-200 active:bg-gray-200 disabled:cursor-default disabled:bg-transparent disabled:hover:bg-transparent disabled:active:bg-transparent dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:active:bg-zinc-800"
+          className="cursor-pointer rounded bg-white p-1.5 transition-colors duration-200 hover:bg-gray-50 active:bg-gray-200 disabled:cursor-default disabled:bg-transparent disabled:hover:bg-transparent disabled:active:bg-transparent dark:bg-black dark:hover:bg-zinc-900 dark:active:bg-zinc-900"
           disabled={isClicked}
           onClick={copy}
         >
           {isClicked ? (
             <Check
               aria-hidden
-              className="size-4 text-green-600 dark:text-green-500"
+              className="text-primary-dark-200 size-4 dark:text-white"
             />
           ) : (
             <CopyIcon aria-hidden className="size-4" />

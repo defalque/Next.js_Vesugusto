@@ -10,7 +10,7 @@ function ProductCardImages({ id, name, images, priority = false }) {
     <Link
       href={`/shop/${id}`}
       aria-label={`Visita il prodotto ${name}`}
-      className="focus-visible:ring-primary-950 order-1 rounded-3xl focus-visible:ring-4 focus-visible:outline-none sm:-mx-0"
+      className="focus-visible:ring-primary-dark-200 dark:focus-visible:ring-primary-dark-100 order-1 rounded-3xl focus-visible:ring-4 focus-visible:outline-none sm:-mx-0"
     >
       <div
         role="presentation"

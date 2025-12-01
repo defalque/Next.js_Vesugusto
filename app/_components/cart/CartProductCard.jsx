@@ -11,7 +11,7 @@ function CartProductCard({ product, children }) {
       <Link
         href={`/shop/${product.id}`}
         aria-label={`Visita la pagina del prodotto ${product.name}`}
-        className="xs:h-50 focus relative row-span-full aspect-2/3 h-full rounded-md transition-opacity duration-300 hover:opacity-85 focus:outline-4 active:opacity-85"
+        className="xs:h-50 focus-style relative row-span-full aspect-2/3 h-full rounded-lg transition-opacity duration-300 hover:opacity-85 active:opacity-85"
       >
         <Image
           src={product.image}

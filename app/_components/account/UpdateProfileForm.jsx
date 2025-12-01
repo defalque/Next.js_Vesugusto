@@ -1,212 +1,212 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import FormRow from "./FormRow";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { updateProfileSchema } from "@/app/_lib/schemas/updateProfileSchema";
+
+import { useFormButtonsContext } from "@/app/_contexts/FormButtonsContext";
 import { updateUserProfile } from "@/app/_lib/actions";
-import FormError from "./FormError";
+import { showCustomErrorToast } from "../ui/CustomToast";
+
+import FormRow from "./FormRow";
 import FormButtons from "./FormButtons";
-import { showCustomPromiseToast } from "../ui/CustomToast";
-import { formatNumberForAria } from "@/app/_lib/utility";
+
+import * as m from "motion/react-m";
+import { LazyMotion, MotionConfig } from "motion/react";
+import { useReducedMotion } from "@/app/_hooks/useReducedMotion";
+const loadFeatures = () =>
+  import("../../_lib/features").then((res) => res.default);
 
 function UpdateProfileForm({ user }) {
+  const { buttonState, setButtonState } = useFormButtonsContext();
+  const shouldReduce = useReducedMotion();
+
+  const defaultValues = {
+    address: user.address || "",
+    houseNumber: user.houseNumber || "",
+    zipCode: user.zipCode || "",
+    city: user.city || "",
+    phoneNumber: user.phoneNumber || "",
+  };
+
   const {
-    watch,
     register,
     handleSubmit,
-    reset,
-    formState: { errors, isDirty, isSubmitting },
+    setError,
+    formState: { errors, isDirty, dirtyFields, isValid, isSubmitting },
   } = useForm({
-    defaultValues: {
-      name: user.firstName + " " + user.lastName,
-      email: user.email,
-      via: user.via || "",
-      numeroCivico: user.numeroCivico || "",
-      cap: user.cap || "",
-      comune: user.comune || "",
-      phoneNumber: user.phoneNumber || "",
-    },
+    mode: "onChange",
+    values: defaultValues,
+    resolver: zodResolver(updateProfileSchema),
   });
 
   const onSubmit = async (data) => {
+    // const modifiedFields = Object.keys(dirtyFields).reduce((acc, key) => {
+    //   acc[key] = data[key];
+    //   return acc;
+    // }, {});
+
     try {
-      const toast = (await import("react-hot-toast")).default;
+      setButtonState("loading");
+      // const result = await updateUserProfile(data);
+      const minDelay = new Promise((resolve) => setTimeout(resolve, 1000));
+      const request = updateUserProfile(data);
+      const result = await Promise.all([request, minDelay]).then(
+        ([res]) => res,
+      );
 
-      await showCustomPromiseToast(toast, updateUserProfile(data), {
-        loading: "Aggiornamento del tuo profilo in corso...",
-        success: "Profilo aggiornato con successo!",
-        error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
-      });
+      if (result.errors) {
+        Object.entries(result.errors).forEach(([field, message]) => {
+          setError(field, {
+            type: "server",
+            message,
+          });
+        });
 
-      reset(data);
+        setButtonState("idle");
+        return;
+      }
+      setButtonState("success");
+      setTimeout(() => setButtonState("idle"), 1750);
     } catch (err) {
-      console.error("Operation failed:", err);
+      const toast = (await import("react-hot-toast")).default;
+      showCustomErrorToast(toast, err);
+      setButtonState("idle");
     }
+
+    //DEV MODE
+    // setButtonState("loading");
+    // setTimeout(() => {
+    //   setButtonState("success");
+    // }, 1750);
+    // setTimeout(() => {
+    //   setButtonState("idle");
+    // }, 3500);
   };
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="my-8 flex flex-col gap-4 text-base sm:text-sm md:text-base"
-      >
-        {/* Nome ed Email */}
-        <div className="flex flex-col items-center gap-5 lg:flex-row">
-          <div className="flex w-full flex-col space-y-2">
-            <FormRow
-              id="name"
-              label="Nome"
-              type="text"
-              disabled
-              {...register("name")}
-            />
-          </div>
+      <LazyMotion features={loadFeatures}>
+        <MotionConfig
+          transition={{
+            type: "spring",
+            bounce: 0,
+            duration: shouldReduce ? 0 : 0.3,
+          }}
+          shouldReduce={shouldReduce ? "always" : "never "}
+        >
+          <m.form
+            layout
+            style={{ position: "relative" }}
+            onSubmit={handleSubmit(onSubmit)}
+            className="my-8 grid w-full grid-cols-4 grid-rows-[auto_auto] gap-5"
+          >
+            <m.div
+              layout
+              style={{ position: "relative" }}
+              className="col-span-full flex w-full flex-col gap-y-2 lg:col-span-2"
+            >
+              <FormRow
+                {...register("address")}
+                type="text"
+                id="address"
+                label="Indirizzo"
+                placeholder="Inserisci indirizzo..."
+                disabled={isSubmitting}
+                errorField={errors.address}
+                shouldReduce={shouldReduce}
+              />
+            </m.div>
 
-          <div className="flex w-full flex-col space-y-2">
-            <FormRow
-              id="email"
-              label="Email"
-              type="text"
-              disabled
-              {...register("email")}
-            />
-          </div>
-        </div>
+            <m.div
+              layout
+              style={{ position: "relative" }}
+              className="col-span-2 flex w-full flex-col gap-y-2 lg:col-span-1"
+            >
+              <FormRow
+                {...register("houseNumber")}
+                type="text"
+                id="houseNumber"
+                label="Civico"
+                placeholder="Inserisci civico..."
+                disabled={isSubmitting}
+                errorField={errors.houseNumber}
+                shouldReduce={shouldReduce}
+              />
+            </m.div>
 
-        {/* Via, Numero civico, CAP, Comune e Numero */}
-        <div className="grid w-full grid-cols-4 grid-rows-2 gap-5">
-          <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
-            <FormRow
-              id="via"
-              label="Via"
-              type="text"
-              {...register("via", {
-                required: "Obbligatorio!",
-                minLength: {
-                  value: 5,
-                  message: "La via deve contenere almeno 5 caratteri!",
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9\s.'àèéìòù,-]{5,}$/i,
-                  message: "La via contiene caratteri non validi!",
-                },
-              })}
-              aria-required={true}
-              aria-invalid={errors.via ? "true" : "false"}
-              aria-describedby="error-via"
-            />
-            <FormError message={errors.via?.message} id="error-via" />
-          </div>
+            <m.div
+              layout
+              style={{ position: "relative" }}
+              className="col-span-2 flex w-full flex-col gap-y-2 lg:col-span-1"
+            >
+              <FormRow
+                {...register("zipCode")}
+                type="text"
+                id="zipCode"
+                label="CAP"
+                placeholder="Inserisci CAP..."
+                disabled={isSubmitting}
+                errorField={errors.zipCode}
+                shouldReduce={shouldReduce}
+              />
+            </m.div>
 
-          <div className="col-span-2 flex w-full flex-col space-y-2 lg:col-span-1">
-            <FormRow
-              id="numeroCivico"
-              label="Civico"
-              type="text"
-              {...register("numeroCivico", {
-                required: "Obbligatorio!",
-                maxLength: {
-                  value: 10,
-                  message: "Numero civico troppo lungo!",
-                },
-                pattern: {
-                  value: /^[0-9]+[a-zA-Z]?\/?[0-9a-zA-Z]*$/,
-                  message: "Numero civico non valido!",
-                },
-              })}
-              aria-required={true}
-              aria-invalid={errors.numeroCivico ? "true" : "false"}
-              aria-describedby="error-numeroCivico"
-            />
-            <FormError
-              message={errors.numeroCivico?.message}
-              id="error-numeroCivico"
-            />
-          </div>
+            <m.div
+              layout
+              style={{ position: "relative" }}
+              className="col-span-full flex w-full flex-col gap-y-2 lg:col-span-2"
+            >
+              <FormRow
+                {...register("city")}
+                type="text"
+                id="city"
+                label="Città"
+                placeholder="Inserisci città..."
+                disabled={isSubmitting}
+                errorField={errors.city}
+                shouldReduce={shouldReduce}
+              />
+            </m.div>
 
-          <div className="col-span-2 flex w-full flex-col space-y-2 lg:col-span-1">
-            <FormRow
-              id="cap"
-              label="CAP"
-              type="text"
-              {...register("cap", {
-                required: "Obbligatorio!",
-                pattern: {
-                  value: /^\d{5}$/,
-                  message: "CAP non valido!",
-                },
-              })}
-              aria-required={true}
-              aria-invalid={errors.cap ? "true" : "false"}
-              aria-describedby="error-cap"
-              ariaLabel={`CAP: ${formatNumberForAria(watch("cap"))}`}
-            />
-            <FormError message={errors.cap?.message} id="error-cap" />
-          </div>
+            <m.div
+              layout
+              style={{ position: "relative" }}
+              className="col-span-full flex w-full flex-col gap-y-2 lg:col-span-2"
+            >
+              <FormRow
+                {...register("phoneNumber")}
+                type="tel"
+                id="phoneNumber"
+                label="Cellulare"
+                placeholder="Inserisci cellulare..."
+                disabled={isSubmitting}
+                errorField={errors.phoneNumber}
+                shouldReduce={shouldReduce}
+              />
+            </m.div>
 
-          <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
-            <FormRow
-              id="comune"
-              label="Comune"
-              type="text"
-              {...register("comune", {
-                required: "Obbligatorio!",
-                maxLength: {
-                  value: 100,
-                  message: "Comune troppo lungo!",
-                },
-                pattern: {
-                  value: /^[a-zàèéìòù\s'-]{2,}$/i,
-                  message: "Comune non valido!",
-                },
-              })}
-              aria-required={true}
-              aria-invalid={errors.comune ? "true" : "false"}
-              aria-describedby="error-comune"
+            <FormButtons
+              shouldReduce={shouldReduce}
+              disabled={
+                isSubmitting ||
+                !isValid ||
+                !isDirty ||
+                buttonState === "loading" ||
+                buttonState === "success"
+              }
+              defaultText="Aggiorna profilo"
+              pendingText="Aggiornamento..."
+              successText="Profilo aggiornato"
+              widths={{
+                idle: 160,
+                loading: 195,
+                success: 198,
+              }}
             />
-            <FormError message={errors.comune?.message} id="error-comune" />
-          </div>
-
-          <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
-            <FormRow
-              id="phoneNumber"
-              label="Numero"
-              type="text"
-              inputMode="tel"
-              {...register("phoneNumber", {
-                // required: "Obbligatorio!",
-                minLength: {
-                  value: 8,
-                  message: "Numero di telefono deve contenere almeno 8 cifre!",
-                },
-                maxLength: {
-                  value: 20,
-                  message: "Numero di telefono troppo lungo!",
-                },
-                pattern: {
-                  value:
-                    /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/,
-                  message: "Numero di telefono non valido",
-                },
-              })}
-              aria-invalid={errors.phoneNumber ? "true" : "false"}
-              aria-describedby="error-phoneNumber"
-              ariaLabel={`Numero di telefono: ${formatNumberForAria(watch("phoneNumber"))}`}
-            />
-            <FormError
-              message={errors.phoneNumber?.message}
-              id="error-phoneNumber"
-            />
-          </div>
-        </div>
-
-        <FormButtons
-          isSubmitting={isSubmitting}
-          onClick={() => reset()}
-          isDirty={isDirty}
-          defaultText="Aggiorna profilo"
-          pendingText="Aggiornamento in corso..."
-        />
-      </form>
+          </m.form>
+        </MotionConfig>
+      </LazyMotion>
     </>
   );
 }

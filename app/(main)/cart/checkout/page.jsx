@@ -25,7 +25,7 @@ export default async function Page({ searchParams }) {
   }));
 
   return (
-    <div className="page-padding mx-auto mt-10 flex max-w-[95rem] flex-col gap-8">
+    <div className="page-padding mx-auto mt-5 flex max-w-[95rem] flex-col gap-8 sm:mt-10">
       <Breadcrumbs breadcrumbs={breadcrumbs} />
 
       <Suspense fallback={<CheckoutWrapperSkeleton />}>

@@ -150,7 +150,7 @@ function CartProductsListOptimistic({ products, cartId }) {
 
                     <div className="-col-start-1 row-start-1">
                       <DeleteCartItem
-                        className="focus ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+                        className="focus-style ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
                         handleDeleteCartItem={() => {
                           startTransition(async () => {
                             try {
@@ -182,7 +182,7 @@ function CartProductsListOptimistic({ products, cartId }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             aria-labelledby="cart-summary-heading"
-            className="sticky top-25 flex flex-col gap-5 self-baseline rounded-md bg-gray-50 px-5 py-5 text-sm sm:text-base dark:bg-zinc-900/80"
+            className="bg-primary-100/70 sticky top-25 flex flex-col gap-5 self-baseline rounded-md px-5 py-5 text-sm sm:text-base dark:bg-white/10"
           >
             <h2
               id="cart-summary-heading"
@@ -196,17 +196,18 @@ function CartProductsListOptimistic({ products, cartId }) {
               totalPrice={totalPrice + SHIPPING_COST}
               isPending={isPending}
             >
-              <Button
+              <Link
                 href="/cart/checkout"
-                className="justify-center rounded py-3 text-sm font-bold uppercase sm:text-base"
-                ariaLabel="Vai alla pagina di finalizzazione dell'acquisto"
+                className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full cursor-pointer gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed sm:self-auto"
+                aria-label="Vai alla pagina di finalizzazione dell'acquisto"
                 disabled={isPending}
               >
                 Vai al checkout
-              </Button>
+              </Link>
 
-              <Button
-                className="justify-center rounded py-3 text-sm font-bold uppercase sm:text-base"
+              <button
+                type="button"
+                className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full cursor-pointer gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed sm:self-auto"
                 aria-label="Simula ordine"
                 onClick={() => {
                   startTransition(async () => {
@@ -230,7 +231,7 @@ function CartProductsListOptimistic({ products, cartId }) {
                 disabled={isPending}
               >
                 Simula acquisto
-              </Button>
+              </button>
             </CartSummary>
           </m.section>
         </AnimatePresence>

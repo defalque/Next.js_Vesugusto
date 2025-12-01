@@ -48,7 +48,7 @@ function ProductsControls() {
 
       <section
         aria-label="Opzioni di ordinamento e azioni filtri"
-        className={`bgColor _flex-wrap _sm:col-start-4 relative z-10 row-start-2 mt-5 mb-5 flex h-11 w-full justify-center gap-x-5 gap-y-2 sm:col-span-full sm:mb-10 sm:flex-row sm:justify-end lg:col-span-full xl:col-start-3 xl:row-start-1`}
+        className={`bgColor relative z-10 row-start-2 mt-5 mb-5 flex h-10 w-full items-center justify-center gap-x-5 gap-y-2 pl-2 sm:col-span-full sm:mb-10 sm:flex-row sm:justify-end lg:col-span-full xl:col-start-3 xl:row-start-1`}
       >
         <ToggleFilters>
           <AdjustmentsHorizontalIcon className="size-5" />

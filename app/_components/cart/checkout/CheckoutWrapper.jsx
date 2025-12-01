@@ -19,7 +19,7 @@ async function CheckoutWrapper({ canceled }) {
       : [];
   const user = userResult.status === "fulfilled" ? userResult.value : [];
 
-  const { via, numeroCivico, comune, cap, phoneNumber } = user ?? {};
+  const { address, houseNumber, city, zipCode, phoneNumber } = user ?? {};
 
   if (products.length === 0) {
     redirect("/shop");
@@ -33,7 +33,7 @@ async function CheckoutWrapper({ canceled }) {
     <div className="grid grid-cols-1 gap-8 pb-30 lg:grid-cols-2">
       <section
         aria-label="Riepilogo ordine"
-        className="text-primary-dark-950 xs:px-5 top-25 flex h-max flex-col gap-6 rounded-md bg-gray-50 px-3 py-5 lg:sticky lg:order-2 dark:bg-zinc-900/80"
+        className="text-primary-dark-950 xs:px-5 bg-primary-100/70 top-25 flex h-max flex-col gap-6 rounded-md px-3 py-5 lg:sticky lg:order-2 dark:bg-white/10"
       >
         <div className="flex flex-col gap-1">
           <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-gray-300">
@@ -101,10 +101,10 @@ async function CheckoutWrapper({ canceled }) {
             Informazioni sulla spedizione
           </h2>
           <CheckoutFormWrapper
-            via={via}
-            comune={comune}
-            cap={cap}
-            numeroCivico={numeroCivico}
+            address={address}
+            city={city}
+            zipCode={zipCode}
+            houseNumber={houseNumber}
             phoneNumber={phoneNumber}
           />
         </section>
@@ -122,7 +122,7 @@ async function CheckoutWrapper({ canceled }) {
           <PaymentWrapper
             amount={formatCurrency(totalPrice + SHIPPING_COST)}
             canceled={canceled}
-            disabled={!via || !numeroCivico || !comune || !cap}
+            disabled={!address || !houseNumber || !city || !zipCode}
           />
           {/* <form action="/api/checkout_sessions" method="POST">
             <button

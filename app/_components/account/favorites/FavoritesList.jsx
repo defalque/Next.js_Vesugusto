@@ -3,7 +3,8 @@ import * as m from "motion/react-m";
 import FavoriteCard from "./FavoriteCard";
 import FavoriteCardActionButtons from "./FavoriteCardActionButtons";
 import FavoriteListMotionWrapper from "./FavoriteListMotionWrapper";
-import { XIcon } from "lucide-react";
+import Link from "next/link";
+import { HeartCrack } from "lucide-react";
 
 function FavoritesList({ favorites }) {
   if (!Array.isArray(favorites)) {
@@ -16,46 +17,44 @@ function FavoritesList({ favorites }) {
 
   if (favorites.length === 0) {
     return (
-      <p role="status" aria-live="polite">
-        Non hai nessun prodotto tra i preferiti.
-      </p>
+      <div className="mt-10 flex flex-col items-center">
+        <HeartCrack className="size-10 text-black/65 dark:text-white/85" />
+        <p
+          role="status"
+          aria-live="polite"
+          className="mt-2 mb-8 text-black/65 dark:text-white/85"
+        >
+          Non hai nessun prodotto tra i preferiti.
+        </p>
+        <Link
+          href="/shop"
+          className="cursor-pointer rounded-full bg-black px-4 py-2 font-medium text-white shadow-sm transition duration-200 text-shadow-2xs hover:bg-black/80 active:scale-90 motion-reduce:transition-none dark:bg-white dark:text-black dark:hover:bg-white/85"
+        >
+          Visita i nostri prodotti
+        </Link>
+      </div>
     );
   }
 
   return (
     <FavoriteListMotionWrapper>
-      <m.div
+      <div
         key="list"
         role="list"
         aria-label="Lista dei prodotti preferiti"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3 }}
         className="grid grid-cols-2 gap-x-10 gap-y-20 sm:gap-x-20 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       >
         {favorites.map((favorite) => (
-          <m.div
-            role="listitem"
-            key={favorite.id}
-            layout
-            exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
+          <m.div layout key={favorite.id} role="listitem">
             <FavoriteCard favorite={favorite.productId}>
               <FavoriteCardActionButtons
                 productId={favorite.productId.id}
                 productQuantity={favorite.productId.quantity}
-              >
-                <XIcon
-                  aria-hidden="true"
-                  className="size-5 text-red-600 transition-colors duration-200 dark:text-red-500"
-                />
-              </FavoriteCardActionButtons>
+              />
             </FavoriteCard>
           </m.div>
         ))}
-      </m.div>
+      </div>
     </FavoriteListMotionWrapper>
   );
 }

@@ -1,5 +1,7 @@
 import { ORDERS_LIMIT } from "@/app/_lib/constants";
 
+// ${shimmer} relative overflow-hidden
+
 // Loading animation
 export const shimmer =
   "before:absolute before:inset-0 before:-translate-x-full rounded before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-zinc-500/20 dark:before:via-black/30 before:to-transparent";
@@ -8,7 +10,7 @@ export function CartLinkSkeleton() {
   return (
     <li>
       <div
-        className={`${shimmer} relative size-8 overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-800`}
+        className={`${shimmer} relative size-8 overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
       />
     </li>
   );
@@ -18,7 +20,7 @@ export function UserAvatarSkeleton() {
   return (
     <li>
       <div
-        className={`${shimmer} relative size-8 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-800`}
+        className={`${shimmer} relative size-8 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
       />
     </li>
   );
@@ -36,18 +38,29 @@ export function SignedInSkeleton() {
 export function SignInSkeleton() {
   return (
     <div
-      className={`${shimmer} relative h-90 w-100 cursor-not-allowed divide-y divide-gray-200 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl`}
+      className={`${shimmer} relative w-100 cursor-not-allowed divide-y divide-gray-200 overflow-hidden rounded-xl border border-gray-200 bg-white px-5 shadow-xl dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-950`}
     >
-      <div className="flex h-70 flex-col">
-        <div className="_dark:bg-zinc-800 mx-auto mt-8 size-10 rounded-full bg-gray-200" />
-        <div className="_dark:bg-zinc-800 mx-auto mt-10 h-6 w-65 rounded-lg bg-gray-200" />
+      <div className="flex flex-col pb-5">
+        <div className="mx-auto mt-8 size-10 rounded-full bg-gray-100 dark:bg-zinc-800" />
+        <div className="mx-auto mt-6 h-6 w-65 rounded-lg bg-gray-100 dark:bg-zinc-800" />
 
-        <div className="mt-10 space-y-2">
-          <div className="_dark:bg-zinc-800 mx-auto h-7 w-85 rounded-lg bg-gray-200" />
-          <div className="_dark:bg-zinc-800 mx-auto h-7 w-85 rounded-lg bg-gray-200" />
+        <div className="mt-8 space-y-2">
+          <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+          <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
         </div>
       </div>
-      <div className="h-20"></div>
+
+      <div className="flex flex-col py-5">
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <div className="h-4 w-22 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+            <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+          </div>
+          <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+        </div>
+      </div>
+
+      <div className="mx-auto my-5 h-5 w-22 rounded-lg bg-gray-100 dark:bg-zinc-800" />
     </div>
   );
 }
@@ -58,44 +71,35 @@ export function DynamicLinksSkeleton() {
       <CartLinkSkeleton />
       <li>
         <div
-          className={`${shimmer} relative h-8 w-8 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-800`}
+          className={`${shimmer} relative h-8 w-8 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
       </li>
     </>
   );
 }
 
-// ${shimmer} relative overflow-hidden
-
 function ProductCardSkeleton() {
   return (
     <div className="flex flex-col gap-2">
-      {/* Image Placeholder */}
-      {/* <div
-        className={`${shimmer} _-mx-(--sm-page-padding-x) relative aspect-2/3 w-full overflow-hidden rounded-none bg-gray-200 sm:-mx-0 sm:rounded-lg dark:bg-zinc-700`}
-      /> */}
-      <div className={`${shimmer} focus relative overflow-hidden rounded-3xl`}>
-        <div className="aspect-2/3 w-full rounded-none bg-gray-200 sm:rounded-3xl dark:bg-zinc-700" />
+      <div
+        className={`${shimmer} focus-style relative overflow-hidden rounded-3xl`}
+      >
+        <div className="aspect-2/3 w-full rounded-none bg-gray-100 sm:rounded-3xl dark:bg-zinc-800" />
       </div>
 
-      {/* Title and Button Row */}
       <div className="mb-1 flex items-center px-2 py-0.5 sm:px-1">
         <div
-          className={`${shimmer} relative h-4 w-2/3 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-4 w-2/3 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative ml-auto h-5 w-5 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative ml-auto h-5 w-5 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
 
-      {/* Price and Link */}
       <div className="flex items-center gap-2 px-2 sm:px-1">
         <div
-          className={`${shimmer} relative h-4 w-20 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-4 w-20 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
-        {/* <div
-          className={`${shimmer} relative ml-auto h-3 w-16 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-        /> */}
       </div>
     </div>
   );
@@ -145,7 +149,7 @@ export function ProductPageSkeleton() {
           {/* Breadcrumb */}
           <div className="col-start-1 mb-0 md:col-start-2 md:mb-8">
             <div
-              className={`${shimmer} relative h-12 w-1/2 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+              className={`${shimmer} relative h-12 w-1/2 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
             />
           </div>
 
@@ -157,14 +161,14 @@ export function ProductPageSkeleton() {
                 {Array.from({ length: 2 }).map((_, i) => (
                   <div
                     key={i}
-                    className={`${shimmer} relative h-16 w-11 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                    className={`${shimmer} relative h-16 w-11 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
                   ></div>
                 ))}
               </div>
 
               {/* Main Image */}
               <div
-                className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-zinc-800`}
               ></div>
             </div>
           </div>
@@ -173,34 +177,34 @@ export function ProductPageSkeleton() {
           <div className="flex flex-col gap-8">
             {/* Price */}
             <div
-              className={`${shimmer} relative h-6 w-32 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              className={`${shimmer} relative h-6 w-32 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
             />
 
             {/* Description */}
             <div className="space-y-2">
               <div
-                className={`${shimmer} relative h-4 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative h-4 w-full overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
               />
               <div
-                className={`${shimmer} relative h-4 w-4/5 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative h-4 w-4/5 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
               />
               <div
-                className={`${shimmer} relative h-4 w-3/5 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative h-4 w-3/5 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
               />
             </div>
 
             {/* Quantity Selector */}
             <div
-              className={`${shimmer} relative h-10 w-35 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              className={`${shimmer} relative h-10 w-35 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
             />
 
             {/* Buttons */}
             <div className="flex items-center gap-4">
               <div
-                className={`${shimmer} relative h-12 w-42 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative h-12 w-42 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
               />
               <div
-                className={`${shimmer} relative h-12 w-12 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative h-12 w-12 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
               />
             </div>
 
@@ -210,7 +214,7 @@ export function ProductPageSkeleton() {
                 (label, index) => (
                   <div
                     key={index}
-                    className={`${shimmer} relative h-14 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                    className={`${shimmer} relative h-14 w-full overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
                   />
                 ),
               )}
@@ -238,26 +242,26 @@ export function CartProductCardSkeleton() {
         className="xs:gap-x-5 grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-start gap-x-4"
       >
         <div
-          className={`${shimmer} relative aspect-2/3 h-40 overflow-hidden rounded-lg bg-gray-200 sm:h-50 dark:bg-zinc-700`}
+          className={`${shimmer} relative aspect-2/3 h-40 overflow-hidden rounded-lg bg-gray-100 sm:h-50 dark:bg-zinc-800`}
         />
 
         <div className="flex h-full w-full flex-col gap-2">
           <div
-            className={`${shimmer} relative h-5 w-3/4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative h-5 w-3/4 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
           />
           <div
-            className={`${shimmer} relative h-4 w-1/4 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative h-4 w-1/4 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
           />
           <div
-            className={`${shimmer} xs:block relative hidden h-4 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} xs:block relative hidden h-4 w-full overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
           />
           <div
-            className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
           />
         </div>
 
         <div
-          className={`${shimmer} relative ml-auto h-5 w-5 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative ml-auto h-5 w-5 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
       </article>
     </>
@@ -277,7 +281,7 @@ export function CartProductsListSkeleton() {
       </p>
       <div
         aria-hidden
-        className="grid min-h-screen grid-cols-1 grid-rows-[auto_1fr] gap-x-10 gap-y-8 lg:grid-cols-[1.5fr_1fr] lg:grid-rows-[auto]"
+        className="grid min-h-screen cursor-not-allowed grid-cols-1 grid-rows-[auto_1fr] gap-x-10 gap-y-8 lg:grid-cols-[1.5fr_1fr] lg:grid-rows-[auto]"
       >
         {/* Product list skeleton */}
         <section aria-label="Caricamento prodotti nel carrello">
@@ -295,14 +299,14 @@ export function CartProductsListSkeleton() {
           aria-label="Caricamento riepilogo carrello"
           className={`${shimmer} relative flex h-max flex-col gap-5 overflow-hidden rounded-md bg-gray-50 px-5 py-5 text-sm sm:text-base dark:bg-zinc-900/80`}
         >
-          <div className="mb-4 h-6 w-1/2 rounded bg-gray-200 dark:bg-zinc-700" />
+          <div className="mb-4 h-6 w-1/2 rounded bg-gray-100 dark:bg-zinc-800" />
 
           <div className="divide-y divide-gray-200 dark:divide-zinc-800">
             <ul className="flex flex-col gap-4 pb-4">
               {[...Array(2)].map((_, index) => (
                 <li key={index} className="flex items-center justify-between">
-                  <div className="h-4 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
-                  <div className="h-4 w-20 rounded bg-gray-200 dark:bg-zinc-700" />
+                  <div className="h-4 w-32 rounded bg-gray-100 dark:bg-zinc-800" />
+                  <div className="h-4 w-20 rounded bg-gray-100 dark:bg-zinc-800" />
                 </li>
               ))}
             </ul>
@@ -310,14 +314,14 @@ export function CartProductsListSkeleton() {
             <div className="space-y-4 pt-4">
               {[...Array(3)].map((_, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <div className="h-4 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
-                  <div className="h-4 w-20 rounded bg-gray-200 dark:bg-zinc-700" />
+                  <div className="h-4 w-32 rounded bg-gray-100 dark:bg-zinc-800" />
+                  <div className="h-4 w-20 rounded bg-gray-100 dark:bg-zinc-800" />
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-4 h-10 w-full rounded bg-gray-200 dark:bg-zinc-700" />
+          <div className="mt-4 h-10 w-full rounded bg-gray-100 dark:bg-zinc-800" />
         </section>
       </div>
     </>
@@ -328,41 +332,41 @@ export function AddressInfoSkeleton() {
   return (
     <div className={`flex flex-col gap-7 py-5`}>
       <div
-        className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
       />
 
       <div className="xs:grid-cols-4 xs:gap-y-6 grid grid-cols-1 gap-x-5 gap-y-4 text-sm md:text-base">
         {/* Via */}
         <div className="col-span-3">
           <div
-            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
           />
         </div>
 
         {/* Civico */}
         <div className="xs:col-span-1 col-span-3">
           <div
-            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
           />
         </div>
 
         {/* Comune */}
         <div className="col-span-3">
           <div
-            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
           />
         </div>
 
         {/* CAP */}
         <div className="xs:col-span-1 col-span-3">
           <div
-            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
           />
         </div>
 
         <div className="col-span-full">
           <div
-            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+            className={`${shimmer} relative mb-2 h-10 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
           />
         </div>
       </div>
@@ -374,7 +378,7 @@ export function PaymentFormLoader() {
   return (
     <div className="flex flex-col gap-7 pt-8">
       <div
-        className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
       />
       <div className="spinner" />
     </div>
@@ -403,10 +407,10 @@ export function CheckoutWrapperSkeleton() {
           {/* <PaymentFormLoader /> */}
           <div className="flex flex-col gap-7 pt-8">
             <div
-              className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              className={`${shimmer} relative h-5 w-40 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
             />
             <div
-              className={`${shimmer} relative h-12 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+              className={`${shimmer} relative h-12 w-full overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
             />
           </div>
         </div>
@@ -416,8 +420,8 @@ export function CheckoutWrapperSkeleton() {
           className={`${shimmer} text-primary-dark-950 xxs:px-8 relative order-1 flex h-max flex-col gap-6 overflow-hidden bg-gray-50 px-3 py-5 lg:order-2 dark:bg-zinc-900/80`}
         >
           <div className="flex flex-col gap-1">
-            <div className="h-4 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
-            <div className="mt-2 h-10 w-40 rounded-lg bg-gray-200 dark:bg-zinc-700" />
+            <div className="h-4 w-32 rounded bg-gray-100 dark:bg-zinc-800" />
+            <div className="mt-2 h-10 w-40 rounded-lg bg-gray-100 dark:bg-zinc-800" />
           </div>
 
           <div className="flex flex-col divide-y divide-gray-200 dark:divide-zinc-800">
@@ -426,15 +430,15 @@ export function CheckoutWrapperSkeleton() {
                 key={i}
                 className="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6 py-8"
               >
-                <div className="aspect-2/3 h-30 w-full rounded-lg bg-gray-200 dark:bg-zinc-700" />
+                <div className="aspect-2/3 h-30 w-full rounded-lg bg-gray-100 dark:bg-zinc-800" />
 
                 <div className="flex flex-col gap-2">
-                  <div className="h-4 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
-                  <div className="h-3 w-48 rounded bg-gray-200 dark:bg-zinc-700" />
-                  <div className="mt-auto h-4 w-20 rounded bg-gray-200 dark:bg-zinc-700" />
+                  <div className="h-4 w-32 rounded bg-gray-100 dark:bg-zinc-800" />
+                  <div className="h-3 w-48 rounded bg-gray-100 dark:bg-zinc-800" />
+                  <div className="mt-auto h-4 w-20 rounded bg-gray-100 dark:bg-zinc-800" />
                 </div>
 
-                <div className="h-5 w-16 rounded bg-gray-200 dark:bg-zinc-700" />
+                <div className="h-5 w-16 rounded bg-gray-100 dark:bg-zinc-800" />
               </div>
             ))}
           </div>
@@ -457,16 +461,16 @@ export function UserNameSkeleton() {
       </p>
       <span
         aria-hidden
-        className={`${shimmer} relative h-[1em] w-60 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-[1em] w-60 overflow-hidden rounded-md bg-gray-100 dark:bg-zinc-800`}
       />
     </>
   );
 }
 
-function SkeletonBox({ className }) {
+function SkeletonBox({ className, rounded = "md" }) {
   return (
     <div
-      className={`${shimmer} relative overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700 ${className}`}
+      className={`${shimmer} relative overflow-hidden rounded-${rounded} bg-gray-100 dark:bg-zinc-800 ${className}`}
     />
   );
 }
@@ -486,23 +490,10 @@ export function UpdateProfileFormSkeleton() {
         aria-hidden
         className="my-8 flex flex-col gap-4 text-xs sm:text-sm md:text-base"
       >
-        {/* Nome ed Email */}
-        <div className="flex flex-col items-center gap-5 lg:flex-row">
-          <div className="flex w-full flex-col space-y-2">
-            <SkeletonBox className="h-4 w-24" />
-            <SkeletonBox className="h-8 w-full sm:h-10" />
-          </div>
-          <div className="flex w-full flex-col space-y-2">
-            <SkeletonBox className="h-4 w-24" />
-            <SkeletonBox className="h-8 w-full sm:h-10" />
-          </div>
-        </div>
-
-        {/* Address and Contact Fields */}
         <div className="grid w-full grid-cols-4 grid-rows-2 gap-5">
           <div className="col-span-full flex w-full flex-col space-y-2 lg:col-span-2">
             <SkeletonBox className="h-4 w-24" />
-            <SkeletonBox className="h-8 w-full sm:h-10" />
+            <SkeletonBox className="h-10 w-full sm:h-10" />
           </div>
 
           <div className="col-span-2 flex w-full flex-col space-y-2 lg:col-span-1">
@@ -527,9 +518,11 @@ export function UpdateProfileFormSkeleton() {
         </div>
 
         {/* Submit Button */}
-        <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:justify-end">
-          <SkeletonBox className="h-8 w-36 self-baseline rounded sm:h-10 sm:w-48" />
-          <SkeletonBox className="h-8 w-36 self-baseline rounded sm:h-10 sm:w-48" />
+        <div className="mt-5 flex flex-col gap-4 sm:flex-row">
+          <SkeletonBox
+            rounded="full"
+            className="h-8 w-32 self-baseline rounded sm:h-10 sm:w-48"
+          />
         </div>
       </form>
     </>
@@ -540,17 +533,17 @@ function OrderCardHeaderSkeleton() {
   return (
     <div className="flex cursor-not-allowed flex-col flex-wrap gap-x-10 gap-y-2 border-b border-b-gray-200 bg-gray-50 px-3 py-4 text-sm sm:flex-row sm:items-center md:px-5 md:text-base xl:px-10 dark:border-b-zinc-700/70 dark:bg-zinc-800/70">
       <div
-        className={`${shimmer} relative h-4 w-24 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-4 w-24 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
       />
       <div
-        className={`${shimmer} relative h-4 w-34 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-4 w-34 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
       />
       <div
-        className={`${shimmer} relative h-4 w-24 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-4 w-24 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
       />
 
       <div
-        className={`${shimmer} relative h-4 w-18 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-4 w-18 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
       />
     </div>
   );
@@ -564,37 +557,37 @@ function OrderCardItemSkeleton() {
       {/* Image Skeleton */}
       <div className="relative row-span-full aspect-2/3 h-50 sm:h-55">
         <div
-          className={`${shimmer} absolute inset-0 overflow-hidden rounded-md bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} absolute inset-0 overflow-hidden rounded-md bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
 
       {/* Product Name */}
       <div
-        className={`${shimmer} relative row-start-1 h-5 w-20 overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative row-start-1 h-5 w-20 overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
       />
 
       {/* Price */}
       <div
-        className={`${shimmer} relative row-start-2 h-5 w-16 overflow-hidden rounded-xl bg-gray-200 sm:row-start-1 sm:justify-self-end dark:bg-zinc-700`}
+        className={`${shimmer} relative row-start-2 h-5 w-16 overflow-hidden rounded-xl bg-gray-100 sm:row-start-1 sm:justify-self-end dark:bg-zinc-800`}
       />
 
       {/* Description */}
       <div
-        className={`${shimmer} relative col-span-2 mt-2 hidden h-16 overflow-hidden rounded-xl bg-gray-200 sm:row-start-2 sm:mt-0 sm:block dark:bg-zinc-700`}
+        className={`${shimmer} relative col-span-2 mt-2 hidden h-16 overflow-hidden rounded-xl bg-gray-100 sm:row-start-2 sm:mt-0 sm:block dark:bg-zinc-800`}
       />
 
       {/* Quantity */}
       <div
-        className={`${shimmer} relative col-span-2 col-start-2 row-start-3 h-5 w-24 overflow-hidden rounded-xl bg-gray-200 sm:self-end dark:bg-zinc-700`}
+        className={`${shimmer} relative col-span-2 col-start-2 row-start-3 h-5 w-24 overflow-hidden rounded-xl bg-gray-100 sm:self-end dark:bg-zinc-800`}
       />
 
       {/* Buttons */}
       <div className="text-primary-950 col-start-2 row-start-4 flex flex-wrap items-center gap-3 self-end text-sm font-semibold lg:col-start-3 lg:row-start-3">
         <div
-          className={`${shimmer} relative h-4 w-24 overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-4 w-24 overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-4 w-24 overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-4 w-24 overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
     </div>
@@ -629,26 +622,31 @@ export function OrdersListSkeleton() {
 
 function FavoriteCardSkeleton() {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex cursor-not-allowed flex-col gap-2">
       {/* Image placeholder */}
       <div
-        className={`${shimmer} relative aspect-2/3 overflow-hidden rounded-lg bg-gray-200 shadow-sm dark:bg-zinc-700`}
+        className={`${shimmer} relative aspect-2/3 overflow-hidden rounded-lg bg-gray-100 dark:bg-zinc-800`}
       />
 
       {/* Text placeholders */}
       <div className="flex flex-col gap-1">
         <div
-          className={`${shimmer} relative h-4 w-1/2 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-4 w-1/2 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
 
       {/* Button placeholder */}
-      <div
-        className={`${shimmer} relative h-6 w-full overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
-      />
+      <div className="flex items-center justify-center gap-2">
+        <div
+          className={`${shimmer} relative h-6 w-7 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
+        />
+        <div
+          className={`${shimmer} relative h-6 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
+        />
+      </div>
     </div>
   );
 }
@@ -680,7 +678,7 @@ export function AccountNavLink() {
   return (
     <div className="inline-flex w-full justify-center">
       <div
-        className={`${shimmer} relative h-6 w-6 overflow-hidden bg-gray-200 lg:w-40 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-6 w-6 overflow-hidden bg-gray-100 lg:w-40 dark:bg-zinc-800`}
       />
     </div>
   );
@@ -706,12 +704,12 @@ export function ThankYouPageSkeleton() {
         >
           {/* Title & Description */}
           <div className="animate-pulse space-y-5">
-            <div className="mx-auto h-10 w-40 rounded bg-gray-200 sm:h-16 sm:w-64 dark:bg-zinc-700" />
-            <div className="mx-auto h-4 w-full rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
-            <div className="mx-auto h-4 w-4/5 rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
+            <div className="mx-auto h-10 w-40 rounded bg-gray-100 sm:h-16 sm:w-64 dark:bg-zinc-800" />
+            <div className="mx-auto h-4 w-full rounded bg-gray-100 sm:h-5 dark:bg-zinc-800" />
+            <div className="mx-auto h-4 w-4/5 rounded bg-gray-100 sm:h-5 dark:bg-zinc-800" />
             <div className="flex flex-wrap justify-center gap-4">
-              <div className="mt-2 h-10 w-48 rounded-full bg-gray-200 dark:bg-zinc-700" />
-              <div className="mt-2 h-10 w-48 rounded-full bg-gray-200 dark:bg-zinc-700" />
+              <div className="mt-2 h-10 w-48 rounded-full bg-gray-100 dark:bg-zinc-800" />
+              <div className="mt-2 h-10 w-48 rounded-full bg-gray-100 dark:bg-zinc-800" />
             </div>
           </div>
 
@@ -719,8 +717,8 @@ export function ThankYouPageSkeleton() {
           <div className="text-primary-dark-950 dark:bg-primary-dark-950 bg-primary-50 rounded-lg px-5 py-5 dark:text-gray-200">
             {/* Order ID and Total */}
             <div className="flex animate-pulse flex-wrap justify-between gap-4 text-xl font-semibold">
-              <div className="h-6 w-40 rounded bg-gray-200 dark:bg-zinc-700" />
-              <div className="h-6 w-32 rounded bg-gray-200 dark:bg-zinc-700" />
+              <div className="h-6 w-40 rounded bg-gray-100 dark:bg-zinc-800" />
+              <div className="h-6 w-32 rounded bg-gray-100 dark:bg-zinc-800" />
             </div>
 
             {/* Product List */}
@@ -731,20 +729,20 @@ export function ThankYouPageSkeleton() {
                   className="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6 py-8"
                 >
                   {/* Product Image */}
-                  <div className="relative aspect-2/3 h-30 rounded bg-gray-200 dark:bg-zinc-700">
+                  <div className="relative aspect-2/3 h-30 rounded bg-gray-100 dark:bg-zinc-800">
                     <div className="h-full w-full rounded-lg" />
                   </div>
 
                   {/* Product Info */}
                   <div className="flex h-full flex-col gap-2">
-                    <div className="h-5 w-3/4 rounded bg-gray-200 dark:bg-zinc-700" />
-                    <div className="xs:block hidden h-4 w-full rounded bg-gray-200 sm:h-5 dark:bg-zinc-700" />
-                    <div className="mt-auto h-4 w-1/3 rounded bg-gray-200 dark:bg-zinc-700" />
-                    <div className="mt-auto h-4 w-1/4 rounded bg-gray-200 dark:bg-zinc-700" />
+                    <div className="h-5 w-3/4 rounded bg-gray-100 dark:bg-zinc-800" />
+                    <div className="xs:block hidden h-4 w-full rounded bg-gray-100 sm:h-5 dark:bg-zinc-800" />
+                    <div className="mt-auto h-4 w-1/3 rounded bg-gray-100 dark:bg-zinc-800" />
+                    <div className="mt-auto h-4 w-1/4 rounded bg-gray-100 dark:bg-zinc-800" />
                   </div>
 
                   {/* Product Total */}
-                  <div className="h-5 w-16 rounded bg-gray-200 dark:bg-zinc-700" />
+                  <div className="h-5 w-16 rounded bg-gray-100 dark:bg-zinc-800" />
                 </div>
               ))}
             </div>
@@ -774,17 +772,17 @@ export function BestSellerProductsSkeleton() {
           <div key={index} className="">
             <div className="flex flex-col gap-2">
               <div
-                className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-3xl bg-gray-200 dark:bg-zinc-700`}
+                className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-3xl bg-gray-100 dark:bg-zinc-800`}
               >
                 <div className="overflow-hidden" />
               </div>
 
               <div className="space-y-1">
                 <div
-                  className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                  className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
                 />
                 <div
-                  className={`${shimmer} relative h-5 w-13 overflow-hidden rounded bg-gray-200 dark:bg-zinc-700`}
+                  className={`${shimmer} relative h-5 w-13 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
                 />
               </div>
             </div>
@@ -815,11 +813,11 @@ export function DisplaySkeleton() {
   return (
     <div className="z-50 mr-auto flex items-center">
       <div
-        className={`${shimmer} relative mr-4 h-10 w-22 self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-10 dark:bg-zinc-700`}
+        className={`${shimmer} relative mr-4 h-10 w-22 self-stretch overflow-hidden rounded-md bg-gray-100 md:h-10 dark:bg-zinc-800`}
       />
       <div className="h-10 w-[1px] bg-black dark:bg-white" />
       <div
-        className={`${shimmer} relative mx-4 h-10 w-10 self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-10 dark:bg-zinc-700`}
+        className={`${shimmer} relative mx-4 h-10 w-10 self-stretch overflow-hidden rounded-md bg-gray-100 md:h-10 dark:bg-zinc-800`}
       />
     </div>
   );
@@ -828,7 +826,7 @@ export function DisplaySkeleton() {
 export function SearchSkeleton() {
   return (
     <div
-      className={`${shimmer} relative h-10 w-16 self-stretch overflow-hidden rounded-xl bg-gray-200 md:h-full dark:bg-zinc-700`}
+      className={`${shimmer} relative h-10 w-16 self-stretch overflow-hidden rounded-xl bg-gray-100 md:h-full dark:bg-zinc-800`}
     />
   );
 }
@@ -836,7 +834,7 @@ export function SearchSkeleton() {
 export function SearchInputSkeleton({ height }) {
   return (
     <div
-      className={`${shimmer} ${height ? "md:h-12" : "md:h-full"} relative h-11 grow self-stretch overflow-hidden rounded-xl bg-gray-200 sm:h-10 dark:bg-zinc-700`}
+      className={`${shimmer} ${height ? "md:h-10" : "md:h-full"} relative h-11 grow self-stretch overflow-hidden rounded-md bg-gray-100 sm:h-10 dark:bg-zinc-800`}
     />
   );
 }
@@ -844,7 +842,7 @@ export function SearchInputSkeleton({ height }) {
 export function SortBySkeleton({ roundedLg }) {
   return (
     <div
-      className={`${shimmer} relative h-11 self-stretch overflow-hidden sm:h-10 ${roundedLg ? "w-50 rounded-lg" : "w-25 rounded-full"} bg-gray-200 md:h-full dark:bg-zinc-700`}
+      className={`${shimmer} relative h-11 self-stretch overflow-hidden sm:h-10 ${roundedLg ? "w-50 rounded-lg" : "w-25 rounded-md"} _md:h-full bg-gray-100 dark:bg-zinc-800`}
     />
   );
 }
@@ -852,7 +850,7 @@ export function SortBySkeleton({ roundedLg }) {
 export function ToggleFilterMobileSkeleton() {
   return (
     <div
-      className={`${shimmer} relative h-10 w-23 overflow-hidden rounded-full bg-gray-200 md:h-full dark:bg-zinc-700`}
+      className={`${shimmer} relative h-10 w-23 overflow-hidden rounded-full bg-gray-100 md:h-full dark:bg-zinc-800`}
     />
   );
 }
@@ -861,32 +859,32 @@ export function ProductFiltersSkeleton() {
   return (
     <div className="flex max-h-fit w-full flex-col gap-y-5 overflow-y-auto pr-2 pb-3 pl-1 lg:mr-10 lg:w-60 lg:overflow-hidden lg:pr-1">
       <div
-        className={`${shimmer} relative h-12 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-12 w-full overflow-hidden rounded-md bg-gray-100 dark:bg-zinc-800`}
       />
       <div className="flex flex-wrap justify-center gap-5">
         <div
-          className={`${shimmer} relative h-10 w-20 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-10 w-20 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-10 w-20 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-10 w-20 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
 
       <div
-        className={`${shimmer} relative h-12 w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-700`}
+        className={`${shimmer} relative h-12 w-full overflow-hidden rounded-md bg-gray-100 dark:bg-zinc-800`}
       />
       <div className="flex flex-wrap justify-center gap-5">
         <div
-          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-200 dark:bg-zinc-700`}
+          className={`${shimmer} relative h-10 w-30 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
     </div>
@@ -920,7 +918,7 @@ export function ProductsControlsSkeleton() {
         className={`bgColor relative z-10 col-span-full row-start-2 mt-5 mb-5 flex h-11 w-full flex-wrap justify-end gap-x-5 gap-y-2 sm:col-start-1 sm:mb-10 sm:flex-row lg:h-12 xl:col-span-3 xl:col-start-3 xl:row-start-1`}
       >
         <div
-          className={`${shimmer} relative hidden h-full w-35 overflow-hidden rounded-lg bg-gray-200 lg:flex dark:bg-zinc-700`}
+          className={`${shimmer} relative hidden h-full w-35 overflow-hidden rounded-md bg-gray-100 lg:flex dark:bg-zinc-800`}
         />
         <SearchInputSkeleton />
         <div className="hidden lg:flex">
@@ -937,7 +935,7 @@ export function ProductsControlsSkeleton() {
 export function NavLinkSkeleton() {
   return (
     <div
-      className={`${shimmer} relative h-8 w-13.5 cursor-not-allowed overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-800`}
+      className={`${shimmer} relative h-8 w-13.5 cursor-not-allowed overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
     />
   );
 }
@@ -945,7 +943,7 @@ export function NavLinkSkeleton() {
 export function CopyrightSkeleton() {
   return (
     <div
-      className={`${shimmer} relative h-5 w-65 cursor-not-allowed overflow-hidden rounded-xl bg-gray-200 dark:bg-zinc-800`}
+      className={`${shimmer} relative h-5 w-65 cursor-not-allowed overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
     />
   );
 }
@@ -959,10 +957,10 @@ export function AccountNavLinksSkeleton() {
           className="flex w-full items-center justify-center gap-5 md:justify-start"
         >
           <div
-            className={`${shimmer} relative h-7 w-7 overflow-hidden rounded-full bg-gray-200 md:h-6 md:w-6 dark:bg-zinc-700`}
+            className={`${shimmer} relative h-7 w-7 overflow-hidden rounded-full bg-gray-100 md:h-6 md:w-6 dark:bg-zinc-800`}
           />
           <div
-            className={`${shimmer} relative hidden h-6 w-30 overflow-hidden rounded-md bg-gray-200 md:inline dark:bg-zinc-700`}
+            className={`${shimmer} relative hidden h-6 w-30 overflow-hidden rounded-md bg-gray-100 md:inline dark:bg-zinc-800`}
           />
         </div>
       ))}

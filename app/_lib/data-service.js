@@ -250,7 +250,7 @@ export async function getUserInfo() {
   const { data, error } = await supabase
     .from("users")
     .select(
-      "firstName, lastName, email, phoneNumber, via, numeroCivico, comune, cap",
+      "firstName, lastName, email, phoneNumber, address, houseNumber, city, zipCode",
     )
     .eq("clerkUserId", userId)
     .single();

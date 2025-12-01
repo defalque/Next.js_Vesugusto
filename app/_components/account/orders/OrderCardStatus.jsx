@@ -2,6 +2,7 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
+import { PackageOpen } from "lucide-react";
 import { HiOutlineHandThumbUp } from "react-icons/hi2";
 
 const status = {
@@ -30,9 +31,9 @@ const status = {
   unconfirmed: {
     label: "In preparazione",
     icon: (
-      <ExclamationCircleIcon
-        aria-hidden="true"
-        className="size-4.5 text-yellow-600 dark:text-yellow-400"
+      <PackageOpen
+        aria-hidden
+        className="size-4 text-yellow-600 dark:text-yellow-400"
       />
     ),
     color: "text-yellow-600 dark:text-yellow-400",
@@ -47,11 +48,11 @@ function OrderCardStatus({ orderStatus }) {
 
   return (
     <dl
-      className={`flex items-center gap-1 self-start rounded-lg p-1 ${bgColor}`}
+      className={`flex items-center gap-2 self-start rounded-lg px-2 py-1 ${bgColor}`}
     >
       {icon}
       <dt className="sr-only">Stato ordine</dt>
-      <dd className={`text-xs font-bold uppercase ${color}`}>{label}</dd>
+      <dd className={`text-xs font-semibold uppercase ${color}`}>{label}</dd>
     </dl>
   );
 }

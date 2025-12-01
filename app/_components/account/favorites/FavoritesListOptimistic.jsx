@@ -32,7 +32,11 @@ function FavoritesListOptimistic({ favorites, userId, cartId }) {
   }
 
   if (optimisticFavorites.length === 0) {
-    return <span>Non hai nessun prodotto tra i preferiti.</span>;
+    return (
+      <span className="dark:text-white/85">
+        Non hai nessun prodotto tra i preferiti.
+      </span>
+    );
   }
 
   return (
@@ -61,7 +65,7 @@ function FavoritesListOptimistic({ favorites, userId, cartId }) {
                   favorite={favorite.productId}
                   deleteFavoriteSlot={
                     <DeleteCartItem
-                      className="bg-primary-50/60 dark:text-primary-dark-950 focus absolute top-1 right-1 w-max cursor-pointer rounded-full px-1 py-1 font-bold transition-colors duration-200 hover:bg-gray-50 disabled:animate-pulse disabled:cursor-not-allowed"
+                      className="bg-primary-50/60 dark:text-primary-dark-950 focus-style absolute top-1 right-1 w-max cursor-pointer rounded-full px-1 py-1 font-bold transition-colors duration-200 hover:bg-gray-50 disabled:animate-pulse disabled:cursor-not-allowed"
                       handleDeleteCartItem={(e) => {
                         e.preventDefault();
                         e.stopPropagation();

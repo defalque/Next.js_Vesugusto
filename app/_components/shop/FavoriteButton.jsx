@@ -1,9 +1,9 @@
 "use client";
 
 import { addFavoriteProduct, deleteFavoriteProduct } from "@/app/_lib/actions";
-import { HeartIcon } from "@heroicons/react/24/outline";
 import { startTransition, useActionState } from "react";
 import { showCustomPromiseToast } from "../ui/CustomToast";
+import { Heart } from "lucide-react";
 
 function FavoriteButton({
   className = "",
@@ -37,13 +37,13 @@ function FavoriteButton({
       onClick={async () => {
         startTransition(action);
       }}
-      className={`${className} focus rounded`}
+      className={`${className} focus-style rounded`}
       aria-label="Aggiungi ai preferiti"
       aria-pressed={isFavorite}
       disabled={pending || productQuantity === 0}
     >
-      <HeartIcon
-        className={`inline-flex ${iconSizes} ${productQuantity === 0 ? "cursor-not-allowed" : "cursor-pointer"} items-center transition-colors duration-300 ${pending ? "animate-pulse cursor-not-allowed" : ""} ${
+      <Heart
+        className={`flex ${productQuantity === 0 ? "cursor-not-allowed" : "cursor-pointer"} items-center transition-colors duration-300 ${pending ? "animate-pulse cursor-not-allowed" : ""} ${
           isFavorite
             ? "fill-primary-dark-200 text-primary-dark-200 dark:fill-primary-dark-100 dark:text-primary-dark-100"
             : "hover:fill-primary-dark-200 dark:hover:fill-primary-dark-100 dark:text-primary-dark-100 text-primary-dark-200"

@@ -49,7 +49,7 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
         </span>
 
         <Button
-          className="order-1 rounded-lg p-2"
+          className="touch-hitbox order-1 rounded-full p-2"
           disabled={quantity === 1}
           onClick={handleLessClick}
           ariaLabel="Diminuisci quantità di 1"
@@ -58,7 +58,7 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
         </Button>
 
         <Button
-          className="order-3 rounded-lg p-2"
+          className="touch-hitbox order-3 rounded-full p-2"
           disabled={quantity === productQuantity}
           onClick={handleMoreClick}
           ariaLabel="Aumenta quantità di 1"

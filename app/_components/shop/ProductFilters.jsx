@@ -34,7 +34,7 @@ function ProductFilters() {
       <button
         onClick={handleReset}
         disabled={!hasFilters}
-        className="custom-focus _dark:hover:bg-zinc-500 _dark:active:bg-zinc-500 _transition-colors _duration-300 _hover:bg-black/75 _dark:hover:bg-white/70 _dark:active:bg-white/70 _active:bg-black/75 scale mt-3 ml-2 cursor-pointer self-start rounded-full bg-black px-4 py-2.5 text-lg font-semibold text-white transition-transform active:scale-[0.97] disabled:scale-100 disabled:cursor-not-allowed disabled:hover:bg-black md:text-base dark:bg-white dark:text-black dark:disabled:text-black dark:disabled:hover:bg-white"
+        className="focus-style scale mt-3 ml-2 cursor-pointer self-start rounded-full bg-black px-4 py-2.5 text-lg font-semibold text-white transition-transform focus-visible:ring-4! active:scale-[0.97] disabled:scale-100 disabled:cursor-not-allowed disabled:hover:bg-black md:text-base dark:bg-white dark:text-black dark:disabled:text-black dark:disabled:hover:bg-white"
       >
         Reset
       </button>

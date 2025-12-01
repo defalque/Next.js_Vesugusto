@@ -25,8 +25,7 @@ function SearchInput({ placeholder, type }) {
         id="search"
         type={type}
         placeholder={placeholder}
-        autoFocus
-        className="w-full border-b border-b-gray-300 py-1.5 pl-11 caret-black/50 outline-none placeholder:text-gray-400 placeholder:italic dark:border-b-zinc-600 dark:caret-white/80 dark:placeholder:text-zinc-600"
+        className="peer _border-b bg-primary-100/70 w-full rounded-md border-b-gray-300 py-2 pl-11 caret-black/50 outline-none placeholder:text-black/40 placeholder:italic focus:border-b-black/70 focus:text-black focus:placeholder:text-black/70 dark:border-b-zinc-600 dark:bg-white/10 dark:caret-white/85 dark:placeholder:text-white/20 dark:focus:border-b-white/85 dark:focus:text-white/85 dark:focus:placeholder:text-white"
         onChange={(e) => {
           handleSearch(e.target.value);
           setQuery(e.target.value);
@@ -36,7 +35,7 @@ function SearchInput({ placeholder, type }) {
 
       <MagnifyingGlassIcon
         aria-hidden
-        className="pointer-events-none absolute top-1/2 size-5.5 translate-x-1/2 -translate-y-1/2 text-gray-400 dark:text-zinc-600"
+        className="pointer-events-none absolute top-1/2 size-5.5 translate-x-1/2 -translate-y-1/2 text-black/40 peer-focus:text-black/70 dark:text-white/20 dark:peer-focus:text-white"
       />
 
       {query && (
@@ -45,7 +44,7 @@ function SearchInput({ placeholder, type }) {
             type="button"
             tabIndex={0}
             aria-label="Cancella query"
-            className="focus absolute top-1/2 right-3 z-100 -translate-y-1/2 transform cursor-pointer rounded-xl peer-focus:opacity-100"
+            className="focus absolute top-1/2 right-3 z-100 -translate-y-1/2 transform cursor-pointer rounded-xl"
             onClick={() => {
               setQuery("");
               const params = new URLSearchParams(searchParams);
@@ -56,7 +55,7 @@ function SearchInput({ placeholder, type }) {
           >
             <XMarkIcon
               aria-hidden="true"
-              className="size-5.5 text-gray-400 transition-colors duration-200 hover:text-zinc-700 active:text-zinc-700 dark:hover:text-gray-300 dark:active:text-gray-300"
+              className="size-5.5 text-black transition-colors duration-200 dark:text-white dark:hover:text-gray-300 dark:active:text-gray-300"
             />
           </button>
         </>

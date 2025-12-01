@@ -32,7 +32,7 @@ function PaymentWrapper({ amount, canceled, disabled }) {
 
       <form action="/api/checkout_sessions" method="POST">
         <button
-          className="focus-visible:dark:ring-primary-950 focus-visible:ring-primary-dark-500/95 dark:border-primary-dark-300 inset-shadow-primary-50/60 active:bg-primary-800 dark:active:border-primary-dark-100 dark:active:bg-primary-950/40 dark:hover:border-primary-dark-100 bg-primary-dark-200 hover:bg-primary-dark-100 dark:hover:bg-primary-950/40 dark:bg-primary-950/25 disabled:dark:text-primary-50 outline-primary-dark-300 disabled:bg-primary-dark-200/75 dark:disabled:bg-primary-950/20 dark:disabled:border-primary-dark-600 focus w-full cursor-pointer justify-center rounded py-3 text-sm font-bold text-white uppercase inset-shadow-sm ring-offset-transparent outline-offset-2 transition-colors duration-300 hover:shadow focus:ring-offset-2 focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:outline-none active:shadow disabled:cursor-not-allowed disabled:shadow-none disabled:inset-shadow-none disabled:text-shadow-none sm:text-base dark:border dark:inset-shadow-none dark:text-shadow-md/10"
+          className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full cursor-pointer gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed sm:self-auto"
           type="submit"
           role="link"
           aria-label="Paga su Stripe"

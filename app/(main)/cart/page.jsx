@@ -11,9 +11,9 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="page-padding mx-auto mt-10 flex min-h-fit max-w-[95rem] flex-col gap-8 overflow-clip">
+    <div className="page-padding _min-h-fit mx-auto mt-5 flex min-h-screen max-w-[95rem] flex-col gap-8 overflow-clip sm:mt-10">
       <h1
-        className={`${notoSerif.className} xs:text-4xl my-3 text-3xl font-semibold tracking-wide sm:font-medium lg:text-5xl`}
+        className={`${notoSerif.className} xs:text-3xl mb-3 text-2xl font-semibold tracking-wide sm:font-medium lg:text-4xl`}
       >
         Il mio carrello
       </h1>

@@ -1,30 +1,56 @@
+import { CircleAlert } from "lucide-react";
+
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
+
 function FormRow({
   id,
   label,
-  type,
-  disabled = false,
-  ariaLabel = "",
+  placeholder,
+  disabled,
+  errorField,
+  shouldReduce,
   ...props
 }) {
   return (
     <>
-      <label htmlFor={id} className={`w-fit`}>
+      <m.label
+        layout="position"
+        htmlFor={id}
+        className="w-fit text-sm sm:text-[0.95rem]"
+      >
         {label}
-      </label>
-      {ariaLabel && (
-        <span className="sr-only" aria-live="polite" aria-atomic="true">
-          {ariaLabel}
-        </span>
-      )}
-      <input
+      </m.label>
+      <m.input
+        layout
         id={id}
-        name={id}
-        type={type}
+        placeholder={placeholder}
         disabled={disabled}
-        autoComplete="off"
-        className="accountFormFocus w-full rounded-xl border border-gray-300 px-2 py-2 text-base transition-colors duration-200 placeholder:text-gray-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-neutral-400 dark:border-zinc-700 dark:bg-zinc-600/30 dark:disabled:border-zinc-700 dark:disabled:bg-zinc-700/80 dark:disabled:text-zinc-500"
+        className={`${errorField ? "border-2 border-red-500 text-red-500 placeholder:text-red-500 focus:border-red-500 focus-visible:outline-none" : "focus-style border-transparent placeholder:text-black/40 dark:placeholder:text-white/20"} bg-primary-100/70 w-full rounded-md border px-3 py-2 text-base transition-colors duration-200 disabled:animate-pulse disabled:cursor-not-allowed disabled:text-neutral-400 dark:bg-white/10 dark:disabled:text-zinc-500`}
+        aria-required={true}
+        aria-invalid={errorField ? "true" : "false"}
+        aria-describedby={`error-${id}`}
         {...props}
       />
+      <AnimatePresence mode="popLayout" initial={false}>
+        {errorField && (
+          <m.div
+            layout
+            key={errorField.message}
+            initial={{ y: shouldReduce ? 0 : "-100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ scale: 0.5, opacity: 0 }}
+            id={`error-${id}`}
+            role="alert"
+            className="relative z-10 flex max-w-md items-start gap-2 overflow-hidden rounded-md bg-red-500/15 p-2 px-3 text-xs text-red-500 sm:text-sm"
+          >
+            <CircleAlert aria-hidden className="size-5 shrink-0" />
+            <m.span layout="position" className="self-center font-medium">
+              {errorField.message}
+            </m.span>
+          </m.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -24,7 +24,7 @@ function AddToCartButton({ userId, productId, productQuantity }) {
 
   return (
     <Button
-      className={`rounded px-3 py-4 font-bold uppercase ${pending ? "animate-pulse" : ""} md:py-3`}
+      className={`rounded-full px-3 py-4 font-bold uppercase ${pending ? "animate-pulse" : ""} md:py-3`}
       onClick={async () => {
         if (!userId) {
           return;

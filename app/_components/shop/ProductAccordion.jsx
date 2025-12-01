@@ -19,7 +19,7 @@ function ProductAccordion({ productAttribute, label }) {
           aria-expanded={isOpen}
           aria-pressed={isOpen}
           aria-controls={contentId}
-          className="focus my-1 flex cursor-pointer items-center rounded py-3"
+          className="focus-style my-1 flex cursor-pointer items-center rounded py-3"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span

@@ -46,7 +46,7 @@ function Pagination({ count, limit }) {
     <div
       role="navigation"
       aria-label="Paginazione"
-      className="flex w-full items-center justify-between py-3 text-base"
+      className="flex w-full items-center justify-between px-1 py-3 text-base"
     >
       <span className="sr-only" aria-live="polite">
         {srOnlyText}

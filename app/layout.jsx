@@ -44,6 +44,49 @@ function RootLayout({ children }) {
                   ...itIT.signIn,
                   titleCombined: "Benvenuto su {{applicationName}}!",
                 },
+                password: {
+                  title: "Inserisci password",
+                  subtitle: "Inserisci la password associata al tuo account",
+                  actionLink: "Usa un altro metodo",
+                },
+                alternativeMethods: {
+                  title: "Usa un altro metodo",
+                  subtitle: "Problemi ad accedere? Prova uno di questi metodi.",
+                  actionText: "Non fa al tuo caso?",
+                  actionLink: "Chiedi aiuto",
+                  blockButton__emailCode: "Codice via email a {{identifier}}",
+                },
+                emailCode: {
+                  title: "Controlla la tua email",
+                  subtitle: "per continuare su Vesugusto",
+                  resendButton:
+                    "Non hai ricevuto nessun codice? Invia di nuovo",
+                },
+              },
+              unstable__errors: {
+                ...itIT.unstable__errors,
+                form_password_length_too_short:
+                  "Password troppo corta. Deve essere lunga almeno 8 carratteri.",
+                form_password_incorrect:
+                  "Password non corretta. Riprova o usa un altro metodo.",
+                form_password_validation_failed: "bla",
+                passwordComplexity: {
+                  sentencePrefix: "La tua password deve contenere",
+                  minimumLength: "{{length}} o più caratteri.",
+                },
+                zxcvbn: {
+                  goodPassword:
+                    "La tua password soddisfa tutti i requisiti necessari.",
+                  notEnough: "La tua password non è abbastanza sicura.",
+                },
+              },
+              userProfile: {
+                ...itIT.userProfile,
+                emailAddressPage: {
+                  title: "Aggiungi indirizzo email",
+                  formHint:
+                    "Dovrai verificare questo indirizzo email prima che venga aggiunto al tuo account.",
+                },
               },
             }}
             appearance={{
@@ -51,13 +94,65 @@ function RootLayout({ children }) {
               layout: { logoLinkUrl: "/" },
               elements: {
                 headerTitle:
-                  "text-lg! sm:text-xl! text-primary-dark-700! _dark:text-white!",
-                headerSubtitle:
-                  "text-xs! sm:text-sm! text-primary-dark-700! _dark:text-white!",
-                lastAuthenticationStrategyBadge: "text-primary-dark-700! ",
-                footerActionText: "text-primary-dark-700!",
-                footerActionLink: "text-primary-dark-700!",
-                socialButtonsBlockButton: "text-primary-dark-700! _bg-white!",
+                  "text-xl! sm:text-xl! text-primary-dark-700! dark:text-white!",
+                cardBox:
+                  "dark:border!  dark:border-zinc-800/80! dark:shadow-4xl! dark:shadow-zinc-800!",
+                socialButtonsBlockButton:
+                  "text-primary-dark-700! focus-visible:ring-primary-dark-200! dark:focus-visible:ring-primary-dark-100! focus-visible:ring-2! dark:bg-white! dark:hover:bg-white/90!",
+                formFieldInput:
+                  "focus-visible:ring-primary-dark-200! dark:text-white! dark:focus-visible:ring-primary-dark-100! focus-visible:ring-2! focus-visible:outline-none! placeholder:text-gray-400! dark:bg-zinc-900! dark:border! dark:border-zinc-800! dark:hover:border-zinc-700!",
+                formButtonPrimary:
+                  "bg-primary-dark-200! text-white! shadow-md! focus-visible:ring-primary-dark-200! dark:focus-visible:ring-primary-dark-100! focus-visible:ring-offset-2! focus-visible:ring-2! dark:focus-visible:ring-zinc-950! focus-visible:outline-none!",
+                dividerLine: "dark:bg-zinc-800!",
+                lastAuthenticationStrategyBadge:
+                  "dark:border! dark:border-zinc-800! dark:bg-zinc-900!",
+                formFieldAction__password: "dark:text-zinc-500!",
+                footerActionLink: "dark:text-zinc-500!",
+                identityPreviewEditButton: "dark:text-zinc-500!",
+                formResendCodeLink: "dark:text-zinc-500!",
+                backLink: "dark:text-zinc-500!",
+                formFieldInputShowPasswordIcon:
+                  "dark:text-zinc-600! dark:hover:text-zinc-500!",
+                otpCodeFieldInput: "dark:border! dark:border-zinc-800!",
+                alternativeMethodsBlockButton:
+                  "dark:text-white/70! dark:border! dark:border-zinc-800! dark:hover:bg-zinc-900!",
+                userButtonPopoverMain: "dark:divide-y! dark:divide-zinc-800!",
+                userButtonPopoverCard:
+                  "dark:border! dark:border-zinc-800! dark:divide-y! dark:divide-zinc-800!",
+                userButtonPopoverActions:
+                  "dark:divide-y! dark:divide-zinc-800!",
+                userButtonPopoverActionButton:
+                  "dark:text-white/90! dark:hover:bg-zinc-900/80!",
+                userButtonPopoverCustomItemButton:
+                  "dark:text-white/90! dark:hover:bg-zinc-900/80!",
+                navbarButtonIcon: "dark:text-white/70!",
+                navbarButtonText: "dark:text-white/70!",
+                profileSectionPrimaryButton:
+                  "dark:text-white/50! dark:hover:text-white/80! dark:hover:bg-zinc-900!",
+                menuButtonEllipsis: "dark:text-white! dark:hover:bg-zinc-900!",
+                menuList:
+                  "dark:border! dark:border-zinc-800! dark:bg-zinc-900!",
+                menuButton__connectedAccounts:
+                  "dark:text-white/80! dark:hover:bg-zinc-900!",
+                menuItem__connectedAccounts:
+                  "dark:text-white! dark:hover:bg-zinc-800!",
+                providerIcon__github: "bg-white! fill-white! rounded-full!",
+                profilePage: "dark:divide-y! dark:divide-zinc-800!",
+                modalCloseButton:
+                  "dark:hover:bg-zinc-800/50! md:dark:hover:bg-zinc-900/80! dark:hover:text-white/80!",
+                badge: "dark:text-white/80! dark:border! dark:border-zinc-800!",
+                scrollBox:
+                  "dark:border-l-none! sm:dark:border-l! sm:dark:border-zinc-800!",
+                navbarMobileMenuButton:
+                  "dark:hover:bg-zinc-800/50! dark:hover:text-white/80!",
+                navbar:
+                  "dark:border-r! dark:border-zinc-800! md:dark:border-none! dark:bg-zinc-900!",
+                actionCard:
+                  "dark:border! dark:border-zinc-800! dark:bg-zinc-900/30!",
+                avatarImageActionsUpload:
+                  "dark:border! dark:border-zinc-800! dark:text-white/50! dark:hover:bg-zinc-900! dark:hover:text-white!",
+                formButtonReset: "dark:text-white/50! dark:hover:bg-zinc-900!",
+                navbarButton: "dark:hover:bg-zinc-950!",
               },
             }}
           >

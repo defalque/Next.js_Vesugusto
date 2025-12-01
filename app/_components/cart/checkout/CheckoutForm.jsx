@@ -1,185 +1,192 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import FormRow from "../../account/FormRow";
-import FormError from "../../account/FormError";
-import FormButtons from "../../account/FormButtons";
-import { updateUserProfile } from "@/app/_lib/actions";
-import { showCustomPromiseToast } from "../../ui/CustomToast";
-import { formatNumberForAria } from "@/app/_lib/utility";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { updateProfileSchema } from "@/app/_lib/schemas/updateProfileSchema";
 
-function CheckoutForm({ via, numeroCivico, cap, comune, phoneNumber }) {
+import { useFormButtonsContext } from "@/app/_contexts/FormButtonsContext";
+
+import { updateUserProfile } from "@/app/_lib/actions";
+
+import { showCustomErrorToast } from "../../ui/CustomToast";
+
+import FormRow from "../../account/FormRow";
+import FormButtons from "../../account/FormButtons";
+
+import * as m from "motion/react-m";
+import { LazyMotion, MotionConfig, AnimatePresence } from "motion/react";
+import useMeasure from "react-use-measure";
+const loadFeatures = () =>
+  import("../../../_lib/features").then((res) => res.default);
+
+function CheckoutForm({ address, houseNumber, zipCode, city, phoneNumber }) {
+  const [ref, bounds] = useMeasure();
+  const { buttonState, setButtonState } = useFormButtonsContext();
+
   const {
     register,
     handleSubmit,
     reset,
-    watch,
-    formState: { errors, isDirty, isSubmitting },
+    setError,
+    formState: { errors, isDirty, isValid, isSubmitting },
   } = useForm({
-    defaultValues: {
-      via: via || "",
-      numeroCivico: numeroCivico || "",
-      cap: cap || "",
-      comune: comune || "",
+    mode: "onChange",
+    values: {
+      address: address || "",
+      houseNumber: houseNumber || "",
+      zipCode: zipCode || "",
+      city: city || "",
       phoneNumber: phoneNumber || "",
     },
+    resolver: zodResolver(updateProfileSchema),
   });
 
   const onSubmit = async (data) => {
     try {
-      const toast = (await import("react-hot-toast")).default;
-
-      await showCustomPromiseToast(toast, updateUserProfile(data), {
-        loading: "Aggiornamento delle informazioni in corso...",
-        success: "Informazioni aggiornate con successo!",
-        error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
-      });
-
-      reset(data);
+      setButtonState("loading");
+      const result = await updateUserProfile(data);
+      if (result.errors) {
+        Object.entries(result.errors).forEach(([field, message]) => {
+          setError(field, {
+            type: "server",
+            message,
+          });
+        });
+        setButtonState("idle");
+        return;
+      }
+      setButtonState("success");
+      setTimeout(() => setButtonState("idle"), 1750);
     } catch (err) {
-      console.error("Operation failed:", err);
+      const toast = (await import("react-hot-toast")).default;
+      showCustomErrorToast(toast, err);
+      setButtonState("idle");
     }
+
+    // setButtonState("loading");
+    // setTimeout(() => {
+    //   setButtonState("success");
+    // }, 1750);
+    // setTimeout(() => {
+    //   setButtonState("idle");
+    // }, 3500);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="xs:grid-cols-4 xs:gap-y-6 grid grid-cols-1 gap-x-5 gap-y-4 text-sm font-normal md:text-base"
-    >
-      <div className="col-span-3 space-y-1">
-        <FormRow
-          id="via"
-          label="Indirizzo"
-          type="text"
-          {...register("via", {
-            required: "Obbligatorio!",
-            minLength: {
-              value: 5,
-              message: "La via deve contenere almeno 5 caratteri!",
-            },
-            pattern: {
-              value: /^[a-zA-Z0-9\s.'àèéìòù,-]{5,}$/i,
-              message: "La via contiene caratteri non validi!",
-            },
-          })}
-          aria-required={true}
-          aria-invalid={errors.via ? "true" : "false"}
-          aria-describedby="error-via"
-        />
-        <FormError message={errors.via?.message} id="error-via" />
-      </div>
+    <LazyMotion features={loadFeatures}>
+      <MotionConfig transition={{ type: "spring", bounce: 0, duration: 0.3 }}>
+        <m.form
+          layout
+          initial={{ height: bounds.height }}
+          animate={{ height: bounds.height }}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div
+            ref={ref}
+            className="xs:grid-cols-4 grid grid-cols-1 grid-rows-[auto_auto] gap-4 text-sm font-normal md:text-base"
+          >
+            <m.div layout className="col-span-3 flex flex-col gap-y-2">
+              <FormRow
+                {...register("address")}
+                type="text"
+                id="address"
+                label="Indirizzo"
+                placeholder="Inserisci indirizzo..."
+                disabled={isSubmitting}
+                errorField={errors.address}
+              />
+            </m.div>
 
-      <div className="xs:col-span-1 col-span-3 space-y-1">
-        <FormRow
-          id="numeroCivico"
-          label="Civico"
-          type="text"
-          {...register("numeroCivico", {
-            required: "Obbligatorio!",
-            maxLength: {
-              value: 10,
-              message: "Numero civico troppo lungo!",
-            },
-            pattern: {
-              value: /^[a-zA-Z0-9/-]+$/,
-              message: "Numero civico non valido!",
-            },
-          })}
-          aria-required={true}
-          aria-invalid={errors.numeroCivico ? "true" : "false"}
-          aria-describedby="error-numeroCivico"
-        />
-        <FormError
-          message={errors.numeroCivico?.message}
-          id="error-numeroCivico"
-        />
-      </div>
+            <m.div
+              layout
+              className="xs:col-span-1 col-span-3 flex flex-col gap-y-2"
+            >
+              <FormRow
+                {...register("houseNumber")}
+                type="text"
+                id="houseNumber"
+                label="Civico"
+                placeholder="Inserisci civico..."
+                disabled={isSubmitting}
+                errorField={errors.houseNumber}
+              />
+            </m.div>
 
-      <div className="col-span-3 space-y-1">
-        <FormRow
-          id="comune"
-          label="Comune"
-          type="text"
-          {...register("comune", {
-            required: "Obbligatorio!",
-            maxLength: {
-              value: 100,
-              message: "Comune troppo lungo!",
-            },
-            pattern: {
-              value: /^[a-zàèéìòù\s'-]{2,}$/i,
-              message: "Comune non valido!",
-            },
-          })}
-          aria-required={true}
-          aria-invalid={errors.comune ? "true" : "false"}
-          aria-describedby="error-comune"
-        />
-        <FormError message={errors.comune?.message} id="error-comune" />
-      </div>
+            <m.div layout className="col-span-3 flex flex-col gap-y-2">
+              <FormRow
+                {...register("city")}
+                type="text"
+                id="city"
+                label="Città"
+                placeholder="Inserisci città..."
+                disabled={isSubmitting}
+                errorField={errors.city}
+              />
+            </m.div>
 
-      <div className="xs:col-span-1 col-span-3 space-y-1">
-        <FormRow
-          id="cap"
-          label="CAP"
-          type="text"
-          {...register("cap", {
-            required: "Obbligatorio!",
-            pattern: {
-              value: /^\d{5}$/,
-              message: "CAP non valido!",
-            },
-          })}
-          aria-required={true}
-          aria-invalid={errors.cap ? "true" : "false"}
-          aria-describedby="error-cap"
-        />
-        <FormError message={errors.cap?.message} id="error-cap" />
-      </div>
+            <m.div
+              layout
+              className="xs:col-span-1 col-span-3 flex flex-col gap-y-2"
+            >
+              <FormRow
+                {...register("zipCode")}
+                type="text"
+                id="zipCode"
+                label="CAP"
+                placeholder="Inserisci CAP..."
+                disabled={isSubmitting}
+                errorField={errors.zipCode}
+              />
+            </m.div>
 
-      <div className="col-span-full space-y-1">
-        <FormRow
-          id="phoneNumber"
-          label="Numero"
-          type="text"
-          inputMode="tel"
-          {...register("phoneNumber", {
-            minLength: {
-              value: 8,
-              message: "Numero di telefono deve contenere almeno 8 cifre!",
-            },
-            maxLength: {
-              value: 20,
-              message: "Numero di telefono troppo lungo!",
-            },
-            pattern: {
-              value:
-                /^\+?\d{1,4}?[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/,
-              message: "Numero di telefono non valido",
-            },
-          })}
-          aria-invalid={errors.phoneNumber ? "true" : "false"}
-          aria-describedby="error-phoneNumber"
-          ariaLabel={`Numero di telefono: ${formatNumberForAria(watch("phoneNumber"))}`}
-        />
-        <FormError
-          message={errors.phoneNumber?.message}
-          id="error-phoneNumber"
-        />
-      </div>
+            <m.div layout className="col-span-full flex flex-col gap-y-2">
+              <FormRow
+                {...register("phoneNumber")}
+                type="tel"
+                id="phoneNumber"
+                label="Cellulare"
+                placeholder="Inserisci cellulare..."
+                disabled={isSubmitting}
+                errorField={errors.phoneNumber}
+              />
+            </m.div>
 
-      {isDirty && (
-        <div className="col-span-full">
-          <FormButtons
-            isSubmitting={isSubmitting}
-            onClick={() => reset()}
-            isDirty={isDirty}
-            defaultText="Modifica informazioni"
-            pendingText="Modifica in corso..."
-          />
-        </div>
-      )}
-    </form>
+            {/* <AnimatePresence initial={false} mode="popLayout"> */}
+            {(isDirty ||
+              buttonState === "loading" ||
+              buttonState === "success") && (
+              <m.div
+                // key={buttonState}
+                // initial={{ opacity: 0, y: -30 }}
+                // animate={{ opacity: 1, y: 0 }}
+                // exit={{ opacity: 0, y: -30 }}
+                className="col-span-full"
+              >
+                <FormButtons
+                  isSubmitting={isSubmitting}
+                  disabled={
+                    isSubmitting ||
+                    !isDirty ||
+                    !isValid ||
+                    buttonState === "loading" ||
+                    buttonState === "success"
+                  }
+                  defaultText="Modifica informazioni"
+                  pendingText="Modifica in corso..."
+                  successText="Modifiche salvate"
+                  widths={{
+                    idle: 210,
+                    loading: 205,
+                    success: 210,
+                  }}
+                />
+              </m.div>
+            )}
+            {/* </AnimatePresence> */}
+          </div>
+        </m.form>
+      </MotionConfig>
+    </LazyMotion>
   );
 }
 

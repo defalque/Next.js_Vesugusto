@@ -39,13 +39,13 @@ function OrderCardItem({ item }) {
       <div className="text-primary-dark-200 dark:text-primary-dark-100 col-start-2 row-start-4 flex flex-wrap items-center gap-3 self-end text-sm font-semibold md:text-sm lg:col-start-3 lg:row-start-3">
         <Link
           href={`/shop/${id}`}
-          className="hover:text-primary-950 active:text-primary-950 dark:hover:text-primary-900 dark:active:text-primary-900 focus cursor-pointer rounded whitespace-nowrap transition-all duration-200"
+          className="hover:text-primary-950 active:text-primary-950 dark:hover:text-primary-900 dark:active:text-primary-900 focus-style cursor-pointer rounded whitespace-nowrap transition-all duration-200"
         >
           Vedi prodotto
         </Link>
         <button
           type="button"
-          className="hover:text-primary-950 active:text-primary-950 dark:hover:text-primary-900 dark:active:text-primary-900 focus cursor-pointer rounded whitespace-nowrap transition-all duration-200"
+          className="hover:text-primary-950 active:text-primary-950 dark:hover:text-primary-900 dark:active:text-primary-900 focus-style cursor-pointer rounded whitespace-nowrap transition-all duration-200"
         >
           Compra di nuovo
         </button>

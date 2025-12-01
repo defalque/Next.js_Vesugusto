@@ -2,7 +2,7 @@
 
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { supabase } from "./supabase";
-import { revalidateTag, updateTag } from "next/cache";
+import { refresh, revalidatePath, revalidateTag, updateTag } from "next/cache";
 import { updateProfileSchema } from "./schemas/updateProfileSchema";
 import { resend } from "./resend";
 import WelcomeEmail from "../_emails/WelcomeEmail";
@@ -67,6 +67,21 @@ export async function deleteSupabaseUser(id) {
   }
 }
 
+export async function updateSupabaseUser(user) {
+  const { email, firstName, lastName, image, userId } = user;
+  const { error } = await supabase
+    .from("users")
+    .update({ firstName, lastName, email, image })
+    .eq("clerkUserId", userId);
+
+  if (error) {
+    console.error("Impossibile modificare utente: ", error);
+    throw new Error("Impossibile modificare utente al momento.");
+  }
+
+  revalidateTag(`${userId}-info`, "max");
+}
+
 //----------------------------------------------------------- ✅
 export async function updateUserProfile(data) {
   const { isAuthenticated, userId } = await auth();
@@ -75,21 +90,32 @@ export async function updateUserProfile(data) {
   }
 
   const validationData = {
-    via: data.via.slice(0, 1000),
-    numeroCivico: data.numeroCivico.slice(0, 1000),
-    comune: data.comune.slice(0, 1000),
-    cap: data.cap.slice(0, 1000),
-    ...(data.phoneNumber && { phoneNumber: data.phoneNumber.slice(0, 1000) }),
+    city: data.city,
+    zipCode: data.zipCode,
+    address: data.address,
+    houseNumber: data.houseNumber,
+    phoneNumber: data.phoneNumber,
   };
+  // const validationData = {
+  //   ...(data.city && { city: data.city }),
+  //   ...(data.zipCode && { zipCode: data.zipCode }),
+  //   ...(data.address && { address: data.address }),
+  //   ...(data.houseNumber && { houseNumber: data.houseNumber }),
+  //   ...(data.phoneNumber && { phoneNumber: data.phoneNumber }),
+  // };
+  // console.log(validationData);
 
   const validatedFields = updateProfileSchema.safeParse(validationData);
-
+  let zodErrors = {};
   if (!validatedFields.success) {
-    console.error("Validation failed:", validatedFields.error.issues);
-    throw new Error(
-      "Dati non validi: " +
-        validatedFields.error.issues.map((i) => i.message).join(", "),
-    );
+    validatedFields.error.issues
+      .slice()
+      .reverse()
+      .forEach(
+        (issue) =>
+          (zodErrors = { ...zodErrors, [issue.path[0]]: issue.message }),
+      );
+    return { errors: zodErrors };
   }
 
   const { error } = await supabase
@@ -98,11 +124,14 @@ export async function updateUserProfile(data) {
     .eq("clerkUserId", userId);
 
   if (error) {
-    console.error("Non è stato possibile modificare info utente: ", error);
-    throw new Error("Non è stato possibile modificare info utente.");
+    console.error("Non è stato possibile modificare profilo utente: ", error);
+    if (error.code === "23505")
+      throw new Error("Numero di cellulare già presente.");
+    throw new Error("Non è stato possibile modificare le tue informazioni.");
   }
 
   updateTag(`${userId}-info`);
+  return { errors: null };
 }
 
 //----------------------------------------------------------- ✅

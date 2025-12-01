@@ -30,7 +30,7 @@ async function ProductsFetchResolver({ filters }) {
 
   return (
     <>
-      <section className="bgColor relative z-10 col-span-full col-start-1 row-start-1 mt-5 mb-2 sm:col-span-3 sm:mb-10 lg:col-span-2">
+      <section className="bgColor relative z-10 col-span-full col-start-1 row-start-1 mt-0 mb-2 sm:col-span-3 sm:mt-5 sm:mb-10 lg:col-span-2">
         <LazyDisplay
           count={count}
           categories={filters.category}
