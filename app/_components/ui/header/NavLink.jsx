@@ -23,8 +23,8 @@ function NavLink({ type, shouldReduce = false, ...props }) {
           {...restProps}
           className={`focus-style ${
             isActive
-              ? "bg-primary-100/70 text-black dark:bg-white/10 dark:text-white"
-              : "hover:bg-primary-100/70 active:bg-primary-100/70 dark:hover:bg-white/10 dark:active:bg-white/10"
+              ? "_bg-black/5 bg-black/5 text-black dark:bg-white/10 dark:text-white"
+              : "hover:bg-black/5 active:bg-black/5 dark:hover:bg-white/10 dark:active:bg-white/10"
           } rounded-xl px-2 py-1 transition-colors duration-300 active:text-white dark:cursor-pointer dark:hover:text-white`}
           {...props}
         >
@@ -39,8 +39,8 @@ function NavLink({ type, shouldReduce = false, ...props }) {
           {...restProps}
           className={`focus-style relative ${
             isActive
-              ? "bg-primary-100/70 text-black dark:bg-white/10 dark:text-white"
-              : "hover:bg-primary-100/70 active:bg-primary-100/70 dark:hover:bg-white/10 dark:active:bg-white/10"
+              ? "_bg-black/5 bg-black/5 text-black dark:bg-white/10 dark:text-white"
+              : "hover:bg-black/5 active:bg-black/5 dark:hover:bg-white/10 dark:active:bg-white/10"
           } rounded-xl px-2 py-1 transition-colors duration-300 active:text-white dark:cursor-pointer dark:hover:text-white`}
           {...props}
         >
@@ -66,7 +66,7 @@ function NavLink({ type, shouldReduce = false, ...props }) {
               aria-current={pathname === href ? "page" : undefined}
               {...props}
               {...restProps}
-              className={`accountLinksFocus group relative z-100 flex min-w-full items-center gap-2 rounded-xl font-medium ${props.active === href ? "_text-zinc-900 text-zinc-600 dark:text-white" : "text-zinc-600 dark:text-zinc-300"}`}
+              className={`accountLinksFocus group relative z-100 flex min-w-full items-center gap-2 rounded-xl font-medium ${props.active === href ? "text-zinc-600 dark:text-white" : "text-zinc-600 dark:text-zinc-200"}`}
             >
               <m.div
                 className="flex items-center gap-2 rounded-xl px-2 py-1"
@@ -84,7 +84,7 @@ function NavLink({ type, shouldReduce = false, ...props }) {
         <Link
           href={href}
           {...restProps}
-          className={`focus-style hover:bg-primary-100/70 active:bg-primary-100/70 rounded-xl px-2 py-1 transition-colors duration-300 dark:cursor-pointer dark:hover:bg-white/10 dark:hover:text-white dark:active:bg-white/10`}
+          className={`focus-style rounded-xl px-2 py-1 transition-colors duration-300 hover:bg-black/5 active:bg-black/5 dark:cursor-pointer dark:hover:bg-white/10 dark:hover:text-white dark:active:bg-white/10`}
           {...props}
         >
           {children}

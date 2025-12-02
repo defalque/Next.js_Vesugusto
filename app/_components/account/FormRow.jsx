@@ -26,7 +26,7 @@ function FormRow({
         id={id}
         placeholder={placeholder}
         disabled={disabled}
-        className={`${errorField ? "border-2 border-red-500 text-red-500 placeholder:text-red-500 focus:border-red-500 focus-visible:outline-none" : "focus-style border-transparent placeholder:text-black/40 dark:placeholder:text-white/20"} bg-primary-100/70 w-full rounded-md border px-3 py-2 text-base transition-colors duration-200 disabled:animate-pulse disabled:cursor-not-allowed disabled:text-neutral-400 dark:bg-white/10 dark:disabled:text-zinc-500`}
+        className={`${errorField ? "border-2 border-red-500 text-red-500 placeholder:text-red-500 focus:border-red-500 focus-visible:outline-none" : "focus-style border-black/10 placeholder:text-black/30 dark:placeholder:text-white/20"} w-full rounded-md border px-3 py-2 text-base transition-colors duration-200 disabled:animate-pulse disabled:cursor-not-allowed disabled:text-neutral-400 dark:bg-white/10 dark:disabled:text-zinc-500`}
         aria-required={true}
         aria-invalid={errorField ? "true" : "false"}
         aria-describedby={`error-${id}`}

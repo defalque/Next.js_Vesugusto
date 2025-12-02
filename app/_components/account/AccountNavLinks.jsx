@@ -49,11 +49,11 @@ function AccountNavLinks({ navLinks }) {
                   <m.div
                     transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                     layoutId="link"
-                    className="bg-primary-800/10 absolute inset-0 -z-10 rounded-xl dark:bg-white/10"
+                    className="absolute inset-0 -z-10 rounded-xl bg-black/5 dark:bg-white/10"
                   ></m.div>
                 ) : (
                   active === link.href && (
-                    <div className="absolute inset-0 -z-10 rounded-xl bg-black/10 dark:bg-white/15"></div>
+                    <div className="absolute inset-0 -z-10 rounded-xl bg-black/5 dark:bg-white/10"></div>
                   )
                 )}
               </NavLink>

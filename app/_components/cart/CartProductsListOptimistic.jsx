@@ -182,7 +182,7 @@ function CartProductsListOptimistic({ products, cartId }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             aria-labelledby="cart-summary-heading"
-            className="bg-primary-100/70 sticky top-25 flex flex-col gap-5 self-baseline rounded-md px-5 py-5 text-sm sm:text-base dark:bg-white/10"
+            className="sticky top-25 flex flex-col gap-5 self-baseline rounded-md bg-gray-50 px-5 py-5 text-sm sm:text-base dark:bg-white/10"
           >
             <h2
               id="cart-summary-heading"

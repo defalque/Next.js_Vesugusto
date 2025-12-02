@@ -9,7 +9,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
 
   return (
     <>
-      <div className="divide-primary-200/80 divide-y dark:divide-zinc-800">
+      <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
         <ul className="flex flex-col gap-4 pb-4">
           {products.map((product) => (
             <li key={product.id} className="flex items-start justify-between">

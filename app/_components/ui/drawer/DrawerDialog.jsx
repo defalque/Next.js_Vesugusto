@@ -3,7 +3,7 @@
 import { notoSerif } from "@/app/_lib/font";
 import { Button, Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-import { Menu, X } from "lucide-react";
+import { Menu, TextAlignJustify, X } from "lucide-react";
 
 function DrawerDialog({
   className,
@@ -36,7 +36,10 @@ function DrawerDialog({
             <AdjustmentsHorizontalIcon aria-hidden className="size-5" />
           </>
         ) : (
-          <Menu aria-hidden className="inline size-6 transition duration-300" />
+          <TextAlignJustify
+            aria-hidden
+            className="inline size-6 transition duration-300"
+          />
         )}
       </Button>
 

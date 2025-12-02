@@ -18,7 +18,7 @@ function CartItemQuantity({
         id={`product${productId}`}
         value={cartItemQuantity}
         onChange={(e) => handleUpdateCartItemQuantity(e.target.value)}
-        className="focus-style xs:row-start-2 xs:col-start-3 xs:mb-0 _border bg-primary-100/70 col-start-2 row-start-4 mb-3 w-20 cursor-pointer rounded-md border-gray-300 px-1 py-1 transition-shadow duration-200 active:shadow-sm disabled:animate-pulse disabled:cursor-not-allowed lg:px-2 lg:py-2 dark:border-zinc-800 dark:bg-white/10"
+        className="focus-style xs:row-start-2 xs:col-start-3 xs:mb-0 _border col-start-2 row-start-4 mb-3 w-20 cursor-pointer rounded-md border-gray-300 bg-gray-50 px-1 py-1 transition-shadow duration-200 active:shadow-sm disabled:animate-pulse disabled:cursor-not-allowed lg:px-2 lg:py-2 dark:border-zinc-800 dark:bg-white/10"
         disabled={disabled}
         required
       >

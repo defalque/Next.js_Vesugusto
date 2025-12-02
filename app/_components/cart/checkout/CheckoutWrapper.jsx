@@ -33,7 +33,7 @@ async function CheckoutWrapper({ canceled }) {
     <div className="grid grid-cols-1 gap-8 pb-30 lg:grid-cols-2">
       <section
         aria-label="Riepilogo ordine"
-        className="text-primary-dark-950 xs:px-5 bg-primary-100/70 top-25 flex h-max flex-col gap-6 rounded-md px-3 py-5 lg:sticky lg:order-2 dark:bg-white/10"
+        className="text-primary-dark-950 xs:px-5 top-25 flex h-max flex-col gap-6 rounded-md bg-gray-50 px-3 py-5 lg:sticky lg:order-2 dark:bg-white/10"
       >
         <div className="flex flex-col gap-1">
           <h2 className="text-sm font-semibold text-gray-900 uppercase dark:text-gray-300">
