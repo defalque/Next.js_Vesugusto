@@ -51,7 +51,7 @@ function ProductImages({ product }) {
           )}
 
           {hasMultipleImages && (
-            <div className="absolute top-1/2 right-0 left-0 z-10 flex -translate-y-1/2 justify-between px-2">
+            <div className="absolute right-0 bottom-0 left-0 z-10 flex -translate-y-1/2 justify-end gap-2 px-2">
               <IconButton
                 title="Immagine precedente"
                 length={product.image.length}

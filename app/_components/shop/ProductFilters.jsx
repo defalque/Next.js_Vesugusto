@@ -27,7 +27,7 @@ function ProductFilters() {
   const hasFilters = Array.from(searchParams.entries()).length > 0;
 
   return (
-    <div className="flex max-h-fit w-full flex-col overflow-y-auto pr-2 pb-3 pl-1 lg:mr-10 lg:w-60 lg:overflow-hidden lg:pr-1">
+    <div className="flex max-h-fit w-full flex-col overflow-y-auto pr-2 pb-3 pl-1 lg:mr-10 lg:w-60 lg:overflow-hidden lg:pr-1 dark:divide-white/15">
       <ProductFilter name="Categoria" items={category} filterField="category" />
       <ProductFilter name="Prezzo" items={price} filterField="price" />
 

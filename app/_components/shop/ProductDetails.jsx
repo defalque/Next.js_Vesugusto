@@ -53,7 +53,7 @@ async function ProductDetails({ product }) {
             />
           </div>
 
-          <div className="_self-center">
+          <>
             {userId ? (
               <AddToCartButton
                 userId={userId}
@@ -68,7 +68,7 @@ async function ProductDetails({ product }) {
                 Accedi per aggiungere
               </Link>
             )}
-          </div>
+          </>
         </ProductQuantityProvider>
 
         <div className="dark:bg-primary-950/80 bg-primary-dark-200/90 inline-flex items-center rounded-full p-2">

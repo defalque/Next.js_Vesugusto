@@ -78,7 +78,7 @@ function AddToCartButton({ userId, productId, productQuantity }) {
       <m.button
         whileTap={{ scale: 0.96 }}
         type="button"
-        className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-2 text-center font-medium text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed"
+        className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button relative flex w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full py-2 text-center font-medium text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed"
         onClick={async () => {
           if (!userId) {
             return;
@@ -95,9 +95,9 @@ function AddToCartButton({ userId, productId, productQuantity }) {
           <m.div
             className="flex items-center gap-2"
             key={buttonState}
-            initial={{ opacity: 0, scale: 0.9, y: -20 }}
+            initial={{ opacity: 0, scale: 0.9, y: -40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            exit={{ opacity: 0, scale: 0.9, y: 40 }}
           >
             {option[buttonState]}
           </m.div>

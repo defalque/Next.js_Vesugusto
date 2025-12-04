@@ -7,7 +7,7 @@ function ProductCard({ product, priority, children }) {
       <div className="flex flex-col gap-2">
         <div className="order-2 flex justify-between px-2 sm:px-1">
           <div className="flex flex-col">
-            <h1 className="text-base font-semibold sm:text-base">
+            <h1 className="text-base font-medium sm:text-base">
               {product.name}
             </h1>
             <p className="sr-only">{product.description}</p>

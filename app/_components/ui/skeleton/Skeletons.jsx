@@ -82,12 +82,12 @@ function ProductCardSkeleton() {
   return (
     <div className="flex flex-col gap-2">
       <div
-        className={`${shimmer} focus-style relative overflow-hidden rounded-3xl`}
+        className={`${shimmer} focus-style relative overflow-hidden rounded-lg`}
       >
-        <div className="aspect-2/3 w-full rounded-none bg-gray-100 sm:rounded-3xl dark:bg-zinc-800" />
+        <div className="aspect-2/3 w-full rounded-none bg-gray-100 sm:rounded-lg dark:bg-zinc-800" />
       </div>
 
-      <div className="mb-1 flex items-center px-2 py-0.5 sm:px-1">
+      <div className="mb-1 flex items-center px-0 py-0.5 sm:px-0">
         <div
           className={`${shimmer} relative h-4 w-2/3 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
@@ -96,7 +96,7 @@ function ProductCardSkeleton() {
         />
       </div>
 
-      <div className="flex items-center gap-2 px-2 sm:px-1">
+      <div className="flex items-center gap-2 px-0 sm:px-0">
         <div
           className={`${shimmer} relative h-4 w-20 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
@@ -144,32 +144,37 @@ export function ProductPageSkeleton() {
       >
         Caricamento della pagina del prodotto in corso...
       </p>
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-5 sm:px-6 lg:px-10 xl:px-38 xl:py-12">
-        <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2 md:grid-rows-[auto_1fr] md:gap-y-0">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-5 sm:px-6 lg:px-10 xl:px-20 xl:py-12">
+        <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-[25rem_1fr] md:grid-rows-[auto_1fr] md:gap-y-0">
           {/* Breadcrumb */}
-          <div className="col-start-1 mb-0 md:col-start-2 md:mb-8">
-            <div
-              className={`${shimmer} relative h-12 w-1/2 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
-            />
-          </div>
 
           {/* Image Skeleton */}
           <div className="md:row-span-full">
-            <div className="flex w-full items-start gap-x-5">
-              {/* Miniature */}
-              <div className="hidden flex-col gap-4 lg:flex">
-                {Array.from({ length: 2 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`${shimmer} relative h-16 w-11 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
-                  ></div>
-                ))}
-              </div>
-
+            <div className="flex w-full flex-col items-start gap-5">
               {/* Main Image */}
               <div
                 className={`${shimmer} relative aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-zinc-800`}
               ></div>
+              {/* Miniature */}
+              <div className="flex gap-4">
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`${shimmer} relative aspect-2/3 w-19 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="col-start-1 mb-1 flex flex-col gap-2 md:col-start-2 md:mb-5">
+            <div className="flex items-center justify-between">
+              <SkeletonBox className="h-10 w-45" />
+              <SkeletonBox className="size-10" rounded="full" />
+            </div>
+            <div className="col-start-1 flex items-center gap-4 md:col-start-2">
+              <SkeletonBox className="h-5 w-25" />
+              <SkeletonBox className="h-5 w-28" />
             </div>
           </div>
 
@@ -201,10 +206,10 @@ export function ProductPageSkeleton() {
             {/* Buttons */}
             <div className="flex items-center gap-4">
               <div
-                className={`${shimmer} relative h-12 w-42 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
+                className={`${shimmer} relative h-12 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
               />
               <div
-                className={`${shimmer} relative h-12 w-12 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
+                className={`${shimmer} relative h-12 w-13 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
               />
             </div>
 

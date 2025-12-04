@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { LazyMotion, AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
+import { ChevronRight } from "lucide-react";
 const loadFeatures = () =>
   import("../../_lib/features.js").then((res) => res.default);
 
@@ -20,15 +21,15 @@ function ProductFilter({ name, items, filterField }) {
         className="flex w-full flex-col py-1"
       >
         <button
-          className="_category-focus focus-style group flex w-full cursor-pointer items-center rounded py-2 text-zinc-500 transition-all duration-200 hover:text-black active:text-black dark:text-white/80 dark:hover:text-white dark:active:text-white"
+          className="focus-style group flex w-full cursor-pointer items-center rounded py-2 text-black transition-all duration-200 dark:text-white"
           onClick={() => setIsOpen((isOpen) => !isOpen)}
           aria-expanded={isOpen}
           aria-controls={`filter-panel-${filterField}`}
         >
-          <p className="text-lg font-semibold uppercase md:text-sm">{name}</p>
+          <p className="text-lg font-medium md:text-base">{name}</p>
 
-          <ChevronRightIcon
-            className={`${isOpen ? "" : "rotate-90"} ml-auto size-4 text-zinc-500 transition-discrete duration-300 group-hover:text-black dark:text-white dark:group-hover:text-white`}
+          <ChevronRight
+            className={`${isOpen ? "" : "rotate-90"} ml-auto size-5.5 text-black transition-discrete duration-300 dark:text-white`}
             aria-hidden="true"
           />
         </button>

@@ -50,18 +50,37 @@ function RootLayout({ children }) {
                   subtitle: "Inserisci la password associata al tuo account",
                   actionLink: "Usa un altro metodo",
                 },
+                forgotPassword: {
+                  title: "Reimposta password",
+                  subtitle_email:
+                    "Inserisci il codice inviato al tuo indirizzo email",
+                  resendButton: "Nessun codice ricevuto? Invia di nuovo",
+                },
                 alternativeMethods: {
                   title: "Usa un altro metodo",
                   subtitle: "Problemi ad accedere? Prova uno di questi metodi.",
                   actionText: "Non fa al tuo caso?",
                   actionLink: "Chiedi aiuto",
                   blockButton__emailCode: "Codice via email a {{identifier}}",
+                  blockButton__password: "Accedi con la tua password",
+                  getHelp: {
+                    title: "Chiedi aiuto",
+                    content:
+                      "Se riscontri problemi nell'accesso al tuo account, inviaci un'e-mail e lavoreremo con te per ripristinare l'accesso il prima possibile.",
+                    blockButton__emailSupport: "Supporto email",
+                  },
                 },
                 emailCode: {
                   title: "Controlla la tua email",
                   subtitle: "per continuare su Vesugusto",
                   resendButton:
                     "Non hai ricevuto nessun codice? Invia di nuovo",
+                },
+                forgotPasswordAlternativeMethods: {
+                  blockButton__resetPassword: "Reimposta la tua password",
+                  label__alternativeMethods:
+                    "Oppure, accedi con un altro metodo",
+                  title: "Password dimenticata?",
                 },
               },
               unstable__errors: {
@@ -94,8 +113,7 @@ function RootLayout({ children }) {
               cssLayerName: "clerk",
               elements: {
                 main: "[&_.cl-formFieldInput]:focus-visible:ring-primary-dark-200! [&_.cl-formFieldInput]:dark:text-white! [&_.cl-formFieldInput]:dark:focus-visible:ring-primary-dark-100! [&_.cl-formFieldInput]:max-h-none! [&_.cl-formFieldInput]:h-11! [&_.cl-formFieldInput]:text-base! [&_.cl-formFieldInput]:focus-visible:ring-2! [&_.cl-formFieldInput]:focus-visible:outline-none! [&_.cl-formFieldInput]:placeholder:text-gray-400! [&_.cl-formFieldInput]:dark:bg-white/10! [&_.cl-formFieldInput]:placeholder:text-black/30! [&_.cl-formFieldInput]:dark:placeholder:text-white/30! [&_.cl-formFieldLabel]:text-sm! sm:[&_.cl-formFieldLabel]:text-base! [&_.cl-formFieldInput]:placeholder:text-sm! sm:[&_.cl-formFieldInput]:placeholder:text-[15px]! sm:[&_svg]:mt-0.5! sm:[&_.cl-formFieldSuccessText]:text-sm! sm:[&_.cl-formFieldErrorText]:text-sm! sm:[&_.cl-formFieldInfoText]:text-sm!",
-                cardBox:
-                  "border-none! shadow-none! min-w-xs! xs:min-w-md! sm:min-w-lg!",
+                cardBox: "shadow-none!  min-w-xs! xs:min-w-md! sm:min-w-lg!",
                 card: "sm:[&_.cl-headerTitle]:text-3xl! [&_.cl-headerTitle]:text-2xl! sm:[&_.cl-headerSubtitle]:text-lg! [&_.cl-headerSubtitle]:text-base! [&_.cl-headerSubtitle]:mt-0.5! sm:[&_.cl-headerSubtitle]:mt-0.5! [&_.cl-headerSubtitle]:mb-1! bg-inherit! border-none! shadow-none! ",
                 profilePage__account: "[&_.cl-headerTitle]:text-lg!",
                 profilePage__security: "[&_.cl-headerTitle]:text-lg!",
@@ -117,9 +135,10 @@ function RootLayout({ children }) {
                 backLink: "dark:text-zinc-500!",
                 formFieldInputShowPasswordIcon:
                   "dark:text-zinc-600! dark:hover:text-zinc-500! size-5!",
-                otpCodeFieldInput: "dark:border! dark:border-zinc-800!",
+                otpCodeFieldInput:
+                  "dark:border! dark:border-zinc-700! dark:text-white!",
                 alternativeMethodsBlockButton:
-                  "dark:text-white/70! h-9! dark:border! dark:border-zinc-800! dark:hover:bg-zinc-900! mt-1!",
+                  "dark:text-white/70! h-9! text-sm! dark:border! dark:border-zinc-800! dark:hover:bg-zinc-900! mt-1!",
                 alternativeMethodsBlockButtonText: "text-sm!",
                 userButtonPopoverMain: "dark:divide-y! dark:divide-zinc-800!",
                 userButtonPopoverCard:
@@ -158,10 +177,16 @@ function RootLayout({ children }) {
                   "dark:border! dark:border-zinc-800! dark:text-white/50! dark:hover:bg-zinc-900! dark:hover:text-white!",
                 formButtonReset: "dark:text-white/50! dark:hover:bg-zinc-900!",
                 navbarButton: "dark:hover:bg-zinc-950!",
-                footer: "mt-0! pt-0! bg-inherit! bg-none!",
+                footer: "-mt-3! pt-0! bg-inherit! bg-none!",
                 footerAction: "bg-white! dark:bg-black! border-none!",
                 identityPreviewText: "text-sm!",
                 backLink: "text-sm! text-black/80! dark:text-white/40!",
+                modalContent:
+                  "dark:[&_.cl-cardBox]:border! dark:[&_.cl-cardBox]:border-zinc-800!",
+                userButtonPopoverCard:
+                  "dark:border! dark:border-zinc-800! divide-y! divide-y-white!",
+                userButtonPopoverMain:
+                  "dark:border-b! dark:border-zinc-800! dark:divide-y! dark:divide-zinc-800! ",
               },
             }}
           >

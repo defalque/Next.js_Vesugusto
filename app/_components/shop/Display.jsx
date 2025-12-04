@@ -50,7 +50,7 @@ function Display({ categories, shouldReduce, count, font }) {
           layout
           // initial={{ width: bounds.width }}
           // animate={{ width: bounds.width }}
-          className={`xs:text-3xl _mr-auto flex w-full space-x-2 self-center overflow-y-clip text-2xl font-medium lg:text-4xl ${font.className}`}
+          className={`xs:text-3xl flex w-full space-x-2 self-center overflow-y-clip text-2xl font-medium lg:text-4xl ${font.className}`}
         >
           <div ref={ref} className="flex h-fit items-center divide-x">
             <AnimatePresence mode="popLayout" initial={false}>

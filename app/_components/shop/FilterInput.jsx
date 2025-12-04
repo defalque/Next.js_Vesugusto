@@ -29,7 +29,7 @@ function FilterInput({ label, value, filterField }) {
     "cursor-pointer rounded-full px-4 py-2.5 text-lg md:text-sm transition-all duration-300 border dark:border-none focus-style focus-visible:ring-4! active:scale-[0.96]";
   const lightThemeClasses = isChecked
     ? "bg-black text-white border-black"
-    : "hover:bg-black active:bg-black hover:text-white hover:border-black border-gray-300";
+    : "hover:bg-black active:bg-black hover:text-white hover:border-black border-black/10";
   const darkThemeClasses = isChecked
     ? "dark:bg-white dark:text-black"
     : "dark:bg-white/10 dark:text-white dark:hover:bg-white dark:hover:text-black";

@@ -37,7 +37,7 @@ export function ProductsList({ products, favorites, count }) {
         {count === 1 && "È stato trovato 1 prodotto"}
         {count > 1 && `Sono stati trovati ${count} prodotti`}
       </p>
-      <div className="relative mx-auto grid w-full grid-cols-2 gap-x-6 gap-y-15 overflow-hidden px-1 py-3 pb-15 sm:grid-cols-2 md:grid-cols-3 lg:gap-y-18 xl:grid-cols-4">
+      <div className="relative mx-auto grid w-full grid-cols-2 gap-x-6 gap-y-8 overflow-hidden px-1 py-3 pb-15 sm:grid-cols-2 md:grid-cols-3 md:gap-y-15 lg:gap-y-18 xl:grid-cols-4">
         {products.map((product, index) => (
           <ProductCard key={product.id} product={product} priority={index <= 1}>
             {favorites ? (
@@ -45,6 +45,7 @@ export function ProductsList({ products, favorites, count }) {
                 iconStyle={`text-primary-dark-200 ${favorites?.some((fav) => fav === product.id) ? "fill-primary-dark-200" : "group-hover:fill-primary-dark-200"}`}
                 className="ml-auto"
                 productId={product.id}
+                productQuantity={product.quantity}
                 isFavorite={favorites?.some((fav) => fav === product.id)}
               />
             ) : (
