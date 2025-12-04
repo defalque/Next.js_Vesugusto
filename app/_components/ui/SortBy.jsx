@@ -32,7 +32,7 @@ function SortBy() {
           router.push(pathname + "?" + createQueryString("sort", value));
         }}
         className={
-          "data-focus:outline-primary-950 focus-style peer block h-full w-full cursor-pointer appearance-none rounded-md border border-black/10 px-3 py-2 pr-10 text-base/6 text-black transition-all duration-200 *:text-black focus:not-data-focus:outline-none data-active:shadow data-focus:outline-2 data-focus:-outline-offset-2 dark:bg-white/10 dark:text-white"
+          "data-focus:outline-primary-950 focus-style peer block h-full w-full cursor-pointer appearance-none rounded-lg border border-black/10 px-3 py-2 pr-10 text-base/6 text-black transition-all duration-200 *:text-black focus:not-data-focus:outline-none data-active:shadow data-focus:outline-2 data-focus:-outline-offset-2 dark:bg-white/10 dark:text-white"
         }
       >
         {options.map((option) => (

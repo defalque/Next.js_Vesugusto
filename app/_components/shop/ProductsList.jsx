@@ -2,6 +2,7 @@ import ProductCard from "./ProductCard";
 import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import { Heart } from "lucide-react";
 
 export function ProductsList({ products, favorites, count }) {
   if (!Array.isArray(products)) {
@@ -41,20 +42,20 @@ export function ProductsList({ products, favorites, count }) {
           <ProductCard key={product.id} product={product} priority={index <= 1}>
             {favorites ? (
               <FavoriteButton
+                iconStyle={`text-primary-dark-200 ${favorites?.some((fav) => fav === product.id) ? "fill-primary-dark-200" : "group-hover:fill-primary-dark-200"}`}
                 className="ml-auto"
-                iconSizes="size-7 sm:size-6.5"
                 productId={product.id}
                 isFavorite={favorites?.some((fav) => fav === product.id)}
               />
             ) : (
               <Link
                 href="/sign-in"
-                className="focus-style ml-auto block cursor-pointer rounded-md focus:outline-amber-400"
+                className="focus-style group touch-hitbox block rounded"
                 aria-label="Accedi per aggiungere il prodotto ai preferiti"
               >
-                <HeartIcon
-                  className={`hover:fill-primary-dark-200 dark:hover:fill-primary-dark-600 dark:text-primary-dark-100 text-primary-dark-200 size-7 sm:size-6.5`}
+                <Heart
                   aria-hidden
+                  className="group-hover:fill-primary-dark-200 text-primary-dark-200"
                 />
               </Link>
             )}

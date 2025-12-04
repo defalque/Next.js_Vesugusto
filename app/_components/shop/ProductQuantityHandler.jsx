@@ -48,23 +48,25 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
           Quantità selezionata: {quantity}
         </span>
 
-        <Button
-          className="touch-hitbox order-1 rounded-full p-2"
+        <button
+          type="button"
+          className="touch-hitbox bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 order-1 cursor-pointer rounded-l-md p-2 text-white transition-colors duration-200 disabled:cursor-not-allowed dark:text-white"
           disabled={quantity === 1}
           onClick={handleLessClick}
-          ariaLabel="Diminuisci quantità di 1"
+          aria-label="Diminuisci quantità di 1"
         >
           {minusIcon}
-        </Button>
+        </button>
 
-        <Button
-          className="touch-hitbox order-3 rounded-full p-2"
+        <button
+          type="button"
+          className="touch-hitbox bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 order-3 cursor-pointer rounded-r-md p-2 text-white transition-colors duration-200 disabled:cursor-not-allowed"
           disabled={quantity === productQuantity}
           onClick={handleMoreClick}
-          ariaLabel="Aumenta quantità di 1"
+          aria-label="Aumenta quantità di 1"
         >
           {plusIcon}
-        </Button>
+        </button>
       </div>
     </div>
   );

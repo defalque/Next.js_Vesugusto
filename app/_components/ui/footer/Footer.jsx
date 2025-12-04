@@ -41,7 +41,7 @@ const socialLinks = [
     icon: (
       <FaFacebook
         aria-hidden
-        className="size-6 transition-colors duration-300 hover:brightness-90"
+        className="size-5 transition-colors duration-300 hover:brightness-90"
       />
     ),
   },
@@ -51,7 +51,7 @@ const socialLinks = [
     icon: (
       <FaInstagram
         aria-hidden
-        className="size-6 transition-colors duration-300 hover:brightness-90"
+        className="size-5 transition-colors duration-300 hover:brightness-90"
       />
     ),
   },
@@ -61,7 +61,7 @@ const socialLinks = [
     icon: (
       <FaXTwitter
         aria-hidden
-        className="size-6 transition-colors duration-300 hover:brightness-90"
+        className="size-5 transition-colors duration-300 hover:brightness-90"
       />
     ),
   },
@@ -71,17 +71,7 @@ const socialLinks = [
     icon: (
       <FaGithub
         aria-hidden
-        className="size-6 transition-colors duration-300 hover:brightness-90"
-      />
-    ),
-  },
-  {
-    href: "https://linkedin.com",
-    label: "LinkedIn",
-    icon: (
-      <FaLinkedin
-        aria-hidden
-        className="size-6 transition-colors duration-300 hover:brightness-90"
+        className="size-5 transition-colors duration-300 hover:brightness-90"
       />
     ),
   },
@@ -91,13 +81,13 @@ function Footer() {
   return (
     <footer
       aria-label="Informazioni sul sito"
-      className="flex flex-col items-center gap-5 px-4 py-10 dark:border-zinc-900"
+      className="flex flex-col items-center gap-4 px-4 py-10 dark:border-zinc-900"
     >
       <Logo complete isFooter />
 
       <ul
         aria-label="Link principali del sito"
-        className="mt-2 inline-flex flex-wrap items-center justify-center gap-2"
+        className="mt-2 inline-flex flex-wrap items-center justify-center gap-2 text-sm"
       >
         <Suspense fallback={<FooterNavLinksSkeleton />}>
           {links.map((link) => (

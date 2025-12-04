@@ -1,6 +1,5 @@
 import { formatCurrency } from "@/app/_lib/formatCurrency";
 import { getFavorites } from "@/app/_lib/data-service";
-import { PlusIcon, MinusIcon, HeartIcon } from "@heroicons/react/24/outline";
 
 import { ProductQuantityProvider } from "@/app/_contexts/ProductQuantityContext";
 import AddToCartButton from "./AddToCartButton";
@@ -8,8 +7,8 @@ import ProductQuantityHandler from "./ProductQuantityHandler";
 import FavoriteButton from "./FavoriteButton";
 import ProductAccordion from "./ProductAccordion";
 import Link from "next/link";
-import Button from "../ui/Button";
 import { auth } from "@clerk/nextjs/server";
+import { Heart, Minus, Plus } from "lucide-react";
 
 // import dynamic from "next/dynamic";
 // const AddToCartButton = dynamic(() => import("./AddToCartButton"));
@@ -32,28 +31,29 @@ async function ProductDetails({ product }) {
       aria-label={`Informazioni e azioni prodotto ${product.name}`}
       className="flex flex-col gap-8"
     >
-      <span className="text-2xl font-semibold">
+      <span className="text-3xl tracking-tighter">
         {formatCurrency(product.regularPrice)}
       </span>
 
-      <p className="text-sm/relaxed text-black/65 sm:text-base/6 dark:text-white/85">
+      <p className="text-sm text-black/90 sm:text-base dark:text-white/85">
         {product.description}
       </p>
 
       <div
         role="group"
         aria-label="Gestione quantità del prodotto, aggiunta al carrello e ai preferiti"
-        className="grid w-fit grid-cols-[auto_auto] items-center gap-6"
+        className="grid grid-cols-[1fr_2.5rem] grid-rows-2 items-center gap-6"
       >
         <ProductQuantityProvider>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <ProductQuantityHandler
               productQuantity={product.quantity}
-              minusIcon={<MinusIcon className="size-5" />}
-              plusIcon={<PlusIcon className="size-5" />}
+              minusIcon={<Minus className="size-5" />}
+              plusIcon={<Plus className="size-5" />}
             />
           </div>
-          <div className="self-stretch">
+
+          <div className="_self-center">
             {userId ? (
               <AddToCartButton
                 userId={userId}
@@ -61,20 +61,20 @@ async function ProductDetails({ product }) {
                 productQuantity={product.quantity}
               />
             ) : (
-              <Button
+              <Link
                 href="/sign-in"
-                className="rounded-full px-5 py-4 font-bold uppercase md:py-3"
+                className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button block w-full cursor-pointer gap-2 rounded-full py-2 text-center font-medium text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed"
               >
                 Accedi per aggiungere
-              </Button>
+              </Link>
             )}
           </div>
         </ProductQuantityProvider>
 
-        <div className="dark:bg-primary-950/30 bg-primary-100/70 inline-flex items-center rounded-full p-3">
+        <div className="dark:bg-primary-950/80 bg-primary-dark-200/90 inline-flex items-center rounded-full p-2">
           {userId ? (
             <FavoriteButton
-              iconSizes="size-8 md:size-6"
+              iconStyle={`text-white ${isFavorite ? "fill-white" : "group-hover:fill-white"}`}
               productId={product.id}
               userId={userId}
               isFavorite={isFavorite}
@@ -83,11 +83,11 @@ async function ProductDetails({ product }) {
           ) : (
             <Link
               href="/sign-in"
-              className="focus cursor-pointer rounded-md"
+              className="focus group touch-hitbox cursor-pointer rounded-full"
               aria-label="Accedi per aggiungere il prodotto ai preferiti"
             >
-              <HeartIcon
-                className={`hover:fill-primary-950 dark:text-primary-50 dark:hover:fill-primary-50 text-primary-950 size-8 md:size-6`}
+              <Heart
+                className={`text-primary-50 group-hover:fill-primary-50`}
                 aria-hidden
               />
             </Link>

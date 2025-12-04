@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import { LazyMotion, AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 const loadFeatures = () =>
@@ -19,32 +20,13 @@ function ProductAccordion({ productAttribute, label }) {
           aria-expanded={isOpen}
           aria-pressed={isOpen}
           aria-controls={contentId}
-          className="focus-style my-1 flex cursor-pointer items-center rounded py-3"
+          className="focus-style group my-1 flex cursor-pointer items-center justify-between rounded py-3"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span
-            // id={`${contentId}-label`}
-            className="text-lg font-medium"
-          >
-            {label}
-          </span>
-
-          {/* Icon */}
-          <span
-            aria-hidden
-            className="relative mr-2 ml-auto h-3.5 w-3.5 lg:h-5 lg:w-5"
-          >
-            <span
-              aria-hidden
-              className="absolute top-1/2 right-0 left-0 h-[2px] -translate-y-1/2 transform bg-black transition-all duration-300 dark:bg-white"
-            ></span>
-            <span
-              aria-hidden
-              className={`absolute top-0 bottom-0 left-1/2 w-[2px] origin-center -translate-x-1/2 transform bg-black transition-transform duration-300 dark:bg-white ${
-                isOpen ? "-rotate-90" : "rotate-0"
-              }`}
-            ></span>
-          </span>
+          <span className="text-lg">{label}</span>
+          <ChevronDown
+            className={`size-5 transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"}`}
+          />
         </button>
 
         <AnimatePresence>
@@ -61,7 +43,7 @@ function ProductAccordion({ productAttribute, label }) {
               className="overflow-hidden"
             >
               <div className="pb-4">
-                <p className="rounded-lg py-2 text-left text-sm/relaxed whitespace-pre-line text-black/65 sm:text-base/6 dark:text-white/85">
+                <p className="rounded-lg py-2 text-left text-sm/relaxed whitespace-pre-line text-black/80 sm:text-[15px] dark:text-white/85">
                   {productAttribute}
                 </p>
               </div>

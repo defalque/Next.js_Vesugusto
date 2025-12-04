@@ -17,39 +17,12 @@ function ProductImages({ product }) {
   return (
     <section
       aria-label={`Immagini del prodotto ${product.name}`}
-      className="sticky top-17 flex items-start gap-x-5"
+      className="sticky top-17 flex flex-col items-start gap-x-5 gap-y-5"
     >
       <SelectedImageContextProvider
         key={product.image.length}
         images={product.image}
       >
-        {hasMultipleImages && (
-          <div
-            role="listbox"
-            aria-label="Azioni immagini"
-            className="hidden flex-col items-center gap-4 lg:flex"
-          >
-            {images.map((img, index) => (
-              <MiniImageButton
-                key={index + 1}
-                index={index}
-                name={product.name}
-              >
-                <Image
-                  role="presentation"
-                  src={img}
-                  alt=""
-                  fill
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
-                  sizes="4rem"
-                  className="object-cover dark:shadow-sm dark:brightness-80"
-                />
-              </MiniImageButton>
-            ))}
-          </div>
-        )}
-
         <div
           aria-label="Descrizione e azioni immagini del prodotto"
           className="relative aspect-2/3 w-full overflow-hidden rounded-lg"
@@ -85,7 +58,7 @@ function ProductImages({ product }) {
               >
                 <ChevronLeftIcon
                   aria-hidden="true"
-                  className="text-primary-50 size-8 cursor-pointer"
+                  className="text-primary-50 size-5 cursor-pointer"
                 />
               </IconButton>
 
@@ -95,12 +68,39 @@ function ProductImages({ product }) {
               >
                 <ChevronRightIcon
                   aria-hidden="true"
-                  className="text-primary-50 size-8 cursor-pointer"
+                  className="text-primary-50 size-5 cursor-pointer"
                 />
               </IconButton>
             </div>
           )}
         </div>
+
+        {hasMultipleImages && (
+          <div
+            role="listbox"
+            aria-label="Azioni immagini"
+            className="flex gap-4"
+          >
+            {images.map((img, index) => (
+              <MiniImageButton
+                key={index + 1}
+                index={index}
+                name={product.name}
+              >
+                <Image
+                  role="presentation"
+                  src={img}
+                  alt=""
+                  fill
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
+                  sizes="4rem"
+                  className="object-cover dark:shadow-sm dark:brightness-80"
+                />
+              </MiniImageButton>
+            ))}
+          </div>
+        )}
       </SelectedImageContextProvider>
     </section>
   );

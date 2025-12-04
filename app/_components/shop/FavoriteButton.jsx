@@ -6,8 +6,8 @@ import { showCustomPromiseToast } from "../ui/CustomToast";
 import { Heart } from "lucide-react";
 
 function FavoriteButton({
+  iconStyle,
   className = "",
-  iconSizes = "size-5 lg:size-6",
   productId,
   isFavorite,
   productQuantity,
@@ -37,17 +37,13 @@ function FavoriteButton({
       onClick={async () => {
         startTransition(action);
       }}
-      className={`${className} focus-style rounded`}
+      className={`${className} ${productQuantity === 0 ? "cursor-not-allowed" : "cursor-pointer"} group focus-style touch-hitbox rounded`}
       aria-label="Aggiungi ai preferiti"
       aria-pressed={isFavorite}
       disabled={pending || productQuantity === 0}
     >
       <Heart
-        className={`flex ${productQuantity === 0 ? "cursor-not-allowed" : "cursor-pointer"} items-center transition-colors duration-300 ${pending ? "animate-pulse cursor-not-allowed" : ""} ${
-          isFavorite
-            ? "fill-primary-dark-200 text-primary-dark-200 dark:fill-primary-dark-100 dark:text-primary-dark-100"
-            : "hover:fill-primary-dark-200 dark:hover:fill-primary-dark-100 dark:text-primary-dark-100 text-primary-dark-200"
-        }`}
+        className={`flex items-center transition-colors duration-300 ${pending && "animate-pulse cursor-not-allowed"} ${iconStyle}`}
       />
     </button>
   );

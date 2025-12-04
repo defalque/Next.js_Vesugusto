@@ -26,23 +26,18 @@ function FilterInput({ label, value, filterField }) {
   // };
 
   const baseClasses =
-    "cursor-pointer rounded-full px-4 py-2.5 text-lg md:text-sm transition-all duration-300 border focus-style focus-visible:ring-4! active:scale-[0.96]";
+    "cursor-pointer rounded-full px-4 py-2.5 text-lg md:text-sm transition-all duration-300 border dark:border-none focus-style focus-visible:ring-4! active:scale-[0.96]";
   const lightThemeClasses = isChecked
     ? "bg-black text-white border-black"
-    : "hover:bg-black/5 active:bg-black/10 hover:border-black/20 border-gray-300";
+    : "hover:bg-black active:bg-black hover:text-white hover:border-black border-gray-300";
   const darkThemeClasses = isChecked
-    ? "dark:bg-white dark:text-black dark:border-white"
-    : "dark:hover:bg-zinc-700 dark:active:bg-zinc-700 dark:hover:text-white dark:active:text-white dark:border-zinc-700 dark:hover:border-zinc-500 dark:active:border-zinc-500";
+    ? "dark:bg-white dark:text-black"
+    : "dark:bg-white/10 dark:text-white dark:hover:bg-white dark:hover:text-black";
 
   const combinedClasses = `${baseClasses} ${lightThemeClasses} ${darkThemeClasses}`;
 
   return (
-    <button
-      onClick={handleChange}
-      className={combinedClasses}
-      // aria-pressed={isChecked}
-      // aria-selected={isChecked}
-    >
+    <button onClick={handleChange} className={combinedClasses}>
       {label}
     </button>
   );
