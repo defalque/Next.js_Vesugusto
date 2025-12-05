@@ -41,7 +41,7 @@ function Navbar() {
 
       <Suspense
         fallback={
-          <div className="bg-primary-dark-500 dark:bg-primary-dark-300 animate-pulse cursor-not-allowed rounded-full px-2.5 py-2 text-xs font-medium text-white sm:px-4 sm:text-base">
+          <div className="bg-primary-dark-500 dark:bg-primary-dark-300 animate-pulse cursor-not-allowed rounded-full px-2.5 py-1 text-xs font-medium text-white sm:px-4 sm:text-base">
             Accedi
           </div>
         }
@@ -52,7 +52,7 @@ function Navbar() {
               <button className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 hidden cursor-pointer rounded-full px-2.5 py-1 text-xs font-medium text-white transition-colors duration-300 sm:block sm:px-4 sm:text-base">
                 Accedi
               </button>
-              <button className="touch-hitbox flex cursor-pointer rounded-xl px-2 py-1 hover:bg-gray-200/80 sm:hidden dark:hover:bg-white/10">
+              <button className="touch-hitbox flex cursor-pointer rounded-xl px-2 py-1 hover:bg-black/5 sm:hidden dark:hover:bg-white/10">
                 <LogIn className="size-6" />
               </button>
             </div>

@@ -46,6 +46,7 @@ export default async function Page({ params }) {
         <div className="md:row-span-full">
           <ProductImages product={product}></ProductImages>
         </div>
+
         <div className="col-start-1 mb-1 flex flex-col gap-2 md:col-start-2 md:mb-5">
           <div className="flex items-center justify-between">
             <h1

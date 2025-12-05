@@ -387,8 +387,13 @@ export async function simulateOrder(cartId, totalCost) {
   });
 
   if (emailError) {
-    console.error("Errore nell'invio dell'email di benvenuto:", emailError);
-    throw new Error("Impossibile inviare email di benvenuto.");
+    console.error(
+      "Errore nell'invio dell'email di conferma ordine:",
+      emailError,
+    );
+    throw new Error(
+      "Impossibile inviare email di conferma dell'ordine al momento.",
+    );
   }
 
   updateTag(`cart-${userId}`);

@@ -12,7 +12,7 @@ function MobileNavbarLinks() {
         <Link
           aria-labelledby="shop"
           href="/shop"
-          className={`focus-style block w-full rounded-lg px-3 py-2 transition hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50`}
+          className={`focus-style block w-full rounded-lg px-3 py-2 transition hover:bg-black/5 active:bg-black/5 dark:hover:bg-white/10 dark:active:bg-white/10`}
           onClick={() => setIsOpen(false)}
         >
           <h2
@@ -31,7 +31,7 @@ function MobileNavbarLinks() {
         <Link
           aria-labelledby="privacy"
           href="/"
-          className={`focus-style block w-full rounded-lg px-3 py-2 transition hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50`}
+          className={`focus-style block w-full rounded-lg px-3 py-2 transition hover:bg-black/5 active:bg-black/5 dark:hover:bg-white/10 dark:active:bg-white/10`}
           onClick={() => setIsOpen(false)}
         >
           <h2
@@ -50,7 +50,7 @@ function MobileNavbarLinks() {
         <Link
           aria-labelledby="termini"
           href="/"
-          className={`focus-style block w-full rounded-lg px-3 py-2 transition hover:bg-gray-200/80 active:bg-gray-200/80 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50`}
+          className={`focus-style block w-full rounded-lg px-3 py-2 transition hover:bg-black/5 active:bg-black/5 dark:hover:bg-white/10 dark:active:bg-white/10`}
           onClick={() => setIsOpen(false)}
         >
           <h2

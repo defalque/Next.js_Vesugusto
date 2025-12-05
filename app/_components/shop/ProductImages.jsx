@@ -25,7 +25,7 @@ function ProductImages({ product }) {
       >
         <div
           aria-label="Descrizione e azioni immagini del prodotto"
-          className="relative aspect-2/3 w-full overflow-hidden rounded-lg"
+          className="relative aspect-2/3 w-full overflow-hidden rounded-lg dark:border dark:border-zinc-900/80"
         >
           {product.image.length === 0 ? (
             <p>Nessuna immagine presente.</p>

@@ -3,7 +3,7 @@
 import { notoSerif } from "@/app/_lib/font";
 import { Button, Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-import { Menu, TextAlignJustify, X } from "lucide-react";
+import { TextAlignJustify, X } from "lucide-react";
 
 function DrawerDialog({
   className,
@@ -87,7 +87,7 @@ function DrawerDialog({
                   direction === "left" ? "Chiudi filtri" : "Chiudi sezioni"
                 }
                 onClick={() => setOpen(false)}
-                className="focus-visible:ring-primary-950 _mr-2.5 cursor-pointer rounded-xl border border-gray-200 px-2 py-1.5 transition-colors duration-200 hover:bg-gray-200/80 focus-visible:ring-2 focus-visible:outline-none active:bg-gray-200/80 dark:border-zinc-800 dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+                className="focus-visible:ring-primary-950 _mr-2.5 cursor-pointer rounded-xl border border-gray-200 px-2 py-1.5 transition-colors duration-200 hover:bg-black/5 focus-visible:ring-2 focus-visible:outline-none active:bg-gray-200/80 dark:border-zinc-800 dark:hover:bg-white/10 dark:active:bg-white/10"
               >
                 <X aria-hidden className="size-6 md:size-6" />
               </button>

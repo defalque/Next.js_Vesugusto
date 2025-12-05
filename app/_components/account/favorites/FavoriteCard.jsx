@@ -5,8 +5,8 @@ import SafeImage from "../../ui/SafeImage";
 export default function FavoriteCard({ favorite, children }) {
   return (
     <div className="relative flex flex-col gap-2 overflow-hidden">
-      <div className="order-2 flex flex-col gap-1 px-1 text-base text-gray-800 sm:text-base dark:text-gray-300">
-        <span>{favorite.name}</span>
+      <div className="_flex-col order-2 flex flex-wrap justify-between gap-1 px-1 text-base text-gray-800 sm:text-base dark:text-gray-300">
+        <span className="break-all">{favorite.name}</span>
         <span className="font-semibold">
           {formatCurrency(favorite.regularPrice - favorite.discount)}
         </span>

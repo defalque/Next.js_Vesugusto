@@ -25,6 +25,7 @@
     "@stripe/stripe-js": "^7.9.0",
     "@supabase/supabase-js": "^2.49.4",
     "@vercel/analytics": "^1.5.0",
+    "canvas-confetti": "^1.9.4",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "focus-trap-react": "^11.0.4",

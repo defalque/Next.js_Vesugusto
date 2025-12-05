@@ -4,6 +4,7 @@ import { addFavoriteProduct, deleteFavoriteProduct } from "@/app/_lib/actions";
 import { startTransition, useActionState } from "react";
 import { showCustomPromiseToast } from "../ui/CustomToast";
 import { Heart } from "lucide-react";
+import confetti from "canvas-confetti";
 
 function FavoriteButton({
   iconStyle,
@@ -27,6 +28,7 @@ function FavoriteButton({
         success: "Il prodotto è stato aggiunto ai tuoi preferiti.",
         error: (err) => `Errore: ${err?.message || "Errore imprevisto"}`,
       });
+      confetti();
     }
   };
 

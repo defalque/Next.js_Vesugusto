@@ -111,6 +111,10 @@ function RootLayout({ children }) {
             }}
             appearance={{
               cssLayerName: "clerk",
+              layout: {
+                termsPageUrl: "https://clerk.com/terms",
+                privacyPageUrl: "https://clerk.com/terms",
+              },
               elements: {
                 main: "[&_.cl-formFieldInput]:focus-visible:ring-primary-dark-200! [&_.cl-formFieldInput]:dark:text-white! [&_.cl-formFieldInput]:dark:focus-visible:ring-primary-dark-100! [&_.cl-formFieldInput]:max-h-none! [&_.cl-formFieldInput]:h-11! [&_.cl-formFieldInput]:text-base! [&_.cl-formFieldInput]:focus-visible:ring-2! [&_.cl-formFieldInput]:focus-visible:outline-none! [&_.cl-formFieldInput]:placeholder:text-gray-400! [&_.cl-formFieldInput]:dark:bg-white/10! [&_.cl-formFieldInput]:placeholder:text-black/30! [&_.cl-formFieldInput]:dark:placeholder:text-white/30! [&_.cl-formFieldLabel]:text-sm! sm:[&_.cl-formFieldLabel]:text-base! [&_.cl-formFieldInput]:placeholder:text-sm! sm:[&_.cl-formFieldInput]:placeholder:text-[15px]! sm:[&_svg]:mt-0.5! sm:[&_.cl-formFieldSuccessText]:text-sm! sm:[&_.cl-formFieldErrorText]:text-sm! sm:[&_.cl-formFieldInfoText]:text-sm!",
                 cardBox: "shadow-none!  min-w-xs! xs:min-w-md! sm:min-w-lg!",
@@ -172,7 +176,7 @@ function RootLayout({ children }) {
                 navbar:
                   "dark:border-r! dark:border-zinc-800! md:dark:border-none! dark:bg-zinc-900!",
                 actionCard:
-                  "dark:border! dark:border-zinc-800! dark:bg-zinc-900/30! [&_.cl-headerTitle]:text-base! [&_.cl-formButtonPrimary]:text-sm!",
+                  "dark:border! dark:border-zinc-800! dark:bg-zinc-900/30! [&_.cl-headerTitle]:text-base! [&_.cl-formButtonPrimary]:text-sm! dark:[&_.cl-formFieldInput]:text-white! dark:[&_.cl-formFieldInput]:bg-white/10!",
                 avatarImageActionsUpload:
                   "dark:border! dark:border-zinc-800! dark:text-white/50! dark:hover:bg-zinc-900! dark:hover:text-white!",
                 formButtonReset: "dark:text-white/50! dark:hover:bg-zinc-900!",
@@ -187,6 +191,7 @@ function RootLayout({ children }) {
                   "dark:border! dark:border-zinc-800! divide-y! divide-y-white!",
                 userButtonPopoverMain:
                   "dark:border-b! dark:border-zinc-800! dark:divide-y! dark:divide-zinc-800! ",
+                pageScrollBox: "custom-scrollbar",
               },
             }}
           >

@@ -16,7 +16,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
               {isPending ? (
                 <span
                   aria-hidden
-                  className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-700`}
+                  className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-800`}
                 />
               ) : (
                 <h2 className="font-medium">{product.product.name}</h2>
@@ -26,11 +26,11 @@ function CartSummary({ products, totalPrice, isPending, children }) {
                   <>
                     <span
                       aria-hidden
-                      className={`${shimmer} relative h-3.5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-700`}
+                      className={`${shimmer} relative h-5 w-20 overflow-hidden rounded bg-gray-200 py-2 dark:bg-zinc-800`}
                     />
                     <span
                       aria-hidden
-                      className={`${shimmer} relative h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
+                      className={`${shimmer} relative h-5 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-800`}
                     />
                   </>
                 ) : (
@@ -53,7 +53,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
             {isPending ? (
               <span
                 aria-hidden
-                className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
+                className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-800`}
               />
             ) : (
               <span className="ml-auto slashed-zero">{formattedPrice}</span>
@@ -66,7 +66,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
             {isPending ? (
               <span
                 aria-hidden
-                className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-700`}
+                className={`${shimmer} relative ml-auto h-4 w-10 overflow-hidden rounded bg-gray-200 py-2 sm:h-5 dark:bg-zinc-800`}
               />
             ) : (
               <span className="ml-auto tabular-nums" aria-hidden>
@@ -81,7 +81,7 @@ function CartSummary({ products, totalPrice, isPending, children }) {
             {isPending ? (
               <span
                 aria-hidden
-                className={`${shimmer} relative ml-auto h-6 w-16 overflow-hidden rounded bg-gray-200 py-2 sm:h-8 dark:bg-zinc-700`}
+                className={`${shimmer} relative ml-auto h-6 w-16 overflow-hidden rounded bg-gray-200 py-2 sm:h-8 dark:bg-zinc-800`}
               />
             ) : (
               <span

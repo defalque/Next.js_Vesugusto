@@ -81,9 +81,9 @@ function Footer() {
   return (
     <footer
       aria-label="Informazioni sul sito"
-      className="flex flex-col items-center gap-4 px-4 py-10 dark:border-zinc-900"
+      className="flex flex-col items-center gap-4 px-4 pt-4 pb-3 dark:border-zinc-900"
     >
-      <Logo complete isFooter />
+      {/* <Logo complete isFooter /> */}
 
       <ul
         aria-label="Link principali del sito"
@@ -105,7 +105,7 @@ function Footer() {
 
       <ul
         aria-label="Social media links"
-        className="text-primary-dark-200 _dark:opacity-70 flex items-center justify-center gap-8"
+        className="text-primary-dark-200 flex items-center justify-center gap-8 dark:text-white/80"
       >
         {socialLinks.map((social) => (
           <li key={social.label} className="flex items-center justify-center">
@@ -125,7 +125,7 @@ function Footer() {
 
       <div
         role=""
-        className="flex flex-col items-center justify-center gap-1 text-center text-sm md:flex-row md:gap-2"
+        className="flex flex-col items-center justify-center gap-1 text-center text-xs sm:text-sm md:flex-row md:gap-1"
       >
         <Suspense fallback={<CopyrightSkeleton />}>
           <Copyright />

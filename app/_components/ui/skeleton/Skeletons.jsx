@@ -10,7 +10,7 @@ export function CartLinkSkeleton() {
   return (
     <li>
       <div
-        className={`${shimmer} relative size-8 overflow-hidden rounded-xl bg-gray-100 dark:bg-zinc-800`}
+        className={`${shimmer} relative size-8 overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-800`}
       />
     </li>
   );
@@ -38,29 +38,35 @@ export function SignedInSkeleton() {
 export function SignInSkeleton() {
   return (
     <div
-      className={`${shimmer} relative w-100 cursor-not-allowed divide-y divide-gray-200 overflow-hidden rounded-xl border border-gray-200 bg-white px-5 shadow-xl dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-950`}
+      className={`${shimmer} xs:min-w-md! relative w-100 min-w-xs! cursor-not-allowed divide-y divide-gray-200 overflow-hidden rounded-xl bg-white px-5 shadow-xl sm:min-w-lg! dark:divide-zinc-800 dark:bg-zinc-950`}
     >
-      <div className="flex flex-col pb-5">
-        <div className="mx-auto mt-8 size-10 rounded-full bg-gray-100 dark:bg-zinc-800" />
-        <div className="mx-auto mt-6 h-6 w-65 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+      <div className="flex flex-col pb-8">
+        <div className="mx-auto mt-7 h-9 w-55 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+        <div className="mx-auto mt-2 h-6 w-75 rounded-lg bg-gray-100 dark:bg-zinc-800" />
 
-        <div className="mt-8 space-y-2">
-          <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
-          <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+        <div className="mt-10 flex flex-row justify-center gap-2">
+          <div className="h-9 flex-1 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+          <div className="h-9 flex-1 rounded-lg bg-gray-100 dark:bg-zinc-800" />
         </div>
       </div>
 
-      <div className="flex flex-col py-5">
-        <div className="space-y-5">
+      <div className="flex flex-col py-8">
+        <div className="space-y-8">
           <div className="space-y-2">
-            <div className="h-4 w-22 rounded-lg bg-gray-100 dark:bg-zinc-800" />
-            <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+            <div className="h-6 w-22 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+            <div className="h-11 w-full rounded-lg bg-gray-100 dark:bg-zinc-800" />
           </div>
-          <div className="h-7 w-85 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+          <div className="h-11 w-full rounded-lg bg-gray-100 dark:bg-zinc-800" />
         </div>
       </div>
 
-      <div className="mx-auto my-5 h-5 w-22 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+      <div className="my-5 flex justify-between">
+        <div className="h-5 w-22 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+        <div className="flex gap-2">
+          <div className="h-5 w-13 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+          <div className="h-5 w-13 rounded-lg bg-gray-100 dark:bg-zinc-800" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -634,12 +640,12 @@ function FavoriteCardSkeleton() {
       />
 
       {/* Text placeholders */}
-      <div className="flex flex-col gap-1">
+      <div className="flex justify-between gap-1">
         <div
           className={`${shimmer} relative h-4 w-1/2 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
         <div
-          className={`${shimmer} relative h-4 w-1/3 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
+          className={`${shimmer} relative h-4 w-1/5 overflow-hidden rounded bg-gray-100 dark:bg-zinc-800`}
         />
       </div>
 
@@ -899,7 +905,7 @@ export function ProductFiltersSkeleton() {
 export function ProductsResolverSkeleton() {
   return (
     <>
-      <section className="bgColor relative z-10 col-span-full col-start-1 row-start-1 mt-5 mb-2 sm:col-span-3 sm:mb-10 lg:col-span-2">
+      <section className="bgColor relative z-10 col-span-full col-start-1 row-start-1 mt-5 mb-2 sm:col-span-3 sm:mb-5 lg:col-span-2">
         <DisplaySkeleton />
       </section>
       <section
@@ -989,7 +995,7 @@ export function UserPageSkeleton({ font }) {
       <div className="flex cursor-not-allowed flex-col gap-5 pb-4">
         <h1
           aria-label="Messaggio di benvenuto"
-          className={`${font.className} text-primary-dark-900 inline-flex max-w-fit min-w-fit flex-wrap items-center gap-2 text-4xl font-semibold sm:font-medium md:text-5xl dark:text-gray-200`}
+          className={`${font.className} text-primary-dark-900 inline-flex max-w-fit min-w-fit flex-wrap items-center gap-2 text-3xl font-semibold sm:font-medium md:text-4xl dark:text-gray-200`}
         >
           Ciao <UserNameSkeleton />!
         </h1>

@@ -23,7 +23,7 @@ function ToggleNavbarMobile({ children }) {
         open={isOpen}
         setOpen={setIsOpen}
         direction="right"
-        buttonStyles="data-focus:outline-primary-950 cursor-pointer rounded-xl bg-white/80 px-2 py-1 hover:bg-gray-200/80 focus:not-data-focus:outline-none active:bg-gray-200/80 data-focus:outline-2 dark:bg-black/80 data-focus:-outline-offset-2 dark:hover:dark:bg-zinc-700/50 dark:active:dark:bg-zinc-700/50 touch-hitbox"
+        buttonStyles="data-focus:outline-primary-950 cursor-pointer rounded-xl bg-white/80 px-2 py-1 hover:bg-black/5 focus:not-data-focus:outline-none active:bg-black/5 data-focus:outline-2 dark:bg-black/80 data-focus:-outline-offset-2 dark:hover:dark:bg-white/10 dark:active:dark:bg-white/10 touch-hitbox"
       >
         {children}
       </DrawerDialog>

@@ -1,7 +1,6 @@
 import ProductCard from "./ProductCard";
 import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
-import { HeartIcon } from "@heroicons/react/24/outline";
 import { Heart } from "lucide-react";
 
 export function ProductsList({ products, favorites, count }) {

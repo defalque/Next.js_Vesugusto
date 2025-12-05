@@ -2,7 +2,6 @@
 
 import { useOptimistic, useTransition } from "react";
 import CartSummary from "./CartSummary";
-import Button from "../ui/Button";
 import {
   deleteCartItem,
   simulateOrder,
@@ -150,7 +149,7 @@ function CartProductsListOptimistic({ products, cartId }) {
 
                     <div className="-col-start-1 row-start-1">
                       <DeleteCartItem
-                        className="focus-style ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+                        className="focus-style touch-hitbox ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
                         handleDeleteCartItem={() => {
                           startTransition(async () => {
                             try {
@@ -198,9 +197,13 @@ function CartProductsListOptimistic({ products, cartId }) {
             >
               <Link
                 href="/cart/checkout"
-                className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full cursor-pointer gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed sm:self-auto"
+                className={`bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 ${isPending ? "hover:bg-primary-dark-200/90 dark:hover:bg-primary-950/80 cursor-not-allowed" : "cursor-pointer"} sm:self-auto`}
                 aria-label="Vai alla pagina di finalizzazione dell'acquisto"
-                disabled={isPending}
+                onNavigate={(e) => {
+                  if (isPending) {
+                    e.preventDefault();
+                  }
+                }}
               >
                 Vai al checkout
               </Link>

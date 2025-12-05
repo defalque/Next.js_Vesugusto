@@ -17,7 +17,7 @@ function MiniImageButton({ index, name, children }) {
     <button
       role="option"
       type="button"
-      className="focus-style relative aspect-2/3 w-19 overflow-hidden rounded-lg"
+      className="focus-style relative aspect-2/3 w-19 overflow-hidden rounded-lg dark:border dark:border-zinc-900/80"
       aria-label={`Seleziona immagine ${index + 1} di ${name}`}
       disabled={isSelected}
       aria-selected={isSelected}
