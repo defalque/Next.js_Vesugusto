@@ -29,7 +29,7 @@ export default function FavoriteCard({ favorite, children }) {
         >
           <div className="relative aspect-2/3 overflow-hidden rounded-lg shadow-sm">
             <SafeImage
-              src={favorite.image}
+              src={favorite.image || null}
               fill
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="

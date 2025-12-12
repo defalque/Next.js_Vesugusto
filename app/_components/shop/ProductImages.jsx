@@ -1,6 +1,6 @@
 import SelectedImageContextProvider from "@/app/_contexts/SelectedImageContext";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
+import SafeImage from "../ui/SafeImage";
 import IconButton from "./IconButton";
 import MiniImageButton from "./MiniImageButton";
 import ImageBox from "./ImageBox";
@@ -34,7 +34,7 @@ function ProductImages({ product }) {
               <SelectedImagePolite />
               {product.image.map((img, index) => (
                 <ImageBox key={index + 1} index={index}>
-                  <Image
+                  <SafeImage
                     src={img}
                     //sarebbe da aggiungere un campo altText nel database
                     alt={`${product.name}: immagine ${index + 1}`}
@@ -87,7 +87,7 @@ function ProductImages({ product }) {
                 index={index}
                 name={product.name}
               >
-                <Image
+                <SafeImage
                   role="presentation"
                   src={img}
                   alt=""

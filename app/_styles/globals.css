@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* @import "swiper/css";
-@import "swiper/css/navigation";
-@import "swiper/css/pagination"; */
-
 @theme {
   --breakpoint-xxs: 23rem;
   --breakpoint-xs: 30rem;

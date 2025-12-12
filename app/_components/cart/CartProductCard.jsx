@@ -14,7 +14,7 @@ function CartProductCard({ product, children }) {
         className="xs:h-50 focus-style relative row-span-full aspect-2/3 h-full rounded-lg transition-opacity duration-300 hover:opacity-85 active:opacity-85"
       >
         <Image
-          src={product.image}
+          src={product.image || "/fallback.png"}
           fill
           sizes="(min-width: 64rem) 8.33rem, (min-width: 40rem) 6.67rem, 5.33rem"
           placeholder="blur"

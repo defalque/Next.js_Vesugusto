@@ -18,7 +18,7 @@ function ProductCardImages({ id, name, images, priority = false }) {
         style={{ borderRadius: 8 }}
       >
         <Image
-          src={images[0]}
+          src={images[0] || "/fallback.png"}
           alt=""
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="
@@ -36,7 +36,7 @@ function ProductCardImages({ id, name, images, priority = false }) {
 
         {hasHoverImage && (
           <Image
-            src={images[1]}
+            src={images[1] || "/fallback.png"}
             alt=""
             fill
             sizes={sizes}

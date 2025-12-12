@@ -1,7 +1,7 @@
 import { SHIPPING_COST } from "@/app/_lib/constants";
 import { getCartProd, getUserInfo } from "@/app/_lib/data-service";
 import { formatCurrency } from "@/app/_lib/formatCurrency";
-import Image from "next/image";
+import SafeImage from "../../ui/SafeImage";
 import CheckoutFormWrapper from "./CheckoutFormWrapper";
 // import PaymentFormWrapper from "./PaymentFormWrapper";
 import { redirect } from "next/navigation";
@@ -54,7 +54,7 @@ async function CheckoutWrapper({ canceled }) {
                 className={`grid grid-cols-[auto_minmax(0,1fr)_auto] gap-x-6 py-8`}
               >
                 <div className="relative aspect-2/3 h-30">
-                  <Image
+                  <SafeImage
                     priority={index < 2}
                     src={product.product.image}
                     fill

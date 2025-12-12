@@ -37,7 +37,7 @@ function MainCarouselSlide({
         </div>
       </div>
       <Image
-        src={src}
+        src={src || "/fallback.png"}
         alt={alt}
         fill
         priority={priority}

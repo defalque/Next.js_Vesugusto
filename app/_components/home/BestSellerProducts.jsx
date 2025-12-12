@@ -20,7 +20,7 @@ async function BestSellerProducts() {
           <article className="flex flex-col gap-2 p-0.5 sm:p-1">
             <div className="relative aspect-2/3 w-full overflow-hidden rounded-3xl">
               <SafeImage
-                src={bestSeller.product_image.at(0)}
+                src={bestSeller.product_image?.at(0) || null}
                 alt=""
                 role="presentation"
                 fill

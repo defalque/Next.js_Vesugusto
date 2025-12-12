@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/app/_lib/formatCurrency";
-import Image from "next/image";
+import SafeImage from "../../ui/SafeImage";
 import Link from "next/link";
 
 function OrderCardItem({ item }) {
@@ -11,8 +11,8 @@ function OrderCardItem({ item }) {
       className={`grid grid-cols-[auto_1fr] grid-rows-[auto_auto_auto_auto] gap-x-3 px-3 py-4 font-light sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:grid-rows-[auto_auto_auto_auto] sm:gap-x-5 md:px-5 lg:grid-rows-[auto_auto_auto] lg:py-8 xl:px-10`}
     >
       <div className="relative row-span-full aspect-2/3 h-50 sm:h-55">
-        <Image
-          src={image.at(0)}
+        <SafeImage
+          src={image?.at(0)}
           fill
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8L8VQDwAE0wGaYyyo1gAAAABJRU5ErkJggg=="

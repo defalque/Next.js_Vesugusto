@@ -9,7 +9,7 @@ function CartProductCard({ product, children }) {
     <article className="xs:gap-x-5 grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-start gap-x-4 py-5">
       <div className="relative aspect-2/3 h-40 sm:h-50">
         <Image
-          src={product.image}
+          src={product.image || "/fallback.png"}
           fill
           sizes="(min-width: 40rem) 8.33rem, 6.67rem"
           placeholder="blur"

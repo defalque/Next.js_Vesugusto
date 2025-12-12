@@ -29,7 +29,7 @@ async function NewArrivalsProducts() {
             <article className="flex flex-col justify-between gap-2 p-0.5 sm:p-1">
               <div className="relative aspect-2/3 w-full overflow-hidden rounded-3xl">
                 <SafeImage
-                  src={newArrival.image.at(0)}
+                  src={newArrival.image?.at(0) || null}
                   alt=""
                   role="presentation"
                   fill
