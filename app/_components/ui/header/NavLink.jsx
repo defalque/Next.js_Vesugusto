@@ -56,6 +56,7 @@ function NavLink({ type, shouldReduce = false, ...props }) {
                 aria-hidden
                 layoutId="dot"
                 className="hidden aspect-square size-1 rounded-full bg-black/80 md:mr-2 md:flex dark:bg-white"
+                style={{ originX: 0 }}
               />
             ) : (
               <span className="hidden aspect-square size-1.5 rounded-full bg-black md:mr-2 md:flex dark:bg-white" />

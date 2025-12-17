@@ -8,6 +8,7 @@ import Header from "./_components/ui/header/Header";
 import Footer from "./_components/ui/footer/Footer";
 import { Toaster } from "react-hot-toast";
 import { toastStyle } from "./_lib/constants";
+import MotionWrapper from "./_components/ui/MotionWrapper";
 
 export const metadata = {
   title: {
@@ -195,28 +196,32 @@ function RootLayout({ children }) {
               },
             }}
           >
-            <Header />
+            <MotionWrapper>
+              <Header />
 
-            <main className="mx-auto w-full flex-1 bg-inherit">{children}</main>
+              <main className="mx-auto w-full flex-1 bg-inherit pt-14">
+                {children}
+              </main>
 
-            <Footer />
+              <Footer />
 
-            <Toaster
-              position="top-right"
-              gutter={12}
-              toastOptions={{
-                custom: {
-                  duration: 5000,
-                },
-                success: {
-                  duration: 5000,
-                },
-                error: {
-                  duration: 5000,
-                },
-                style: toastStyle,
-              }}
-            />
+              <Toaster
+                position="top-right"
+                gutter={12}
+                toastOptions={{
+                  custom: {
+                    duration: 5000,
+                  },
+                  success: {
+                    duration: 5000,
+                  },
+                  error: {
+                    duration: 5000,
+                  },
+                  style: toastStyle,
+                }}
+              />
+            </MotionWrapper>
           </ClerkProvider>
         </Suspense>
         <Analytics />

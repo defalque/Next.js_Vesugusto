@@ -1,15 +1,15 @@
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import {
+  Battery50Icon,
   CheckCircleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/outline";
-import { PackageOpen } from "lucide-react";
-import { HiOutlineHandThumbUp } from "react-icons/hi2";
+  HandThumbUpIcon,
+} from "@heroicons/react/24/solid";
 
 const status = {
   ready: {
     label: "In consegna",
     icon: (
-      <HiOutlineHandThumbUp
+      <HandThumbUpIcon
         aria-hidden="true"
         className="size-4 text-blue-500 dark:text-blue-400"
       />
@@ -22,22 +22,22 @@ const status = {
     icon: (
       <CheckCircleIcon
         aria-hidden="true"
-        className="size-4.5 text-green-500 dark:text-green-400"
+        className="size-4.5 text-green-600 dark:text-green-400"
       />
     ),
-    color: "text-green-500 dark:text-green-400",
+    color: "text-green-600 dark:text-green-400",
     bgColor: "dark:bg-green-700/30 bg-green-100",
   },
   unconfirmed: {
     label: "In preparazione",
     icon: (
-      <PackageOpen
+      <Battery50Icon
         aria-hidden
-        className="size-4 text-yellow-600 dark:text-yellow-400"
+        className="size-4 fill-yellow-500 text-yellow-500 dark:fill-yellow-400 dark:text-yellow-400"
       />
     ),
-    color: "text-yellow-600 dark:text-yellow-400",
-    bgColor: "dark:bg-yellow-700/30 bg-yellow-100",
+    color: "text-yellow-500 dark:text-yellow-400",
+    bgColor: "dark:bg-yellow-700/30 bg-yellow-100/50",
   },
 };
 
@@ -52,7 +52,7 @@ function OrderCardStatus({ orderStatus }) {
     >
       {icon}
       <dt className="sr-only">Stato ordine</dt>
-      <dd className={`text-xs font-semibold uppercase ${color}`}>{label}</dd>
+      <dd className={`_uppercase text-xs font-semibold ${color}`}>{label}</dd>
     </dl>
   );
 }

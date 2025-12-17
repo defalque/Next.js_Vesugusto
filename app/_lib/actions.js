@@ -41,18 +41,18 @@ export async function createSupabaseUser(user) {
   //   },
   // });
 
-  const { emailError } = await resend.emails.send({
-    from: "Vesugusto <noreply@vesugusto.dev>",
-    // to: ["marcodefalco2017@libero.it"],
-    to: [email],
-    subject: "Benvenuto su Vesugusto",
-    react: WelcomeEmail({ username: firstName }),
-  });
+  // const { emailError } = await resend.emails.send({
+  //   from: "Vesugusto <noreply@vesugusto.dev>",
+  //   // to: ["marcodefalco2017@libero.it"],
+  //   to: [email],
+  //   subject: "Benvenuto su Vesugusto",
+  //   react: WelcomeEmail({ username: firstName }),
+  // });
 
-  if (emailError) {
-    console.error("Errore nell'invio dell'email di benvenuto:", emailError);
-    throw new Error("Impossibile inviare email di benvenuto.");
-  }
+  // if (emailError) {
+  //   console.error("Errore nell'invio dell'email di benvenuto:", emailError);
+  //   throw new Error("Impossibile inviare email di benvenuto.");
+  // }
 
   return { user_id, cart_id };
 }
@@ -367,34 +367,34 @@ export async function simulateOrder(cartId, totalCost) {
   const data = await getOrderItems(id);
 
   // ✅ Invio email al cliente dopo conferma ordine
-  const { emailError } = await resend.emails.send({
-    from: "Vesugusto <noreply@vesugusto.dev>",
-    to: [user.emailAddresses.at(0).emailAddress],
-    // to: ["marcodefalco2017@libero.it"],
-    subject: "Conferma del tuo ordine su Vesugusto",
-    react: ConfirmedOrderEmail({
-      id: id,
-      username: user.firstName + " " + user.lastName,
-      items: data.map((item) => ({
-        id: item.id,
-        name: item.product.name,
-        quantity: item.quantity,
-        price: formatCurrency(item.orderItemPrice),
-        image: item.product.image,
-      })),
-      total: formatCurrency(totalCost),
-    }),
-  });
+  // const { emailError } = await resend.emails.send({
+  //   from: "Vesugusto <noreply@vesugusto.dev>",
+  //   to: [user.emailAddresses.at(0).emailAddress],
+  //   // to: ["marcodefalco2017@libero.it"],
+  //   subject: "Conferma del tuo ordine su Vesugusto",
+  //   react: ConfirmedOrderEmail({
+  //     id: id,
+  //     username: user.firstName + " " + user.lastName,
+  //     items: data.map((item) => ({
+  //       id: item.id,
+  //       name: item.product.name,
+  //       quantity: item.quantity,
+  //       price: formatCurrency(item.orderItemPrice),
+  //       image: item.product.image,
+  //     })),
+  //     total: formatCurrency(totalCost),
+  //   }),
+  // });
 
-  if (emailError) {
-    console.error(
-      "Errore nell'invio dell'email di conferma ordine:",
-      emailError,
-    );
-    throw new Error(
-      "Impossibile inviare email di conferma dell'ordine al momento.",
-    );
-  }
+  // if (emailError) {
+  //   console.error(
+  //     "Errore nell'invio dell'email di conferma ordine:",
+  //     emailError,
+  //   );
+  //   throw new Error(
+  //     "Impossibile inviare email di conferma dell'ordine al momento.",
+  //   );
+  // }
 
   updateTag(`cart-${userId}`);
   updateTag(`${userId}-cart-count`);
@@ -477,30 +477,30 @@ export async function fulfillCheckout(sessionId) {
     const orderItems = await getOrderItems(orderId);
 
     // Invia email di conferma ordine
-    const { error: emailError } = await resend.emails.send({
-      from: "Vesugusto <noreply@vesugusto.dev>",
-      to: [email], // in produzione
-      // to: ["marcodefalco2017@libero.it"], // in sviluppo
-      subject: "Conferma del tuo ordine su Vesugusto",
-      react: ConfirmedOrderEmail({
-        id: orderId,
-        username: name,
-        items: orderItems.map((item) => ({
-          id: item.id,
-          name: item.product.name,
-          quantity: item.quantity,
-          price: formatCurrency(item.orderItemPrice),
-          image: item.product.image,
-        })),
-        total: formatCurrency(totalCost),
-        invoiceUrl: invoicePdfUrl,
-      }),
-    });
+    // const { error: emailError } = await resend.emails.send({
+    //   from: "Vesugusto <noreply@vesugusto.dev>",
+    //   to: [email], // in produzione
+    //   // to: ["marcodefalco2017@libero.it"], // in sviluppo
+    //   subject: "Conferma del tuo ordine su Vesugusto",
+    //   react: ConfirmedOrderEmail({
+    //     id: orderId,
+    //     username: name,
+    //     items: orderItems.map((item) => ({
+    //       id: item.id,
+    //       name: item.product.name,
+    //       quantity: item.quantity,
+    //       price: formatCurrency(item.orderItemPrice),
+    //       image: item.product.image,
+    //     })),
+    //     total: formatCurrency(totalCost),
+    //     invoiceUrl: invoicePdfUrl,
+    //   }),
+    // });
 
-    if (emailError) {
-      console.error("Errore nell'invio email conferma ordine:", emailError);
-      // puoi decidere se rilanciare o continuare
-    }
+    // if (emailError) {
+    //   console.error("Errore nell'invio email conferma ordine:", emailError);
+    //   // puoi decidere se rilanciare o continuare
+    // }
 
     revalidateTag(`cart-${userId}`, "max");
     revalidateTag(`${userId}-cart-count`, "max");

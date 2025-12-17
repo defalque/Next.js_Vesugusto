@@ -6,7 +6,7 @@ function OrderCardHeader({ id, orderDate, totalCost, status }) {
     <div
       role="group"
       aria-label="Informazioni ordine"
-      className="flex flex-col flex-wrap gap-x-10 gap-y-2 border-b border-b-gray-200 bg-black/5 px-3 py-4 text-sm sm:flex-row sm:items-center md:px-5 md:text-base xl:px-10 dark:border-b-zinc-700/70 dark:bg-white/10"
+      className="flex flex-col flex-wrap gap-x-10 gap-y-2 border-b border-b-gray-200 bg-gray-50 px-3 py-4 text-sm sm:flex-row sm:items-center md:px-5 md:text-base xl:px-10 dark:border-b-zinc-700/70 dark:bg-white/10"
     >
       <OrderInfo name="Numero ordine" value={`#${id}`} />
       <OrderInfo name="Data ordine" value={orderDate} />

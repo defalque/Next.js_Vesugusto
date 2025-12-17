@@ -6,7 +6,7 @@ import MobileNavbarLinks from "./MobileNavbarLinks";
 
 function Header() {
   return (
-    <header className="sticky inset-x-0 top-0 z-200 bg-inherit">
+    <header className="fixed inset-x-0 top-0 z-200 h-14 bg-inherit">
       <nav className="page-padding mx-auto flex max-w-[95rem] items-center justify-between py-2">
         <Logo />
 

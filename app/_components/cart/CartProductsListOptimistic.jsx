@@ -8,10 +8,8 @@ import {
   updateCartItem,
 } from "@/app/_lib/actions";
 
-import { LazyMotion, AnimatePresence } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
-const loadFeatures = () =>
-  import("../../_lib/features.js").then((res) => res.default);
 
 import dynamic from "next/dynamic";
 import { CartProductCardSkeleton } from "../ui/skeleton/Skeletons";
@@ -85,57 +83,77 @@ function CartProductsListOptimistic({ products, cartId }) {
 
   return (
     <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-x-10 gap-y-8 lg:grid-cols-[1.5fr_1fr] lg:grid-rows-[auto] lg:pb-10">
-      <LazyMotion features={loadFeatures}>
-        <section aria-labelledby="cart-items-heading">
-          <h2 id="cart-items-heading" className="sr-only">
-            Prodotti nel carrello
-          </h2>
+      <section aria-labelledby="cart-items-heading">
+        <h2 id="cart-items-heading" className="sr-only">
+          Prodotti nel carrello
+        </h2>
 
-          <p
-            aria-live="polite"
-            role="status"
-            aria-atomic="true"
-            className="sr-only"
-          >
-            {`Prodotti attualmente nel carrello: ${optimisticProducts.length}`}
-          </p>
+        <p
+          aria-live="polite"
+          role="status"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {`Prodotti attualmente nel carrello: ${optimisticProducts.length}`}
+        </p>
 
-          <ul className="divide-y divide-gray-200 dark:divide-zinc-800">
-            <AnimatePresence mode="popLayout">
-              {optimisticProducts.map((cartItemProduct) => (
-                <m.li
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{
-                    x: "-100%",
-                    opacity: 0,
-                    filter: "blur(4px)",
-                    transition: {
-                      type: "spring",
-                      duration: 0.75,
-                      bounce: 0.25,
-                    },
-                  }}
-                  // transition={{ type: "spring", duration: 0.75, bounce: 0.25 }}
+        <ul className="divide-y divide-gray-200 dark:divide-zinc-800">
+          <AnimatePresence mode="popLayout">
+            {optimisticProducts.map((cartItemProduct) => (
+              <m.li
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{
+                  x: "-100%",
+                  opacity: 0,
+                  filter: "blur(4px)",
+                  transition: {
+                    type: "spring",
+                    duration: 0.75,
+                    bounce: 0.25,
+                  },
+                }}
+                // transition={{ type: "spring", duration: 0.75, bounce: 0.25 }}
+                key={cartItemProduct.id}
+              >
+                <CartProductCard
                   key={cartItemProduct.id}
+                  product={cartItemProduct.product}
                 >
-                  <CartProductCard
-                    key={cartItemProduct.id}
-                    product={cartItemProduct.product}
-                  >
-                    <CartItemQuantity
-                      productId={cartItemProduct.product.id}
-                      productName={cartItemProduct.product.name}
-                      cartItemQuantity={cartItemProduct.quantity}
-                      productQuantity={cartItemProduct.product.quantity}
-                      handleUpdateCartItemQuantity={(newQuantity) => {
+                  <CartItemQuantity
+                    productId={cartItemProduct.product.id}
+                    productName={cartItemProduct.product.name}
+                    cartItemQuantity={cartItemProduct.quantity}
+                    productQuantity={cartItemProduct.product.quantity}
+                    handleUpdateCartItemQuantity={(newQuantity) => {
+                      startTransition(async () => {
+                        try {
+                          await updateCartItem(
+                            cartId,
+                            cartItemProduct.product.id,
+                            Number(newQuantity),
+                          );
+                        } catch (err) {
+                          const toast = (await import("react-hot-toast"))
+                            .default;
+                          showCustomErrorToast(toast, err);
+                        }
+                      });
+                    }}
+                    disabled={isPending}
+                  />
+
+                  <div className="-col-start-1 row-start-1">
+                    <DeleteCartItem
+                      className="focus-style touch-hitbox ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
+                      handleDeleteCartItem={() => {
                         startTransition(async () => {
                           try {
-                            await updateCartItem(
+                            optimisticDelete(cartItemProduct.id);
+                            await deleteCartItem(
                               cartId,
                               cartItemProduct.product.id,
-                              Number(newQuantity),
                             );
                           } catch (err) {
                             const toast = (await import("react-hot-toast"))
@@ -146,99 +164,77 @@ function CartProductsListOptimistic({ products, cartId }) {
                       }}
                       disabled={isPending}
                     />
+                  </div>
+                </CartProductCard>
+              </m.li>
+            ))}
+          </AnimatePresence>
+        </ul>
+      </section>
 
-                    <div className="-col-start-1 row-start-1">
-                      <DeleteCartItem
-                        className="focus-style touch-hitbox ml-auto cursor-pointer self-center rounded-full p-1 transition-colors duration-300 hover:bg-gray-200/80 active:bg-gray-200/80 disabled:animate-pulse disabled:cursor-not-allowed dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700/50"
-                        handleDeleteCartItem={() => {
-                          startTransition(async () => {
-                            try {
-                              optimisticDelete(cartItemProduct.id);
-                              await deleteCartItem(
-                                cartId,
-                                cartItemProduct.product.id,
-                              );
-                            } catch (err) {
-                              const toast = (await import("react-hot-toast"))
-                                .default;
-                              showCustomErrorToast(toast, err);
-                            }
-                          });
-                        }}
-                        disabled={isPending}
-                      />
-                    </div>
-                  </CartProductCard>
-                </m.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-        </section>
-
-        <AnimatePresence mode="wait">
-          <m.section
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            aria-labelledby="cart-summary-heading"
-            className="sticky top-25 flex flex-col gap-5 self-baseline rounded-md bg-gray-50 px-5 py-5 text-sm sm:text-base dark:bg-white/10"
+      <AnimatePresence mode="wait">
+        <m.section
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          aria-labelledby="cart-summary-heading"
+          className="sticky top-25 flex flex-col gap-5 self-baseline rounded-md bg-gray-50 px-5 py-5 text-sm sm:text-base dark:bg-white/10"
+        >
+          <h2
+            id="cart-summary-heading"
+            className={`mb-4 text-lg font-semibold sm:text-xl`}
           >
-            <h2
-              id="cart-summary-heading"
-              className={`mb-4 text-lg font-semibold sm:text-xl`}
+            Riepilogo carrello
+          </h2>
+
+          <CartSummary
+            products={optimisticProducts}
+            totalPrice={totalPrice + SHIPPING_COST}
+            isPending={isPending}
+          >
+            <Link
+              href="/cart/checkout"
+              className={`bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 ${isPending ? "hover:bg-primary-dark-200/90 dark:hover:bg-primary-950/80 cursor-not-allowed" : "cursor-pointer"} sm:self-auto`}
+              aria-label="Vai alla pagina di finalizzazione dell'acquisto"
+              onNavigate={(e) => {
+                if (isPending) {
+                  e.preventDefault();
+                }
+              }}
             >
-              Riepilogo carrello
-            </h2>
+              Vai al checkout
+            </Link>
 
-            <CartSummary
-              products={optimisticProducts}
-              totalPrice={totalPrice + SHIPPING_COST}
-              isPending={isPending}
+            <button
+              type="button"
+              className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full cursor-pointer gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed sm:self-auto"
+              aria-label="Simula ordine"
+              onClick={() => {
+                startTransition(async () => {
+                  const toast = (await import("react-hot-toast")).default;
+
+                  await showCustomPromiseToast(
+                    toast,
+                    simulateOrder(cartId, totalPrice + SHIPPING_COST),
+                    {
+                      loading:
+                        "Simulazione del pagamento e creazione dell'ordine in corso...",
+                      success: "Ordine creato con successo!",
+                      error: (err) =>
+                        `Errore: ${err?.message || "Errore imprevisto"}`,
+                    },
+                  );
+
+                  router.push("/account/orders");
+                });
+              }}
+              disabled={isPending}
             >
-              <Link
-                href="/cart/checkout"
-                className={`bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 ${isPending ? "hover:bg-primary-dark-200/90 dark:hover:bg-primary-950/80 cursor-not-allowed" : "cursor-pointer"} sm:self-auto`}
-                aria-label="Vai alla pagina di finalizzazione dell'acquisto"
-                onNavigate={(e) => {
-                  if (isPending) {
-                    e.preventDefault();
-                  }
-                }}
-              >
-                Vai al checkout
-              </Link>
-
-              <button
-                type="button"
-                className="bg-primary-dark-200/90 dark:hover:bg-primary-950/65 dark:bg-primary-950/80 hover:bg-primary-dark-200/75 disabled:hover:bg-primary-dark-200/90 dark:disabled:hover:bg-primary-950/80 focus-style-button w-full cursor-pointer gap-2 self-baseline rounded-full py-2 text-center text-lg font-semibold text-white shadow-sm transition-colors duration-200 disabled:cursor-not-allowed sm:self-auto"
-                aria-label="Simula ordine"
-                onClick={() => {
-                  startTransition(async () => {
-                    const toast = (await import("react-hot-toast")).default;
-
-                    await showCustomPromiseToast(
-                      toast,
-                      simulateOrder(cartId, totalPrice + SHIPPING_COST),
-                      {
-                        loading:
-                          "Simulazione del pagamento e creazione dell'ordine in corso...",
-                        success: "Ordine creato con successo!",
-                        error: (err) =>
-                          `Errore: ${err?.message || "Errore imprevisto"}`,
-                      },
-                    );
-
-                    router.push("/account/orders");
-                  });
-                }}
-                disabled={isPending}
-              >
-                Simula acquisto
-              </button>
-            </CartSummary>
-          </m.section>
-        </AnimatePresence>
-      </LazyMotion>
+              Simula acquisto
+            </button>
+          </CartSummary>
+        </m.section>
+      </AnimatePresence>
     </div>
   );
 }

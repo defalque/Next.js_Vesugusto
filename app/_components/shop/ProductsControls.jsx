@@ -1,9 +1,5 @@
 "use client";
 
-import { LazyMotion } from "motion/react";
-const loadFeatures = () =>
-  import("../../_lib/features").then((res) => res.default);
-
 import ProductsAside from "./ProductsAside";
 import ToggleFilters from "./ToggleFilters";
 import ToggleFiltersMobile from "./ToggleFiltersMobile";
@@ -41,7 +37,7 @@ function ProductsControls() {
   const shouldReduce = useReducedMotion();
 
   return (
-    <LazyMotion features={loadFeatures}>
+    <>
       <ProductsAside shouldReduce={shouldReduce}>
         <ProductFilters />
       </ProductsAside>
@@ -58,7 +54,7 @@ function ProductsControls() {
           placeholder="Cerca"
           buttonId="productsOpen"
           placeholderId="productsSearch"
-        /> */}
+          /> */}
         <SearchInput placeholder="Cerca prodotto..." type="text" />
 
         <div className="hidden lg:flex">
@@ -74,7 +70,7 @@ function ProductsControls() {
           </ToggleFiltersMobile>
         </ToggleFiltersMobileProvider>
       </section>
-    </LazyMotion>
+    </>
   );
 }
 
