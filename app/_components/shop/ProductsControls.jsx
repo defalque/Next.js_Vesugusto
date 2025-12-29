@@ -17,6 +17,8 @@ import { useReducedMotion } from "@/app/_hooks/useReducedMotion";
 
 import dynamic from "next/dynamic";
 import { ToggleFiltersMobileProvider } from "@/app/_contexts/ToggleFiltersMobileContext";
+import { LayoutGrid, Rows3 } from "lucide-react";
+import ToggleProductsView from "./ToggleProductsView";
 
 const SearchInput = dynamic(() => import("../ui/SearchInput"), {
   ssr: false,
@@ -69,6 +71,8 @@ function ProductsControls() {
             <ProductFilters />
           </ToggleFiltersMobile>
         </ToggleFiltersMobileProvider>
+
+        <ToggleProductsView />
       </section>
     </>
   );

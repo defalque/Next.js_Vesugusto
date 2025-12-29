@@ -29,7 +29,7 @@ export default function Error({ error, reset }) {
           // Attempt to recover by trying to re-render the invoices route
           () => reset()
         }
-        ariaLabel="Riprova a ricaricare la pagina"
+        aria-label="Riprova a ricaricare la pagina"
       >
         Riprova
       </button>

@@ -5,6 +5,7 @@ import { startTransition, useActionState } from "react";
 import { showCustomPromiseToast } from "../ui/CustomToast";
 import { Heart } from "lucide-react";
 import confetti from "canvas-confetti";
+import * as m from "motion/react-m";
 
 function FavoriteButton({
   iconStyle,
@@ -35,7 +36,8 @@ function FavoriteButton({
   const [state, action, pending] = useActionState(handleFavorite, false);
 
   return (
-    <button
+    <m.button
+      layouId={`favorite-button-${productId}`}
       onClick={async () => {
         startTransition(action);
       }}
@@ -47,7 +49,7 @@ function FavoriteButton({
       <Heart
         className={`flex items-center transition-colors duration-300 ${pending && "animate-pulse cursor-not-allowed"} ${iconStyle}`}
       />
-    </button>
+    </m.button>
   );
 }
 

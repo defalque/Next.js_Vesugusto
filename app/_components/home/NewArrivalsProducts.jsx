@@ -26,7 +26,7 @@ async function NewArrivalsProducts() {
             aria-roledescription="slide"
             className="group relative flex-shrink-0 basis-1/2 list-none md:basis-1/3 xl:basis-1/4"
           >
-            <article className="flex flex-col justify-between gap-2 p-0.5 sm:p-1">
+            <article className="relative flex flex-col justify-between gap-2 p-0.5 sm:p-1">
               <div className="relative aspect-2/3 w-full overflow-hidden rounded-3xl">
                 <SafeImage
                   src={newArrival.image?.at(0) || null}

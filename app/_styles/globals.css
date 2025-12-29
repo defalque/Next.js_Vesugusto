@@ -3,6 +3,7 @@
 @theme {
   --breakpoint-xxs: 23rem;
   --breakpoint-xs: 30rem;
+  --breakpoint-big: 64rem;
 }
 
 /* @custom-variant dark (&:where(.dark, .dark *)); */
