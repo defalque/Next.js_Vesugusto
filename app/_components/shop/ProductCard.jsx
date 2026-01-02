@@ -19,18 +19,12 @@ function ProductCard({ product, priority, children }) {
           <div>{children}</div>
         </div>
 
-        <div
-          role="presentation"
-          className="group relative aspect-2/3 w-full overflow-hidden bg-zinc-800"
-          style={{ borderRadius: 8 }}
-        ></div>
-
-        {/* <ProductCardImages
+        <ProductCardImages
           id={product.id}
           name={product.name}
           images={product.image}
           priority={priority}
-        /> */}
+        />
       </div>
     </article>
   );

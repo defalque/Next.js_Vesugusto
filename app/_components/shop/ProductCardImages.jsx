@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import * as m from "motion/react-m";
 
 function ProductCardImages({ id, name, images, priority = false, view }) {
   const hasHoverImage = images.length > 1;
@@ -13,9 +12,7 @@ function ProductCardImages({ id, name, images, priority = false, view }) {
       aria-label={`Visita il prodotto ${name}`}
       className="focus-visible:ring-primary-dark-200 dark:focus-visible:ring-primary-dark-100 order-1 rounded-lg focus-visible:ring-4 focus-visible:outline-none sm:-mx-0"
     >
-      <m.div
-        layout
-        layoutId={`product-card-image-${id}`}
+      <div
         role="presentation"
         className={`group relative aspect-2/3 w-full overflow-hidden ${view === "grid" ? "w-full" : "w-42"}`}
         style={{ borderRadius: 8 }}
@@ -50,7 +47,7 @@ function ProductCardImages({ id, name, images, priority = false, view }) {
             className="pointer-events-none absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-700 ease-in-out group-hover:opacity-100 group-active:opacity-100 dark:brightness-80"
           />
         )}
-      </m.div>
+      </div>
     </Link>
   );
 }

@@ -9,7 +9,6 @@ import {
 } from "@/app/_components/ui/skeleton/Skeletons";
 import ProductsResolver from "@/app/_components/shop/ProductsResolver";
 import ProductsControls from "@/app/_components/shop/ProductsControls";
-import { ProductsViewProvider } from "@/app/_contexts/ProductsViewProvider";
 
 export const metadata = {
   title: "Shop",
@@ -29,17 +28,15 @@ export default function Page({ searchParams }) {
   return (
     <div className="mx-auto mt-5 grid min-h-screen max-w-[95rem] grid-cols-1 grid-rows-[auto_auto_1fr] overflow-clip px-4 sm:mt-10 sm:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] sm:px-6 lg:grid-cols-[auto_1fr_1fr_1fr_1fr] lg:px-10">
       <ShowFiltersProvider>
-        <ProductsViewProvider>
-          <Suspense fallback={<ProductsControlsSkeleton />}>
-            <FiltersProvider>
-              <ProductsControls />
-            </FiltersProvider>
-          </Suspense>
+        <Suspense fallback={<ProductsControlsSkeleton />}>
+          <FiltersProvider>
+            <ProductsControls />
+          </FiltersProvider>
+        </Suspense>
 
-          <Suspense fallback={<ProductsResolverSkeleton />}>
-            <ProductsResolver productsFilters={productsFilters} />
-          </Suspense>
-        </ProductsViewProvider>
+        <Suspense fallback={<ProductsResolverSkeleton />}>
+          <ProductsResolver productsFilters={productsFilters} />
+        </Suspense>
       </ShowFiltersProvider>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import Button from "../ui/Button";
 import { useProductQuantity } from "@/app/_contexts/ProductQuantityContext";
+import { MinusIcon, PlusIcon } from "lucide-react";
 
 function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
   const { quantity, setQuantity } = useProductQuantity();
@@ -55,7 +56,8 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
           onClick={handleLessClick}
           aria-label="Diminuisci quantità di 1"
         >
-          {minusIcon}
+          {/* {minusIcon} */}
+          <MinusIcon className="size-5" />
         </button>
 
         <button
@@ -65,7 +67,8 @@ function ProductQuantityHandler({ productQuantity, minusIcon, plusIcon }) {
           onClick={handleMoreClick}
           aria-label="Aumenta quantità di 1"
         >
-          {plusIcon}
+          {/* {plusIcon} */}
+          <PlusIcon className="size-5" />
         </button>
       </div>
     </div>

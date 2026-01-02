@@ -25,7 +25,7 @@ function SearchInput({ placeholder, type }) {
         id="search"
         type={type}
         placeholder={placeholder}
-        className="peer focus-style w-full rounded-lg border border-black/10 py-2 pl-11 caret-black/50 outline-none placeholder:text-black/40 placeholder:italic focus:text-black focus:placeholder:text-black/70 dark:border-none dark:border-white/30 dark:bg-white/10 dark:caret-white/85 dark:placeholder:text-white/30 dark:focus:text-white/85 dark:focus:placeholder:text-white"
+        className="peer focus-style w-full rounded-lg border border-black/10 py-2 pl-11 caret-black/50 outline-none placeholder:text-black/40 focus:text-black focus:placeholder:text-black/70 dark:border-none dark:border-white/30 dark:bg-white/10 dark:caret-white/85 dark:placeholder:text-white/30 dark:focus:text-white/85 dark:focus:placeholder:text-white"
         onChange={(e) => {
           handleSearch(e.target.value);
           setQuery(e.target.value);
