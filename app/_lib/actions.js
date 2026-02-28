@@ -146,7 +146,7 @@ export async function addFavoriteProduct(productId) {
 
   const { error: insertError } = await supabase
     .from("favorites")
-    .insert([{ userId, productId, clerkUserId }])
+    .insert([{ userId, productId, user_id: clerkUserId }])
     .select();
 
   if (insertError) {
