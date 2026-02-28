@@ -226,7 +226,7 @@ export async function getCartProductsCount() {
   cacheTag(`${userId}-cart-count`);
 
   const { data: count, error } = await supabase.rpc("get_cart_products_count", {
-    user_id: userId,
+    p_user_id: userId,
   });
 
   if (error) {
