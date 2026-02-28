@@ -453,12 +453,12 @@ export async function fulfillCheckout(sessionId) {
     const { data: orderId, error } = await supabase.rpc(
       "check_sessionid_create_order",
       {
-        cart_id: cartId,
-        email: email,
-        name: name,
-        session_id: checkoutSession.id,
-        total_cost: totalCost,
-        user_id: userId,
+        p_cart_id: cartId,
+        p_email: email,
+        p_name: name,
+        p_session_id: checkoutSession.id,
+        p_total_cost: totalCost,
+        p_user_id: userId,
       },
     );
 
