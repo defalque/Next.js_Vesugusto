@@ -59,7 +59,7 @@ export async function createSupabaseUser(user) {
 
 //----------------------------------------------------------- ✅
 export async function deleteSupabaseUser(id) {
-  const { error } = await supabase.from("users").delete().eq("clerkUserId", id);
+  const { error } = await supabase.from("users").delete().eq("user_id", id);
 
   if (error) {
     console.error("Impossibile eliminare utente: ", error);
@@ -72,7 +72,7 @@ export async function updateSupabaseUser(user) {
   const { error } = await supabase
     .from("users")
     .update({ firstName, lastName, email, image })
-    .eq("clerkUserId", userId);
+    .eq("user_id", userId);
 
   if (error) {
     console.error("Impossibile modificare utente: ", error);
@@ -121,7 +121,7 @@ export async function updateUserProfile(data) {
   const { error } = await supabase
     .from("users")
     .update(validatedFields.data)
-    .eq("clerkUserId", userId);
+    .eq("user_id", userId);
 
   if (error) {
     console.error("Non è stato possibile modificare profilo utente: ", error);
@@ -169,7 +169,7 @@ export async function deleteFavoriteProduct(productId) {
   const { error } = await supabase
     .from("favorites")
     .delete()
-    .eq("clerkUserId", clerkUserId)
+    .eq("user_id", clerkUserId)
     .eq("productId", productId);
 
   if (error) {

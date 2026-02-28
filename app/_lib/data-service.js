@@ -134,7 +134,7 @@ export async function getFavorites() {
       .select(
         "id, productId(id, name, image, quantity, regularPrice, discount)",
       )
-      .eq("clerkUserId", clerkUserId)
+      .eq("user_id", clerkUserId)
       .order("created_at", { ascending: false });
 
   if (favoriteProductsError) {
@@ -183,11 +183,7 @@ export async function getCartProd() {
   const {
     data: { id },
     cartsError,
-  } = await supabase
-    .from("carts")
-    .select("id")
-    .eq("clerkUserId", userId)
-    .single();
+  } = await supabase.from("carts").select("id").eq("user_id", userId).single();
 
   if (cartsError) {
     console.error(cartsError);
@@ -252,7 +248,7 @@ export async function getUserInfo() {
     .select(
       "firstName, lastName, email, phoneNumber, address, houseNumber, city, zipCode",
     )
-    .eq("clerkUserId", userId)
+    .eq("user_id", userId)
     .single();
 
   if (error) {
@@ -274,7 +270,7 @@ export async function getUserOrdersCount(filters) {
   let query = supabase
     .from("orders")
     .select("id", { count: "exact" })
-    .eq("clerkUserId", userId)
+    .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (filters.query) {
@@ -306,7 +302,7 @@ export async function getPaginatedUserOrders(limit, filters) {
   let query = supabase
     .from("orders")
     .select("id, orderDate, status, totalCost")
-    .eq("clerkUserId", userId)
+    .eq("user_id", userId)
     .range(from, to)
     .order("created_at", { ascending: false });
 
@@ -372,7 +368,7 @@ export async function getOrder(orderId) {
     .from("orders")
     .select("id")
     .eq("id", orderId)
-    .eq("clerkUserId", userId)
+    .eq("user_id", userId)
     .maybeSingle();
 
   if (orderError) {
@@ -442,7 +438,7 @@ export async function getCompletedUserOrder(sessionId) {
   const { data: order, error: orderError } = await supabase
     .from("orders")
     .select("id, isTokenUsed")
-    .eq("clerkUserId", userId)
+    .eq("user_id", userId)
     .eq("sessionId", sessionId)
     .single();
 
